@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Krona+One&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Orbitron:wght@400..900&family=Pacifico&family=Playwrite+HU:wght@100..400&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 
-*{
+* {
       font-family: "Montserrat", sans-serif;
+      scrollbar-width: thin;
 }
 
 .image {
@@ -10,24 +11,70 @@
       transform: translateX(-20px);
       transition: .5s;
 }
-.btn2{
-      .txt{
-            font-weight: 500;
-            color:gray;
+
+.btn2 {
+      .txt {
+            font-weight: 300;
+            color: gray;
       }
 }
-.btn2:hover{
-     cursor: pointer;
-     position: relative;
-     border-bottom: 1px solid black;
-     transition: 1s;
-      .image{
+
+.btn2:hover {
+      cursor: pointer;
+      position: relative;
+      border-bottom: 1px solid black;
+      transition: 1s;
+
+      .image {
             opacity: 1;
             transform: translateX(0);
-            transition: 1s;   
+            transition: 1s;
       }
-      .txt{
-         color: black;
+
+      .txt {
+            color: black;
+      }
+
+}
+
+.btn3 {
+      border-bottom: 1px solid rgba(128, 128, 128, 0.273);
+
+      .txt {
+            font-weight: 300;
+            color: gray;
+      }
+}
+
+.idx {
+      color: gray;
+      transition: 1s;
+}
+
+.txt {
+      transition: 1s;
+}
+
+.btn3:hover {
+      cursor: pointer;
+      position: relative;
+      border-bottom: 1px solid aliceblue;
+      transition: 1s;
+
+      .image {
+            opacity: 1;
+            transform: translateX(0);
+            transition: 1s;
+      }
+
+      .txt {
+            color: aliceblue;
+            transition: 1s;
+      }
+
+      .idx {
+            color: aliceblue;
+            transition: 1s;
       }
 
 
