@@ -1,6 +1,7 @@
 import React from "react";
 import ci1 from "../../assets/ci1.svg";
 import BtnT1 from "../../components/ButtonType1";
+import { NavLink } from 'react-router-dom'
 
 function H2() {
   const data = {
@@ -26,7 +27,9 @@ function H2() {
             <p>{data.publication}</p>
           </div>
         </div>
-        <BtnT1 title={"MORE ABOUT THE STUDIO"} />
+        <NavLink to={'/about'}>
+          <BtnT1 title={"MORE ABOUT THE STUDIO"} />
+        </NavLink>
       </div>
       {data.imgData.map((img, index) => (
         <div
