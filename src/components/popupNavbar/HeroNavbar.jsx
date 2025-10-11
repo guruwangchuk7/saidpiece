@@ -5,6 +5,7 @@ import { motion, AnimatePresence, easeInOut } from "motion/react";
 import { useNav } from "./VisiblityContext";
 import rightArrowWhite from "../../assets/icons/rightArrowWhite.svg";
 import RecentProjects from "./RecentProjects";
+import Footer from "../Footer";
 
 const HeroNavbar = () => {
   const { open, close } = useNav();
@@ -38,9 +39,9 @@ const HeroNavbar = () => {
         <motion.div
           className="fixed inset-0 z-30 h-screen w-screen bg-zinc-900 p-10 text-slate-100"
           variants={variants}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
+          initial={{y:-100 , opacity:0 , scale:.5}}
+          animate={{y:0 , opacity:1 , scale:1}}
+          exit={{y:1000 , opacity:0 , scale:1.5}}
           transition={{ duration:1 , ease:easeInOut}}
         >
           <button
