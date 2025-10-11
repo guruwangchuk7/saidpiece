@@ -39,7 +39,7 @@ const HeroNavbar = () => {
         <motion.div
           className="fixed inset-0 z-30 h-screen w-screen bg-zinc-900 p-10 text-slate-100"
           variants={variants}
-          initial={{y:-100 , opacity:0 , scale:.5}}
+          initial={{y:-1000 , opacity:0 , scale:1}}
           animate={{y:0 , opacity:1 , scale:1}}
           exit={{y:1000 , opacity:0 , scale:1.5}}
           transition={{ duration:1 , ease:easeInOut}}
