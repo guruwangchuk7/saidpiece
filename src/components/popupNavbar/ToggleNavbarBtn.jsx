@@ -4,7 +4,7 @@ import { useNav } from './VisiblityContext';
 import ham from '../../assets/icons/ham.svg'
 
 const ToggleNavbarBtn = () => {
-  const { toggle, open } = useNav();   // ← use global flag
+  const { toggle, open } = useNav(); 
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
@@ -13,7 +13,7 @@ const ToggleNavbarBtn = () => {
       ? document.getElementById('menu-switch')
       : null;
 
-  if (!container) return null;         // ← guard portal
+  if (!container) return null;
 
   return createPortal(
     <div

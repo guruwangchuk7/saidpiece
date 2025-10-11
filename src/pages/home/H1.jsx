@@ -4,9 +4,6 @@ import { motion, MotionConfig , useScroll } from "motion/react";
 
 function H1() {
 
-    const {scrollXProgress} = useScroll();
-    const {scrollYProgress} = useScroll();
-
   return (
     <div>
       <div className="h-[60vh] lg:h-[90vh] flex justify-center items-center text-neutral-900">
@@ -26,15 +23,13 @@ function H1() {
         </MotionConfig>
       </div>
 
-      <motion.div
+      <div
         className="h-[80vh] border mx-3 md:mx-10 lg:mx-20 mt-30 lg:mt-0"
         style={{
           background: `url(${mainBg})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "center",
-          scaleX:scrollXProgress,
-          scaleY:scrollYProgress,
         }}
       />
     </div>
