@@ -6,7 +6,6 @@ import p1 from '../assets/p1.jpg'
 function Contact() {
   return (
     <div className="min-h-screen relative flex items-start justify-center bg-white px-4 lg:px-20 py-10">
-      {/* Back to home button slightly lower than the centered title */}
       <NavLink to="/" className="absolute top-10 left-4 flex items-center gap-2 text-sm font-medium hover:underline">
         <img src={rightArrow} alt="back" className="w-4 h-4 rotate-180" />
         <span>Back to home</span>
