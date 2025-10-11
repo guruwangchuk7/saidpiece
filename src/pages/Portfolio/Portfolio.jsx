@@ -14,7 +14,7 @@ const Portfolio = () => {
         <span>Back to home</span>
       </NavLink>
 
-      <div className="w-full lg:flex-row items-center justify-between px-6 py-20 mt-5">
+      <div className="w-full lg:flex-row items-center justify-between px-6 py-20 mt-">
         <h1 className="text-5xl lg:text-7xl font-bold tracking-tight leading-tight uppercase ">Portfolio</h1>
         <p className="text-zinc-600 text-lg leading-relaxed">Our projects embody Saidpiece’s commitment to cultural <br /> authenticity, innovation,
         and sustainability. Each work is a unique <br /> reflection of the client's vision,
@@ -38,9 +38,7 @@ const Portfolio = () => {
             ))}
           </div>
         </div>
-
       </div>
-      
     </div>
   )
 }
