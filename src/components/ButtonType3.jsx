@@ -2,11 +2,11 @@ import React from 'react';
 import rightArrow from '../assets/icons/rightArrow.svg';
 import { useNavigate } from 'react-router-dom';
 
-function ButtonType3({ title, to }) {
+function ButtonType3({ title, to , classes }) {
   const navigate = useNavigate();
   return (
     <button
-      className="border-b flex justify-between items-center gap-10 py-5 mt-10 cursor-pointer duration-200 hover:gap-20 hover:font-semibold"
+      className={`border-b flex justify-between items-center gap-10 py-5 mt-10 cursor-pointer duration-200 hover:gap-20 hover:font-semibold ${classes}`}
       onClick={() => navigate(to)}
     >
       {title}
