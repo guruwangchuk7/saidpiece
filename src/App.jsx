@@ -1,6 +1,7 @@
 import React from "react";
 import { VisibilityProvider } from "./components/popupNavbar/VisiblityContext";
 import { Outlet } from "react-router";
+import ScrollToTop from "./components/ScrollToTop";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import HeroNavbar from "./components/popupNavbar/HeroNavbar";
@@ -9,6 +10,7 @@ import ToggleNavbarBtn from "./components/popupNavbar/ToggleNavbarBtn";
 function App() {
   return (
     <div className="relative">
+      <ScrollToTop />
       <div className="absolute top-0">
         <VisibilityProvider>
           <HeroNavbar></HeroNavbar>
