@@ -8,6 +8,7 @@ import reactLogo from '../../assets/react.svg'
 import aboutBg from '../../assets/aboutBg.svg'
 import ci1 from '../../assets/ci1.svg'
 import BtnT1 from '../../components/ButtonType1'
+import ButtonType3 from '../../components/ButtonType3'
 
 // Sample data for team members
 const teamMembers = [
@@ -50,7 +51,7 @@ const Team = () => {
           into reality through collaboration, innovation, and bold thinking.
         </p>
         <div className="mt-2">
-          <BtnT1 title="Contact Us" to="/contact" />
+          <ButtonType3 title="Contact Us" to="/contact" />
         </div>
       </div>
 

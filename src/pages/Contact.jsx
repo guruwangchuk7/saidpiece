@@ -13,7 +13,7 @@ function Contact() {
 
   <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-0 items-start">
         {/* Left column: large title */}
-        <div className="col-span-1 pt-16 lg:pt-20 left transform -translate-x-6 lg:-translate-x-12 lg:-ml-18">
+        <div className="col-span-1 pt-16 lg:pt-20 left transform -translate-x-6 lg:-translate-x-12 lg:-ml-18 mt-6 lg:mt-0">
           <p className="text-xl lg:text-2xl text-zinc-500">Hello</p>
           <h1 className="mt-4 text-4xl lg:text-6xl font-bold">LET'S TALK?</h1>
         </div>
