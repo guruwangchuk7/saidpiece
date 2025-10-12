@@ -1,32 +1,32 @@
-import React, { useMemo, useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import rightArrow from '../../assets/icons/rightArrow.svg'
-import p1 from '../../assets/p1.jpg'
-import page3Bg from '../../assets/page3Bg.jpg'
-import mainbg from '../../assets/mainbg.svg'
-import reactLogo from '../../assets/react.svg'
-import aboutBg from '../../assets/aboutBg.svg'
-import ci1 from '../../assets/ci1.svg'
+// kept original project images (unused here) commented out for future use
+// import p1 from '../../assets/p1.jpg'
+// import page3Bg from '../../assets/page3Bg.jpg'
+// import mainbg from '../../assets/mainbg.svg'
+// import reactLogo from '../../assets/react.svg'
+// import aboutBg from '../../assets/aboutBg.svg'
+// import ci1 from '../../assets/ci1.svg'
+import placeholder from '../../assets/team/placeholder.svg'
 import BtnT1 from '../../components/ButtonType1'
 import ButtonType3 from '../../components/ButtonType3'
 
 // Sample data for team members
+// Each member has a `photo` property. Replace the `photo` value with the
+// path to the real uploaded photo when available. By default we use
+// `src/assets/team/placeholder.svg` so it's easy to find and replace later.
 const teamMembers = [
-  { name: 'Thinley Dhendup', role: 'Founder & Owner' },
-  { name: 'Sailesh Humagai', role: 'Director & Architect' },
-  { name: 'Sangay Thinley', role: 'Director & Architect' },
-  { name: 'Namgay Dorji', role: 'Director & Architect' },
-  { name: 'Karma Wangchuk', role: 'Project Manager' },
-  { name: 'Pema Choden', role: 'Lead Designer' },
+  { name: 'Thinley Dhendup', role: 'Founder & Owner', photo: placeholder },
+  { name: 'Sailesh Humagai', role: 'Director & Architect', photo: placeholder },
+  { name: 'Sangay Thinley', role: 'Director & Architect', photo: placeholder },
+  { name: 'Namgay Dorji', role: 'Director & Architect', photo: placeholder },
+  { name: 'Karma Wangchuk', role: 'Project Manager', photo: placeholder },
+  { name: 'Pema Choden', role: 'Lead Designer', photo: placeholder },
 ]
 
 const Team = () => {
-  const images = [p1, page3Bg, mainbg, reactLogo, aboutBg, ci1]
-
-  const assignedImages = useMemo(() => {
-    return teamMembers.map(() => images[Math.floor(Math.random() * images.length)])
-
-  }, [])
+  // Using per-member photos instead of random assignment.
 
   const originalCount = teamMembers.length
 
@@ -105,7 +105,7 @@ const Team = () => {
       window.removeEventListener('mousemove', onTouchMove)
       window.removeEventListener('mouseup', onTouchEnd)
     }
-  }, [trackRef.current])
+  }, [])
 
   // keyboard navigation
   const handleKeyDown = (e) => {
@@ -176,7 +176,7 @@ const Team = () => {
             >
               {Array.from({ length: REPEATS }).map((_, copy) =>
                 teamMembers.map((member, index) => {
-                  const globalIndex = copy * originalCount + index
+                  // const globalIndex = copy * originalCount + index
                   return (
                     <div
                       key={`${copy}-${member.name}-${index}`}
@@ -185,7 +185,7 @@ const Team = () => {
                     >
                       <div className="w-full h-80 bg-zinc-200">
                         <img
-                          src={assignedImages[index]}
+                          src={member.photo}
                           alt={member.name}
                           className="w-full h-full object-cover"
                         />
