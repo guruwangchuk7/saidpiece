@@ -1,209 +1,212 @@
-import React, { useState, useRef, useEffect } from 'react'
-import { NavLink } from 'react-router-dom'
-import rightArrow from '../../assets/icons/rightArrow.svg'
-// kept original project images (unused here) commented out for future use
-// import p1 from '../../assets/p1.jpg'
-// import page3Bg from '../../assets/page3Bg.jpg'
-// import mainbg from '../../assets/mainbg.svg'
-// import reactLogo from '../../assets/react.svg'
-// import aboutBg from '../../assets/aboutBg.svg'
-// import ci1 from '../../assets/ci1.svg'
-import placeholder from '../../assets/team/placeholder.svg'
-import BtnT1 from '../../components/ButtonType1'
-import ButtonType3 from '../../components/ButtonType3'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { FaGithub, FaLinkedin, FaEnvelope, FaThLarge, FaList } from 'react-icons/fa';
 
-// Sample data for team members
-// Each member has a `photo` property. Replace the `photo` value with the
-// path to the real uploaded photo when available. By default we use
-// `src/assets/team/placeholder.svg` so it's easy to find and replace later.
+// --- Placeholder Data ---
+// This array contains sample data for team members.
+// - Replace 'avatar' with the actual path to the member's photo, e.g., '/src/assets/team/john-doe.png'.
+// - Update social links. If a social link is not available, set it to null.
 const teamMembers = [
-  { name: 'Thinley Dhendup', role: 'Founder & Owner', photo: placeholder },
-  { name: 'Sailesh Humagai', role: 'Director & Architect', photo: placeholder },
-  { name: 'Sangay Thinley', role: 'Director & Architect', photo: placeholder },
-  { name: 'Namgay Dorji', role: 'Director & Architect', photo: placeholder },
-  { name: 'Karma Wangchuk', role: 'Project Manager', photo: placeholder },
-  { name: 'Pema Choden', role: 'Lead Designer', photo: placeholder },
-]
+  {
+    id: 1,
+    name: 'Alex Rivera',
+    role: 'Lead Developer',
+    avatar: null, // Replace with e.g., '/path/to/image1.png'
+    bio: 'Architecting robust solutions and turning complex problems into elegant code. Believes in the power of a clean codebase.',
+    socials: {
+      github: 'https://github.com',
+      linkedin: 'https://linkedin.com',
+      email: 'mailto:alex.rivera@example.com',
+    },
+  },
+  {
+    id: 2,
+    name: 'Samantha Chen',
+    role: 'UI/UX Designer',
+    avatar: null,
+    bio: 'Crafting intuitive and beautiful user experiences. Passionate about user-centric design that tells a compelling story.',
+    socials: {
+      github: null,
+      linkedin: 'https://linkedin.com',
+      email: 'mailto:samantha.chen@example.com',
+    },
+  },
+  {
+    id: 3,
+    name: 'David Garcia',
+    role: 'Backend Developer',
+    avatar: null,
+    bio: 'Building the powerful engines that drive our applications. Expert in database management and API design.',
+    socials: {
+      github: 'https://github.com',
+      linkedin: 'https://linkedin.com',
+      email: 'mailto:david.garcia@example.com',
+    },
+  },
+  {
+    id: 4,
+    name: 'Maria Rodriguez',
+    role: 'Project Manager',
+    avatar: null,
+    bio: 'Orchestrating projects from concept to completion, ensuring we deliver outstanding results on time, every time.',
+    socials: {
+      github: null,
+      linkedin: 'https://linkedin.com',
+      email: 'mailto:maria.rodriguez@example.com',
+    },
+  },
+  {
+    id: 5,
+    name: 'Kenji Tanaka',
+    role: 'Frontend Developer',
+    avatar: null,
+    bio: 'Bringing designs to life with pixel-perfect precision and interactive animations. A JavaScript enthusiast at heart.',
+    socials: {
+      github: 'https://github.com',
+      linkedin: 'https://linkedin.com',
+      email: 'mailto:kenji.tanaka@example.com',
+    },
+  },
+    {
+    id: 6,
+    name: 'Emily White',
+    role: 'UI/UX Designer',
+    avatar: null,
+    bio: 'Focused on creating seamless and accessible digital interfaces that delight users and achieve business goals.',
+    socials: {
+      github: null,
+      linkedin: 'https://linkedin.com',
+      email: 'mailto:emily.white@example.com',
+    },
+  },
+];
 
+// --- Fallback SVG Avatar ---
+// This component is used if a team member's `avatar` is null.
+const FallbackAvatar = ({ className }) => (
+  <svg
+    className={`bg-gray-100 text-gray-300 ${className}`}
+    fill="currentColor"
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+  >
+    <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+  </svg>
+);
+
+// --- Team Component ---
 const Team = () => {
-  // Using per-member photos instead of random assignment.
+  const [activeFilter, setActiveFilter] = useState('All');
+  const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
+  
+  // Get unique roles for filter buttons, including "All"
+  const roles = ['All', ...new Set(teamMembers.map((member) => member.role))];
+  
+  const filteredMembers =
+    activeFilter === 'All'
+      ? teamMembers
+      : teamMembers.filter((member) => member.role === activeFilter);
 
-  const originalCount = teamMembers.length
-
-  const REPEATS = 50
-
-  const middleRepeat = Math.floor(REPEATS / 2)
-  const [activeIdx, setActiveIdx] = useState(originalCount * middleRepeat)
-  const trackRef = useRef(null)
-  const firstCardRef = useRef(null)
-
-  const [cardWidth, setCardWidth] = useState(18 * 16) 
-  const [gap, setGap] = useState(2 * 16) 
-
-  useEffect(() => {
-    const updateMeasurements = () => {
-      if (firstCardRef.current) {
-        const rect = firstCardRef.current.getBoundingClientRect()
-        setCardWidth(rect.width)
-      }
-
-      const track = trackRef.current?.querySelector('.carousel-inner')
-      if (track && track.children.length >= 2) {
-        const a = track.children[0].getBoundingClientRect()
-        const b = track.children[1].getBoundingClientRect()
-        setGap(b.left - (a.left + a.width))
-      }
-    }
-
-    updateMeasurements()
-    window.addEventListener('resize', updateMeasurements)
-    return () => window.removeEventListener('resize', updateMeasurements)
-  }, [])
-
-  useEffect(() => {
-    const el = trackRef.current
-    if (!el) return
-
-    let startX = 0
-    let currentX = 0
-    let dragging = false
-
-    const onTouchStart = (e) => {
-      dragging = true
-      startX = e.touches ? e.touches[0].clientX : e.clientX
-    }
-
-    const onTouchMove = (e) => {
-      if (!dragging) return
-      currentX = e.touches ? e.touches[0].clientX : e.clientX
-    }
-
-    const onTouchEnd = () => {
-      if (!dragging) return
-      const diff = startX - currentX
-      if (Math.abs(diff) > 40) {
-        if (diff > 0) setActiveIdx((i) => i + 1)
-        else setActiveIdx((i) => i - 1)
-      }
-      dragging = false
-      startX = currentX = 0
-    }
-
-    el.addEventListener('touchstart', onTouchStart, { passive: true })
-    el.addEventListener('touchmove', onTouchMove, { passive: true })
-    el.addEventListener('touchend', onTouchEnd)
-    // mouse fallback
-  el.addEventListener('mousedown', onTouchStart)
-    window.addEventListener('mousemove', onTouchMove)
-    window.addEventListener('mouseup', onTouchEnd)
-
-    return () => {
-      el.removeEventListener('touchstart', onTouchStart)
-      el.removeEventListener('touchmove', onTouchMove)
-      el.removeEventListener('touchend', onTouchEnd)
-      el.removeEventListener('mousedown', onTouchStart)
-      window.removeEventListener('mousemove', onTouchMove)
-      window.removeEventListener('mouseup', onTouchEnd)
-    }
-  }, [])
-
-  // keyboard navigation
-  const handleKeyDown = (e) => {
-    if (e.key === 'ArrowRight') setActiveIdx((i) => i + 1)
-    if (e.key === 'ArrowLeft') setActiveIdx((i) => i - 1)
-  }
+  const socialIcons = (socials, name) => (
+    <div className="flex items-center space-x-4 mt-4 pt-4 border-t border-gray-200">
+      {socials.github && (
+        <a href={socials.github} target="_blank" rel="noopener noreferrer" aria-label={`${name}'s GitHub profile`} className="text-gray-400 hover:text-gray-900 transition-colors">
+          <FaGithub size={20} />
+        </a>
+      )}
+      {socials.linkedin && (
+        <a href={socials.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${name}'s LinkedIn profile`} className="text-gray-400 hover:text-blue-700 transition-colors">
+          <FaLinkedin size={20} />
+        </a>
+      )}
+      {socials.email && (
+        <a href={socials.email} aria-label={`Email ${name}`} className="text-gray-400 hover:text-red-600 transition-colors">
+          <FaEnvelope size={20} />
+        </a>
+      )}
+    </div>
+  );
 
   return (
-    <div className="min-h-screen relative flex flex-col items-start bg-white px-4 lg:px-20 py-10">
-      {/* Back Button */}
-      <NavLink
-        to="/"
-        className="absolute top-10 left-4 flex items-center gap-2 text-sm font-medium hover:underline"
-      >
-        <img src={rightArrow} alt="back" className="w-4 h-4 rotate-180" />
-        <span>Back to home</span>
-      </NavLink>
+    <main className="min-h-screen bg-white text-gray-900 px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+      <div className="max-w-7xl mx-auto">
+        {/* Hero Section */}
+        <section className="text-center mb-12">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900">
+            Meet Our Creative Team
+          </h1>
+          <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-600">
+            We are a collective of designers, developers, and strategists passionate about building exceptional digital experiences.
+          </p>
+        </section>
 
-      {/* Header Section */}
-      <div className="w-full lg:w-2/3 max-w-5xl mt-24 flex flex-col gap-4">
-        <h1 className="text-5xl lg:text-7xl font-bold tracking-tight leading-tight uppercase">
-          Professionals
-        </h1>
-        <p className="text-zinc-600 text-lg leading-relaxed">
-          Where creative minds gather, and brilliant ideas come to life — transforming vision
-          into reality through collaboration, innovation, and bold thinking.
-        </p>
-        <div className="mt-2">
-          <ButtonType3 title="Contact Us" to="/contact" />
-        </div>
-      </div>
-
-      {/* Team Section - Carousel (no scrollbar) */}
-      <div className="mt-16 w-full">
-        <div className="relative">
-          {/* Prev / Next buttons */}
-          <button
-            aria-label="Previous"
-            onClick={() => setActiveIdx((idx) => idx - 1)}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-white/90 p-2 rounded-full shadow-md hover:bg-white"
-          >
-            ‹
-          </button>
-
-          <button
-            aria-label="Next"
-            onClick={() => setActiveIdx((idx) => idx + 1)}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-white/90 p-2 rounded-full shadow-md hover:bg-white"
-          >
-            ›
-          </button>
-
-          {/* Track */}
-          <div
-            ref={trackRef}
-            className="carousel-track overflow-hidden pb-6"
-            onKeyDown={handleKeyDown}
-            tabIndex={0}
-            style={{
-              // hide scrollbar (WebKit/IE/Firefox)
-              msOverflowStyle: 'none',
-              scrollbarWidth: 'none',
-            }}
-          >
-            <div
-              className={`carousel-inner flex gap-8 will-change-transform transition-transform duration-500`}
-              style={{ transform: `translateX(-${activeIdx * (cardWidth + gap)}px)` }}
-            >
-              {Array.from({ length: REPEATS }).map((_, copy) =>
-                teamMembers.map((member, index) => {
-                  // const globalIndex = copy * originalCount + index
-                  return (
-                    <div
-                      key={`${copy}-${member.name}-${index}`}
-                      ref={copy === middleRepeat && index === 0 ? firstCardRef : null}
-                      className="w-72 flex-shrink-0 bg-zinc-100 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
-                    >
-                      <div className="w-full h-80 bg-zinc-200">
-                        <img
-                          src={member.photo}
-                          alt={member.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="p-4">
-                        <h3 className="font-semibold text-lg">{member.name}</h3>
-                        <p className="text-sm text-zinc-500">{member.role}</p>
-                      </div>
-                    </div>
-                  )
-                })
-              )}
-            </div>
+        {/* Filter and View Controls */}
+        <section className="mb-12 flex flex-col sm:flex-row justify-between items-center gap-6" aria-label="Team display controls">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3" role="group" aria-label="Filter team members by role">
+            {roles.map((role) => (
+              <button key={role} onClick={() => setActiveFilter(role)} className={`px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500 ${activeFilter === role ? 'bg-indigo-600 text-white shadow' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`} aria-pressed={activeFilter === role}>
+                {role}
+              </button>
+            ))}
           </div>
-        </div>
-      </div>
-    </div>
-  )
-}
+          <div className="flex items-center gap-2 p-1 bg-gray-100 rounded-full" role="group" aria-label="Toggle view mode">
+            <button onClick={() => setViewMode('grid')} aria-pressed={viewMode === 'grid'} className={`p-2 rounded-full transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-indigo-500 ${viewMode === 'grid' ? 'bg-white text-indigo-600 shadow' : 'text-gray-500 hover:text-gray-800'}`}>
+              <FaThLarge size={18} aria-hidden="true" /><span className="sr-only">Grid View</span>
+            </button>
+            <button onClick={() => setViewMode('list')} aria-pressed={viewMode === 'list'} className={`p-2 rounded-full transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-indigo-500 ${viewMode === 'list' ? 'bg-white text-indigo-600 shadow' : 'text-gray-500 hover:text-gray-800'}`}>
+              <FaList size={18} aria-hidden="true" /><span className="sr-only">List View</span>
+            </button>
+          </div>
+        </section>
 
-export default Team
+        {/* Team Members List/Grid */}
+        <section>
+          <ul className={viewMode === 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8' : 'flex flex-col gap-6'}>
+            {filteredMembers.map((member) => (
+              <li key={member.id} className={`bg-white rounded-lg border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${viewMode === 'list' ? 'flex flex-col sm:flex-row items-center overflow-hidden' : 'overflow-hidden'}`}>
+                {viewMode === 'grid' ? (
+                  <> {/* Grid View Layout */}
+                    <div className="aspect-w-1 aspect-h-1">
+                      {member.avatar ? <img src={member.avatar} alt={`Portrait of ${member.name}`} className="w-full h-full object-cover" /> : <FallbackAvatar className="w-full h-full object-cover" />}
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-xl font-bold text-gray-900">{member.name}</h3>
+                      <p className="text-indigo-600 font-semibold mt-1">{member.role}</p>
+                      <p className="text-gray-600 mt-3 text-sm h-20">{member.bio}</p>
+                      {socialIcons(member.socials, member.name)}
+                    </div>
+                  </>
+                ) : (
+                  <> {/* List View Layout */}
+                    <div className="w-full sm:w-40 h-40 flex-shrink-0">
+                      {member.avatar ? <img src={member.avatar} alt={`Portrait of ${member.name}`} className="w-full h-full object-cover" /> : <FallbackAvatar className="w-full h-full" />}
+                    </div>
+                    <div className="p-6 flex-grow">
+                      <h3 className="text-xl font-bold text-gray-900">{member.name}</h3>
+                      <p className="text-indigo-600 font-semibold mt-1">{member.role}</p>
+                      <p className="text-gray-600 mt-3 text-sm">{member.bio}</p>
+                      {socialIcons(member.socials, member.name)}
+                    </div>
+                  </>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {/* CTA Section */}
+        <section className="text-center mt-24 py-12 bg-gray-50 rounded-lg">
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900">Want to Join Our Team?</h2>
+          <p className="mt-3 max-w-md mx-auto text-base text-gray-600">We're always looking for talented individuals. Check out our open positions or get in touch.</p>
+          <div className="mt-8">
+            <Link to="/contact" className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              Contact Us
+            </Link>
+          </div>
+        </section>
+      </div>
+    </main>
+  );
+};
+
+export default Team;
