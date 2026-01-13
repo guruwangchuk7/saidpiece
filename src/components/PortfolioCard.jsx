@@ -2,17 +2,29 @@ import React from 'react'
 
 const PortfolioCard = ({ image, alt, title, subtitle, location }) => {
   return (
-    <div className="w-[410px]">
-      <img src={image} alt={alt} width="410" height="378" className="object-cover" />
+    <div className="group cursor-pointer">
+      {/* Image container with hover effect */}
+      <div className="relative overflow-hidden mb-4">
+        <img 
+          src={image} 
+          alt={alt} 
+          className="w-full h-[400px] lg:h-[450px] object-cover transition-transform duration-500 group-hover:scale-105" 
+        />
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />
+      </div>
 
-      <div className="mt-4 flex items-start justify-between max-w-[410px]">
-        <div>
-          <div className="text-black uppercase font-semibold text-xl">{title}</div>
-          <div className="text-zinc-400 text-sm mt-1">{subtitle}</div>
-        </div>
-
-        <div className="flex items-center gap-2 text-zinc-400">
-          <div className="text-zinc-400 font-medium">{location}</div>
+      {/* Content section with border-top like Contact page */}
+      <div className="border-t border-zinc-200 pt-4">
+        <div className="flex flex-col gap-2">
+          <div className="text-black uppercase font-semibold text-lg lg:text-xl tracking-tight">
+            {title}
+          </div>
+          <div className="text-zinc-500 text-sm lg:text-base">
+            {subtitle}
+          </div>
+          <div className="text-zinc-400 text-xs lg:text-sm mt-1">
+            {location}
+          </div>
         </div>
       </div>
     </div>

@@ -8,6 +8,7 @@ import Contact from './pages/Contact.jsx'
 import Team from './pages/team/Team.jsx'
 import About from './pages/About.jsx'
 import Portfolio from './pages/portfolio/Portfolio.jsx'
+import Legal from './pages/Legal.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -17,6 +18,7 @@ const router = createBrowserRouter(
         <Route path='contact' element={<Contact/>}></Route>
         <Route path='portfolio' element={<Portfolio/>}></Route>
         <Route path='team' element={<Team/>}></Route>
+        <Route path='legal' element={<Legal/>}></Route>
     </Route>
   )
 )
