@@ -7,7 +7,7 @@ import Home from './pages/home/Home.jsx'
 import Contact from './pages/Contact.jsx'
 import Team from './pages/team/Team.jsx'
 import About from './pages/About.jsx'
-import Portfolio from './pages/portfolio/Portfolio.jsx'
+import Portfolio from './pages/Portfolio/Portfolio.jsx'
 import Legal from './pages/Legal.jsx'
 
 const router = createBrowserRouter(
