@@ -4,10 +4,6 @@ import { FaGithub, FaLinkedin, FaEnvelope, FaThLarge, FaList } from 'react-icons
 import rightArrow from '../../assets/icons/rightArrow.svg';
 import ButtonType3 from '../../components/ButtonType3';
 
-// --- Placeholder Data ---
-// This array contains sample data for team members.
-// - Replace 'avatar' with the actual path to the member's photo, e.g., '/src/assets/team/john-doe.png'.
-// - Update social links. If a social link is not available, set it to null.
 const teamMembers = [
   {
     id: 1,
@@ -72,7 +68,7 @@ const teamMembers = [
   {
     id: 6,
     name: 'Ocean Rai',
-    role: 'Architect',
+    role: 'Cvil Engineer',
     avatar: null,
     bio: 'Building the powerful engines that drive our applications. Expert in database management and API design.',
     socials: {

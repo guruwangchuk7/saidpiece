@@ -4,7 +4,6 @@ import { NavLink } from "react-router";
 import { motion, AnimatePresence, easeInOut } from "motion/react";
 import { useNav } from "./VisiblityContext";
 import rightArrowWhite from "../../assets/icons/rightArrowWhite.svg";
-import RecentProjects from "./RecentProjects";
 import Footer from "../Footer";
 
 const HeroNavbar = () => {
@@ -68,7 +67,6 @@ const HeroNavbar = () => {
                 ))}
               </nav>
             </div>
-            <RecentProjects />
           </div>
         </motion.div>
       )}
