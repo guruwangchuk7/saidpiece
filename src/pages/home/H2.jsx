@@ -14,22 +14,24 @@ function H2() {
   };
 
   return (
-    <div className="flex mt-20 flex-wrap justify-between">
-      <div className="lg:w-1/3 px-3 lg:px-10">
-        <h1 className="text-5xl font-semibold">{data.heading}</h1>
-        <div className="px-5 border-l-2 border-zinc-400 ">
-          <div className="aboutus mt-10">
-            <p className="text-zinc-500">About us:</p>
-            <p className="font-normal mt-2">{data.about}</p>
+    <div className="flex flex-col lg:flex-row mt-12 sm:mt-16 lg:mt-20 justify-between gap-8 lg:gap-0">
+      <div className="w-full lg:w-1/3 px-4 sm:px-6 lg:px-10">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight">{data.heading}</h1>
+        <div className="pl-4 sm:pl-5 border-l-2 border-zinc-400 mt-6 sm:mt-8 lg:mt-10">
+          <div className="aboutus">
+            <p className="text-sm sm:text-base text-zinc-500">About us:</p>
+            <p className="font-normal mt-2 text-sm sm:text-base lg:text-base leading-relaxed">{data.about}</p>
           </div>
-          <div className="publication mt-10">
-            <p className="text-zinc-500 mt-2">Publications:</p>
-            <p>{data.publication}</p>
+          <div className="publication mt-6 sm:mt-8 lg:mt-10">
+            <p className="text-sm sm:text-base text-zinc-500 mt-2">Publications:</p>
+            <p className="text-sm sm:text-base lg:text-base leading-relaxed">{data.publication}</p>
           </div>
         </div>
-        <NavLink to={'/about'}>
-          <BtnT1 title={"MORE ABOUT THE STUDIO"} />
-        </NavLink>
+        <div className="mt-6 sm:mt-8 lg:mt-10">
+          <NavLink to={'/about'}>
+            <BtnT1 title={"MORE ABOUT THE STUDIO"} />
+          </NavLink>
+        </div>
       </div>
       {data.imgData.map((img, index) => (
         <div
@@ -40,7 +42,7 @@ function H2() {
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
-          className="h-[40vh] w-full lg:w-200 lg:h-[80vh] mt-10 lg:mt-0 px-3 lg:px-10"
+          className="h-[40vh] sm:h-[45vh] md:h-[50vh] w-full lg:w-[55%] xl:w-[60%] lg:h-[75vh] xl:h-[80vh] px-4 sm:px-6 lg:px-10"
         ></div>
       ))}
     </div>
