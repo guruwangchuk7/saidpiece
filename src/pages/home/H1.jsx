@@ -24,7 +24,7 @@ function H1() {
       </div>
 
       <div
-        className="h-[80vh] border mx-3 md:mx-10 lg:mx-20 mt-30 lg:mt-0"
+        className="h-[80vh] border mx-3 md:mx-10 lg:mx-20 mt-[50vh] lg:mt-[20vh]"
         style={{
           background: `url(${mainBg})`,
           backgroundRepeat: "no-repeat",
