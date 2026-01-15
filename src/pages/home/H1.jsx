@@ -12,9 +12,10 @@ function H1() {
             className="head text-center w-fit mx-auto"
             initial={{ opacity: 0, scale: 0.8, y: 0 }}
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            style={{ fontFamily: "century-gothic" }}
           >
-            <div className="logo font-bold text-3xl text-neutral-800 lg:text-7xl">
-              SAIDPIECE <span className="font-light">STUDIO</span>
+            <div className="logo font-bold text-3xl text-neutral-800 lg:text-7xl" style={{ fontFamily: "century-gothic" }}>
+              <span style={{ color: "#555555" }} className="font-light">said</span><span>piece</span> <span className="font-light">studio</span>
             </div>
             <div className="text-[16px] mx-10 lg:text-xl mt-2 lg:mt-5 font-medium text-zinc-600">
               We Art the World powered by traditions, nature and innovations

@@ -182,8 +182,6 @@ const Team = () => {
           </div>
         </div>
 
-      <div className="max-w-7xl mx-auto">
-
         {/* Filter and View Controls */}
         <section className="mb-12 flex flex-col sm:flex-row justify-between items-center gap-6" aria-label="Team display controls">
           <div className="flex flex-wrap justify-center gap-2 sm:gap-3" role="group" aria-label="Filter team members by role">
@@ -205,7 +203,7 @@ const Team = () => {
 
         {/* Team Members List/Grid */}
         <section>
-          <ul className={viewMode === 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8' : 'flex flex-col gap-6'}>
+          <ul className={viewMode === 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12' : 'flex flex-col gap-6'}>
             {filteredMembers.map((member) => (
               <li key={member.id} className={`bg-white rounded-lg border border-zinc-200 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${viewMode === 'list' ? 'flex flex-col sm:flex-row items-center overflow-hidden' : 'overflow-hidden'}`}>
                 {viewMode === 'grid' ? (
@@ -248,7 +246,6 @@ const Team = () => {
             </div>
           </div>
         </section>
-      </div>
       </div>
     </div>
   );
