@@ -27,22 +27,23 @@ function Footer() {
         <div className='flex justify-between flex-wrap px-2 lg:px-10 mt-10'>
           <div className=''>
             <p>E:</p>
-            <p className='lg:mt-5'>thinley@saidpiece.com</p>
+            <p className='lg:mt-5'>
+              <a href="mailto:thinley@saidpiece.com" className="underline underline-offset-4 transition duration-300 hover:scale-105">thinley@saidpiece.com</a>
+            </p>
           </div>
           <div>
             <p>T:</p>
             <div className='lg:mt-5'>
-              <p> <a href="tel:+975 17899794" className='underline underline-offset-4'>+975 17899794</a> (BHT) </p>
-              <p> <a href="tel:+66 931205085" className='underline underline-offset-4'>+66 931205085</a> (TH) </p>
+              <p> <a href="tel:+97517899794" className='underline underline-offset-4'>+975 17899794</a> (BHT) </p>
+              <p> <a href="tel:+66931205085" className='underline underline-offset-4'>+66 931205085</a> (TH) </p>
             </div>
           </div>
           <div>
             <p>S.L:</p>
-
             <div className='lg:mt-5 flex gap-3'>
-              <NavLink to={''}>Instagram</NavLink>
-              <NavLink to={''}>Facebook</NavLink>
-              <NavLink to={''}>LinkedIn</NavLink>
+              <a href="https://www.instagram.com/saidpiece_architects?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 transition duration-300 hover:scale-105">Instagram</a>
+              <a href="https://www.facebook.com/saidpiece.architects" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 transition duration-300 hover:scale-105">Facebook</a>
+              <a href="https://www.linkedin.com/search/results/all/?keywords=saidpiece&origin=GLOBAL_SEARCH_HEADER&sid=Iyq" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 transition duration-300 hover:scale-105">LinkedIn</a>
             </div>
           </div>
           <div>
