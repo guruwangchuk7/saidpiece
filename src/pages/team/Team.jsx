@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { FaGithub, FaLinkedin, FaEnvelope, FaThLarge, FaList } from 'react-icons/fa';
 import rightArrow from '../../assets/icons/rightArrow.svg';
 import ButtonType3 from '../../components/ButtonType3';
+import H5 from '../home/H5';
 
 const teamMembers = [
   {
@@ -162,11 +163,12 @@ const Team = () => {
   );
 
   return (
-    <div className="min-h-screen relative flex items-start justify-center bg-white px-4 lg:px-20 py-10">
-      <NavLink to="/" className="absolute top-10 left-4 flex items-center gap-2 text-sm font-medium hover:underline">
-        <img src={rightArrow} alt="back" className="w-4 h-4 rotate-180" />
-        <span>Back to home</span>
-      </NavLink>
+    <div>
+      <div className="min-h-screen relative flex items-start justify-center bg-white px-4 lg:px-20 py-10">
+        <NavLink to="/" className="absolute top-10 left-4 flex items-center gap-2 text-sm font-medium hover:underline">
+          <img src={rightArrow} alt="back" className="w-4 h-4 rotate-180" />
+          <span>Back to home</span>
+        </NavLink>
 
       <div className="w-full px-6 py-20">
         {/* Header section - similar to Portfolio page */}
@@ -247,6 +249,8 @@ const Team = () => {
           </div>
         </section>
       </div>
+      </div>
+      <H5 />
     </div>
   );
 };

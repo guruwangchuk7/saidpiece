@@ -4,11 +4,13 @@ import rightArrow from '../../assets/icons/rightArrow.svg'
 import samplePhoto from '../../assets/p1.jpg'
 import PortfolioCard from '../../components/PortfolioCard'
 import ButtonType3 from '../../components/ButtonType3'
+import H5 from '../home/H5'
 
 const Portfolio = () => {
   return (
-    <div className="min-h-screen relative flex items-start justify-center bg-white px-4 lg:px-20 py-10">
-      <NavLink to="/" className="absolute top-10 left-4 flex items-center gap-2 text-sm font-medium hover:underline">
+    <div>
+      <div className="min-h-screen relative flex items-start justify-center bg-white px-4 lg:px-20 py-10">
+        <NavLink to="/" className="absolute top-10 left-4 flex items-center gap-2 text-sm font-medium hover:underline">
         <img src={rightArrow} alt="back" className="w-4 h-4 rotate-180" />
         <span>Back to home</span>
       </NavLink>
@@ -50,6 +52,8 @@ const Portfolio = () => {
           ))}
         </div>
       </div>
+      </div>
+      <H5 />
     </div>
   )
 }
