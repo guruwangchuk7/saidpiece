@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import H5 from './home/H5';
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
@@ -228,6 +229,9 @@ function About() {
           </div>
         </div>
       </section>
+
+      {/* === H5 SECTION === */}
+      <H5 />
 
     </main>
   );
