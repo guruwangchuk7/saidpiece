@@ -9,6 +9,7 @@ import Team from './pages/team/Team.jsx'
 import About from './pages/About.jsx'
 import Portfolio from './pages/portfolio/Portfolio.jsx'
 import Legal from './pages/Legal.jsx'
+import Store from './pages/store/store.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -19,6 +20,7 @@ const router = createBrowserRouter(
         <Route path='portfolio' element={<Portfolio/>}></Route>
         <Route path='team' element={<Team/>}></Route>
         <Route path='legal' element={<Legal/>}></Route>
+        <Route path='store' element={<Store/>}></Route>
     </Route>
   )
 )
