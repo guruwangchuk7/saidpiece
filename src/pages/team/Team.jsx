@@ -4,62 +4,33 @@ import { FaGithub, FaLinkedin, FaEnvelope, FaThLarge, FaList } from 'react-icons
 import rightArrow from '../../assets/icons/rightArrow.svg';
 import ButtonType3 from '../../components/ButtonType3';
 import H5 from '../home/H5';
+import guru from '../../assets/team/guru (b&w).png';
+import kinley from '../../assets/team/kinley (b&w).png';
+import ocean from '../../assets/team/ocean (b&w).png';
+import placeholder from '../../assets/team/placeholder.svg';
+import tashi from '../../assets/team/tashi (b&w).png';
+import thinleyDhendup from '../../assets/team/thinley dendup (b&w).png';
 
 const teamMembers = [
   {
     id: 1,
     name: ' Thinley Dhendup',
     role: 'Principal Architect',
-    avatar: null, // Replace with e.g., '/path/to/image1.png'
-    bio: 'Architecting robust solutions and turning complex problems into elegant code. Believes in the power of a clean codebase.',
+    avatar: thinleyDhendup, 
+    bio: 'Leads architectural design with a strong focus on innovation, sustainability, and project excellence.',
     socials: {
-      github: 'https://github.com',
-      linkedin: 'https://linkedin.com',
-      email: 'mailto:alex.rivera@example.com',
+      github: null,
+      linkedin: 'https://www.linkedin.com/in/thinleydhendup/',
+      email: 'thinley@saidpiece.com',
     },
   },
+
   {
     id: 2,
-    name: 'Sailesh Humagai',
-    role: 'Director',
-    avatar: null,
-    bio: 'Focused on creating seamless and accessible digital interfaces that delight users and achieve business goals.',
-    socials: {
-      github: null,
-      linkedin: 'https://linkedin.com',
-      email: 'mailto:emily.white@example.com',
-    },
-  },
-  {
-    id: 3,
-    name: 'Sangay Thinley',
-    role: 'Director',
-    avatar: null,
-    bio: 'Focused on creating seamless and accessible digital interfaces that delight users and achieve business goals.',
-    socials: {
-      github: null,
-      linkedin: 'https://linkedin.com',
-      email: 'mailto:emily.white@example.com',
-    },
-  },
-  {
-    id: 4,
-    name: 'Namgay Dorji',
-    role: 'Director',
-    avatar: null,
-    bio: 'Focused on creating seamless and accessible digital interfaces that delight users and achieve business goals.',
-    socials: {
-      github: null,
-      linkedin: 'https://linkedin.com',
-      email: 'mailto:emily.white@example.com',
-    },
-  },
-  {
-    id: 5,
     name: 'Kinley Wangdi',
     role: 'Architect',
-    avatar: null,
-    bio: 'Crafting intuitive and beautiful user experiences. Passionate about user-centric design that tells a compelling story.',
+    avatar: kinley,
+    bio: 'Contributes thoughtful design and detailed architectural solutions.',
     socials: {
       github: null,
       linkedin: 'https://linkedin.com',
@@ -67,11 +38,11 @@ const teamMembers = [
     },
   },
   {
-    id: 6,
+    id: 3,
     name: 'Ocean Rai',
-    role: 'Cvil Engineer',
-    avatar: null,
-    bio: 'Building the powerful engines that drive our applications. Expert in database management and API design.',
+    role: 'Civil Engineer',
+    avatar: ocean,
+    bio: 'Delivers reliable structural and engineering solutions aligned with design goals.',
     socials: {
       github: 'https://github.com',
       linkedin: 'https://linkedin.com',
@@ -79,23 +50,11 @@ const teamMembers = [
     },
   },
   {
-    id: 7,
-    name: 'Karma Tshering',
-    role: 'Architect',
-    avatar: null,
-    bio: 'Orchestrating projects from concept to completion, ensuring we deliver outstanding results on time, every time.',
-    socials: {
-      github: null,
-      linkedin: 'https://linkedin.com',
-      email: 'mailto:maria.rodriguez@example.com',
-    },
-  },
-  {
-    id: 8,
-    name: 'Tashi',
-    role: 'Architect Intern',
-    avatar: null,
-    bio: 'Bringing designs to life with pixel-perfect precision and interactive animations. A JavaScript enthusiast at heart.',
+    id: 4,
+    name: 'Tashi Dendup',
+    role: 'Architecture Intern',
+    avatar: tashi,
+    bio: 'Assists design teams while gaining practical architectural experience.',
     socials: {
       github: 'https://github.com',
       linkedin: 'https://linkedin.com',
@@ -103,11 +62,11 @@ const teamMembers = [
     },
   },
   {
-    id: 9,
+    id: 5,
     name: 'Guru Wangchuk',
     role: 'Full Stack Developer',
-    avatar: null,
-    bio: 'Focused on creating seamless and accessible digital interfaces that delight users and achieve business goals.',
+    avatar: guru,
+    bio: 'Builds scalable and user-focused web applications across the full stack.',
     socials: {
       github: 'https://github.com/guruwangchuk7',
       linkedin: 'https://www.linkedin.com/in/guru-wangchuk-51a083203/',

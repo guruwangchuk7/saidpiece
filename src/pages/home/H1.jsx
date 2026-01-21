@@ -15,10 +15,10 @@ function H1() {
             style={{ fontFamily: "century-gothic" }}
           >
             <div className="logo font-bold text-3xl text-neutral-800 lg:text-7xl" style={{ fontFamily: "century-gothic" }}>
-              <span style={{ color: "#555555" }} className="font-light">said</span><span style={{ opacity: 0.95 }}>piece</span> <span className="font-light">studio</span>
+              <span style={{ color: "#555555" }} className="font-light">Said</span><span style={{ opacity: 0.95 }}>piece</span> <span className="font-light">Architecture</span>
             </div>
-            <div className="text-[16px] mx-10 lg:text-xl mt-2 lg:mt-5 font-medium text-zinc-600">
-              We Art the World powered by traditions, nature and innovations
+            <div className="text-[16px] mx-10 lg:text-xl mt-2 lg:mt-5 font-medium text-zinc-600 ">
+              LET'S DESIGN, INNOVATE AND CREATE MINDFULLY
             </div>
           </motion.div>
         </MotionConfig>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import rightArrow from '../assets/icons/rightArrow.svg'
-import p1 from '../assets/atsara.jpg'
+import p1 from '../assets/saidpieceofficeimage.jpg'
 
 function Contact() {
   return (
@@ -10,7 +10,7 @@ function Contact() {
         <img src={rightArrow} alt="back" className="w-4 h-4 rotate-180" />
         <span>Back to home</span>
       </NavLink>
-      <div className="w-full lg:flex-row items-center justify-between px-6 py-20 mt-">
+      <div className="w-full lg:flex-row items-center justify-between px-6 py-20 mt-10">
         <p className="text-xl lg:text-2xl text-zinc-500">Hello</p>
         <h1 className="text-5xl lg:text-7xl font-bold tracking-tight leading-tight uppercase ">LET'S TALK?</h1>
         </div>
