@@ -1,6 +1,8 @@
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import React, { useState } from "react";
+import { NavLink } from 'react-router-dom';
 import Btn2 from "../../components/ButtonType2";
+import BtnT1 from "../../components/ButtonType1";
 import img1 from "../../assets/project-photo/1.jpg";
 import img2 from "../../assets/project-photo/2.jpg";
 import img3 from "../../assets/project-photo/3.jpg";
@@ -19,11 +21,19 @@ const portfolioData = {
 function H4() {
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const nextSlide = () => {
+    setActiveIndex((prev) => (prev + 1) % portfolioData.image.length);
+  };
+
+  const prevSlide = () => {
+    setActiveIndex((prev) => (prev - 1 + portfolioData.image.length) % portfolioData.image.length);
+  };
+
   return (
     <div className="bg-white min-h-screen text-[#333333] font-sans selection:bg-zinc-800 selection:text-white">
       <div className="flex flex-col md:flex-row relative">
-        {/* Left Column: Sticky Sidebar */}
-        <div className="w-full md:w-[40%] px-6 md:px-12 py-10 md:h-screen md:sticky md:top-0 flex flex-col z-10">
+        {/* Desktop Left Column: Sticky Sidebar */}
+        <div className="hidden md:flex w-full md:w-[40%] px-6 md:px-12 py-10 md:h-screen md:sticky md:top-0 flex-col z-10">
           <motion.h1
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -48,8 +58,8 @@ function H4() {
           </div>
         </div>
 
-        {/* Right Column: Scrollable Gallery */}
-        <div className="w-full md:w-[60%] px-4 md:px-12 py-10 md:py-20 flex flex-col gap-24 md:gap-32">
+        {/* Desktop Right Column: Scrollable Gallery */}
+        <div className="hidden md:flex w-full md:w-[60%] px-4 sm:px-6 md:px-12 py-6 md:py-20 flex-col gap-12 sm:gap-16 md:gap-24 lg:gap-32">
           {portfolioData.image.map((item, index) => (
             <motion.div
               key={index}
@@ -60,14 +70,75 @@ function H4() {
               <img
                 src={item}
                 alt={`Project ${index + 1}`}
-                className="w-full h-[60vh] md:h-[85vh] object-cover shadow-zinc-900/5 transition-transform duration-700 ease-out"
+                className="w-full h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[85vh] object-cover shadow-zinc-900/5 transition-transform duration-700 ease-out"
               />
-              <div className="mt-4 flex justify-between items-end border-t border-zinc-300 pt-4 overflow-hidden">
-                <span className="text-xs font-mono uppercase tracking-widest opacity-60">0{index + 1} — Project</span>
-                <span className="text-sm font-medium">{portfolioData.name[index]}</span>
+              <div className="mt-3 sm:mt-4 text-center md:text-left">
+                <span className="text-sm sm:text-base font-medium block">{portfolioData.name[index]}</span>
               </div>
             </motion.div>
           ))}
+        </div>
+
+        {/* Mobile Portfolio Section */}
+        <div className="md:hidden w-full px-4 sm:px-5 py-10">
+          {/* Mobile Portfolio Header */}
+          <motion.h1
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-3xl sm:text-4xl font-semibold mb-8"
+          >
+            PORTFOLIO
+          </motion.h1>
+
+          {/* Mobile Carousel Container */}
+          <div className="relative overflow-hidden">
+            <AnimatePresence initial={false}>
+              <motion.div
+                key={activeIndex}
+                initial={{ x: "100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "-100%" }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="w-full absolute inset-0"
+              >
+                <img
+                  src={portfolioData.image[activeIndex]}
+                  alt={portfolioData.name[activeIndex]}
+                  className="w-full h-[50vh] sm:h-[60vh] object-cover"
+                />
+              </motion.div>
+            </AnimatePresence>
+            <div className="w-full h-[50vh] sm:h-[60vh]"></div>
+
+            {/* Mobile Navigation Arrows */}
+            <button
+              onClick={prevSlide}
+              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-white/80 hover:bg-white rounded-full flex items-center justify-center transition-all z-10"
+            >
+              <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              onClick={nextSlide}
+              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-white/80 hover:bg-white rounded-full flex items-center justify-center transition-all z-10"
+            >
+              <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Mobile Project Name */}
+          <div className="mt-6">
+            <h3 className="text-lg sm:text-xl font-medium">{portfolioData.name[activeIndex]}</h3>
+          </div>
+
+          {/* Mobile All Projects Button */}
+          <NavLink to="/portfolio">
+            <BtnT1 title="ALL PROJECTS" />
+          </NavLink>
         </div>
       </div>
     </div>

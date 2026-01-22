@@ -6,7 +6,7 @@ function H1() {
 
   return (
     <div>
-      <div className="h-[60vh] lg:h-[90vh] flex justify-center items-center text-neutral-900">
+      <div className="h-[50vh] sm:h-[60vh] lg:h-[90vh] flex justify-center items-center text-neutral-900 px-4">
         <MotionConfig transition={{ duration: 3, type: "spring" }}>
           <motion.div
             className="head text-center w-fit mx-auto"
@@ -14,10 +14,10 @@ function H1() {
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
             style={{ fontFamily: "century-gothic" }}
           >
-            <div className="logo font-bold text-3xl text-neutral-800 lg:text-7xl" style={{ fontFamily: "century-gothic" }}>
+            <div className="logo font-bold text-2xl sm:text-3xl md:text-5xl text-neutral-800 lg:text-7xl" style={{ fontFamily: "century-gothic" }}>
               <span style={{ color: "#555555" }} className="font-light">Said</span><span style={{ opacity: 0.95 }}>piece</span> <span className="font-light">Architecture</span>
             </div>
-            <div className="text-[16px] mx-10 lg:text-xl mt-2 lg:mt-5 font-medium text-zinc-600 ">
+            <div className="text-sm sm:text-base md:text-lg lg:text-xl mt-2 lg:mt-5 font-medium text-zinc-600 px-2">
               LET'S DESIGN, INNOVATE AND CREATE MINDFULLY
             </div>
           </motion.div>
@@ -25,7 +25,7 @@ function H1() {
       </div>
 
       <div
-        className="h-[80vh] border mx-3 md:mx-10 lg:mx-20 mt-[50vh] lg:mt-[20vh]"
+        className="h-[60vh] sm:h-[70vh] md:h-[80vh] border mx-3 sm:mx-5 md:mx-10 lg:mx-20 mt-[30vh] sm:mt-[40vh] lg:mt-[20vh]"
         style={{
           background: `url(${mainBg})`,
           backgroundRepeat: "no-repeat",
