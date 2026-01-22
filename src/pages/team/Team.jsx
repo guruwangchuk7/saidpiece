@@ -10,6 +10,7 @@ import ocean from '../../assets/team/ocean (b&w).png';
 import placeholder from '../../assets/team/placeholder.svg';
 import tashi from '../../assets/team/tashi (b&w).png';
 import thinleyDhendup from '../../assets/team/thinley dendup (b&w).png';
+import ash from '../../assets/team/ash (b&w).png';
 
 const teamMembers = [
   {
@@ -38,7 +39,18 @@ const teamMembers = [
     },
   },
   {
-    id: 3,
+    id: 3, name: 'Ash',
+    role: 'Architecture',
+    avatar: ash,
+    bio: 'Supports architectural projects with creativity and technical skills.',
+    socials: {
+      github: null,
+      linkedin: 'https://linkedin.com',
+      email: 'mailto:ash@example.com',
+    },
+  },
+  {
+    id: 4,
     name: 'Ocean Rai',
     role: 'Civil Engineer',
     avatar: ocean,
@@ -50,7 +62,7 @@ const teamMembers = [
     },
   },
   {
-    id: 4,
+    id: 5,
     name: 'Tashi Dendup',
     role: 'Architecture Intern',
     avatar: tashi,
@@ -62,7 +74,7 @@ const teamMembers = [
     },
   },
   {
-    id: 5,
+    id: 6,
     name: 'Guru Wangchuk',
     role: 'Full Stack Developer',
     avatar: guru,
