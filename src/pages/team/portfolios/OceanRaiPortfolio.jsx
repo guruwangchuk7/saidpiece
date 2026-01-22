@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { FaLinkedin, FaEnvelope, FaArrowDown } from 'react-icons/fa';
 import gsap from 'gsap';
 import ocean from '../../../assets/team/ocean (b&w).png';
+import rightArrow from '../../../assets/icons/rightArrow.svg';
 
 const OceanRaiPortfolio = () => {
   const containerRef = useRef(null);
@@ -26,7 +27,11 @@ const OceanRaiPortfolio = () => {
   };
 
   return (
-    <div ref={containerRef} className="bg-white">
+    <div ref={containerRef} className="bg-white relative">
+      <NavLink to="/team" className="absolute top-4 left-4 lg:left-8 flex items-center gap-2 text-sm font-medium hover:underline z-30">
+        <img src={rightArrow} alt="back" className="w-4 h-4 rotate-180" />
+        <span>Back to team</span>
+      </NavLink>
       {/* Navigation */}
       <nav className="flex justify-between items-center h-[17vh] px-8 lg:px-20">
         <div className="text-3xl font-semibold cursor-default">Ocean Rai</div>

@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { FaGithub, FaLinkedin, FaEnvelope, FaArrowDown } from 'react-icons/fa';
 import gsap from 'gsap';
 import guru from '../../../assets/team/guru (b&w).png';
+import rightArrow from '../../../assets/icons/rightArrow.svg';
 
 const GuruWangchukPortfolio = () => {
   const containerRef = useRef(null);
@@ -26,7 +27,11 @@ const GuruWangchukPortfolio = () => {
   };
 
   return (
-    <div ref={containerRef} className="bg-white">
+    <div ref={containerRef} className="bg-white relative">
+      <NavLink to="/team" className="absolute top-4 left-4 lg:left-8 flex items-center gap-2 text-sm font-medium hover:underline z-30">
+        <img src={rightArrow} alt="back" className="w-4 h-4 rotate-180" />
+        <span>Back to team</span>
+      </NavLink>
       {/* Navigation */}
       <nav className="flex justify-between items-center h-[17vh] px-8 lg:px-20">
         <div className="text-3xl font-semibold cursor-default">Guru Wangchuk</div>
@@ -55,10 +60,10 @@ const GuruWangchukPortfolio = () => {
             <a href="https://github.com/guruwangchuk7" target="_blank" rel="noopener noreferrer">
               <FaGithub size={32} className="cursor-pointer hover:opacity-70" />
             </a>
-            <a href="https://www.linkedin.com/in/guru-wangchuk-51a083203/" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.linkedin.com/in/dw3Xf4Q6" target="_blank" rel="noopener noreferrer">
               <FaLinkedin size={32} className="cursor-pointer hover:opacity-70" />
             </a>
-            <a href="mailto:guruwangchuk@gmail.com">
+            <a href="mailto:guruwangchuk1234@gmail.com">
               <FaEnvelope size={32} className="cursor-pointer hover:opacity-70" />
             </a>
           </div>
@@ -82,11 +87,17 @@ const GuruWangchukPortfolio = () => {
               </div>
               <div className="border-2 border-gray-400 rounded-2xl p-6 text-center">
                 <h3 className="text-xl font-semibold mb-2">Education</h3>
-                <p className="text-gray-600">Bachelor's Degree<br />Computer Application</p>
+                <p className="text-gray-600">Bachelor of Computer Application<br />Chandigarh University (GPA: 7.88/10)</p>
               </div>
             </div>
+            <p className="text-gray-600 leading-relaxed mb-4">
+              I am a dedicated and hardworking student passionate about programming with good decision-making skills. Currently pursuing a Bachelor of Computer Application at Chandigarh University (expected graduation July 2026), I maintain a GPA of 7.88/10 while focusing on full stack web development, team management, and cybersecurity.
+            </p>
+            <p className="text-gray-600 leading-relaxed mb-4">
+              My technical expertise spans across programming languages including Python, C++, C, PHP, HTML/CSS, JavaScript, and SQL. I am proficient in modern development tools like VS Code, Figma, and Adobe Photoshop. I have hands-on experience working as a Full Stack Developer and Frontend Developer at Saidpiece and Blockvocates, where I've contributed to various web development projects.
+            </p>
             <p className="text-gray-600 leading-relaxed">
-              I'm a passionate Full Stack Developer specializing in building scalable and user-focused web applications. With expertise spanning both frontend and backend technologies, I bring digital visions to life through clean code and thoughtful design. I love creating seamless experiences that users enjoy interacting with.
+              Beyond coding, I have demonstrated strong leadership skills as a Bhutanese College Representative at Chandigarh University (representing 200+ members), and previously served as Scout Troop Leader and Audio Visual Captain at Peljorling Higher Secondary School. I am efficient and productive, maintaining high quality while staying focused and disciplined to achieve goals and continuously improve.
             </p>
           </div>
         </div>
@@ -103,12 +114,12 @@ const GuruWangchukPortfolio = () => {
               <h3 className="text-2xl font-semibold text-center mb-6">Frontend Development</h3>
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { skill: 'HTML', level: 'Experienced' },
-                  { skill: 'CSS', level: 'Experienced' },
+                  { skill: 'HTML/CSS', level: 'Experienced' },
                   { skill: 'JavaScript', level: 'Experienced' },
-                  { skill: 'React', level: 'Experienced' },
-                  { skill: 'Tailwind CSS', level: 'Experienced' },
-                  { skill: 'GSAP', level: 'Intermediate' },
+                  { skill: 'PHP', level: 'Experienced' },
+                  { skill: 'Figma', level: 'Experienced' },
+                  { skill: 'UI/UX Design', level: 'Experienced' },
+                  { skill: 'Adobe Photoshop', level: 'Experienced' },
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-start gap-3">
                     <div className="text-green-600 text-2xl">✓</div>
@@ -121,15 +132,15 @@ const GuruWangchukPortfolio = () => {
               </div>
             </div>
             <div className="border-2 border-gray-400 rounded-2xl p-8">
-              <h3 className="text-2xl font-semibold text-center mb-6">Backend Development</h3>
+              <h3 className="text-2xl font-semibold text-center mb-6">Programming & Tools</h3>
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { skill: 'Node.js', level: 'Intermediate' },
-                  { skill: 'Express.js', level: 'Intermediate' },
-                  { skill: 'MongoDB', level: 'Intermediate' },
-                  { skill: 'PostgreSQL', level: 'Basic' },
-                  { skill: 'Git', level: 'Experienced' },
-                  { skill: 'REST APIs', level: 'Intermediate' },
+                  { skill: 'Python', level: 'Experienced' },
+                  { skill: 'C++', level: 'Experienced' },
+                  { skill: 'C', level: 'Experienced' },
+                  { skill: 'SQL', level: 'Experienced' },
+                  { skill: 'VS Code', level: 'Experienced' },
+                  { skill: 'Data Structures', level: 'Experienced' },
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-start gap-3">
                     <div className="text-green-600 text-2xl">✓</div>
@@ -152,9 +163,9 @@ const GuruWangchukPortfolio = () => {
         <h2 className="text-center text-4xl font-bold mb-12">Projects</h2>
         <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
           {[
-            { title: 'Saidpiece Website', desc: 'Company portfolio with React + Vite' },
-            { title: 'E-Commerce Platform', desc: 'Full-stack shopping application' },
-            { title: 'Project Management App', desc: 'Real-time collaboration tool' },
+            { title: 'Student Management System', desc: 'C++ console-based app with DSA for managing student records' },
+            { title: 'Certificate Validation System', desc: 'Blockchain-based student certificate validation using web tech' },
+            { title: 'Saidpiece Website', desc: 'Full Stack Developer - Company portfolio built with modern web stack' },
           ].map((project, idx) => (
             <div key={idx} className="border-2 border-gray-400 rounded-2xl p-6">
               <div className="bg-gray-100 rounded-xl h-64 mb-4 flex items-center justify-center">
@@ -179,11 +190,11 @@ const GuruWangchukPortfolio = () => {
         <div className="max-w-3xl mx-auto flex flex-wrap justify-center gap-6">
           <div className="flex items-center gap-3 border-2 border-gray-400 rounded-2xl px-6 py-4">
             <FaEnvelope size={24} />
-            <a href="mailto:guruwangchuk@gmail.com" className="hover:underline">guruwangchuk@gmail.com</a>
+            <a href="mailto:guruwangchuk1234@gmail.com" className="hover:underline">guruwangchuk1234@gmail.com</a>
           </div>
           <div className="flex items-center gap-3 border-2 border-gray-400 rounded-2xl px-6 py-4">
             <FaLinkedin size={24} />
-            <a href="https://www.linkedin.com/in/guru-wangchuk-51a083203/" target="_blank" rel="noopener noreferrer" className="hover:underline">LinkedIn</a>
+            <a href="https://www.linkedin.com/in/dw3Xf4Q6" target="_blank" rel="noopener noreferrer" className="hover:underline">LinkedIn</a>
           </div>
         </div>
       </section>

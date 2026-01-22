@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { FaLinkedin, FaEnvelope, FaArrowDown } from 'react-icons/fa';
 import gsap from 'gsap';
 import kinley from '../../../assets/team/kinley (b&w).png';
+import rightArrow from '../../../assets/icons/rightArrow.svg';
 
 const KinleyWangdiPortfolio = () => {
   const containerRef = useRef(null);
@@ -26,7 +27,11 @@ const KinleyWangdiPortfolio = () => {
   };
 
   return (
-    <div ref={containerRef} className="bg-white">
+    <div ref={containerRef} className="bg-white relative">
+      <NavLink to="/team" className="absolute top-4 left-4 lg:left-8 flex items-center gap-2 text-sm font-medium hover:underline z-30">
+        <img src={rightArrow} alt="back" className="w-4 h-4 rotate-180" />
+        <span>Back to team</span>
+      </NavLink>
       {/* Navigation */}
       <nav className="flex justify-between items-center h-[17vh] px-8 lg:px-20">
         <div className="text-3xl font-semibold cursor-default">Kinley Wangdi</div>
@@ -46,7 +51,7 @@ const KinleyWangdiPortfolio = () => {
         <div className="text-center">
           <p className="text-gray-600 font-semibold mb-2">Hello, I'm</p>
           <h1 className="text-5xl font-bold mb-2">Kinley Wangdi</h1>
-          <p className="text-2xl text-gray-600 mb-6">Senior Architect</p>
+          <p className="text-2xl text-gray-600 mb-6">Architect</p>
           <div className="flex gap-4 justify-center mb-6">
             <NavLink to="/team" className="border-2 border-gray-600 rounded-full px-8 py-3 hover:bg-gray-600 hover:text-white transition-all">Back to Team</NavLink>
             <button onClick={() => scrollToSection('contact')} className="bg-gray-800 text-white rounded-full px-8 py-3 hover:bg-gray-600 transition-all">Contact Info</button>
@@ -55,7 +60,7 @@ const KinleyWangdiPortfolio = () => {
             <a href="https://www.linkedin.com/in/kinleywangdi/" target="_blank" rel="noopener noreferrer">
               <FaLinkedin size={32} className="cursor-pointer hover:opacity-70" />
             </a>
-            <a href="mailto:kinley@saidpiece.com">
+            <a href="mailto:kinleywangdi.1605@gmail.com">
               <FaEnvelope size={32} className="cursor-pointer hover:opacity-70" />
             </a>
           </div>
@@ -75,15 +80,21 @@ const KinleyWangdiPortfolio = () => {
             <div className="grid grid-cols-2 gap-6 mb-8">
               <div className="border-2 border-gray-400 rounded-2xl p-6 text-center">
                 <h3 className="text-xl font-semibold mb-2">Experience</h3>
-                <p className="text-gray-600">5+ years<br />Architectural Design</p>
+                <p className="text-gray-600">3+ years<br />Architectural Design</p>
               </div>
               <div className="border-2 border-gray-400 rounded-2xl p-6 text-center">
                 <h3 className="text-xl font-semibold mb-2">Education</h3>
-                <p className="text-gray-600">Bachelor's in Architecture<br />Design Technology</p>
+                <p className="text-gray-600">Bachelor of Architecture<br />CST, Phuntsholing</p>
               </div>
             </div>
+            <p className="text-gray-600 leading-relaxed mb-4">
+              As a Registered Architect at Saidpiece Architects (BA-445 P with CDB Bhutan), I bring a unique blend of creativity and technical expertise to every project. With a Bachelor's in Architecture from the College of Science and Technology, I specialize in creating culturally sensitive designs that harmonize Bhutanese architectural heritage with contemporary needs.
+            </p>
+            <p className="text-gray-600 leading-relaxed mb-4">
+              My experience spans diverse project typologies including hospitality, institutional buildings, cultural structures, and commercial developments. I have worked extensively with BIM technology, having completed advanced Autodesk Revit training from Balkan Architects and Rhino training coordinated by JNEC. This technical proficiency enables me to deliver comprehensive design solutions from conceptual design through construction supervision.
+            </p>
             <p className="text-gray-600 leading-relaxed">
-              I'm a dedicated Senior Architect with 5+ years of experience in designing functional and aesthetically pleasing spaces. My work focuses on blending traditional architectural principles with modern innovation, creating designs that are both timeless and forward-thinking. I believe great architecture should inspire, function seamlessly, and enhance the lives of those who experience it.
+              At Saidpiece Architects, I have led significant projects worth over Nu. 1.5 billion collectively, including the VTC Bumthang Institute (Nu. 500M), Semthoka Retreat Sanctuary (Nu. 300M), and numerous cultural and hospitality projects. My approach combines innovative design thinking with meticulous attention to detail, ensuring each project not only meets functional requirements but also creates meaningful spaces that enrich people's lives.
             </p>
           </div>
         </div>
@@ -100,12 +111,12 @@ const KinleyWangdiPortfolio = () => {
               <h3 className="text-2xl font-semibold text-center mb-6">Design & Software</h3>
               <div className="grid grid-cols-2 gap-4">
                 {[
+                  { skill: 'Autodesk Revit', level: 'Expert' },
+                  { skill: 'Rhinoceros 3D', level: 'Experienced' },
                   { skill: 'AutoCAD', level: 'Expert' },
-                  { skill: 'Revit', level: 'Experienced' },
-                  { skill: 'SketchUp', level: 'Experienced' },
-                  { skill: '3D Rendering', level: 'Experienced' },
-                  { skill: 'Adobe Suite', level: 'Intermediate' },
-                  { skill: 'BIM Coordination', level: 'Experienced' },
+                  { skill: 'BIM Technology', level: 'Expert' },
+                  { skill: '3D Modeling', level: 'Experienced' },
+                  { skill: 'Construction Docs', level: 'Expert' },
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-start gap-3">
                     <div className="text-green-600 text-2xl">✓</div>
@@ -121,12 +132,12 @@ const KinleyWangdiPortfolio = () => {
               <h3 className="text-2xl font-semibold text-center mb-6">Specializations</h3>
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { skill: 'Residential Design', level: 'Expert' },
-                  { skill: 'Commercial Spaces', level: 'Experienced' },
-                  { skill: 'Interior Planning', level: 'Experienced' },
-                  { skill: 'Site Analysis', level: 'Experienced' },
-                  { skill: 'Building Codes', level: 'Experienced' },
-                  { skill: 'Energy Efficiency', level: 'Intermediate' },
+                  { skill: 'Hospitality Design', level: 'Expert' },
+                  { skill: 'Cultural Architecture', level: 'Expert' },
+                  { skill: 'Commercial Design', level: 'Experienced' },
+                  { skill: 'Institutional Projects', level: 'Experienced' },
+                  { skill: 'Design & Build', level: 'Expert' },
+                  { skill: 'Const. Supervision', level: 'Experienced' },
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-start gap-3">
                     <div className="text-green-600 text-2xl">✓</div>
@@ -149,9 +160,15 @@ const KinleyWangdiPortfolio = () => {
         <h2 className="text-center text-4xl font-bold mb-12">Projects</h2>
         <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
           {[
-            { title: 'Luxury Villa Complex', desc: 'Modern residential development' },
-            { title: 'Corporate Office Building', desc: 'Sustainable workspace design' },
-            { title: 'Boutique Hotel', desc: 'Contemporary hospitality architecture' },
+            { title: 'VTC Bumthang', desc: 'Institute Design & Build (Nu. 500M)' },
+            { title: 'Semthoka Retreat Sanctuary', desc: 'Hospitality Architecture (Nu. 300M)' },
+            { title: 'Yongkola ECO-Lodge', desc: 'Eco-Resort Design & Build (Nu. 100M)' },
+            { title: 'ERA Head Office', desc: 'Corporate Building Design (Nu. 90M)' },
+            { title: 'Clock Tower Plaza', desc: 'Public Space Design (Nu. 120M)' },
+            { title: 'Dewachen Lhakhang', desc: 'Temple Conceptual Design (Nu. 400M)' },
+            { title: '21 Tara Retreat Centre', desc: 'Cultural Building Design (Nu. 200M)' },
+            { title: 'BNBL Phuntsholing Branch', desc: 'Bank Design & Supervision (Nu. 130M)' },
+            { title: 'Yangkhil Cafe', desc: 'Commercial Design & Supervision (Nu. 30M)' },
           ].map((project, idx) => (
             <div key={idx} className="border-2 border-gray-400 rounded-2xl p-6">
               <div className="bg-gray-100 rounded-xl h-64 mb-4 flex items-center justify-center">
@@ -176,7 +193,7 @@ const KinleyWangdiPortfolio = () => {
         <div className="max-w-3xl mx-auto flex flex-wrap justify-center gap-6">
           <div className="flex items-center gap-3 border-2 border-gray-400 rounded-2xl px-6 py-4">
             <FaEnvelope size={24} />
-            <a href="mailto:kinley@saidpiece.com" className="hover:underline">kinley@saidpiece.com</a>
+            <a href="mailto:kinleywangdi.1605@gmail.com" className="hover:underline">kinleywangdi.1605@gmail.com</a>
           </div>
           <div className="flex items-center gap-3 border-2 border-gray-400 rounded-2xl px-6 py-4">
             <FaLinkedin size={24} />
