@@ -10,6 +10,12 @@ import About from './pages/About.jsx'
 import Portfolio from './pages/portfolio/Portfolio.jsx'
 import Legal from './pages/Legal.jsx'
 import Store from './pages/store/store.jsx'
+import ThinleyDhendupPortfolio from './pages/team/portfolios/ThinleyDhendupPortfolio.jsx'
+import KinleyWangdiPortfolio from './pages/team/portfolios/KinleyWangdiPortfolio.jsx'
+import AshPortfolio from './pages/team/portfolios/AshPortfolio.jsx'
+import OceanRaiPortfolio from './pages/team/portfolios/OceanRaiPortfolio.jsx'
+import TashiDendupPortfolio from './pages/team/portfolios/TashiDendupPortfolio.jsx'
+import GuruWangchukPortfolio from './pages/team/portfolios/GuruWangchukPortfolio.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -19,6 +25,12 @@ const router = createBrowserRouter(
         <Route path='contact' element={<Contact/>}></Route>
         <Route path='portfolio' element={<Portfolio/>}></Route>
         <Route path='team' element={<Team/>}></Route>
+        <Route path='team/thinley-dhendup' element={<ThinleyDhendupPortfolio/>}></Route>
+        <Route path='team/kinley-wangdi' element={<KinleyWangdiPortfolio/>}></Route>
+        <Route path='team/ash' element={<AshPortfolio/>}></Route>
+        <Route path='team/ocean-rai' element={<OceanRaiPortfolio/>}></Route>
+        <Route path='team/tashi-dendup' element={<TashiDendupPortfolio/>}></Route>
+        <Route path='team/guru-wangchuk' element={<GuruWangchukPortfolio/>}></Route>
         <Route path='legal' element={<Legal/>}></Route>
         <Route path='store' element={<Store/>}></Route>
     </Route>

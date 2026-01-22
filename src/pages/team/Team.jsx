@@ -19,6 +19,7 @@ const teamMembers = [
     role: 'Principal Architect',
     avatar: thinleyDhendup, 
     bio: 'Leads architectural design with a strong focus on innovation, sustainability, and project excellence.',
+    slug: 'thinley-dhendup',
     socials: {
       github: null,
       linkedin: 'https://www.linkedin.com/in/thinleydhendup/',
@@ -32,6 +33,7 @@ const teamMembers = [
     role: 'Architect',
     avatar: kinley,
     bio: 'Contributes thoughtful design and detailed architectural solutions.',
+    slug: 'kinley-wangdi',
     socials: {
       github: null,
       linkedin: 'https://linkedin.com',
@@ -43,6 +45,7 @@ const teamMembers = [
     role: 'Architecture',
     avatar: ash,
     bio: 'Supports architectural projects with creativity and technical skills.',
+    slug: 'ash',
     socials: {
       github: null,
       linkedin: 'https://linkedin.com',
@@ -55,6 +58,7 @@ const teamMembers = [
     role: 'Civil Engineer',
     avatar: ocean,
     bio: 'Delivers reliable structural and engineering solutions aligned with design goals.',
+    slug: 'ocean-rai',
     socials: {
       github: 'https://github.com',
       linkedin: 'https://linkedin.com',
@@ -67,6 +71,7 @@ const teamMembers = [
     role: 'Architecture Intern',
     avatar: tashi,
     bio: 'Assists design teams while gaining practical architectural experience.',
+    slug: 'tashi-dendup',
     socials: {
       github: 'https://github.com',
       linkedin: 'https://linkedin.com',
@@ -79,6 +84,7 @@ const teamMembers = [
     role: 'Full Stack Developer',
     avatar: guru,
     bio: 'Builds scalable and user-focused web applications across the full stack.',
+    slug: 'guru-wangchuk',
     socials: {
       github: 'https://github.com/guruwangchuk7',
       linkedin: 'https://www.linkedin.com/in/guru-wangchuk-51a083203/',
@@ -178,32 +184,42 @@ const Team = () => {
         <section>
           <ul className={viewMode === 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12' : 'flex flex-col gap-6'}>
             {filteredMembers.map((member) => (
-              <li key={member.id} className={`bg-white rounded-lg border border-zinc-200 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${viewMode === 'list' ? 'flex flex-col sm:flex-row items-center overflow-hidden' : 'overflow-hidden'}`}>
-                {viewMode === 'grid' ? (
-                  <> {/* Grid View Layout */}
-                    <div className="aspect-w-1 aspect-h-1">
-                      {member.avatar ? <img src={member.avatar} alt={`Portrait of ${member.name}`} className="w-full h-full object-cover" /> : <FallbackAvatar className="w-full h-full object-cover" />}
+              <li key={member.id} className={`bg-white rounded-lg border border-zinc-200 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 cursor-pointer ${viewMode === 'list' ? 'flex flex-col sm:flex-row items-center overflow-hidden' : 'overflow-hidden'}`}>
+                <NavLink to={`/team/${member.slug}`} className="block w-full h-full">
+                  {viewMode === 'grid' ? (
+                    <> {/* Grid View Layout */}
+                      <div className="aspect-w-1 aspect-h-1">
+                        {member.avatar ? <img src={member.avatar} alt={`Portrait of ${member.name}`} className="w-full h-full object-cover" /> : <FallbackAvatar className="w-full h-full object-cover" />}
+                      </div>
+                      <div className="p-6">
+                        <h3 className="text-xl font-bold text-zinc-900">{member.name}</h3>
+                        <p className="text-zinc-600 font-semibold mt-1">{member.role}</p>
+                        <p className="text-zinc-600 mt-3 text-sm h-20">{member.bio}</p>
+                        <div className="mt-4 pt-4 border-t border-zinc-200">
+                          <span className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">
+                            View Portfolio →
+                          </span>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="flex flex-col sm:flex-row items-center w-full">
+                      <div className="w-full sm:w-40 h-40 flex-shrink-0">
+                        {member.avatar ? <img src={member.avatar} alt={`Portrait of ${member.name}`} className="w-full h-full object-cover" /> : <FallbackAvatar className="w-full h-full" />}
+                      </div>
+                      <div className="p-6 flex-grow">
+                        <h3 className="text-xl font-bold text-zinc-900">{member.name}</h3>
+                        <p className="text-zinc-600 font-semibold mt-1">{member.role}</p>
+                        <p className="text-zinc-600 mt-3 text-sm">{member.bio}</p>
+                        <div className="mt-4 pt-4 border-t border-zinc-200">
+                          <span className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">
+                            View Portfolio →
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-bold text-zinc-900">{member.name}</h3>
-                      <p className="text-zinc-600 font-semibold mt-1">{member.role}</p>
-                      <p className="text-zinc-600 mt-3 text-sm h-20">{member.bio}</p>
-                      {socialIcons(member.socials, member.name)}
-                    </div>
-                  </>
-                ) : (
-                  <> {/* List View Layout */}
-                    <div className="w-full sm:w-40 h-40 flex-shrink-0">
-                      {member.avatar ? <img src={member.avatar} alt={`Portrait of ${member.name}`} className="w-full h-full object-cover" /> : <FallbackAvatar className="w-full h-full" />}
-                    </div>
-                    <div className="p-6 flex-grow">
-                      <h3 className="text-xl font-bold text-zinc-900">{member.name}</h3>
-                      <p className="text-zinc-600 font-semibold mt-1">{member.role}</p>
-                      <p className="text-zinc-600 mt-3 text-sm">{member.bio}</p>
-                      {socialIcons(member.socials, member.name)}
-                    </div>
-                  </>
-                )}
+                  )}
+                </NavLink>
               </li>
             ))}
           </ul>
