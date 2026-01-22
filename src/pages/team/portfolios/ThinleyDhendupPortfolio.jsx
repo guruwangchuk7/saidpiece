@@ -185,18 +185,6 @@ const ThinleyDhendupPortfolio = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-8 text-center border-t">
-        <nav className="mb-4">
-          <ul className="flex justify-center gap-8">
-            <li><button onClick={() => scrollToSection('about')} className="hover:underline">About</button></li>
-            <li><button onClick={() => scrollToSection('experience')} className="hover:underline">Experience</button></li>
-            <li><button onClick={() => scrollToSection('projects')} className="hover:underline">Projects</button></li>
-            <li><button onClick={() => scrollToSection('contact')} className="hover:underline">Contact</button></li>
-          </ul>
-        </nav>
-        <p className="text-gray-600">Copyright © 2025 Thinley Dhendup. All Rights Reserved.</p>
-      </footer>
     </div>
   );
 };

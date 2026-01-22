@@ -46,7 +46,7 @@ const OceanRaiPortfolio = () => {
         <div className="text-center">
           <p className="text-gray-600 font-semibold mb-2">Hello, I'm</p>
           <h1 className="text-5xl font-bold mb-2">Ocean Rai</h1>
-          <p className="text-2xl text-gray-600 mb-6">Civil Engineer</p>
+          <p className="text-2xl text-gray-600 mb-6">Structural Engineer</p>
           <div className="flex gap-4 justify-center mb-6">
             <NavLink to="/team" className="border-2 border-gray-600 rounded-full px-8 py-3 hover:bg-gray-600 hover:text-white transition-all">Back to Team</NavLink>
             <button onClick={() => scrollToSection('contact')} className="bg-gray-800 text-white rounded-full px-8 py-3 hover:bg-gray-600 transition-all">Contact Info</button>
@@ -75,15 +75,21 @@ const OceanRaiPortfolio = () => {
             <div className="grid grid-cols-2 gap-6 mb-8">
               <div className="border-2 border-gray-400 rounded-2xl p-6 text-center">
                 <h3 className="text-xl font-semibold mb-2">Experience</h3>
-                <p className="text-gray-600">6+ years<br />Civil Engineering</p>
+                <p className="text-gray-600">3+ years<br />Structural Engineering</p>
               </div>
               <div className="border-2 border-gray-400 rounded-2xl p-6 text-center">
                 <h3 className="text-xl font-semibold mb-2">Education</h3>
-                <p className="text-gray-600">Bachelor's in Civil Engineering<br />Structural Engineering</p>
+                <p className="text-gray-600">Master's in Construction Management<br />B.E. in Civil Engineering</p>
               </div>
             </div>
+            <p className="text-gray-600 leading-relaxed mb-4">
+              As a Structural Engineer at Saidpiece Architects with a Master's in Construction Management, I specialize in structural analysis, design, and supervision of RCC structures. I have extensive experience in managing institutional buildings, commercial complexes, and resort developments across Bhutan. As a Registered Engineer with CDB Bhutan, I am committed to delivering technically sound and safe structural solutions while ensuring compliance with building codes and quality standards.
+            </p>
+            <p className="text-gray-600 leading-relaxed mb-4">
+              My professional journey includes supervising and managing complex civil and structural works including RCC structures, retaining walls, and institutional buildings. I perform comprehensive structural analysis and design using industry-standard software like STAAD Pro and ETABS, ensuring all components—from slabs and beams to columns and footings—meet IS code requirements. I take pride in coordinating seamlessly with architectural and MEP disciplines to deliver integrated structural solutions.
+            </p>
             <p className="text-gray-600 leading-relaxed">
-              As a Civil Engineer with over 6 years of experience, I specialize in structural design, project coordination, and construction management. My expertise lies in ensuring projects are delivered safely, efficiently, and to the highest quality standards. I'm committed to building infrastructure that stands the test of time while incorporating sustainable practices into every phase of development.
+              Beyond hands-on engineering, I have contributed to academia as a lecturer at prestigious institutions, delivering courses in structural design, construction management, and project supervision. This dual experience in practice and teaching allows me to bridge theoretical knowledge with real-world field applications. From BOQ preparation and rate analysis to QA/QC inspections and technical documentation, I bring a holistic approach to every project, ensuring excellence from conception to completion.
             </p>
           </div>
         </div>
@@ -100,12 +106,12 @@ const OceanRaiPortfolio = () => {
               <h3 className="text-2xl font-semibold text-center mb-6">Technical Skills</h3>
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { skill: 'Structural Analysis', level: 'Expert' },
+                  { skill: 'ETABS', level: 'Expert' },
                   { skill: 'AutoCAD', level: 'Expert' },
                   { skill: 'STAAD Pro', level: 'Experienced' },
-                  { skill: 'ETABS', level: 'Experienced' },
-                  { skill: 'Revit Structure', level: 'Intermediate' },
-                  { skill: 'SAP2000', level: 'Experienced' },
+                  { skill: 'Revit', level: 'Experienced' },
+                  { skill: 'MS Project', level: 'Experienced' },
+                  { skill: 'Primavera', level: 'Experienced' },
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-start gap-3">
                     <div className="text-green-600 text-2xl">✓</div>
@@ -121,11 +127,11 @@ const OceanRaiPortfolio = () => {
               <h3 className="text-2xl font-semibold text-center mb-6">Specializations</h3>
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { skill: 'Project Management', level: 'Experienced' },
+                  { skill: 'Structural Design', level: 'Expert' },
                   { skill: 'Site Supervision', level: 'Expert' },
-                  { skill: 'Quantity Surveying', level: 'Experienced' },
-                  { skill: 'Building Codes', level: 'Expert' },
-                  { skill: 'Quality Assurance', level: 'Experienced' },
+                  { skill: 'BOQ Preparation', level: 'Experienced' },
+                  { skill: 'RCC Detailing', level: 'Expert' },
+                  { skill: 'QA/QC Inspection', level: 'Experienced' },
                   { skill: 'Cost Estimation', level: 'Experienced' },
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-start gap-3">
@@ -149,9 +155,12 @@ const OceanRaiPortfolio = () => {
         <h2 className="text-center text-4xl font-bold mb-12">Projects</h2>
         <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
           {[
-            { title: 'Multi-Story Commercial Complex', desc: 'Structural engineering & supervision' },
-            { title: 'Highway Bridge Construction', desc: 'Bridge design & site management' },
-            { title: 'Industrial Warehouse', desc: 'Foundation design & construction' },
+            { title: 'Bhutan National Bank Office Complex', desc: 'Structural design & supervision (Paro & Phuentsholing)' },
+            { title: 'Electricity Regulation Authority HQ', desc: 'Structural engineering & coordination' },
+            { title: 'Yongkhola Ecological Resort', desc: 'Civil & structural design supervision' },
+            { title: 'Samthokha Retreat Sanctuary', desc: 'Structural engineering (Nu. 300M project)' },
+            { title: 'Clock Tower Plaza (MOIT)', desc: 'Structural design & BOQ preparation' },
+            { title: 'Bumthang Retail Complex', desc: 'Civil engineering & costing' },
           ].map((project, idx) => (
             <div key={idx} className="border-2 border-gray-400 rounded-2xl p-6">
               <div className="bg-gray-100 rounded-xl h-64 mb-4 flex items-center justify-center">
@@ -185,18 +194,6 @@ const OceanRaiPortfolio = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-8 text-center border-t">
-        <nav className="mb-4">
-          <ul className="flex justify-center gap-8">
-            <li><button onClick={() => scrollToSection('about')} className="hover:underline">About</button></li>
-            <li><button onClick={() => scrollToSection('experience')} className="hover:underline">Experience</button></li>
-            <li><button onClick={() => scrollToSection('projects')} className="hover:underline">Projects</button></li>
-            <li><button onClick={() => scrollToSection('contact')} className="hover:underline">Contact</button></li>
-          </ul>
-        </nav>
-        <p className="text-gray-600">Copyright © 2025 Ocean Rai. All Rights Reserved.</p>
-      </footer>
     </div>
   );
 };
