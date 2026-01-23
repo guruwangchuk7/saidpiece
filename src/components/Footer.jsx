@@ -24,7 +24,7 @@ function Footer() {
     <div className=''>
       {/* hide contact info block on the Contact page */}
       {!isContactPage && (
-        <div className='flex flex-col lg:flex-row lg:justify-between lg:flex-wrap px-2 lg:px-10 mt-10 gap-10 lg:gap-0'>
+        <div className='flex flex-col lg:flex-row lg:justify-between lg:flex-wrap px-2 lg:px-10 mt-4 sm:mt-6 lg:mt-10 gap-10 lg:gap-0'>
           <div className=''>
             <p>E:</p>
             <p className='mt-5'>

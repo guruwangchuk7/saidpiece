@@ -80,19 +80,19 @@ function H4() {
         </div>
 
         {/* Mobile Portfolio Section */}
-        <div className="md:hidden w-full px-4 sm:px-5 py-10">
+        <div className="md:hidden w-full px-4 sm:px-5 py-6 sm:py-8">
           {/* Mobile Portfolio Header */}
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-3xl sm:text-4xl font-semibold mb-8"
+            className="text-2xl sm:text-3xl font-semibold mb-4 sm:mb-6 text-neutral-900"
           >
             PORTFOLIO
           </motion.h1>
 
           {/* Mobile Carousel Container */}
-          <div className="relative overflow-hidden">
+          <div className="relative overflow-hidden rounded-lg">
             <AnimatePresence initial={false}>
               <motion.div
                 key={activeIndex}
@@ -105,40 +105,61 @@ function H4() {
                 <img
                   src={portfolioData.image[activeIndex]}
                   alt={portfolioData.name[activeIndex]}
-                  className="w-full h-[50vh] sm:h-[60vh] object-cover"
+                  className="w-full h-[50vh] sm:h-[65vh] object-cover"
                 />
               </motion.div>
             </AnimatePresence>
-            <div className="w-full h-[50vh] sm:h-[60vh]"></div>
+            <div className="w-full h-[50vh] sm:h-[65vh]"></div>
 
             {/* Mobile Navigation Arrows */}
             <button
               onClick={prevSlide}
-              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-white/80 hover:bg-white rounded-full flex items-center justify-center transition-all z-10"
+              className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 bg-white/85 hover:bg-white rounded-full flex items-center justify-center transition-all z-10 shadow-md"
+              aria-label="Previous project"
             >
-              <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
             <button
               onClick={nextSlide}
-              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-white/80 hover:bg-white rounded-full flex items-center justify-center transition-all z-10"
+              className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 bg-white/85 hover:bg-white rounded-full flex items-center justify-center transition-all z-10 shadow-md"
+              aria-label="Next project"
             >
-              <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </button>
           </div>
 
-          {/* Mobile Project Name */}
-          <div className="mt-6">
-            <h3 className="text-lg sm:text-xl font-medium">{portfolioData.name[activeIndex]}</h3>
+          {/* Mobile Project Info */}
+          <div className="mt-3 sm:mt-4 flex items-center justify-between">
+            <div>
+              <h3 className="text-sm sm:text-base font-semibold text-neutral-900">{portfolioData.name[activeIndex]}</h3>
+              <p className="text-xs text-neutral-500 mt-0.5">Project {activeIndex + 1} of {portfolioData.name.length}</p>
+            </div>
+          </div>
+
+          {/* Progress Indicators */}
+          <div className="flex gap-1.5 mt-3">
+            {portfolioData.name.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setActiveIndex(index)}
+                className={`h-1 transition-all duration-300 rounded-full ${
+                  activeIndex === index ? "bg-neutral-900 w-6" : "bg-neutral-300 w-2"
+                }`}
+                aria-label={`Go to project ${index + 1}`}
+              />
+            ))}
           </div>
 
           {/* Mobile All Projects Button */}
-          <NavLink to="/portfolio">
-            <BtnT1 title="ALL PROJECTS" />
-          </NavLink>
+          <div className="mt-4 sm:mt-6">
+            <NavLink to="/portfolio">
+              <BtnT1 title="ALL PROJECTS" />
+            </NavLink>
+          </div>
         </div>
       </div>
     </div>

@@ -2,10 +2,10 @@ import React from 'react'
 
 function H5() {
     return (
-        <div>
-            <div className='h-[60vh] sm:h-[80vh] md:h-[100vh] flex justify-center items-center text-neutral-900 px-4'>
+        <div className="w-full bg-white">
+            <div className='h-[28vh] sm:h-[50vh] md:h-[80vh] lg:h-[100vh] flex justify-center items-center text-neutral-900 px-4 py-4 sm:py-8'>
                 <div className='text-center w-fit mx-auto'>
-                    <div className="logo font-bold text-2xl sm:text-3xl md:text-5xl text-neutral-800 lg:text-7xl" style={{ fontFamily: "century-gothic" }}>
+                    <div className="logo font-bold text-2xl sm:text-3xl md:text-5xl lg:text-7xl text-neutral-800 leading-tight" style={{ fontFamily: "century-gothic" }}>
                         <span style={{ color: "#555555" }} className="font-light">said</span><span>piece</span> <span className="font-light">Architecture</span>
                     </div>
                 </div>
