@@ -52,8 +52,8 @@ const HeroNavbar = () => {
           </button>
 
           <div className="flex flex-col lg:flex-row justify-between gap-10 lg:gap-20 w-full">
-            <div className="p-2">
-              <h1 className="text-5xl">STUDIO</h1>
+            <div className="p-2 w-full lg:w-auto">
+              <h1 className="text-2xl sm:text-3xl lg:text-5xl font-bold font-century-gothic">STUDIO</h1>
               <nav className="mt-10 flex flex-col gap-5">
                 {data.map((item, idx) => (
                   <NavLink
@@ -69,8 +69,8 @@ const HeroNavbar = () => {
               </nav>
             </div>
 
-            <div className="p-2 text-left flex flex-col justify-end pb-10 lg:pr-32">
-              <div className="flex flex-col gap-6 text-xl font-light text-[gray]">
+            <div className="p-2 text-left flex flex-col justify-end pb-10 lg:pr-32 w-full lg:w-auto">
+              <div className="hidden lg:flex flex-col gap-6 text-xl font-light text-[gray]">
 
                 {/* Header */}
                 <div className="text-base text-white mb-2">General contacts</div>
@@ -106,13 +106,13 @@ const HeroNavbar = () => {
                   </div>
                 </div>
 
-                {/* Contact Us Button - Styled like Footer/Navbar List */}
-                <NavLink to="/contact" onClick={close} className="btn3 mt-6 flex items-center justify-between py-4 w-full">
-                  <span className="txt text-base tracking-widest">CONTACT US</span>
-                  <img src={rightArrowWhite} alt="" className="image w-6" />
-                </NavLink>
-
               </div>
+
+              {/* Contact Us Button - Styled like Footer/Navbar List */}
+              <NavLink to="/contact" onClick={close} className="btn3 mt-2 lg:mt-6 flex items-center gap-10 py-4 w-fit">
+                <span className="txt text-base tracking-widest">CONTACT US</span>
+                <img src={rightArrowWhite} alt="" className="image w-6" />
+              </NavLink>
             </div>
           </div>
         </motion.div>
