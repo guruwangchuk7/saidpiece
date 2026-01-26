@@ -7,7 +7,8 @@ import Home from './pages/home/Home.jsx'
 import Contact from './pages/Contact.jsx'
 import Team from './pages/team/Team.jsx'
 import About from './pages/About.jsx'
-import Portfolio from './pages/portfolio/Portfolio.jsx'
+import Portfolio from './pages/Portfolio/Portfolio.jsx'
+import ProjectGallery from './pages/Portfolio/ProjectGallery.jsx'
 import Legal from './pages/Legal.jsx'
 import Store from './pages/store/store.jsx'
 import ThinleyDhendupPortfolio from './pages/team/portfolios/ThinleyDhendupPortfolio.jsx'
@@ -20,19 +21,20 @@ import GuruWangchukPortfolio from './pages/team/portfolios/GuruWangchukPortfolio
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-        <Route index element={<Home/>}></Route>
-         <Route path='about' element={<About/>}></Route>
-        <Route path='contact' element={<Contact/>}></Route>
-        <Route path='portfolio' element={<Portfolio/>}></Route>
-        <Route path='team' element={<Team/>}></Route>
-        <Route path='team/thinley-dhendup' element={<ThinleyDhendupPortfolio/>}></Route>
-        <Route path='team/kinley-wangdi' element={<KinleyWangdiPortfolio/>}></Route>
-        <Route path='team/ash' element={<AshPortfolio/>}></Route>
-        <Route path='team/ocean-rai' element={<OceanRaiPortfolio/>}></Route>
-        <Route path='team/tashi-dendup' element={<TashiDendupPortfolio/>}></Route>
-        <Route path='team/guru-wangchuk' element={<GuruWangchukPortfolio/>}></Route>
-        <Route path='legal' element={<Legal/>}></Route>
-        <Route path='store' element={<Store/>}></Route>
+      <Route index element={<Home />}></Route>
+      <Route path='about' element={<About />}></Route>
+      <Route path='contact' element={<Contact />}></Route>
+      <Route path='portfolio' element={<Portfolio />}></Route>
+      <Route path='portfolio/gallery/:id' element={<ProjectGallery />}></Route>
+      <Route path='team' element={<Team />}></Route>
+      <Route path='team/thinley-dhendup' element={<ThinleyDhendupPortfolio />}></Route>
+      <Route path='team/kinley-wangdi' element={<KinleyWangdiPortfolio />}></Route>
+      <Route path='team/ash' element={<AshPortfolio />}></Route>
+      <Route path='team/ocean-rai' element={<OceanRaiPortfolio />}></Route>
+      <Route path='team/tashi-dendup' element={<TashiDendupPortfolio />}></Route>
+      <Route path='team/guru-wangchuk' element={<GuruWangchukPortfolio />}></Route>
+      <Route path='legal' element={<Legal />}></Route>
+      <Route path='store' element={<Store />}></Route>
     </Route>
   )
 )
