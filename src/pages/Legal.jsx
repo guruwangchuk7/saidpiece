@@ -149,22 +149,23 @@ const Legal = () => {
       </NavLink>
 
       {/* Main Layout */}
-      <div className="flex w-full mt-32 gap-20">
+      <div className="flex flex-col lg:flex-row w-full mt-24 lg:mt-32 gap-10 lg:gap-20">
 
         {/* Sidebar */}
-        <aside data-animate-child className="w-1/4 hidden lg:flex flex-col text-sm uppercase tracking-wide text-zinc-600 gap-8">
+        <aside data-animate-child className="w-full lg:w-1/4 flex flex-row lg:flex-col overflow-x-auto lg:overflow-visible items-center lg:items-start text-sm uppercase tracking-wide text-zinc-600 gap-6 lg:gap-8 pb-4 lg:pb-0 border-b lg:border-none border-zinc-100">
           {sections.map((sec) => (
             <button
               key={sec}
               onClick={() => setActiveSection(sec)}
-              className="flex items-center gap-3 transition-opacity"
+              className="flex-shrink-0 flex items-center gap-3 transition-opacity focus:outline-none focus:ring-2 focus:ring-zinc-200 rounded-lg p-2 lg:p-0 whitespace-nowrap"
+              aria-label={`Switch to ${sec}`}
+              aria-current={activeSection === sec ? "true" : "false"}
             >
               <span
-                className={`w-2 h-2 rounded-full ${
-                  activeSection === sec ? "bg-black" : "border"
-                }`}
+                className={`w-2 h-2 rounded-full transition-colors duration-300 ${activeSection === sec ? "bg-black" : "bg-zinc-300"
+                  }`}
               ></span>
-              <span className={`${activeSection === sec ? "text-black" : "opacity-60"}`}>
+              <span className={`transition-colors duration-300 ${activeSection === sec ? "text-black font-medium" : "text-zinc-500 hover:text-zinc-800"}`}>
                 {sec}
               </span>
             </button>
@@ -180,7 +181,7 @@ const Legal = () => {
             {content[activeSection]}
           </div>
 
-          <p className="text-sm text-zinc-500 mt-20">
+          <p className="text-sm text-zinc-500 mt-20 pb-10 lg:pb-0">
             © {new Date().getFullYear()} Saidpiece Architecture. All Rights Reserved.
           </p>
         </main>

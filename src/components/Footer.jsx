@@ -9,7 +9,7 @@ function AllRightReserved() {
       <div className='flex justify-between items-center px-2 lg:px-10 mt-10 py-2 text-[12px] lg:text-[14px]'>
         <p>SAIDPIECE © 2023–2026</p>
         <NavLink to={'/legal'} className={`hidden lg:flex`}>Terms of conditions and Privacy policy</NavLink>
-        <NavLink to={'greenRoom'}>Website by KodaDev Studio</NavLink>
+        <NavLink to={'greenRoom'}>Website by Saidpiece</NavLink>
       </div>
     </>
   )
