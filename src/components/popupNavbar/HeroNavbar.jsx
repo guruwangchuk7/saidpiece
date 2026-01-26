@@ -39,10 +39,10 @@ const HeroNavbar = () => {
         <motion.div
           className="fixed inset-0 z-30 h-screen w-screen bg-zinc-900 p-10 text-slate-100"
           variants={variants}
-          initial={{y:-1000 , opacity:0 , scale:1}}
-          animate={{y:0 , opacity:1 , scale:1}}
-          exit={{y:1000 , opacity:0 , scale:1.5}}
-          transition={{ duration:1 , ease:easeInOut}}
+          initial={{ y: -1000, opacity: 0, scale: 1 }}
+          animate={{ y: 0, opacity: 1, scale: 1 }}
+          exit={{ y: 1000, opacity: 0, scale: 1.5 }}
+          transition={{ duration: 1, ease: easeInOut }}
         >
           <button
             onClick={close}
@@ -51,7 +51,7 @@ const HeroNavbar = () => {
             ×
           </button>
 
-          <div className="flex justify-between gap-20">
+          <div className="flex flex-col lg:flex-row justify-between gap-10 lg:gap-20 w-full">
             <div className="p-2">
               <h1 className="text-5xl">STUDIO</h1>
               <nav className="mt-10 flex flex-col gap-5">
@@ -67,6 +67,52 @@ const HeroNavbar = () => {
                   </NavLink>
                 ))}
               </nav>
+            </div>
+
+            <div className="p-2 text-left flex flex-col justify-end pb-10 lg:pr-32">
+              <div className="flex flex-col gap-6 text-xl font-light text-[gray]">
+
+                {/* Header */}
+                <div className="text-base text-white mb-2">General contacts</div>
+
+                {/* Email Section */}
+                <div className="flex flex-col gap-2">
+                  <span>E:</span>
+                  <a href="mailto:thinley@saidpiece.com" className="w-fit border-b border-gray-500 hover:border-white hover:text-white transition-all duration-300">
+                    thinley@saidpiece.com
+                  </a>
+                </div>
+
+                {/* Phone Section */}
+                <div className="flex flex-col gap-2">
+                  <span>P:</span>
+                  <div className="flex flex-col">
+                    <span className="w-fit">
+                      +975 17899794 (BHT)
+                    </span>
+                    <span className="w-fit">
+                      +66 931205085 (TH)
+                    </span>
+                  </div>
+                </div>
+
+                {/* Social Media Section */}
+                <div className="flex flex-col gap-2">
+                  <span className="w-fit">S.M:</span>
+                  <div className="flex flex-wrap gap-x-1 max-w-[250px]">
+                    <a href="https://instagram.com" target="_blank" rel="noreferrer" className="hover:text-white transition-all duration-300">Instagram,</a>
+                    <a href="https://facebook.com" target="_blank" rel="noreferrer" className="hover:text-white transition-all duration-300">Facebook,</a>
+                    <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-white transition-all duration-300">LinkedIn</a>
+                  </div>
+                </div>
+
+                {/* Contact Us Button - Styled like Footer/Navbar List */}
+                <NavLink to="/contact" onClick={close} className="btn3 mt-6 flex items-center justify-between py-4 w-full">
+                  <span className="txt text-base tracking-widest">CONTACT US</span>
+                  <img src={rightArrowWhite} alt="" className="image w-6" />
+                </NavLink>
+
+              </div>
             </div>
           </div>
         </motion.div>
