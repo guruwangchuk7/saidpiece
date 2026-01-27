@@ -152,7 +152,7 @@ const Legal = () => {
       <div className="flex flex-col lg:flex-row w-full mt-24 lg:mt-32 gap-10 lg:gap-20">
 
         {/* Sidebar */}
-        <aside data-animate-child className="w-full lg:w-1/4 flex flex-row lg:flex-col overflow-x-auto lg:overflow-visible items-center lg:items-start text-sm uppercase tracking-wide text-zinc-600 gap-6 lg:gap-8 pb-4 lg:pb-0 border-b lg:border-none border-zinc-100">
+        <aside data-animate-child className="w-full lg:w-1/4 flex flex-wrap lg:flex-col items-center lg:items-start text-sm uppercase tracking-wide text-zinc-600 gap-x-6 gap-y-4 lg:gap-8 pb-6 lg:pb-0 border-b lg:border-none border-zinc-100">
           {sections.map((sec) => (
             <button
               key={sec}
