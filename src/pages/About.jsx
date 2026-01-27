@@ -8,9 +8,9 @@ import H5 from './home/H5';
 gsap.registerPlugin(ScrollTrigger);
 
 // --- Asset Imports ---
-import aboutUsImg from '../assets/aboutus.jpg';
-import philosophyImg from '../assets/mainbg.svg';
-import teamImg from '../assets/page3Bg.jpg';
+import aboutUsImg from '../assets/aboutusphoto/aboutus.jpg';
+import philosophyImg from '../assets/homephoto/mainbg.svg';
+import teamImg from '../assets/homephoto/page3Bg.jpg';
 import rightArrow from '../assets/icons/rightArrow.svg';
 
 // --- SVG Icons ---

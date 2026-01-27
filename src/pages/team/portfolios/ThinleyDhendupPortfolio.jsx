@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FaLinkedin, FaEnvelope, FaArrowDown } from 'react-icons/fa';
 import gsap from 'gsap';
-import thinleyDhendup from '../../../assets/team/thinley dendup (b&w).png';
+import thinleyDhendup from '../../../assets/teamphoto/thinley dendup (b&w).png';
 import rightArrow from '../../../assets/icons/rightArrow.svg';
 
 const ThinleyDhendupPortfolio = () => {

@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FaLinkedin, FaEnvelope, FaArrowDown } from 'react-icons/fa';
 import gsap from 'gsap';
-import kinley from '../../../assets/team/kinley (b&w).png';
+import kinley from '../../../assets/teamphoto/kinley (b&w).png';
 import rightArrow from '../../../assets/icons/rightArrow.svg';
 
 const KinleyWangdiPortfolio = () => {

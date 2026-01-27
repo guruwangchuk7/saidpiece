@@ -4,13 +4,13 @@ import { FaGithub, FaLinkedin, FaEnvelope, FaThLarge, FaList } from 'react-icons
 import rightArrow from '../../assets/icons/rightArrow.svg';
 import ButtonType3 from '../../components/ButtonType3';
 import H5 from '../home/H5';
-import guru from '../../assets/team/guru (b&w).png';
-import kinley from '../../assets/team/kinley (b&w).png';
-import ocean from '../../assets/team/ocean (b&w).png';
-import placeholder from '../../assets/team/placeholder.svg';
-import tashi from '../../assets/team/tashi (b&w).png';
-import thinleyDhendup from '../../assets/team/thinley dendup (b&w).png';
-import ash from '../../assets/team/ash (b&w).png';
+import guru from '../../assets/teamphoto/guru (b&w).png';
+import kinley from '../../assets/teamphoto/kinley (b&w).png';
+import ocean from '../../assets/teamphoto/ocean (b&w).png';
+import placeholder from '../../assets/teamphoto/placeholder.svg';
+import tashi from '../../assets/teamphoto/tashi (b&w).png';
+import thinleyDhendup from '../../assets/teamphoto/thinley dendup (b&w).png';
+import ash from '../../assets/teamphoto/ash (b&w).png';
 
 const teamMembers = [
   {

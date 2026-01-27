@@ -1,5 +1,5 @@
 import React from 'react'
-import bg from '../../assets/page3Bg.jpg'
+import bg from '../../assets/homephoto/page3Bg.jpg'
 function H3() {
   return (
     <div className='hidden md:block mt-16 sm:mt-24 md:mt-32 lg:mt-40 px-4 sm:px-5 md:px-8 lg:px-0'>

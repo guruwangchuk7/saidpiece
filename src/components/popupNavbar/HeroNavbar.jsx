@@ -24,7 +24,6 @@ const HeroNavbar = () => {
     { to: "portfolio", title: "PROJECTS" },
     { to: "team", title: "TEAM" },
     { to: "contact", title: "CONTACT" },
-    { to: "store", title: "STORE" },
   ];
 
   const variants = {

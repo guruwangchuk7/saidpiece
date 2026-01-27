@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FaLinkedin, FaEnvelope, FaArrowDown } from 'react-icons/fa';
 import gsap from 'gsap';
-import ash from '../../../assets/team/ash (b&w).png';
+import ash from '../../../assets/teamphoto/ash (b&w).png';
 import rightArrow from '../../../assets/icons/rightArrow.svg';
 
 const AshPortfolio = () => {

@@ -1,5 +1,5 @@
 import React from "react";
-import mainBg from "../../assets/mainbg.svg";
+import mainBg from "../../assets/homephoto/mainbg.svg";
 import { motion, MotionConfig , useScroll } from "motion/react";
 
 function H1() {

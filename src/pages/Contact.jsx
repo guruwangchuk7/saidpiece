@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import rightArrow from '../assets/icons/rightArrow.svg'
-import officeImage from '../assets/saidpieceofficeimage.jpg'
+import officeImage from '../assets/contact/saidpieceofficeimage.jpg'
 
 // -- Sub-components --
 

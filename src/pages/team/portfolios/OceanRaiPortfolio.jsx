@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FaLinkedin, FaEnvelope, FaArrowDown } from 'react-icons/fa';
 import gsap from 'gsap';
-import ocean from '../../../assets/team/ocean (b&w).png';
+import ocean from '../../../assets/teamphoto/ocean (b&w).png';
 import rightArrow from '../../../assets/icons/rightArrow.svg';
 
 const OceanRaiPortfolio = () => {

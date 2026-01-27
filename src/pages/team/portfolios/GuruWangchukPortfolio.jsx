@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FaGithub, FaLinkedin, FaEnvelope, FaArrowDown } from 'react-icons/fa';
 import gsap from 'gsap';
-import guru from '../../../assets/team/guru (b&w).png';
+import guru from '../../../assets/teamphoto/guru (b&w).png';
 import rightArrow from '../../../assets/icons/rightArrow.svg';
 
 const GuruWangchukPortfolio = () => {

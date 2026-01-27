@@ -1,5 +1,5 @@
 import React from "react";
-import ci1 from "../../assets/ci1.svg";
+import ci1 from "../../assets/homephoto/ci1.svg";
 import BtnT1 from "../../components/ButtonType1";
 import { NavLink } from 'react-router-dom'
 
