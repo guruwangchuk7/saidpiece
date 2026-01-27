@@ -60,7 +60,7 @@ const HeroNavbar = () => {
                     key={item.to}
                     to={item.to}
                     onClick={close}
-                    className="btn3 flex items-center justify-between text-xl w-100"
+                    className="btn3 flex items-center justify-between text-lg md:text-xl w-[85%] md:w-100"
                   >
                     <span className="txt">1.{idx + 1}  {item.title}</span>
                     <img src={rightArrowWhite} alt="" className="image w-8" />
@@ -109,7 +109,7 @@ const HeroNavbar = () => {
               </div>
 
               {/* Contact Us Button - Styled like Footer/Navbar List */}
-              <NavLink to="/contact" onClick={close} className="btn3 mt-2 lg:mt-6 flex items-center gap-10 py-4 w-fit">
+              <NavLink to="/contact" onClick={close} className="btn3 mt-20 md:mt-6 flex items-center gap-10 py-4 w-fit">
                 <span className="txt text-base tracking-widest">CONTACT US</span>
                 <img src={rightArrowWhite} alt="" className="image w-6" />
               </NavLink>
