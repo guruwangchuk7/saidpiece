@@ -33,9 +33,9 @@ const GuruWangchukPortfolio = () => {
         <span>Back to team</span>
       </NavLink>
       {/* Navigation */}
-      <nav className="flex justify-between items-center h-[17vh] px-8 lg:px-20">
+      <nav className="flex flex-col lg:flex-row justify-between items-center min-h-[17vh] h-auto px-8 lg:px-20 pt-16 pb-6 lg:py-0 gap-4 lg:gap-0">
         <div className="text-3xl font-semibold cursor-default">Guru Wangchuk</div>
-        <ul className="flex gap-8 text-xl">
+        <ul className="flex flex-wrap justify-center gap-4 lg:gap-8 text-lg lg:text-xl">
           <li><button onClick={() => scrollToSection('about')} className="hover:text-gray-600 hover:underline underline-offset-4">About</button></li>
           <li><button onClick={() => scrollToSection('experience')} className="hover:text-gray-600 hover:underline underline-offset-4">Experience</button></li>
           <li><button onClick={() => scrollToSection('projects')} className="hover:text-gray-600 hover:underline underline-offset-4">Projects</button></li>
@@ -44,16 +44,16 @@ const GuruWangchukPortfolio = () => {
       </nav>
 
       {/* Profile Section */}
-      <section className="flex flex-col lg:flex-row items-center justify-center min-h-[80vh] gap-12 px-8 fade-in">
-        <div className="w-80 h-80">
+      <section className="flex flex-col lg:flex-row items-center justify-center min-h-[80vh] gap-8 lg:gap-12 px-8 py-12 lg:py-0 fade-in">
+        <div className="w-64 h-64 lg:w-80 lg:h-80">
           <img src={guru} alt="Guru Wangchuk" className="rounded-full w-full h-full object-cover" />
         </div>
         <div className="text-center">
-          <p className="text-gray-600 font-semibold mb-2">Hello, I'm</p>
-          <h1 className="text-5xl font-bold mb-2">Guru Wangchuk</h1>
+          <p className="text-gray-600 font-semibold mb-2 text-lg lg:text-base">Hello, I'm</p>
+          <h1 className="text-4xl lg:text-5xl font-bold mb-2">Guru Wangchuk</h1>
           <p className="text-2xl text-gray-600 mb-6">Full Stack Developer</p>
-          <div className="flex gap-4 justify-center mb-6">
-            <NavLink to="/team" className="border-2 border-gray-600 rounded-full px-8 py-3 hover:bg-gray-600 hover:text-white transition-all">Back to Team</NavLink>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+            <NavLink to="/team" className="border-2 border-gray-600 rounded-full px-8 py-3 hover:bg-gray-600 hover:text-white transition-all text-center">Back to Team</NavLink>
             <button onClick={() => scrollToSection('contact')} className="bg-gray-800 text-white rounded-full px-8 py-3 hover:bg-gray-600 transition-all">Contact Info</button>
           </div>
           <div className="flex gap-4 justify-center">
@@ -80,7 +80,7 @@ const GuruWangchukPortfolio = () => {
             <img src={guru} alt="Guru Wangchuk" className="rounded-2xl" />
           </div>
           <div className="flex-1">
-            <div className="grid grid-cols-2 gap-6 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
               <div className="border-2 border-gray-400 rounded-2xl p-6 text-center">
                 <h3 className="text-xl font-semibold mb-2">Experience</h3>
                 <p className="text-gray-600">2+ years<br />Full Stack Development</p>
@@ -112,7 +112,7 @@ const GuruWangchukPortfolio = () => {
           <div className="grid md:grid-cols-2 gap-8">
             <div className="border-2 border-gray-400 rounded-2xl p-8">
               <h3 className="text-2xl font-semibold text-center mb-6">Frontend Development</h3>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
                   { skill: 'HTML/CSS', level: 'Experienced' },
                   { skill: 'JavaScript', level: 'Experienced' },
@@ -133,7 +133,7 @@ const GuruWangchukPortfolio = () => {
             </div>
             <div className="border-2 border-gray-400 rounded-2xl p-8">
               <h3 className="text-2xl font-semibold text-center mb-6">Programming & Tools</h3>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
                   { skill: 'Python', level: 'Experienced' },
                   { skill: 'C++', level: 'Experienced' },
@@ -161,7 +161,7 @@ const GuruWangchukPortfolio = () => {
       <section id="projects" className="py-16 px-8 lg:px-20 fade-in">
         <p className="text-center text-gray-600 mb-2">Browse My Recent</p>
         <h2 className="text-center text-4xl font-bold mb-12">Projects</h2>
-        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {[
             { title: 'Student Management System', desc: 'C++ console-based app with DSA for managing student records' },
             { title: 'Certificate Validation System', desc: 'Blockchain-based student certificate validation using web tech' },
