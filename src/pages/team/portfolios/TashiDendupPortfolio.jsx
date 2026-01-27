@@ -51,7 +51,7 @@ const TashiDendupPortfolio = () => {
         <div className="text-center">
           <p className="text-gray-600 font-semibold mb-2">Hello, I'm</p>
           <h1 className="text-5xl font-bold mb-2">Tashi Dendup</h1>
-          <p className="text-2xl text-gray-600 mb-6">Architecture Intern</p>
+          <p className="text-2xl text-gray-600 mb-6">Architect</p>
           <div className="flex gap-4 justify-center mb-6">
             <NavLink to="/team" className="border-2 border-gray-600 rounded-full px-8 py-3 hover:bg-gray-600 hover:text-white transition-all">Back to Team</NavLink>
             <button onClick={() => scrollToSection('contact')} className="bg-gray-800 text-white rounded-full px-8 py-3 hover:bg-gray-600 transition-all">Contact Info</button>
@@ -80,15 +80,21 @@ const TashiDendupPortfolio = () => {
             <div className="grid grid-cols-2 gap-6 mb-8">
               <div className="border-2 border-gray-400 rounded-2xl p-6 text-center">
                 <h3 className="text-xl font-semibold mb-2">Experience</h3>
-                <p className="text-gray-600">1+ year<br />Architecture Internship</p>
+                <p className="text-gray-600">3+ years<br />Professional Architecture</p>
               </div>
               <div className="border-2 border-gray-400 rounded-2xl p-6 text-center">
                 <h3 className="text-xl font-semibold mb-2">Education</h3>
-                <p className="text-gray-600">Bachelor's in Architecture<br />In Progress</p>
+                <p className="text-gray-600">B.Arch.<br />RUB, Bhutan</p>
               </div>
             </div>
+            <p className="text-gray-600 leading-relaxed mb-4">
+              As an Architect at Saidpiece Architects with over three years of professional experience, I specialize in architectural design, project coordination, and construction documentation. My expertise spans from conceptual design to construction supervision, with a strong focus on sustainable and contextually responsive architecture. I am registered with CDB Bhutan and bring comprehensive knowledge of building codes, standards, and best practices in architectural design.
+            </p>
+            <p className="text-gray-600 leading-relaxed mb-4">
+              My professional journey includes working on diverse projects ranging from institutional buildings to residential complexes and commercial developments. I excel in creating detailed architectural drawings, 3D visualizations, and presentation materials using industry-standard software. My approach integrates traditional architectural principles with modern design methodologies, ensuring that each project is both functional and aesthetically compelling.
+            </p>
             <p className="text-gray-600 leading-relaxed">
-              I'm an enthusiastic Architecture Intern eager to learn and contribute to innovative design projects. Currently pursuing my Bachelor's in Architecture, I bring fresh perspectives and a strong foundation in design principles. I'm passionate about sustainable architecture and exploring how technology can enhance the design process, always looking for opportunities to grow and develop my skills.
+              Beyond design, I have extensive experience in project coordination, working closely with structural engineers, MEP consultants, and contractors to ensure seamless project execution. From site analysis and feasibility studies to construction administration and quality control, I bring a holistic perspective to every project phase. My commitment to sustainable design and attention to detail has consistently delivered successful outcomes for clients and stakeholders.
             </p>
           </div>
         </div>
@@ -98,19 +104,19 @@ const TashiDendupPortfolio = () => {
       {/* Experience Section */}
       <section id="experience" className="py-16 px-8 lg:px-20 fade-in">
         <p className="text-center text-gray-600 mb-2">Explore My</p>
-        <h2 className="text-center text-4xl font-bold mb-12">Skills</h2>
+        <h2 className="text-center text-4xl font-bold mb-12">Expertise</h2>
         <div className="max-w-5xl mx-auto">
           <div className="grid md:grid-cols-2 gap-8">
             <div className="border-2 border-gray-400 rounded-2xl p-8">
-              <h3 className="text-2xl font-semibold text-center mb-6">Design Tools</h3>
+              <h3 className="text-2xl font-semibold text-center mb-6">Technical Skills</h3>
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { skill: 'AutoCAD', level: 'Intermediate' },
-                  { skill: 'SketchUp', level: 'Intermediate' },
-                  { skill: 'Revit', level: 'Basic' },
-                  { skill: 'Adobe Photoshop', level: 'Intermediate' },
-                  { skill: 'Illustrator', level: 'Basic' },
-                  { skill: 'Rendering', level: 'Basic' },
+                  { skill: 'AutoCAD', level: 'Expert' },
+                  { skill: 'SketchUp', level: 'Expert' },
+                  { skill: 'Revit', level: 'Experienced' },
+                  { skill: 'Lumion', level: 'Experienced' },
+                  { skill: 'V-Ray', level: 'Experienced' },
+                  { skill: 'Photoshop', level: 'Expert' },
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-start gap-3">
                     <div className="text-green-600 text-2xl">✓</div>
@@ -123,15 +129,15 @@ const TashiDendupPortfolio = () => {
               </div>
             </div>
             <div className="border-2 border-gray-400 rounded-2xl p-8">
-              <h3 className="text-2xl font-semibold text-center mb-6">Core Skills</h3>
+              <h3 className="text-2xl font-semibold text-center mb-6">Specializations</h3>
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { skill: 'Drafting', level: 'Intermediate' },
-                  { skill: 'Model Making', level: 'Intermediate' },
-                  { skill: 'Design Research', level: 'Intermediate' },
-                  { skill: 'Site Analysis', level: 'Basic' },
-                  { skill: 'Presentations', level: 'Intermediate' },
-                  { skill: 'Team Collaboration', level: 'Intermediate' },
+                  { skill: 'Architectural Design', level: 'Expert' },
+                  { skill: 'Construction Docs', level: 'Expert' },
+                  { skill: '3D Visualization', level: 'Experienced' },
+                  { skill: 'Project Coordination', level: 'Expert' },
+                  { skill: 'Site Supervision', level: 'Experienced' },
+                  { skill: 'Sustainable Design', level: 'Experienced' },
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-start gap-3">
                     <div className="text-green-600 text-2xl">✓</div>
@@ -154,13 +160,16 @@ const TashiDendupPortfolio = () => {
         <h2 className="text-center text-4xl font-bold mb-12">Projects</h2>
         <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
           {[
-            { title: 'Residential Design Study', desc: 'Sustainable single-family home' },
-            { title: 'Community Library Concept', desc: 'Public space design project' },
-            { title: 'Urban Park Redesign', desc: 'Landscape architecture proposal' },
+            { title: 'Institutional Building Complex', desc: 'Architectural design & documentation (Multi-story facility)' },
+            { title: 'Commercial Retail Development', desc: 'Design coordination & construction supervision' },
+            { title: 'Residential Housing Project', desc: 'Master planning & architectural detailing' },
+            { title: 'Resort & Hospitality Design', desc: 'Conceptual design & visualization' },
+            { title: 'Public Infrastructure Projects', desc: 'Architectural design & site planning' },
+            { title: 'Mixed-Use Development', desc: 'Comprehensive design & coordination' },
           ].map((project, idx) => (
             <div key={idx} className="border-2 border-gray-400 rounded-2xl p-6">
               <div className="bg-gray-100 rounded-xl h-64 mb-4 flex items-center justify-center">
-                <p className="text-6xl text-gray-400">📋</p>
+                <p className="text-6xl text-gray-400">🏛️</p>
               </div>
               <h3 className="text-xl font-semibold mb-2 text-center">{project.title}</h3>
               <p className="text-sm text-gray-600 text-center mb-4">{project.desc}</p>
