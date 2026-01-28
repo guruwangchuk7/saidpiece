@@ -105,11 +105,11 @@ function H4() {
                 <img
                   src={portfolioData.image[activeIndex]}
                   alt={portfolioData.name[activeIndex]}
-                  className="w-full h-[50vh] sm:h-[65vh] object-cover"
+                  className="w-full h-[60vh] sm:h-[65vh] object-cover"
                 />
               </motion.div>
             </AnimatePresence>
-            <div className="w-full h-[50vh] sm:h-[65vh]"></div>
+            <div className="w-full h-[60vh] sm:h-[65vh]"></div>
 
             {/* Mobile Navigation Arrows */}
             <button
@@ -146,9 +146,8 @@ function H4() {
               <button
                 key={index}
                 onClick={() => setActiveIndex(index)}
-                className={`h-1 transition-all duration-300 rounded-full ${
-                  activeIndex === index ? "bg-neutral-900 w-6" : "bg-neutral-300 w-2"
-                }`}
+                className={`h-1 transition-all duration-300 rounded-full ${activeIndex === index ? "bg-neutral-900 w-6" : "bg-neutral-300 w-2"
+                  }`}
                 aria-label={`Go to project ${index + 1}`}
               />
             ))}
