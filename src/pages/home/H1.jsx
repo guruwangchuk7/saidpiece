@@ -9,7 +9,7 @@ function H1() {
       <div className="h-[100vh] sm:h-[60vh] lg:h-[90vh] flex justify-center items-center text-neutral-900 px-4">
         <MotionConfig transition={{ duration: 3, type: "spring" }}>
           <motion.div
-            className="head text-center w-fit mx-auto -mt-64 md:-mt-20"
+            className="head text-center w-fit mx-auto -mt-44 md:-mt-20"
             initial={{ opacity: 0, scale: 0.8, y: 0 }}
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
             style={{ fontFamily: "century-gothic" }}
