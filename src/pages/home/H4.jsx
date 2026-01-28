@@ -45,7 +45,7 @@ function H4() {
   };
 
   return (
-    <div className="bg-white min-h-screen text-[#333333] font-sans selection:bg-zinc-800 selection:text-white">
+    <div className="bg-white md:min-h-screen text-[#333333] font-sans selection:bg-zinc-800 selection:text-white">
       <div className="flex flex-col md:flex-row relative">
         {/* Desktop Left Column: Sticky Sidebar */}
         <div className="hidden md:flex w-full md:w-[40%] px-6 md:px-12 py-10 md:h-screen md:sticky md:top-0 flex-col z-10">
