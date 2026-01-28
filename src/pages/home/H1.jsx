@@ -15,7 +15,7 @@ function H1() {
             style={{ fontFamily: "century-gothic" }}
           >
             <div className="logo font-bold text-2xl sm:text-3xl md:text-5xl text-neutral-800 lg:text-7xl" style={{ fontFamily: "century-gothic" }}>
-              <span style={{ color: "#555555" }} className="font-light">said</span><span style={{ opacity: 0.95 }}>piece</span> <span className="font-light">Architects</span>
+              <span style={{ color: "#555555" }} className="font-light">said</span><span style={{ opacity: 0.95 }}>piece</span> <span className="font-light">architects</span>
             </div>
           </motion.div>
         </MotionConfig>
