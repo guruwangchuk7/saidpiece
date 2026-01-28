@@ -20,12 +20,27 @@ const portfolioData = {
 
 function H4() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
+
+  const slideVariants = {
+    enter: (direction) => ({
+      x: direction > 0 ? "100%" : "-100%",
+    }),
+    center: {
+      x: 0,
+    },
+    exit: (direction) => ({
+      x: direction < 0 ? "100%" : "-100%",
+    }),
+  };
 
   const nextSlide = () => {
+    setDirection(1);
     setActiveIndex((prev) => (prev + 1) % portfolioData.image.length);
   };
 
   const prevSlide = () => {
+    setDirection(-1);
     setActiveIndex((prev) => (prev - 1 + portfolioData.image.length) % portfolioData.image.length);
   };
 
@@ -93,12 +108,14 @@ function H4() {
 
           {/* Mobile Carousel Container */}
           <div className="relative overflow-hidden rounded-lg">
-            <AnimatePresence initial={false}>
+            <AnimatePresence initial={false} custom={direction}>
               <motion.div
                 key={activeIndex}
-                initial={{ x: "100%" }}
-                animate={{ x: 0 }}
-                exit={{ x: "-100%" }}
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
                 transition={{ duration: 0.5, ease: "easeInOut" }}
                 className="w-full absolute inset-0"
               >
