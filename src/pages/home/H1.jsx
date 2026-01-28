@@ -15,7 +15,7 @@ function H1() {
             style={{ fontFamily: "century-gothic" }}
           >
             <div className="logo font-bold text-2xl sm:text-3xl md:text-5xl text-neutral-800 lg:text-7xl" style={{ fontFamily: "century-gothic" }}>
-              <span style={{ color: "#555555" }} className="font-light">Said</span><span style={{ opacity: 0.95 }}>piece</span> <span className="font-light">Architecture</span>
+              <span style={{ color: "#555555" }} className="font-light">said</span><span style={{ opacity: 0.95 }}>piece</span> <span className="font-light">Architects</span>
             </div>
             <div className="text-sm sm:text-base md:text-lg lg:text-xl mt-2 lg:mt-5 font-medium text-zinc-600 px-2">
               LET'S DESIGN, INNOVATE AND CREATE MINDFULLY
