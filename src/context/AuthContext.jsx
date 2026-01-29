@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
     const signInWithGoogle = () => supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-            redirectTo: window.location.origin
+            redirectTo: window.location.href
         }
     });
 

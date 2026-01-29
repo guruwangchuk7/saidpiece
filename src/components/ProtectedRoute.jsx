@@ -1,15 +1,31 @@
 import React, { useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const ProtectedRoute = () => {
     const { user, loading, setShowAuthModal } = useAuth();
+    const location = useLocation();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (!loading && !user) {
+            // Save where user wanted to go
+            console.log('Saving intended route:', location.pathname);
+            sessionStorage.setItem('intendedRoute', location.pathname);
             setShowAuthModal(true);
         }
-    }, [user, loading, setShowAuthModal]);
+    }, [user, loading, setShowAuthModal, location]);
+
+    // Redirect to intended route after login
+    useEffect(() => {
+        if (user) {
+            const intendedRoute = sessionStorage.getItem('intendedRoute');
+            if (intendedRoute && intendedRoute !== location.pathname) {
+                sessionStorage.removeItem('intendedRoute');
+                navigate(intendedRoute);
+            }
+        }
+    }, [user, navigate, location]);
 
     if (loading) {
         return <div className="flex h-screen items-center justify-center">Loading...</div>;

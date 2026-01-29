@@ -1,8 +1,11 @@
 // AuthModal Component - Login/Signup Modal with Google OAuth
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const AuthModal = () => {
+    const navigate = useNavigate();
+    const intendedRoute = sessionStorage.getItem('intendedRoute');
     const {
         showAuthModal,
         setShowAuthModal,
@@ -21,13 +24,24 @@ const AuthModal = () => {
     const [loading, setLoading] = useState(false);
     const [successMsg, setSuccessMsg] = useState('');
 
-    // Close modal if user logs in
+    // Close modal and redirect if user logs in
     useEffect(() => {
         if (user) {
+            console.log('User logged in, checking for redirect...');
             setShowAuthModal(false);
             setLoading(false);
+
+            // Redirect to intended route if exists
+            const savedRoute = sessionStorage.getItem('intendedRoute');
+            console.log('Saved route:', savedRoute);
+            if (savedRoute) {
+                console.log('Navigating to:', savedRoute);
+                sessionStorage.removeItem('intendedRoute');
+                navigate(savedRoute);
+            }
         }
-    }, [user, setShowAuthModal]);
+    }, [user, setShowAuthModal, navigate]);
+
 
     // Reset state when modal opens/closes or mode changes
     useEffect(() => {
@@ -94,6 +108,13 @@ const AuthModal = () => {
                 </button>
 
                 <div className="text-center mb-6">
+                    {intendedRoute && (
+                        <div className="mb-4 py-3 px-2 bg-blue-50 border border-blue-200 rounded-lg max-w-xs mx-auto">
+                            <p className="text-xs text-blue-800 font-medium">
+                                Login to see the portfolio
+                            </p>
+                        </div>
+                    )}
                     <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900 font-['Montserrat']">
                         {authMode === 'login' ? 'Sign in to your account' : 'Create a new account'}
                     </h2>
@@ -153,7 +174,7 @@ const AuthModal = () => {
                                         id="email"
                                         name="email"
                                         type="email"
-                                        autoComplete="email"
+                                        autoComplete="off"
                                         required
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
@@ -169,7 +190,7 @@ const AuthModal = () => {
                                         id="password"
                                         name="password"
                                         type="password"
-                                        autoComplete={authMode === 'login' ? "current-password" : "new-password"}
+                                        autoComplete="off"
                                         required
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
@@ -186,7 +207,7 @@ const AuthModal = () => {
                                             id="confirm-password"
                                             name="confirm-password"
                                             type="password"
-                                            autoComplete="new-password"
+                                            autoComplete="off"
                                             required
                                             value={confirmPassword}
                                             onChange={(e) => setConfirmPassword(e.target.value)}
