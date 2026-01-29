@@ -14,11 +14,8 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname === '/contact') {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
+    // Ensure body is scrollable on all pages
+    document.body.style.overflow = 'auto';
     return () => {
       document.body.style.overflow = 'auto';
     };

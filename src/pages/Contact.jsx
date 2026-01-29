@@ -74,7 +74,7 @@ const ContactContentSection = () => (
 
 function Contact() {
   return (
-    <div className="relative flex flex-col bg-white px-6 lg:px-20 py-4 lg:py-6 overflow-hidden">
+    <div className="relative flex flex-col bg-white px-6 lg:px-20 py-4 lg:py-8 pb-32 lg:pb-12">
       <BackButton />
 
       {/* Main Layout: Stack on Mobile, Row on Desktop */}
