@@ -190,6 +190,8 @@ const Team = () => {
                 const handleClick = (e) => {
                   if (isProtected && !user) {
                     e.preventDefault();
+                    // Save the portfolio page they want to visit
+                    sessionStorage.setItem('intendedRoute', `/team/${member.slug}`);
                     setShowAuthModal(true);
                   }
                 };

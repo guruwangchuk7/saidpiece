@@ -5,7 +5,6 @@ import { useAuth } from '../context/AuthContext';
 
 const AuthModal = () => {
     const navigate = useNavigate();
-    const intendedRoute = sessionStorage.getItem('intendedRoute');
     const {
         showAuthModal,
         setShowAuthModal,
@@ -16,6 +15,11 @@ const AuthModal = () => {
         signInWithGoogle,
         user
     } = useAuth();
+
+    // Read intendedRoute inside component to ensure it's fresh on re-renders
+    const savedRoute = sessionStorage.getItem('intendedRoute');
+    const isProtectedPortfolio = savedRoute && savedRoute.startsWith('/team/') && savedRoute !== '/team/thinley-dhendup';
+
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -108,10 +112,10 @@ const AuthModal = () => {
                 </button>
 
                 <div className="text-center mb-6">
-                    {intendedRoute && (
+                    {savedRoute && (
                         <div className="mb-4 py-3 px-2 bg-blue-50 border border-blue-200 rounded-lg max-w-xs mx-auto">
-                            <p className="text-xs text-blue-800 font-medium">
-                                Login to see the portfolio
+                            <p className="text-xs text-blue-800 font-medium lowercase">
+                                {isProtectedPortfolio ? 'login to see the portfolio' : 'login to continue'}
                             </p>
                         </div>
                     )}
@@ -147,14 +151,7 @@ const AuthModal = () => {
                             onClick={handleGoogleLogin}
                             className="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent transition-colors"
                         >
-                            <svg className="h-5 w-5" aria-hidden="true" viewBox="0 0 24 24">
-                                <path d="M12.0003 20.45c4.6593 0 8.361-3.8687 8.1691-8.5884H12.0003v-3.3275h11.4593C23.5714 8.9712 23.6364 9.4705 23.6364 10c0 6.6274-5.3726 12-12 12-6.6274 0-12-5.3726-12-12s5.3726-12 12-12c3.0587 0 5.8422 1.1539 7.962 3.039l-2.4545 2.4545C15.6558 4.2952 13.9113 3.4545 12.0003 3.4545c-4.6644 0-8.5455 3.7317-8.5455 8.5455 0 4.8137 3.881 8.5455 8.5455 8.5455z" fill="currentColor" opacity="0.5" />
-                                <path d="M11.963 20.45V17.0682C10.6384 16.9238 9.3879 16.4251 8.3541 15.642L6.1627 17.558C8.5028 19.5394 11.2334 20.5516 11.963 20.45z" fill="#34A853" />
-                                <path d="M4.606 14.5097C4.1678 13.0645 4.1678 11.4808 4.606 10.0356L2.3412 8.1883C1.0487 11.0256 1.0487 14.2464 2.3412 17.0837L4.606 14.5097z" fill="#FBBC05" />
-                                <path d="M11.963 3.45455c-1.8906 0-3.6163.7431-4.8973 1.9405L4.54545 2.9405C6.5273 1.10325 9.1764 0 11.963 0c3.9575 0 7.3789 2.0628 9.2595 5.1764L18.991 7.63295C17.6596 5.1953 15.0219 3.45455 11.963 3.45455z" fill="#EA4335" />
-                                <path d="M23.2373 10c0-.6231-.0594-1.2299-.1689-1.8173H11.963v3.6346h6.4631c-.3286 1.5878-1.2505 2.9698-2.5204 3.9056l2.3087 2.007C21.731 15.2863 23.2373 12.8711 23.2373 10z" fill="#4285F4" />
-                            </svg>
-                            <span className="text-sm font-semibold leading-6">Continue with Google</span>
+                            Continue with Google
                         </button>
 
                         <div className="relative">

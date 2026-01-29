@@ -4,7 +4,7 @@ import { useNav } from './VisiblityContext';
 import ham from '../../assets/icons/ham.svg'
 
 const ToggleNavbarBtn = () => {
-  const { toggle, open } = useNav(); 
+  const { toggle, open } = useNav();
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
@@ -17,10 +17,12 @@ const ToggleNavbarBtn = () => {
 
   return createPortal(
     <div
-      onClick={toggle}
-      className={`fixed top-[.5%] right-[2%] z-40 cursor-pointer text-xl ${
-        open ? 'text-red-300' : 'text-green-300'
-      }`}
+      onClick={() => {
+        console.log('Menu toggle button clicked');
+        toggle();
+      }}
+      className={`fixed top-[.5%] right-[2%] z-40 cursor-pointer text-xl ${open ? 'text-red-300' : 'text-green-300'
+        }`}
     >
       <img src={ham} alt="" />
     </div>,

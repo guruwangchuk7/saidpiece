@@ -1,4 +1,4 @@
-import React, { use, useState } from 'react'
+import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import ham from '../assets/icons/ham.svg'
 import close from '../assets/icons/close.svg'
@@ -14,13 +14,11 @@ function Navbar() {
     setIsOpen(!isOpen);
   }
 
-  // Get user's display name from metadata or email
+  // Get user's first name from metadata or email
   const getUserName = () => {
     if (!user) return '';
-    return user.user_metadata?.full_name ||
-      user.user_metadata?.name ||
-      user.email?.split('@')[0] ||
-      'User';
+    const full_name = user.user_metadata?.full_name || user.user_metadata?.name || user.email?.split('@')[0] || 'User';
+    return full_name.split(' ')[0];
   };
 
   // Get user's avatar URL
@@ -46,7 +44,7 @@ function Navbar() {
       </div>
 
       {/* Login Button / User Profile */}
-      <div className='flex items-center justify-end gap-2 relative w-40 sm:w-52 lg:w-60 pr-10'>
+      <div className='flex items-center justify-end gap-2 relative w-40 sm:w-52 lg:w-60 pr-14'>
         {user ? (
           <div className='relative'>
             <button
@@ -115,8 +113,12 @@ function Navbar() {
           </div>
         ) : (
           <button
-            onClick={() => setShowAuthModal(true)}
-            className='text-[11px] sm:text-xs lg:text-sm font-medium text-gray-700 underline hover:text-black transition-colors -mt-2 mr-2 sm:mr-5'
+            onClick={() => {
+              console.log('Login button clicked in Navbar');
+              sessionStorage.setItem('intendedRoute', window.location.pathname);
+              setShowAuthModal(true);
+            }}
+            className='text-[11px] sm:text-xs lg:text-sm font-medium text-gray-700 underline hover:text-black transition-colors -mt-3 mr-2 sm:mr-5'
           >
             Login
           </button>

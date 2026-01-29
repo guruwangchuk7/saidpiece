@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { NavLink } from "react-router";
+import { NavLink } from "react-router-dom";
 import { motion, AnimatePresence, easeInOut } from "motion/react";
 import { useNav } from "./VisiblityContext";
 import rightArrowWhite from "../../assets/icons/rightArrowWhite.svg";
