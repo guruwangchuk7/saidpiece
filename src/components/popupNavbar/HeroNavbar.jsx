@@ -93,55 +93,8 @@ const HeroNavbar = () => {
                   </NavLink>
                 ))}
               </nav>
-            </div>
-
-            <div className="p-2 text-left flex flex-col justify-end pb-10 lg:pr-32 w-full lg:w-auto">
-              <div className="hidden lg:flex flex-col gap-6 text-xl font-light text-[gray]">
-
-                {/* Header */}
-                <div className="text-base text-white mb-2">General contacts</div>
-
-                {/* Email Section */}
-                <div className="flex flex-col gap-2">
-                  <span>E:</span>
-                  <a href="mailto:thinley@saidpiece.com" className="w-fit border-b border-gray-500 hover:border-white hover:text-white transition-all duration-300">
-                    thinley@saidpiece.com
-                  </a>
-                </div>
-
-                {/* Phone Section */}
-                <div className="flex flex-col gap-2">
-                  <span>P:</span>
-                  <div className="flex flex-col">
-                    <span className="w-fit">
-                      +975 17899794 (BHT)
-                    </span>
-                    <span className="w-fit">
-                      +66 931205085 (TH)
-                    </span>
-                  </div>
-                </div>
-
-                {/* Social Media Section */}
-                <div className="flex flex-col gap-2">
-                  <span className="w-fit">S.M:</span>
-                  <div className="flex flex-wrap gap-x-1 max-w-[250px]">
-                    <a href="https://instagram.com" target="_blank" rel="noreferrer" className="hover:text-white transition-all duration-300">Instagram,</a>
-                    <a href="https://facebook.com" target="_blank" rel="noreferrer" className="hover:text-white transition-all duration-300">Facebook,</a>
-                    <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-white transition-all duration-300">LinkedIn</a>
-                  </div>
-                </div>
-
-              </div>
-
-              {/* Contact Us Button - Styled like Footer/Navbar List */}
-              <NavLink to="/contact" onClick={close} className="btn3 mt-10 md:mt-6 flex items-center gap-10 py-4 w-fit">
-                <span className="txt text-base tracking-widest">CONTACT US</span>
-                <img src={rightArrowWhite} alt="" className="image w-6" />
-              </NavLink>
-
-              {/* Login/User Profile Section */}
-              <div className="mt-8">
+              {/* Login/User Profile Section - Moved to left side */}
+              <div className="mt-20">
                 {user ? (
                   <div className="relative">
                     <button
@@ -214,7 +167,7 @@ const HeroNavbar = () => {
                     onClick={() => {
                       sessionStorage.setItem("intendedRoute", window.location.pathname);
                       setShowAuthModal(true);
-                      close();
+                      // close(); // Removed to keep navbar open on login click
                     }}
                     className="btn3 flex items-center gap-10 py-4 w-fit"
                   >
@@ -225,6 +178,52 @@ const HeroNavbar = () => {
                   </button>
                 )}
               </div>
+            </div>
+
+            <div className="p-2 text-left flex flex-col justify-end pb-10 lg:pr-32 w-full lg:w-auto">
+              <div className="hidden lg:flex flex-col gap-6 text-xl font-light text-[gray]">
+
+                {/* Header */}
+                <div className="text-base text-white mb-2">General contacts</div>
+
+                {/* Email Section */}
+                <div className="flex flex-col gap-2">
+                  <span>E:</span>
+                  <a href="mailto:thinley@saidpiece.com" className="w-fit border-b border-gray-500 hover:border-white hover:text-white transition-all duration-300">
+                    thinley@saidpiece.com
+                  </a>
+                </div>
+
+                {/* Phone Section */}
+                <div className="flex flex-col gap-2">
+                  <span>P:</span>
+                  <div className="flex flex-col">
+                    <span className="w-fit">
+                      +975 17899794 (BHT)
+                    </span>
+                    <span className="w-fit">
+                      +66 931205085 (TH)
+                    </span>
+                  </div>
+                </div>
+
+                {/* Social Media Section */}
+                <div className="flex flex-col gap-2">
+                  <span className="w-fit">S.M:</span>
+                  <div className="flex flex-wrap gap-x-1 max-w-[250px]">
+                    <a href="https://instagram.com" target="_blank" rel="noreferrer" className="hover:text-white transition-all duration-300">Instagram,</a>
+                    <a href="https://facebook.com" target="_blank" rel="noreferrer" className="hover:text-white transition-all duration-300">Facebook,</a>
+                    <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-white transition-all duration-300">LinkedIn</a>
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Contact Us Button - Styled like Footer/Navbar List */}
+              <NavLink to="/contact" onClick={close} className="btn3 mt-10 md:mt-6 -translate-y-[2cm] md:translate-y-0 flex items-center gap-10 py-4 w-fit">
+                <span className="txt text-base tracking-widest">CONTACT US</span>
+                <img src={rightArrowWhite} alt="" className="image w-6" />
+              </NavLink>
             </div>
           </div>
         </motion.div>
