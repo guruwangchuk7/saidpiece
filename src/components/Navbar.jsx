@@ -40,7 +40,7 @@ function Navbar() {
         <span style={{ color: "#555555" }} className="font-light">said</span><span style={{ opacity: 0.95 }}>piece</span>
       </div>
       <div className='hidden md:flex absolute left-1/2 -translate-x-1/2 font-normal text-[12px] lg:text-[14px] text-center flex-col gap-1 items-center'>
-        <div>STORE / ART FOUNDATION</div>
+        <div>STORE | ART FOUNDATION</div>
       </div>
 
       <div className='flex items-center justify-end w-40 sm:w-52 lg:w-60 pr-14'>
