@@ -60,11 +60,11 @@ const ContactContentSection = () => (
   <div className="flex flex-col-reverse lg:flex-row items-start gap-10 lg:gap-8">
     <ContactInfo />
 
-    <div className="w-full h-auto lg:w-125 lg:h-125 self-start shrink-0">
+    <div className="w-full h-auto lg:w-110 lg:max-h-[60vh] self-start shrink-0">
       <img
         src={officeImage}
         alt="Saidpiece office"
-        className="w-full h-auto lg:h-full object-cover rounded-sm"
+        className="w-full h-auto lg:h-full lg:max-h-[60vh] object-cover rounded-sm"
       />
     </div>
   </div>
@@ -74,11 +74,11 @@ const ContactContentSection = () => (
 
 function Contact() {
   return (
-    <div className="h-screen relative flex flex-col bg-white px-6 lg:px-20 py-4 lg:py-10 overflow-hidden">
+    <div className="relative flex flex-col bg-white px-6 lg:px-20 py-4 lg:py-6 overflow-hidden">
       <BackButton />
 
       {/* Main Layout: Stack on Mobile, Row on Desktop */}
-      <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start w-full mt-16 sm:mt-20 lg:mt-32 gap-8 lg:gap-0">
+      <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start w-full mt-10 sm:mt-16 lg:mt-24 gap-6 lg:gap-0">
 
         {/* Left Side (Desktop) / Top (Mobile) */}
         <ContactHeader />
