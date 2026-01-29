@@ -21,11 +21,11 @@ function H1() {
         </MotionConfig>
       </div>
 
-      <div className="h-[60vh] sm:h-[70vh] md:h-[80vh] mx-3 sm:mx-5 md:mx-10 lg:mx-20 mt-10 sm:mt-[28vh] lg:mt-[14vh] overflow-hidden flex justify-center items-center">
+      <div className="h-auto sm:h-[82vh] md:h-[92vh] mx-3 sm:mx-5 md:mx-10 lg:mx-20 mt-10 sm:mt-[28vh] lg:mt-[14vh] overflow-hidden flex justify-center items-center">
         <img
           src={kinleyPhoto}
           alt="Kinley"
-          className="w-full h-full object-cover object-center"
+          className="w-full h-auto sm:h-full object-contain sm:object-cover object-center"
         />
       </div>
     </div>
