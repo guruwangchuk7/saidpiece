@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from 'react';
 
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { NavLink } from 'react-router-dom';
+import rightArrow from '../assets/icons/rightArrow.svg';
 import H5 from './home/H5';
 
 // Register GSAP plugins
@@ -123,6 +125,13 @@ function About() {
 
   return (
     <main ref={mainRef} className="w-full flex flex-col bg-zinc-50 antialiased text-zinc-800 relative">
+      <NavLink
+        to="/"
+        className="absolute top-6 left-4 lg:top-10 lg:left-10 flex items-center gap-2 text-sm font-medium hover:underline z-20 text-white"
+      >
+        <img src={rightArrow} alt="Back" className="w-4 h-4 rotate-180 invert" />
+        <span>Back to home</span>
+      </NavLink>
 
 
       {/* === HERO SECTION === */}
