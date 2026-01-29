@@ -7,7 +7,7 @@ function H2() {
   const data = {
     heading: "STUDIO OF ARCHITECTURE AND DESIGN",
     about:
-      "SAIDPIECE Architects has completed projects across Bhutan and abroad, specializing in architectural design, urban planning, interior design, engineering, and construction consultancy. Guided by the principles of Gross National Happiness, we merge sustainability, creativity, and precision to deliver innovative and culturally authentic solutions.",
+      "Saidpiece Architects has completed projects across Bhutan and abroad, specializing in architectural design, urban planning, interior design, engineering, and construction consultancy. Guided by the principles of Gross National Happiness, we merge sustainability, creativity, and precision to deliver innovative, culturally authentic design solutions.",
     publication:
       "Our work aspires to contribute to leading global and regional design platforms and journals, sharing Bhutan’s unique architectural vision with the world.",
     imgData: [ci1],

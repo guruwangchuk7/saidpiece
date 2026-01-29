@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { NavLink } from 'react-router-dom';
+
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import H5 from './home/H5';
@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 import aboutUsImg from '../assets/aboutusphoto/aboutus.jpg';
 import philosophyImg from '../assets/homephoto/mainbg.svg';
 import teamImg from '../assets/homephoto/page3Bg.jpg';
-import rightArrow from '../assets/icons/rightArrow.svg';
+
 
 // --- SVG Icons ---
 const IconHarmony = () => (
@@ -123,10 +123,7 @@ function About() {
 
   return (
     <main ref={mainRef} className="w-full flex flex-col bg-zinc-50 antialiased text-zinc-800 relative">
-      <NavLink to="/" className="absolute top-10 left-4 z-50 flex items-center gap-2 text-sm font-medium text-white hover:underline">
-        <img src={rightArrow} alt="back" className="w-4 h-4 rotate-180 brightness-0 invert" />
-        <span>Back to home</span>
-      </NavLink>
+
 
       {/* === HERO SECTION === */}
       <header
