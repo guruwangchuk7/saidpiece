@@ -7,9 +7,12 @@ import Footer from "./components/Footer";
 import HeroNavbar from "./components/popupNavbar/HeroNavbar";
 import ToggleNavbarBtn from "./components/popupNavbar/ToggleNavbarBtn";
 
+import AuthModal from "./components/AuthModal";
+
 function App() {
   return (
     <div className="relative">
+      <AuthModal />
       <ScrollToTop />
       <div className="absolute top-0">
         <VisibilityProvider>

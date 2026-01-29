@@ -17,6 +17,9 @@ import AshPortfolio from './pages/team/portfolios/AshPortfolio.jsx'
 import OceanRaiPortfolio from './pages/team/portfolios/OceanRaiPortfolio.jsx'
 import TashiDendupPortfolio from './pages/team/portfolios/TashiDendupPortfolio.jsx'
 import GuruWangchukPortfolio from './pages/team/portfolios/GuruWangchukPortfolio.jsx'
+import { AuthProvider } from './context/AuthContext.jsx'
+import ProtectedRoute from './components/ProtectedRoute.jsx'
+import Dashboard from './pages/Dashboard.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,19 +31,24 @@ const router = createBrowserRouter(
       <Route path='portfolio/gallery/:id' element={<ProjectGallery />}></Route>
       <Route path='team' element={<Team />}></Route>
       <Route path='team/thinley-dhendup' element={<ThinleyDhendupPortfolio />}></Route>
-      <Route path='team/kinley-wangdi' element={<KinleyWangdiPortfolio />}></Route>
-      <Route path='team/ash' element={<AshPortfolio />}></Route>
-      <Route path='team/ocean-rai' element={<OceanRaiPortfolio />}></Route>
-      <Route path='team/tashi-dendup' element={<TashiDendupPortfolio />}></Route>
-      <Route path='team/guru-wangchuk' element={<GuruWangchukPortfolio />}></Route>
       <Route path='legal' element={<Legal />}></Route>
       <Route path='store' element={<Store />}></Route>
+
+      <Route element={<ProtectedRoute />}>
+        <Route path='dashboard' element={<Dashboard />}></Route>
+        <Route path='team/kinley-wangdi' element={<KinleyWangdiPortfolio />}></Route>
+        <Route path='team/ash' element={<AshPortfolio />}></Route>
+        <Route path='team/ocean-rai' element={<OceanRaiPortfolio />}></Route>
+        <Route path='team/tashi-dendup' element={<TashiDendupPortfolio />}></Route>
+        <Route path='team/guru-wangchuk' element={<GuruWangchukPortfolio />}></Route>
+      </Route>
     </Route>
   )
 )
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>
 )
-

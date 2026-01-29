@@ -1,0 +1,69 @@
+
+import { createContext, useContext, useEffect, useState } from 'react';
+import { supabase } from '../supabaseClient';
+
+const AuthContext = createContext({});
+
+export const useAuth = () => useContext(AuthContext);
+
+export const AuthProvider = ({ children }) => {
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [showAuthModal, setShowAuthModal] = useState(false);
+    const [authMode, setAuthMode] = useState('login'); // 'login' or 'signup'
+
+    useEffect(() => {
+        // Check active sessions and sets the user
+        const checkSession = async () => {
+            try {
+                const { data: { session } } = await supabase.auth.getSession();
+                setUser(session?.user ?? null);
+            } catch (error) {
+                console.error("Error checking session:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        checkSession();
+
+        // Listen for changes on auth state (logged in, signed out, etc.)
+        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+            setUser(session?.user ?? null);
+            setLoading(false);
+        });
+
+        return () => subscription.unsubscribe();
+    }, []);
+
+    const signUp = (email, password) => supabase.auth.signUp({ email, password });
+    const signIn = (email, password) => supabase.auth.signInWithPassword({ email, password });
+
+    const signInWithGoogle = () => supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+            redirectTo: window.location.origin
+        }
+    });
+
+    const signOut = () => supabase.auth.signOut();
+
+    const value = {
+        signUp,
+        signIn,
+        signInWithGoogle,
+        signOut,
+        user,
+        loading,
+        showAuthModal,
+        setShowAuthModal,
+        authMode,
+        setAuthMode
+    };
+
+    return (
+        <AuthContext.Provider value={value}>
+            {!loading && children}
+        </AuthContext.Provider>
+    );
+};
