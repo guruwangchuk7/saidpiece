@@ -101,7 +101,7 @@ const AuthModal = () => {
             ></div>
 
             {/* Modal Content */}
-            <div className="relative z-10 w-full max-w-md bg-white p-6 sm:p-8 shadow-2xl rounded-3xl mx-4 animate-in fade-in zoom-in duration-300">
+            <div className="relative z-10 w-full max-w-sm bg-white p-6 sm:p-7 shadow-2xl rounded-3xl mx-4 animate-in fade-in zoom-in duration-300">
                 <button
                     onClick={() => setShowAuthModal(false)}
                     className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"

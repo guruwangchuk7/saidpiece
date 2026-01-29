@@ -74,11 +74,11 @@ const ContactContentSection = () => (
 
 function Contact() {
   return (
-    <div className="min-h-screen relative flex flex-col bg-white px-6 lg:px-20 py-4 lg:py-10">
+    <div className="h-screen relative flex flex-col bg-white px-6 lg:px-20 py-4 lg:py-10 overflow-hidden">
       <BackButton />
 
       {/* Main Layout: Stack on Mobile, Row on Desktop */}
-      <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start w-full mt-20 lg:mt-32 gap-12 lg:gap-0">
+      <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start w-full mt-16 sm:mt-20 lg:mt-32 gap-8 lg:gap-0">
 
         {/* Left Side (Desktop) / Top (Mobile) */}
         <ContactHeader />

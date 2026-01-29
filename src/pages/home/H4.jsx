@@ -67,7 +67,9 @@ function H4() {
                 whileHover={{ x: 10 }}
                 className="group"
               >
-                <Btn2 title={item} idx={index + 1} active={activeIndex === index} />
+                <NavLink to="/portfolio">
+                  <Btn2 title={item} idx={index + 1} active={activeIndex === index} />
+                </NavLink>
               </motion.div>
             ))}
           </div>
@@ -82,13 +84,17 @@ function H4() {
               viewport={{ amount: 0.5 }}
               className="w-full"
             >
-              <img
-                src={item}
-                alt={`Project ${index + 1}`}
-                className="w-full h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[85vh] object-cover shadow-zinc-900/5 transition-transform duration-700 ease-out"
-              />
+              <NavLink to="/portfolio">
+                <img
+                  src={item}
+                  alt={`Project ${index + 1}`}
+                  className="w-full h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[85vh] object-cover shadow-zinc-900/5 transition-transform duration-700 ease-out hover:scale-[1.02]"
+                />
+              </NavLink>
               <div className="mt-3 sm:mt-4 text-center md:text-left">
-                <span className="text-sm sm:text-base font-medium block">{portfolioData.name[index]}</span>
+                <NavLink to="/portfolio" className="hover:underline">
+                  <span className="text-sm sm:text-base font-medium block">{portfolioData.name[index]}</span>
+                </NavLink>
               </div>
             </motion.div>
           ))}
@@ -119,11 +125,13 @@ function H4() {
                 transition={{ duration: 0.5, ease: "easeInOut" }}
                 className="w-full absolute inset-0"
               >
-                <img
-                  src={portfolioData.image[activeIndex]}
-                  alt={portfolioData.name[activeIndex]}
-                  className="w-full h-[60vh] sm:h-[65vh] object-cover"
-                />
+                <NavLink to="/portfolio">
+                  <img
+                    src={portfolioData.image[activeIndex]}
+                    alt={portfolioData.name[activeIndex]}
+                    className="w-full h-[60vh] sm:h-[65vh] object-cover"
+                  />
+                </NavLink>
               </motion.div>
             </AnimatePresence>
             <div className="w-full h-[60vh] sm:h-[65vh]"></div>

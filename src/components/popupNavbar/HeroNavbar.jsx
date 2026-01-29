@@ -4,11 +4,14 @@ import { NavLink } from "react-router-dom";
 import { motion, AnimatePresence, easeInOut } from "motion/react";
 import { useNav } from "./VisiblityContext";
 import rightArrowWhite from "../../assets/icons/rightArrowWhite.svg";
+import { useAuth } from "../../context/AuthContext";
 import Footer from "../Footer";
 
 const HeroNavbar = () => {
   const { open, close } = useNav();
+  const { user, setShowAuthModal, signOut } = useAuth();
   const [mounted, setMounted] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
   useEffect(() => setMounted(true), []);
 
   const container =
@@ -30,6 +33,30 @@ const HeroNavbar = () => {
     hidden: { opacity: 0, y: -100 },
     visible: { opacity: 1, y: 0 },
     exit: { opacity: 0, y: 100 },
+  };
+
+  // Get user's first name
+  const getUserName = () => {
+    if (!user) return "";
+    const full_name =
+      user.user_metadata?.full_name ||
+      user.user_metadata?.name ||
+      user.email?.split("@")[0] ||
+      "User";
+    return full_name.split(" ")[0];
+  };
+
+  // Get user's avatar URL
+  const getAvatarUrl = () => {
+    if (!user) return null;
+    return (
+      user.user_metadata?.avatar_url || user.user_metadata?.picture || null
+    );
+  };
+
+  const handleLogout = async () => {
+    await signOut();
+    setShowDropdown(false);
   };
 
   return createPortal(
@@ -108,10 +135,96 @@ const HeroNavbar = () => {
               </div>
 
               {/* Contact Us Button - Styled like Footer/Navbar List */}
-              <NavLink to="/contact" onClick={close} className="btn3 mt-20 md:mt-6 flex items-center gap-10 py-4 w-fit">
+              <NavLink to="/contact" onClick={close} className="btn3 mt-10 md:mt-6 flex items-center gap-10 py-4 w-fit">
                 <span className="txt text-base tracking-widest">CONTACT US</span>
                 <img src={rightArrowWhite} alt="" className="image w-6" />
               </NavLink>
+
+              {/* Login/User Profile Section */}
+              <div className="mt-8">
+                {user ? (
+                  <div className="relative">
+                    <button
+                      onClick={() => setShowDropdown(!showDropdown)}
+                      className="btn3 flex items-center gap-6 py-4 w-fit group"
+                    >
+                      {getAvatarUrl() ? (
+                        <img
+                          src={getAvatarUrl()}
+                          alt={getUserName()}
+                          className="w-8 h-8 rounded-full object-cover border-2 border-zinc-700"
+                        />
+                      ) : (
+                        <div className="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center text-xs font-bold">
+                          {getUserName().charAt(0).toUpperCase()}
+                        </div>
+                      )}
+                      <span className="txt text-base tracking-widest uppercase">
+                        HI, {getUserName()}
+                      </span>
+                      <svg
+                        className={`w-4 h-4 text-white transition-transform duration-300 ${showDropdown ? "rotate-180" : ""}`}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </button>
+
+                    {showDropdown && (
+                      <div className="absolute left-0 mt-4 w-64 bg-zinc-800 border border-zinc-700 rounded-xl overflow-hidden shadow-2xl z-50">
+                        <div className="px-6 py-4 border-b border-zinc-700">
+                          <p className="text-sm font-medium text-white">
+                            {user.user_metadata?.full_name || user.email}
+                          </p>
+                          <p className="text-xs text-zinc-400 truncate mt-1">
+                            {user.email}
+                          </p>
+                        </div>
+                        <NavLink
+                          to="/dashboard"
+                          onClick={() => {
+                            setShowDropdown(false);
+                            close();
+                          }}
+                          className="block px-6 py-4 text-sm text-zinc-300 hover:bg-zinc-700 transition-colors"
+                        >
+                          Dashboard
+                        </NavLink>
+                        <button
+                          onClick={() => {
+                            handleLogout();
+                            close();
+                          }}
+                          className="w-full text-left px-6 py-4 text-sm text-red-400 hover:bg-red-900/20 transition-colors"
+                        >
+                          Logout
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => {
+                      sessionStorage.setItem("intendedRoute", window.location.pathname);
+                      setShowAuthModal(true);
+                      close();
+                    }}
+                    className="btn3 flex items-center gap-10 py-4 w-fit"
+                  >
+                    <span className="txt text-base tracking-widest uppercase">
+                      LOGIN
+                    </span>
+                    <img src={rightArrowWhite} alt="" className="image w-6" />
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </motion.div>
