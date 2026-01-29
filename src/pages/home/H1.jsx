@@ -1,5 +1,5 @@
 import React from "react";
-import mainBg from "../../assets/homephoto/mainbg.svg";
+import kinleyPhoto from "../../assets/homephoto/kinleylaptop.JPG";
 import { motion, MotionConfig, useScroll } from "motion/react";
 
 function H1() {
@@ -21,15 +21,13 @@ function H1() {
         </MotionConfig>
       </div>
 
-      <div
-        className="h-[60vh] sm:h-[70vh] md:h-[80vh] border mx-3 sm:mx-5 md:mx-10 lg:mx-20 mt-10 sm:mt-[40vh] lg:mt-[20vh]"
-        style={{
-          background: `url(${mainBg})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      />
+      <div className="h-[60vh] sm:h-[70vh] md:h-[80vh] mx-3 sm:mx-5 md:mx-10 lg:mx-20 mt-10 sm:mt-[28vh] lg:mt-[14vh] overflow-hidden flex justify-center items-center">
+        <img
+          src={kinleyPhoto}
+          alt="Kinley"
+          className="w-full h-full object-cover object-center"
+        />
+      </div>
     </div>
   );
 }

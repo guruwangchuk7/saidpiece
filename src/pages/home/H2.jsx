@@ -1,5 +1,5 @@
 import React from "react";
-import ci1 from "../../assets/homephoto/ci1.svg";
+import homemain from "../../assets/homephoto/homemain.png";
 import BtnT1 from "../../components/ButtonType1";
 import { NavLink } from 'react-router-dom'
 
@@ -10,7 +10,7 @@ function H2() {
       "Saidpiece Architects has completed projects across Bhutan and abroad, specializing in architectural design, urban planning, interior design, engineering, and construction consultancy. Guided by the principles of Gross National Happiness, we merge sustainability, creativity, and precision to deliver innovative, culturally authentic design solutions.",
     publication:
       "Our work aspires to contribute to leading global and regional design platforms and journals, sharing Bhutan’s unique architectural vision with the world.",
-    imgData: [ci1],
+    imgData: [homemain],
   };
 
   return (
