@@ -21,6 +21,11 @@ const portfolioData = {
 function H4() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState(0);
+  const projectRefs = React.useRef([]);
+
+  const handleScroll = (index) => {
+    projectRefs.current[index]?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
 
   const slideVariants = {
     enter: (direction) => ({
@@ -65,7 +70,8 @@ function H4() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 whileHover={{ x: 10 }}
-                className="group"
+                className="group cursor-pointer"
+                onClick={() => handleScroll(index)}
               >
                 <Btn2 title={item} idx={index + 1} active={activeIndex === index} />
               </motion.div>
@@ -78,14 +84,32 @@ function H4() {
           {portfolioData.image.map((item, index) => (
             <motion.div
               key={index}
+              ref={(el) => (projectRefs.current[index] = el)}
               onViewportEnter={() => setActiveIndex(index)}
               viewport={{ amount: 0.5 }}
               className="w-full"
             >
-              <img
+              <motion.img
                 src={item}
                 alt={`Project ${index + 1}`}
                 className="w-full h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[85vh] object-cover shadow-zinc-900/5 transition-transform duration-700 ease-out hover:scale-[1.02]"
+                animate={
+                  index === 2 && activeIndex === 2
+                    ? {
+                      objectPosition: ["center top", "center bottom"],
+                    }
+                    : { objectPosition: "center center" }
+                }
+                transition={
+                  index === 2 && activeIndex === 2
+                    ? {
+                      duration: 5,
+                      repeat: Infinity,
+                      repeatType: "mirror",
+                      ease: "linear",
+                    }
+                    : { duration: 0.5 }
+                }
               />
               <div className="mt-3 sm:mt-4 text-center md:text-left">
                 <span className="text-sm sm:text-base font-medium block">{portfolioData.name[index]}</span>
