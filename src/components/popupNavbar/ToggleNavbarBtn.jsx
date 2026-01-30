@@ -21,7 +21,7 @@ const ToggleNavbarBtn = () => {
         console.log('Menu toggle button clicked');
         toggle();
       }}
-      className={`fixed top-[.5%] right-[2%] z-40 cursor-pointer text-xl ${open ? 'text-red-300' : 'text-green-300'
+      className={`fixed top-[.5%] right-[2%] z-40 cursor-pointer text-xl transition-opacity duration-500 ease-in-out ${open ? 'opacity-0 pointer-events-none' : 'opacity-100'
         }`}
     >
       <img src={ham} alt="" />
