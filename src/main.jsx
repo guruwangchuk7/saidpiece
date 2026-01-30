@@ -10,7 +10,6 @@ import About from './pages/About.jsx'
 import Portfolio from './pages/Portfolio/Portfolio.jsx'
 import ProjectGallery from './pages/Portfolio/ProjectGallery.jsx'
 import Legal from './pages/Legal.jsx'
-import Store from './pages/store/store.jsx'
 import ThinleyDhendupPortfolio from './pages/team/portfolios/ThinleyDhendupPortfolio.jsx'
 import KinleyWangdiPortfolio from './pages/team/portfolios/KinleyWangdiPortfolio.jsx'
 import AshPortfolio from './pages/team/portfolios/AshPortfolio.jsx'
@@ -32,7 +31,6 @@ const router = createBrowserRouter(
       <Route path='team' element={<Team />}></Route>
       <Route path='team/thinley-dhendup' element={<ThinleyDhendupPortfolio />}></Route>
       <Route path='legal' element={<Legal />}></Route>
-      <Route path='store' element={<Store />}></Route>
 
       <Route element={<ProtectedRoute />}>
         <Route path='dashboard' element={<Dashboard />}></Route>

@@ -1,7 +1,7 @@
 
 import photo1 from '../assets/project-photo/1.jpg';
-import photo2 from '../assets/project-photo/2.jpg';
-import photo3 from '../assets/project-photo/3.jpg';
+import photo2 from '../assets/project-photo/electricity.jpg';
+import photo3 from '../assets/project-photo/bank.jpg';
 import photo4 from '../assets/project-photo/4.jpg';
 import photo5 from '../assets/project-photo/5.jpg';
 import photo6 from '../assets/project-photo/6.jpg';
@@ -21,7 +21,7 @@ export const portfolioItems = [
     {
         id: 2,
         image: photo2,
-        title: 'Heritage House',
+        title: 'Electricity Regulatory Authority',
         subtitle: 'Cultural restoration',
         location: 'Punakha',
         description: "A meticlous restoration of a 150-year-old traditional Bhutanese farmhouse. The project required careful structural reinforcement using traditional rammed earth techniques combined with modern hidden supports. The result is a vibrant cultural center that teaches visitors about the architectural history of the Punakha valley.",
