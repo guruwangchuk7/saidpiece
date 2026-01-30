@@ -151,7 +151,7 @@ const Portfolio = () => {
             {/* Card Modal */}
             <motion.div
               layoutId={`card-container-${selectedId}`}
-              className="w-full h-[85vh] sm:h-[90vh] md:h-[90vh] md:max-w-[90vw] bg-white md:rounded-lg shadow-2xl overflow-hidden relative z-10 pointer-events-auto flex flex-col md:flex-row rounded-t-2xl md:rounded-lg"
+              className="w-full h-[85vh] sm:h-[90vh] md:h-[90vh] md:max-w-[90vw] bg-white md:rounded-lg shadow-2xl overflow-hidden relative z-10 pointer-events-auto flex flex-col md:flex-row rounded-t-2xl"
             >
               <button
                 onClick={() => setSelectedId(null)}
