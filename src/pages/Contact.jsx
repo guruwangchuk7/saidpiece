@@ -49,8 +49,12 @@ const ContactInfo = () => (
         </div>
       </ContactItem>
 
-      <ContactItem label="S.M:">
-        <span className="text-zinc-600">Instagram, Facebook, LinkedIn</span>
+      <ContactItem label="S.L:">
+        <div className="flex flex-wrap gap-3 text-zinc-600">
+          <a href="https://www.instagram.com/saidpiece_architects?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="transition duration-300 hover:scale-105 origin-left">Instagram</a>
+          <a href="https://www.facebook.com/saidpiece.architects" target="_blank" rel="noopener noreferrer" className="transition duration-300 hover:scale-105 origin-left">Facebook</a>
+          <a href="https://www.linkedin.com/company/saidpiece/" target="_blank" rel="noopener noreferrer" className="transition duration-300 hover:scale-105 origin-left">LinkedIn</a>
+        </div>
       </ContactItem>
     </div>
   </div>
