@@ -166,6 +166,9 @@ const GuruWangchukPortfolio = () => {
             { title: 'Student Management System', desc: 'C++ console-based app with DSA for managing student records' },
             { title: 'Certificate Validation System', desc: 'Blockchain-based student certificate validation using web tech' },
             { title: 'Saidpiece Website', desc: 'Full Stack Developer - Company portfolio built with modern web stack' },
+            { title: 'Civic Sense', desc: 'A community app where people tap a map, report issues with a photo' },
+            { title: 'Pharma-Blockchain', desc: 'Verify authenticity of medicines, track and trace system' },
+            { title: 'Face Recognition', desc: 'AI-based face recognition system, face recognition system' },
           ].map((project, idx) => (
             <div key={idx} className="border-2 border-gray-400 rounded-2xl p-6">
               <div className="bg-gray-100 rounded-xl h-64 mb-4 flex items-center justify-center">
