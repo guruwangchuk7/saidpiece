@@ -36,40 +36,44 @@ const IconHuman = () => (
 // --- Page Content (Expanded with more information) ---
 const pageData = {
   hero: {
-    heading: "STUDIO OF ARCHITECTURE AND DESIGN",
+    heading: "SAIDPIECE ARCHITECTS",
   },
   intro: {
-    title: "We are SaidPiece. A creative studio where design is not just seen, but felt.",
-    description: "SaidPiece Architecture is a Bhutan-based studio blending cultural authenticity with modern minimalism. Each creation reflects emotional resonance, spatial harmony, and a deep respect for Bhutanese philosophy. We craft experiences, build environments, and design futures.",
+    title: "Saidpiece Architects is a registered Bhutanese consultancy specializing in architectural and engineering solutions.",
+    description: "Located at Namgyal Plaza, Thimphu (CDB No. 312; Trade License No. 1052642), we provide full-spectrum professional services encompassing design, documentation, and project delivery, from concept to completion. Founded in 2023, Saidpiece was born from a vision to merge Bhutanese tradition with modern innovation. Our work is rooted in the belief that architecture is not merely the creation of buildings, but the crafting of environments that foster balance between human experience, culture, and nature.",
   },
   process: {
-    heading: "Our Process",
-    tagline: "A journey from abstract thoughts to tangible beauty.",
+    heading: "Our Expertise",
+    tagline: "Full-spectrum professional services from concept to completion.",
     steps: [
-      { number: "01", title: "Listen & Discover", description: "Every great project begins with a conversation. We immerse ourselves in your vision, goals, and the unique challenges of the project to build a shared understanding." },
-      { number: "02", title: "Imagine & Conceptualize", description: "This is where ideas take flight. We explore creative possibilities through sketches, models, and digital renderings, defining a strong, resonant concept." },
-      { number: "03", title: "Create & Craft", description: "With a clear vision, our team meticulously brings the design to life. We focus on precision, quality materials, and a seamless fusion of form and function." },
-      { number: "04", title: "Refine & Deliver", description: "The final stage is about perfection. We polish every detail, ensuring the result not only meets but exceeds expectations, delivering a timeless and impactful creation." },
+      { number: "01", title: "Master Planning and Urban Design", description: "Strategic planning for sustainable and vibrant communities." },
+      { number: "02", title: "Architectural and Interior Design", description: "Creating functional, aesthetic, and mindful spaces." },
+      { number: "03", title: "BIM Management and 3D Visualization", description: "Advanced digital modeling for precision and clarity." },
+      { number: "04", title: "Landscape and Environmental Design", description: "Harmonizing built environments with nature." },
+      { number: "05", title: "Structural and MEP Coordination", description: "Integrated engineering solutions for robust structures." },
+      { number: "06", title: "Feasibility Studies and Quantity Surveying", description: "Comprehensive analysis for informed decision making." },
+      { number: "07", title: "Construction Management", description: "Ensuring quality and excellence in execution." },
+      { number: "08", title: "Sustainable Design Consultancy", description: "Eco-friendly strategies for minimal environmental impact." },
     ]
   },
   philosophy: {
     heading: "Philosophy",
-    description: "Our philosophy revolves around the intersection of form and feeling. We believe design is not just about function—it’s about resonance.",
+    description: "Our guiding philosophy is anchored in the principles of Gross National Happiness (GNH) designing with mindfulness, building with responsibility, and innovating with purpose.",
     principles: [
-      { icon: <IconHarmony />, title: "Harmony", text: "With nature and culture, creating balance in every space." },
-      { icon: <IconInnovation />, title: "Innovation", text: "Sustainable and forward-thinking solutions for modern challenges." },
-      { icon: <IconHuman />, title: "Human-Centered", text: "Crafting meaningful spaces that connect deeply with people." },
+      { icon: <IconHarmony />, title: "Mindfulness", text: "Enhancing community well-being through thoughtful design." },
+      { icon: <IconInnovation />, title: "Responsibility", text: "Protecting the environment and building with care." },
+      { icon: <IconHuman />, title: "Purpose", text: "Celebrating Bhutan’s cultural identity within a forward-looking framework." },
     ],
     image: philosophyImg,
   },
   inspiration: {
-    heading: "Inspired by Bhutan",
-    description: "Our work is deeply rooted in the spirit of our home, Bhutan. The principles of Gross National Happiness—harmony, mindfulness, and compassion—are woven into our creative process. The serene landscapes and rich cultural heritage of the Himalayas inspire our commitment to authenticity and sustainable beauty in every project we undertake."
+    heading: "Vision",
+    description: "Every design begins with context, the landscape, the community, and the story it must tell evolving through a mindful process of collaboration and precision."
   },
   team: {
-    heading: "The Team",
-    quote: "Each member brings a distinct voice, yet every creation speaks in harmony — a reflection of our shared pursuit for timelessness.",
-    description: "SaidPiece Studio is a collective of architects, designers, and artists who share a single ethos — to create from sincerity. We are dreamers grounded in craft, exploring both the physical and digital frontiers of experience design.",
+    heading: "Who We Are",
+    quote: "Saidpiece Architects is a Bhutan-based multi-disciplinary architecture and construction firm specializing in innovative sustainable designs.",
+    description: "Offering services from concept development to project completion, we focus on creating functional, aesthetic and mindful spaces with an emphasis on innovation and sustainability.",
     image: teamImg
   }
 };
