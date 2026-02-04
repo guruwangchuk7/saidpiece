@@ -185,7 +185,7 @@ const Team = () => {
                 </button>
               ))}
             </div>
-            <div className="flex items-center gap-2 p-1 bg-zinc-100 rounded-full" role="group" aria-label="Toggle view mode">
+            <div className="hidden sm:flex items-center gap-2 p-1 bg-zinc-100 rounded-full" role="group" aria-label="Toggle view mode">
               <button onClick={() => setViewMode('grid')} aria-pressed={viewMode === 'grid'} className={`p-2 rounded-full transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-zinc-500 ${viewMode === 'grid' ? 'bg-white text-zinc-900 shadow' : 'text-zinc-500 hover:text-zinc-800'}`}>
                 <FaThLarge size={18} aria-hidden="true" /><span className="sr-only">Grid View</span>
               </button>
