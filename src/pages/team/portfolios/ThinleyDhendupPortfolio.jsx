@@ -80,15 +80,21 @@ const ThinleyDhendupPortfolio = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
               <div className="border-2 border-gray-400 rounded-2xl p-6 text-center">
                 <h3 className="text-xl font-semibold mb-2">Experience</h3>
-                <p className="text-gray-600">15+ years<br />Architectural Design</p>
+                <p className="text-gray-600">7+ Years<br />Principal Architect / Consultant</p>
               </div>
               <div className="border-2 border-gray-400 rounded-2xl p-6 text-center">
                 <h3 className="text-xl font-semibold mb-2">Education</h3>
-                <p className="text-gray-600">Master's in Architecture<br />Sustainable Design</p>
+                <p className="text-gray-600">B.Arch, Assumption University<br />Heritage Conservation Training</p>
               </div>
             </div>
+            <p className="text-gray-600 leading-relaxed mb-4">
+              I am Thinley Dhendup, a registered architect (BA-277) with the Construction Development Board of Bhutan and the Principal/Founder of Saidpiece Architects. With a Bachelor's in Architecture from Assumption University, Thailand, I bring a wealth of international and local experience, having held senior roles at SV Architects and Associates in Bangkok.
+            </p>
+            <p className="text-gray-600 leading-relaxed mb-4">
+              My portfolio spans complex aviation projects like Don Mueang Terminal 3, healthcare facilities, and bespoke hospitality projects in Bhutan. I am an active member of BCCI, ABTO, BCA, and AUSTCHAM, committed to delivering excellence in design, BIM, and project management across South East Asia and the Himalayas.
+            </p>
             <p className="text-gray-600 leading-relaxed">
-              As Principal Architect at Saidpiece, I bring over 15 years of experience in creating innovative and sustainable architectural designs. My approach combines cutting-edge design principles with environmental responsibility, ensuring that every project not only meets but exceeds client expectations while contributing positively to our built environment.
+              Throughout my career, I have led diverse and high-stakes projects, ranging from large-scale master planning and aviation infrastructure in Thailand to intimate heritage conservation and eco-friendly resorts in Bhutan. My tenure as a Senior Architect at SV Architects and Associates allowed me to hone my skills in full-scope design services, tender documentation, and construction supervision. Now leading Saidpiece Architects, I am dedicated to bridging international design standards with local context, creating spaces that are not only functional and compliant but also culturally resonant and sustainable.
             </p>
           </div>
         </div>
@@ -105,12 +111,12 @@ const ThinleyDhendupPortfolio = () => {
               <h3 className="text-2xl font-semibold text-center mb-6">Design & Planning</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
-                  { skill: 'Sustainable Design', level: 'Expert' },
-                  { skill: 'Urban Planning', level: 'Expert' },
-                  { skill: 'Building Codes', level: 'Expert' },
-                  { skill: '3D Visualization', level: 'Experienced' },
-                  { skill: 'AutoCAD', level: 'Expert' },
-                  { skill: 'Revit', level: 'Expert' },
+                  { skill: 'Master Planning', level: 'Expert' },
+                  { skill: 'Aviation Architecture', level: 'Experienced' },
+                  { skill: 'Healthcare Design', level: 'Experienced' },
+                  { skill: 'Hospitality Design', level: 'Expert' },
+                  { skill: 'BIM / Revit', level: 'Expert' },
+                  { skill: 'Interior Design', level: 'Expert' },
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-start gap-3">
                     <div className="text-green-600 text-2xl">✓</div>
@@ -126,12 +132,12 @@ const ThinleyDhendupPortfolio = () => {
               <h3 className="text-2xl font-semibold text-center mb-6">Project Management</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
+                  { skill: 'QS Consultant', level: 'Expert' },
+                  { skill: 'Construction Supervision', level: 'Expert' },
+                  { skill: 'Tender Documentation', level: 'Expert' },
                   { skill: 'Client Relations', level: 'Expert' },
                   { skill: 'Team Leadership', level: 'Expert' },
-                  { skill: 'Budget Management', level: 'Experienced' },
-                  { skill: 'Construction Admin', level: 'Expert' },
                   { skill: 'Regulatory Compliance', level: 'Expert' },
-                  { skill: 'Presentations', level: 'Expert' },
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-start gap-3">
                     <div className="text-green-600 text-2xl">✓</div>
@@ -154,9 +160,15 @@ const ThinleyDhendupPortfolio = () => {
         <h2 className="text-center text-4xl font-bold mb-12">Projects</h2>
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {[
-            { title: 'Sustainable Commercial Complex', desc: 'Green-certified 50,000 sq ft complex' },
-            { title: 'Modern Residential Tower', desc: '20-story mixed-use development' },
-            { title: 'Cultural Center Design', desc: 'Award-winning community space' },
+            { title: 'Don Mueang Airport T3', desc: 'Senior Architect for Terminal 3 design & planning (Bangkok, Thailand)' },
+            { title: 'Yongkola ECO-Lodge', desc: 'Principal Architect for hospitality design & build (Mongar, Bhutan)' },
+            { title: 'BNBL Phuntsholing', desc: 'Design & Supervision for Bank Branch (Phuntsholing, Bhutan)' },
+            { title: 'U-Tapao Int\'l Airport', desc: 'Senior Architect for Passenger Terminal Phase 1 (Bangkok, Thailand)' },
+            { title: 'VTC Bumthang', desc: 'Executive Lead for Institute Design & Build (Thimphu, Bhutan)' },
+            { title: 'ERA Head Office', desc: 'Lead Consultant for Corporate HQ Design & Supervision (Thimphu, Bhutan)' },
+            { title: 'Sirikit Hospital', desc: 'Senior Architect for Healthcare Master-planning (Thailand)' },
+            { title: 'Siamese Rama IX', desc: 'Full Architectural Service for Mixed-use Residential (Thailand)' },
+            { title: 'Clock Tower Plaza', desc: 'Civil Engineering & Design for Public Space (Thimphu, Bhutan)' },
           ].map((project, idx) => (
             <div key={idx} className="border-2 border-gray-400 rounded-2xl p-6">
               <div className="bg-gray-100 rounded-xl h-64 mb-4 flex items-center justify-center">
