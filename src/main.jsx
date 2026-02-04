@@ -16,6 +16,7 @@ import AshPortfolio from './pages/team/portfolios/AshPortfolio.jsx'
 import OceanRaiPortfolio from './pages/team/portfolios/OceanRaiPortfolio.jsx'
 import TashiDendupPortfolio from './pages/team/portfolios/TashiDendupPortfolio.jsx'
 import GuruWangchukPortfolio from './pages/team/portfolios/GuruWangchukPortfolio.jsx'
+import KarmaPortfolio from './pages/team/portfolios/KarmaPortfolio.jsx'
 import { AuthProvider } from './context/AuthContext.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import Dashboard from './pages/Dashboard.jsx'
@@ -39,6 +40,7 @@ const router = createBrowserRouter(
         <Route path='team/ocean-rai' element={<OceanRaiPortfolio />}></Route>
         <Route path='team/tashi-dendup' element={<TashiDendupPortfolio />}></Route>
         <Route path='team/guru-wangchuk' element={<GuruWangchukPortfolio />}></Route>
+        <Route path='team/karma' element={<KarmaPortfolio />}></Route>
       </Route>
     </Route>
   )
