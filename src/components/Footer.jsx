@@ -43,7 +43,7 @@ function Footer() {
             <div className='mt-2 sm:mt-5 flex gap-3 flex-wrap'>
               <a href="https://www.instagram.com/saidpiece_architects?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 transition duration-300 hover:scale-105">Instagram</a>
               <a href="https://www.facebook.com/saidpiece.architects" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 transition duration-300 hover:scale-105">Facebook</a>
-              <a href="https://www.linkedin.com/search/results/all/?keywords=saidpiece&origin=GLOBAL_SEARCH_HEADER&sid=Iyq" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 transition duration-300 hover:scale-105">LinkedIn</a>
+              <a href="https://www.linkedin.com/company/saidpiece/" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 transition duration-300 hover:scale-105">LinkedIn</a>
             </div>
           </div>
 

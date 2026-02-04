@@ -127,9 +127,9 @@ const HeroNavbar = () => {
                 <div className="flex flex-col gap-2">
                   <span className="w-fit">S.M:</span>
                   <div className="flex flex-wrap gap-x-1 max-w-[250px]">
-                    <a href="https://instagram.com" target="_blank" rel="noreferrer" className="hover:text-white transition-all duration-300">Instagram,</a>
-                    <a href="https://facebook.com" target="_blank" rel="noreferrer" className="hover:text-white transition-all duration-300">Facebook,</a>
-                    <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-white transition-all duration-300">LinkedIn</a>
+                    <a href="https://www.instagram.com/saidpiece_architects?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noreferrer" className="hover:text-white transition-all duration-300">Instagram,</a>
+                    <a href="https://www.facebook.com/saidpiece.architects" target="_blank" rel="noreferrer" className="hover:text-white transition-all duration-300">Facebook,</a>
+                    <a href="https://www.linkedin.com/company/saidpiece/" target="_blank" rel="noreferrer" className="hover:text-white transition-all duration-300">LinkedIn</a>
                   </div>
                 </div>
 

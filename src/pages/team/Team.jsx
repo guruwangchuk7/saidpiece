@@ -38,7 +38,7 @@ const teamMembers = [
     socials: {
       github: null,
       linkedin: null,
-      email: 'karma@example.com',
+      email: 'karmadichen506@gmail.com',
     },
   },
   {
@@ -49,9 +49,9 @@ const teamMembers = [
     bio: 'Delivers reliable structural and engineering solutions aligned with design goals.',
     slug: 'ocean-rai',
     socials: {
-      github: 'https://github.com',
-      linkedin: 'https://linkedin.com',
-      email: 'mailto:david.garcia@example.com',
+      github: null,
+      linkedin: 'https://www.linkedin.com/in/ocean-rai1043/',
+      email: 'raiocean05@gmail.com',
     },
   },
   {
@@ -63,8 +63,8 @@ const teamMembers = [
     slug: 'kinley-wangdi',
     socials: {
       github: null,
-      linkedin: 'https://linkedin.com',
-      email: 'mailto:samantha.chen@example.com',
+      linkedin: 'https://www.linkedin.com/in/kinley-wangdi-b25914301/',
+      email: 'wangdik901@gmail.com',
     },
   },
   {
@@ -75,8 +75,8 @@ const teamMembers = [
     slug: 'ash',
     socials: {
       github: null,
-      linkedin: 'https://linkedin.com',
-      email: 'mailto:ash@example.com',
+      linkedin: null,
+      email: null,
     },
   },
   {
@@ -87,9 +87,9 @@ const teamMembers = [
     bio: 'Assists design teams while gaining practical architectural experience.',
     slug: 'tashi-dendup',
     socials: {
-      github: 'https://github.com',
-      linkedin: 'https://linkedin.com',
-      email: 'mailto:kenji.tanaka@example.com',
+      github: null,
+      linkedin: 'https://www.linkedin.com/in/tashi-dendup-915333328/',
+      email: null,
     },
   },
   {
@@ -102,7 +102,7 @@ const teamMembers = [
     socials: {
       github: 'https://github.com/guruwangchuk7',
       linkedin: 'https://www.linkedin.com/in/guru-wangchuk-51a083203/',
-      email: 'guruwangchuk@gmail.com',
+      email: 'guruwangchuk1234@gmail.com',
     },
   },
 ];
