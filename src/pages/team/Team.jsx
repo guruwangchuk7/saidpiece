@@ -12,6 +12,7 @@ import placeholder from '../../assets/teamphoto/placeholder.svg';
 import tashi from '../../assets/teamphoto/tashi (b&w).png';
 import thinleyDhendup from '../../assets/teamphoto/thinley dendup (b&w).png';
 import ash from '../../assets/teamphoto/ash (b&w).png';
+import karma from '../../assets/teamphoto/karma.png';
 
 const teamMembers = [
   {
@@ -27,34 +28,21 @@ const teamMembers = [
       email: 'thinley@saidpiece.com',
     },
   },
-
   {
     id: 2,
-    name: 'Kinley Wangdi',
-    role: 'Architect',
-    avatar: kinley,
-    bio: 'Contributes thoughtful design and detailed architectural solutions.',
-    slug: 'kinley-wangdi',
+    name: 'Karma',
+    role: 'Admin',
+    avatar: karma,
+    bio: 'Ensures smooth operations and administrative efficiency for the team.',
+    slug: 'karma',
     socials: {
       github: null,
-      linkedin: 'https://linkedin.com',
-      email: 'mailto:samantha.chen@example.com',
+      linkedin: null,
+      email: 'karma@example.com',
     },
   },
   {
-    id: 3, name: 'Ash',
-    role: 'Architecture',
-    avatar: ash,
-    bio: 'Supports architectural projects with creativity and technical skills.',
-    slug: 'ash',
-    socials: {
-      github: null,
-      linkedin: 'https://linkedin.com',
-      email: 'mailto:ash@example.com',
-    },
-  },
-  {
-    id: 4,
+    id: 3,
     name: 'Ocean Rai',
     role: 'Civil Engineer',
     avatar: ocean,
@@ -67,7 +55,32 @@ const teamMembers = [
     },
   },
   {
-    id: 5,
+    id: 4,
+    name: 'Kinley Wangdi',
+    role: 'Architect',
+    avatar: kinley,
+    bio: 'Contributes thoughtful design and detailed architectural solutions.',
+    slug: 'kinley-wangdi',
+    socials: {
+      github: null,
+      linkedin: 'https://linkedin.com',
+      email: 'mailto:samantha.chen@example.com',
+    },
+  },
+  {
+    id: 5, name: 'Ash',
+    role: 'Architecture',
+    avatar: ash,
+    bio: 'Supports architectural projects with creativity and technical skills.',
+    slug: 'ash',
+    socials: {
+      github: null,
+      linkedin: 'https://linkedin.com',
+      email: 'mailto:ash@example.com',
+    },
+  },
+  {
+    id: 6,
     name: 'Tashi Dendup',
     role: 'Architecture Intern',
     avatar: tashi,
@@ -80,7 +93,7 @@ const teamMembers = [
     },
   },
   {
-    id: 6,
+    id: 7,
     name: 'Guru Wangchuk',
     role: 'Full Stack Developer',
     avatar: guru,

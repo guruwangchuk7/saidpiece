@@ -1,7 +1,7 @@
 
 import photo1 from '../assets/project-photo/1.jpg';
 import photo2 from '../assets/project-photo/electricity.jpg';
-import photo3 from '../assets/project-photo/bank.jpg';
+import photo3 from '../assets/project-photo/bank.png';
 import photo4 from '../assets/project-photo/4.jpg';
 import photo5 from '../assets/project-photo/5.jpg';
 import photo6 from '../assets/project-photo/6.jpg';

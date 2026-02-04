@@ -5,7 +5,7 @@ import Btn2 from "../../components/ButtonType2";
 import BtnT1 from "../../components/ButtonType1";
 import img1 from "../../assets/project-photo/clocktower.jpg";
 import img2 from "../../assets/project-photo/electricity.jpg";
-import img3 from "../../assets/project-photo/bank.jpg";
+import img3 from "../../assets/project-photo/bank.png";
 import img4 from "../../assets/project-photo/4.jpg";
 
 const portfolioData = {
