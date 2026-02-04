@@ -68,9 +68,8 @@ const Portfolio = () => {
               onClick={() => setSelectedFilter('all')}
               className="flex items-center gap-2 group cursor-pointer"
             >
-              <div className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                selectedFilter === 'all' ? 'bg-black' : 'bg-zinc-300 group-hover:bg-zinc-400'
-              }`}></div>
+              <div className={`w-2 h-2 rounded-full transition-all duration-300 ${selectedFilter === 'all' ? 'bg-black' : 'bg-zinc-300 group-hover:bg-zinc-400'
+                }`}></div>
               <span className="text-xs sm:text-sm text-zinc-600 group-hover:text-black transition-colors">All Categories</span>
             </button>
 
@@ -80,9 +79,8 @@ const Portfolio = () => {
                 onClick={() => setSelectedFilter(domain)}
                 className="flex items-center gap-2 group cursor-pointer"
               >
-                <div className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  selectedFilter === domain ? 'bg-black' : 'bg-zinc-300 group-hover:bg-zinc-400'
-                }`}></div>
+                <div className={`w-2 h-2 rounded-full transition-all duration-300 ${selectedFilter === domain ? 'bg-black' : 'bg-zinc-300 group-hover:bg-zinc-400'
+                  }`}></div>
                 <span className="text-xs sm:text-sm text-zinc-600 group-hover:text-black transition-colors capitalize">
                   {domain.charAt(0).toUpperCase() + domain.slice(1)}
                 </span>
@@ -185,6 +183,11 @@ const Portfolio = () => {
                     <span className="w-6 sm:w-8 h-[1px] bg-zinc-300"></span>
                     {selectedItem.location}
                   </div>
+                  {selectedItem.collaboration && (
+                    <p className="mt-2 text-zinc-500 text-sm sm:text-base font-medium">
+                      {selectedItem.collaboration}
+                    </p>
+                  )}
                 </motion.div>
 
                 <motion.div

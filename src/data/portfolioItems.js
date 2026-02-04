@@ -17,7 +17,8 @@ export const portfolioItems = [
         description: "A comprehensive landscape redevelopment of the iconic Clock Tower area. This project harmonizes modern design with Bhutanese cultural elements, creating a vibrant public space that celebrates the monument while providing contemporary amenities. The design integrates native plantings, traditional architectural motifs, and sustainable urban features.",
         year: "2023",
         size: "1,200 m²",
-        client: "Thimphu Thromde"
+        client: "Thimphu Thromde",
+        collaboration: "Collaborated with Mandala Consultant"
     },
     {
         id: 2,
@@ -29,7 +30,8 @@ export const portfolioItems = [
         description: "A modern office building designed for the Electricity Regulatory Authority. The structure balances contemporary architectural principles with Bhutanese design traditions. State-of-the-art facilities support regulatory operations while sustainable design features minimize environmental impact.",
         year: "2022",
         size: "2,500 m²",
-        client: "Electricity Regulatory Authority"
+        client: "Electricity Regulatory Authority",
+        collaboration: "Collaborated with United Consultant"
     },
     {
         id: 3,
@@ -41,7 +43,8 @@ export const portfolioItems = [
         description: "A prestigious banking facility that combines security, functionality, and aesthetic excellence. The design reflects financial stability through materials and spatial planning, while incorporating Bhutanese artistic traditions in interior detailing. The building serves as a landmark for modern banking infrastructure in Bhutan.",
         year: "2024",
         size: "3,200 m²",
-        client: "Bhutan National Bank"
+        client: "Bhutan National Bank",
+        collaboration: "Collaborated with Mandala Consultant"
     },
     {
         id: 4,

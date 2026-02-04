@@ -74,6 +74,11 @@ const ProjectGallery = () => {
                             {project.location} — {project.year}
                         </div>
                     </motion.div>
+                    {project.collaboration && (
+                        <motion.div variants={fadeIn} className="mt-2 text-base font-medium tracking-wider uppercase text-zinc-500">
+                            {project.collaboration}
+                        </motion.div>
+                    )}
                 </motion.div>
             </header>
 
