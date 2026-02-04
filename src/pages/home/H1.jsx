@@ -1,12 +1,13 @@
 import React from "react";
 import kinleyPhoto from "../../assets/homephoto/kinleylaptop.JPG";
+import rightArrow from "../../assets/icons/rightArrow.svg";
 import { motion, MotionConfig, useScroll } from "motion/react";
 
 function H1() {
 
   return (
     <div>
-      <div className="h-[100vh] sm:h-[60vh] lg:h-[90vh] flex justify-center items-center text-neutral-900 px-4">
+      <div className="relative h-[100vh] sm:h-[60vh] lg:h-[90vh] flex justify-center items-center text-neutral-900 px-4">
         <MotionConfig transition={{ duration: 3, type: "spring" }}>
           <motion.div
             className="head text-center w-fit mx-auto -mt-44 md:-mt-20"
@@ -19,7 +20,19 @@ function H1() {
             </div>
           </motion.div>
         </MotionConfig>
+
+        <motion.div
+          className="absolute bottom-28 md:bottom-12 flex flex-col items-center gap-3"
+          initial={{ opacity: 0, y: -10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1, duration: 1 }}
+          style={{ fontFamily: "century-gothic" }}
+        >
+          <img src={rightArrow} alt="Scroll down" className="w-5 rotate-90 opacity-70" />
+          <span className="text-xs font-light border-b border-black md:border-neutral-500 pb-1">scroll down</span>
+        </motion.div>
       </div>
+
 
       <div className="h-auto sm:h-[82vh] md:h-[92vh] mx-3 sm:mx-5 md:mx-10 lg:mx-20 mt-10 sm:mt-[28vh] lg:mt-[14vh] overflow-hidden flex justify-center items-center">
         <img
