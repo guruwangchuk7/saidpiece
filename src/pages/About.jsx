@@ -36,10 +36,10 @@ const IconHuman = () => (
 // --- Page Content (Expanded with more information) ---
 const pageData = {
   hero: {
-    heading: "SAIDPIECE ARCHITECTS",
+    heading: "SAIDPIECE ARCHITECT",
   },
   intro: {
-    title: "Saidpiece Architects is a registered Bhutanese consultancy specializing in architectural and engineering solutions.",
+    title: "Saidpiece Architects is a registered Bhutanese firm specializing in architectural and engineering solutions.",
     description: "Located at Namgyal Plaza, Thimphu (CDB No. 312; Trade License No. 1052642), we provide full-spectrum professional services encompassing design, documentation, and project delivery, from concept to completion. Founded in 2023, Saidpiece was born from a vision to merge Bhutanese tradition with modern innovation. Our work is rooted in the belief that architecture is not merely the creation of buildings, but the crafting of environments that foster balance between human experience, culture, and nature.",
   },
   process: {
@@ -50,10 +50,10 @@ const pageData = {
       { number: "02", title: "Architectural and Interior Design", description: "Creating functional, aesthetic, and mindful spaces." },
       { number: "03", title: "BIM Management and 3D Visualization", description: "Advanced digital modeling for precision and clarity." },
       { number: "04", title: "Landscape and Environmental Design", description: "Harmonizing built environments with nature." },
-      { number: "05", title: "Structural and MEP Coordination", description: "Integrated engineering solutions for robust structures." },
+      { number: "05", title: "Structural and MEP Engineering", description: "Integrated engineering solutions for robust structures." },
       { number: "06", title: "Feasibility Studies and Quantity Surveying", description: "Comprehensive analysis for informed decision making." },
-      { number: "07", title: "Construction Management", description: "Ensuring quality and excellence in execution." },
-      { number: "08", title: "Sustainable Design Consultancy", description: "Eco-friendly strategies for minimal environmental impact." },
+      { number: "07", title: "Construction Management & Supervision", description: "Ensuring quality and excellence in execution." },
+      { number: "08", title: "Cost & Contract Consultanting ", description: "Strategic cost and contract advisory services supporting sustainable, value driven project delivery." },
     ]
   },
   philosophy: {
@@ -72,8 +72,8 @@ const pageData = {
   },
   team: {
     heading: "Who We Are",
-    quote: "Saidpiece Architects is a Bhutan-based multi-disciplinary architecture and construction firm specializing in innovative sustainable designs.",
-    description: "Offering services from concept development to project completion, we focus on creating functional, aesthetic and mindful spaces with an emphasis on innovation and sustainability.",
+    quote: "Saidpiece Architects is a Bhutan-based multi-disciplinary and construction firm specializing in innovative sustainable designs.",
+    description: "Offering full turn key services from concept development to project completion, we focus on creating functional, aesthetic and mindful spaces with an emphasis on innovation and sustainability.",
     image: teamImg
   }
 };
