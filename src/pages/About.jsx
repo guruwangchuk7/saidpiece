@@ -36,7 +36,7 @@ const IconHuman = () => (
 // --- Page Content (Expanded with more information) ---
 const pageData = {
   hero: {
-    heading: "SAIDPIECE ARCHITECT",
+    heading: "saidpiece architect",
   },
   intro: {
     title: "Saidpiece Architects is a registered Bhutanese firm specializing in architectural and engineering solutions.",
@@ -145,7 +145,7 @@ function About() {
       >
         <div className="absolute inset-0 bg-black/40" />
         <div data-animate="hero-title" className="relative z-10 px-5">
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-semibold max-w-4xl mx-auto leading-tight tracking-wide">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-normal max-w-4xl mx-auto leading-tight tracking-wide">
             {pageData.hero.heading}
           </h1>
         </div>

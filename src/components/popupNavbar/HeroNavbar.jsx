@@ -63,7 +63,7 @@ const HeroNavbar = () => {
     <AnimatePresence>
       {open && (
         <motion.div
-          className="fixed inset-0 z-30 h-screen w-screen bg-zinc-900 p-10 text-slate-100"
+          className="fixed inset-0 z-[100] h-screen w-screen bg-zinc-900 p-10 text-slate-100"
           variants={variants}
           initial={{ y: -1000, opacity: 0, scale: 1 }}
           animate={{ y: 0, opacity: 1, scale: 1 }}

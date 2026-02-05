@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { motion, AnimatePresence } from 'motion/react'
 import { NavLink } from 'react-router-dom'
 import rightArrow from '../assets/icons/rightArrow.svg'
 import officeImage from '../assets/contact/saidpieceofficeimage.jpg'
@@ -15,14 +16,103 @@ const BackButton = () => (
   </NavLink>
 )
 
-const ContactHeader = () => (
-  <div className="flex flex-col items-start gap-2 max-w-lg">
-    <p className="text-xl lg:text-2xl text-zinc-500">Hello</p>
-    <h1 className="text-4xl lg:text-7xl font-bold tracking-tight leading-tight uppercase">
-      LET'S TALK?
-    </h1>
-  </div>
-)
+const ContactForm = () => {
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' })
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    // Handle form submission logic here
+    console.log('Form submitted:', formData)
+    alert('Message sent! (Demo)')
+    setFormData({ name: '', email: '', message: '' })
+  }
+
+  return (
+    <div className="flex flex-col gap-4">
+      <h3 className="text-lg font-bold text-zinc-800 uppercase tracking-tight">Send a Message</h3>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+        <div>
+          <label htmlFor="name" className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-1 block">Full Name</label>
+          <input
+            type="text"
+            id="name"
+            required
+            className="w-full bg-zinc-50 border border-zinc-200 text-zinc-800 text-sm rounded-sm p-2 focus:outline-none focus:border-zinc-400 focus:ring-1 focus:ring-zinc-400 transition-colors"
+            placeholder="Your name"
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          />
+        </div>
+        <div>
+          <label htmlFor="email" className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-1 block">Gmail / Email</label>
+          <input
+            type="email"
+            id="email"
+            required
+            className="w-full bg-zinc-50 border border-zinc-200 text-zinc-800 text-sm rounded-sm p-2 focus:outline-none focus:border-zinc-400 focus:ring-1 focus:ring-zinc-400 transition-colors"
+            placeholder="example@gmail.com"
+            value={formData.email}
+            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          />
+        </div>
+        <div>
+          <label htmlFor="message" className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-1 block">Ask me anything</label>
+          <textarea
+            id="message"
+            required
+            rows="3"
+            className="w-full bg-zinc-50 border border-zinc-200 text-zinc-800 text-sm rounded-sm p-2 focus:outline-none focus:border-zinc-400 focus:ring-1 focus:ring-zinc-400 transition-colors resize-none"
+            placeholder="Your question or message..."
+            value={formData.message}
+            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+          />
+        </div>
+        <button
+          type="submit"
+          className="mt-2 bg-zinc-900 text-white text-sm font-medium py-2 px-4 rounded-sm hover:bg-zinc-700 transition-colors uppercase tracking-widest w-full lg:w-auto self-start"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  )
+}
+
+const ContactHeader = () => {
+  const [isHovered, setIsHovered] = useState(false)
+
+  return (
+    <div
+      className="relative flex flex-col items-start gap-2 max-w-lg z-10"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <p className="text-xl lg:text-2xl text-zinc-500 pointer-events-none">Hello</p>
+      <div className="relative group cursor-pointer inline-block">
+        <h1 className="text-4xl lg:text-7xl font-bold tracking-tight leading-tight uppercase transition-colors duration-300 group-hover:text-zinc-700">
+          LET'S TALK?
+        </h1>
+        {/* Underline effect to hint interactivity */}
+        <span className="absolute left-0 bottom-0 w-0 h-1 bg-zinc-800 transition-all duration-300 group-hover:w-full"></span>
+      </div>
+
+      <AnimatePresence>
+        {isHovered && (
+          <motion.div
+            initial={{ opacity: 0, y: 15, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 15, scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+            className="absolute top-full left-0 mt-4 w-[90vw] md:w-[400px] bg-white border border-zinc-200 shadow-2xl rounded-lg p-6 lg:p-8 overflow-hidden"
+            style={{ maxWidth: 'calc(100vw - 48px)' }} // Ensure it doesn't overflow screen on small mobile
+          >
+            <ContactForm />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
 
 const ContactItem = ({ label, children }) => (
   <div className="flex flex-col gap-2 lg:gap-4">
