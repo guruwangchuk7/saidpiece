@@ -23,7 +23,7 @@ const AshPortfolio = () => {
 
   return (
     <div ref={containerRef} className="min-h-screen relative flex items-start justify-center bg-white px-4 sm:px-6 lg:px-20 py-6 sm:py-10">
-      <NavLink to="/team" className="absolute top-6 sm:top-10 left-4 sm:left-6 lg:left-20 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-20">
+      <NavLink to="/team" className="absolute top-6 sm:top-10 left-7 sm:left-12 lg:left-26 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-20">
         <img src={rightArrow} alt="back" className="w-4 h-4 rotate-180" />
         <span>Back to team</span>
       </NavLink>

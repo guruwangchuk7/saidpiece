@@ -157,7 +157,7 @@ const Team = () => {
   return (
     <div>
       <div className="min-h-screen relative flex items-start justify-center bg-white px-4 lg:px-20 py-10">
-        <NavLink to="/" className="absolute top-10 left-4 flex items-center gap-2 text-sm font-medium hover:underline">
+        <NavLink to="/" className="absolute top-6 sm:top-10 left-7 sm:left-12 lg:left-26 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-20">
           <img src={rightArrow} alt="back" className="w-4 h-4 rotate-180" />
           <span>Back to home</span>
         </NavLink>

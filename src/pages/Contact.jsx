@@ -9,7 +9,7 @@ import officeImage from '../assets/contact/saidpieceofficeimage.jpg'
 const BackButton = () => (
   <NavLink
     to="/"
-    className="absolute top-6 left-4 lg:top-10 lg:left-10 flex items-center gap-2 text-sm font-medium hover:underline z-10"
+    className="absolute top-6 sm:top-10 left-7 sm:left-12 lg:left-26 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-20"
   >
     <img src={rightArrow} alt="Back" className="w-4 h-4 rotate-180" />
     <span>Back to home</span>
