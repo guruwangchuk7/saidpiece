@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
+import { useAuth } from '../../context/AuthContext';
 import { NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import rightArrow from '../../assets/icons/rightArrow.svg';
@@ -11,6 +12,7 @@ import H5 from '../home/H5';
 
 
 const Portfolio = () => {
+  const { user, setShowAuthModal } = useAuth();
   const [selectedId, setSelectedId] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState('all');
 
@@ -98,7 +100,13 @@ const Portfolio = () => {
                 <motion.div
                   key={p.id}
                   layoutId={`card-container-${p.id}`}
-                  onClick={() => setSelectedId(p.id)}
+                  onClick={() => {
+                    if (!user) {
+                      setShowAuthModal(true);
+                    } else {
+                      setSelectedId(p.id);
+                    }
+                  }}
                   className="group cursor-pointer flex flex-col gap-3 sm:gap-4 relative z-0"
                   whileHover={{ y: -5 }}
                   transition={{ duration: 0.2 }}
@@ -149,7 +157,7 @@ const Portfolio = () => {
             {/* Card Modal */}
             <motion.div
               layoutId={`card-container-${selectedId}`}
-              className="w-full h-[85vh] sm:h-[90vh] md:h-[90vh] md:max-w-[90vw] bg-white md:rounded-lg shadow-2xl overflow-hidden relative z-10 pointer-events-auto flex flex-col md:flex-row rounded-t-2xl"
+              className="w-full h-full md:h-[90vh] md:max-w-[90vw] bg-white md:rounded-lg shadow-2xl overflow-hidden relative z-10 pointer-events-auto flex flex-col md:flex-row rounded-none"
             >
               <button
                 onClick={() => setSelectedId(null)}

@@ -18,7 +18,7 @@ export const portfolioItems = [
         year: "2023",
         size: "1,200 m²",
         client: "Thimphu Thromde",
-        collaboration: "Collaborated with Mandala Consultant"
+        collaboration: "In collaboration with Mandala Consultant"
     },
     {
         id: 2,
@@ -31,7 +31,7 @@ export const portfolioItems = [
         year: "2022",
         size: "2,500 m²",
         client: "Electricity Regulatory Authority",
-        collaboration: "Collaborated with United Consultant"
+        collaboration: "In collaboration with United Consultant"
     },
     {
         id: 3,
@@ -44,7 +44,7 @@ export const portfolioItems = [
         year: "2024",
         size: "3,200 m²",
         client: "Bhutan National Bank",
-        collaboration: "Collaborated with Mandala Consultant"
+        collaboration: "In collaboration with Mandala Consultant"
     },
     {
         id: 4,

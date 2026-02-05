@@ -28,13 +28,14 @@ const router = createBrowserRouter(
       <Route path='about' element={<About />}></Route>
       <Route path='contact' element={<Contact />}></Route>
       <Route path='portfolio' element={<Portfolio />}></Route>
-      <Route path='portfolio/gallery/:id' element={<ProjectGallery />}></Route>
+
       <Route path='team' element={<Team />}></Route>
       <Route path='team/thinley-dhendup' element={<ThinleyDhendupPortfolio />}></Route>
       <Route path='legal' element={<Legal />}></Route>
 
       <Route element={<ProtectedRoute />}>
         <Route path='dashboard' element={<Dashboard />}></Route>
+        <Route path='portfolio/gallery/:id' element={<ProjectGallery />}></Route>
         <Route path='team/kinley-wangdi' element={<KinleyWangdiPortfolio />}></Route>
         <Route path='team/ash' element={<AshPortfolio />}></Route>
         <Route path='team/ocean-rai' element={<OceanRaiPortfolio />}></Route>
