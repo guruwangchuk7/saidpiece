@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FaEnvelope } from 'react-icons/fa';
 import gsap from 'gsap';
-import karma from '../../../assets/teamphoto/karma.png';
+import karma from '../../../assets/teamphoto/karm.jpeg';
 import rightArrow from '../../../assets/icons/rightArrow.svg';
 
 const KarmaPortfolio = () => {

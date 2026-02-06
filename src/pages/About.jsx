@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 // --- Asset Imports ---
 import aboutUsImg from '../assets/aboutusphoto/aboutus.jpg';
-import philosophyImg from '../assets/homephoto/mainbg.svg';
+// import philosophyImg from '../assets/homephoto/mainbg.svg'; // Unused and heavy (12MB)
 import teamImg from '../assets/homephoto/page3Bg.jpg';
 
 

@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import gsap from 'gsap';
-import tashi from '../../../assets/teamphoto/tashi (b&w).png';
+import tashi from '../../../assets/teamphoto/tashib.jpeg';
 import rightArrow from '../../../assets/icons/rightArrow.svg';
 
 const TashiDendupPortfolio = () => {
