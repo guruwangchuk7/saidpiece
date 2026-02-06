@@ -27,8 +27,6 @@ const BlogPost = () => {
 
     return (
         <div className="min-h-screen bg-white text-zinc-900">
-
-
             {/* Split Layout Container */}
             <div className="flex flex-col lg:flex-row relative">
 
@@ -66,7 +64,7 @@ const BlogPost = () => {
                         {/* Article Content */}
                         <div className="prose prose-zinc max-w-none text-zinc-800 leading-relaxed text-sm sm:text-base">
                             <h3 className="uppercase text-sm font-bold tracking-widest mb-4 text-zinc-500">Why we are talking about this</h3>
-                            <p className="mb-6 first-letter:float-left first-letter:text-6xl first-letter:font-bold first-letter:mr-3 first-letter:mt-[-5px]">
+                            <p className="mb-6">
                                 {selectedItem.description}
                             </p>
                             <p className="mb-6">
@@ -101,7 +99,7 @@ const BlogPost = () => {
 
             {/* "Discuss a Joint Project" Scroll Section */}
             <div className="relative w-full px-6 sm:px-10 lg:px-20 py-20 mt-[2cm] overflow-hidden flex items-end min-h-[50vh]">
-                {/* Background Image - Restored */}
+                {/* Background Image */}
                 <div className="absolute inset-0 z-0">
                     <img
                         src={selectedItem.image}
@@ -122,7 +120,6 @@ const BlogPost = () => {
                         className="group flex items-center gap-6 text-xs sm:text-sm font-medium uppercase tracking-widest border-b border-white pb-3 hover:border-white/70 transition-all w-fit drop-shadow-md"
                     >
                         <span>Leave a Request</span>
-                        {/* Long Arrow SVG */}
                         <svg width="40" height="12" viewBox="0 0 40 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-300 group-hover:translate-x-2 drop-shadow-md">
                             <path d="M0 6H39M39 6L34 1M39 6L34 11" stroke="currentColor" strokeWidth="1" />
                         </svg>
