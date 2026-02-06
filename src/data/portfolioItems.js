@@ -2,7 +2,7 @@
 import photo1 from '../assets/project-photo/clocktower.jpg';
 import photo2 from '../assets/project-photo/electricity.jpg';
 import photo3 from '../assets/project-photo/bhutanbank.jpg';
-import photo4 from '../assets/project-photo/Yangkhil Project Documentation.jpg';
+import photo4 from '../assets/project-photo/YangkhilProjectDocumentation.jpg';
 import photo5 from '../assets/project-photo/Pangbisafarmhouse-1.jpg';
 import photo6 from '../assets/project-photo/bolangerycafe.JPG';
 

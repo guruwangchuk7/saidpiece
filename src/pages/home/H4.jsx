@@ -6,7 +6,7 @@ import BtnT1 from "../../components/ButtonType1";
 import img1 from "../../assets/project-photo/clocktower.jpg";
 import img2 from "../../assets/project-photo/electricity.jpg";
 import img3 from "../../assets/project-photo/bhutanbank.jpg";
-import img4 from "../../assets/project-photo/Yangkhil Project Documentation.jpg";
+import img4 from "../../assets/project-photo/YangkhilProjectDocumentation.jpg";
 
 const portfolioData = {
   name: [
