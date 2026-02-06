@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { NavLink } from 'react-router-dom';
+import { motion, useScroll, useTransform } from 'motion/react';
 import { FaGithub, FaLinkedin, FaEnvelope, FaThLarge, FaList } from 'react-icons/fa';
 import rightArrow from '../../assets/icons/rightArrow.svg';
 import ButtonType3 from '../../components/ButtonType3';
 import H5 from '../home/H5';
+import Footer from '../../components/Footer';
 import guru from '../../assets/teamphoto/gurub.jpeg';
 import kinley from '../../assets/teamphoto/kinleyb.jpeg';
 import ocean from '../../assets/teamphoto/oceanb.jpeg';
@@ -125,6 +127,14 @@ const Team = () => {
   const { user, setShowAuthModal } = useAuth();
   const [activeFilter, setActiveFilter] = useState('All');
   const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
+  const containerRef = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["end end", "end start"]
+  });
+
+  const overlayOpacity = useTransform(scrollYProgress, [0, 1], [0.8, 0]);
 
   // Get unique roles for filter buttons, including "All"
   const roles = ['All', ...new Set(teamMembers.map((member) => member.role))];
@@ -155,113 +165,129 @@ const Team = () => {
   );
 
   return (
-    <div>
-      <div className="min-h-screen relative flex items-start justify-center bg-white px-4 lg:px-20 py-10">
-        <NavLink to="/" className="absolute top-6 sm:top-10 left-7 sm:left-12 lg:left-26 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-20">
-          <img src={rightArrow} alt="back" className="w-4 h-4 rotate-180" />
-          <span>Back to home</span>
-        </NavLink>
+    <div className="w-full">
+      <div className="relative z-10 bg-white shadow-none md:shadow-2xl mb-0 md:mb-[100vh]">
+        <div ref={containerRef} className="min-h-screen relative flex items-start justify-center bg-white px-4 lg:px-20 py-10">
+          <NavLink to="/" className="absolute top-6 sm:top-10 left-7 sm:left-12 lg:left-26 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-20">
+            <img src={rightArrow} alt="back" className="w-4 h-4 rotate-180" />
+            <span>Back to home</span>
+          </NavLink>
 
-        <div className="w-full px-6 py-20">
-          {/* Header section - similar to Portfolio page */}
-          <div className="mb-16 lg:mb-20">
-            <h1 className="text-5xl lg:text-7xl font-bold tracking-tight leading-tight uppercase mb-6">
-              Meet Our Creative Team
-            </h1>
-            <p className="text-zinc-600 text-base lg:text-lg leading-relaxed max-w-2xl">
-              We are a collective of designers, developers, and strategists passionate about building exceptional digital experiences.
-            </p>
-            <div className="mt-8">
-              <ButtonType3 title="Contact Us" to="/contact" />
-            </div>
-          </div>
-
-          {/* Filter and View Controls */}
-          <section className="mb-12 flex flex-col sm:flex-row justify-between items-center gap-6" aria-label="Team display controls">
-            <div className="flex flex-wrap justify-center gap-2 sm:gap-3" role="group" aria-label="Filter team members by role">
-              {roles.map((role) => (
-                <button key={role} onClick={() => setActiveFilter(role)} className={`px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-zinc-500 ${activeFilter === role ? 'bg-zinc-900 text-white shadow' : 'bg-zinc-100 text-zinc-700 hover:bg-zinc-200'}`} aria-pressed={activeFilter === role}>
-                  {role}
-                </button>
-              ))}
-            </div>
-
-          </section>
-
-          {/* Team Members List/Grid */}
-          <section>
-            <ul className={viewMode === 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12' : 'flex flex-col gap-6'}>
-              {filteredMembers.map((member) => {
-                const isProtected = member.slug !== 'thinley-dhendup';
-                const handleClick = (e) => {
-                  if (isProtected && !user) {
-                    e.preventDefault();
-                    // Save the portfolio page they want to visit
-                    sessionStorage.setItem('intendedRoute', `/team/${member.slug}`);
-                    setShowAuthModal(true);
-                  }
-                };
-
-                return (
-                  <li key={member.id} className={`bg-white rounded-lg border border-zinc-200 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 cursor-pointer ${viewMode === 'list' ? 'flex flex-col sm:flex-row items-center overflow-hidden' : 'overflow-hidden'}`}>
-                    <NavLink
-                      to={`/team/${member.slug}`}
-                      onClick={handleClick}
-                      className="block w-full h-full"
-                    >
-                      {viewMode === 'grid' ? (
-                        <> {/* Grid View Layout */}
-                          <div className="aspect-w-1 aspect-h-1">
-                            {member.avatar ? <img src={member.avatar} alt={`Portrait of ${member.name}`} className="w-full h-full object-cover" /> : <FallbackAvatar className="w-full h-full object-cover" />}
-                          </div>
-                          <div className="p-6">
-                            <h3 className="text-xl font-bold text-zinc-900">{member.name}</h3>
-                            <p className="text-zinc-600 font-semibold mt-1">{member.role}</p>
-                            <p className="text-zinc-600 mt-3 text-sm h-20">{member.bio}</p>
-                            <div className="mt-4 pt-4 border-t border-zinc-200">
-                              <span className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">
-                                View Portfolio →
-                              </span>
-                            </div>
-                          </div>
-                        </>
-                      ) : (
-                        <div className="flex flex-col sm:flex-row items-center w-full">
-                          <div className="w-full sm:w-40 h-40 flex-shrink-0">
-                            {member.avatar ? <img src={member.avatar} alt={`Portrait of ${member.name}`} className="w-full h-full object-cover" /> : <FallbackAvatar className="w-full h-full" />}
-                          </div>
-                          <div className="p-6 flex-grow">
-                            <h3 className="text-xl font-bold text-zinc-900">{member.name}</h3>
-                            <p className="text-zinc-600 font-semibold mt-1">{member.role}</p>
-                            <p className="text-zinc-600 mt-3 text-sm">{member.bio}</p>
-                            <div className="mt-4 pt-4 border-t border-zinc-200">
-                              <span className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">
-                                View Portfolio →
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </NavLink>
-                  </li>
-                );
-              })}
-            </ul>
-          </section>
-
-          {/* CTA Section */}
-          <section className="text-center mt-24 py-12 bg-zinc-50 rounded-lg">
-            <h2 className="text-3xl font-bold tracking-tight text-zinc-900">Want to Join Our Team?</h2>
-            <p className="mt-3 max-w-md mx-auto text-base text-zinc-600">We're always looking for talented individuals. Check out our open positions or get in touch.</p>
-            <div className="mt-8 flex justify-center">
-              <div className="max-w-fit">
+          <div className="w-full px-6 py-20">
+            {/* Header section - similar to Portfolio page */}
+            <div className="mb-16 lg:mb-20">
+              <h1 className="text-5xl lg:text-7xl font-bold tracking-tight leading-tight uppercase mb-6">
+                Meet Our Creative Team
+              </h1>
+              <p className="text-zinc-600 text-base lg:text-lg leading-relaxed max-w-2xl">
+                We are a collective of designers, developers, and strategists passionate about building exceptional digital experiences.
+              </p>
+              <div className="mt-8">
                 <ButtonType3 title="Contact Us" to="/contact" />
               </div>
             </div>
-          </section>
+
+            {/* Filter and View Controls */}
+            <section className="mb-12 flex flex-col sm:flex-row justify-between items-center gap-6" aria-label="Team display controls">
+              <div className="flex flex-wrap justify-center gap-2 sm:gap-3" role="group" aria-label="Filter team members by role">
+                {roles.map((role) => (
+                  <button key={role} onClick={() => setActiveFilter(role)} className={`px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-zinc-500 ${activeFilter === role ? 'bg-zinc-900 text-white shadow' : 'bg-zinc-100 text-zinc-700 hover:bg-zinc-200'}`} aria-pressed={activeFilter === role}>
+                    {role}
+                  </button>
+                ))}
+              </div>
+
+            </section>
+
+            {/* Team Members List/Grid */}
+            <section>
+              <ul className={viewMode === 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12' : 'flex flex-col gap-6'}>
+                {filteredMembers.map((member) => {
+                  const isProtected = member.slug !== 'thinley-dhendup';
+                  const handleClick = (e) => {
+                    if (isProtected && !user) {
+                      e.preventDefault();
+                      // Save the portfolio page they want to visit
+                      sessionStorage.setItem('intendedRoute', `/team/${member.slug}`);
+                      setShowAuthModal(true);
+                    }
+                  };
+
+                  return (
+                    <li key={member.id} className={`bg-white rounded-lg border border-zinc-200 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 cursor-pointer ${viewMode === 'list' ? 'flex flex-col sm:flex-row items-center overflow-hidden' : 'overflow-hidden'}`}>
+                      <NavLink
+                        to={`/team/${member.slug}`}
+                        onClick={handleClick}
+                        className="block w-full h-full"
+                      >
+                        {viewMode === 'grid' ? (
+                          <> {/* Grid View Layout */}
+                            <div className="aspect-w-1 aspect-h-1">
+                              {member.avatar ? <img src={member.avatar} alt={`Portrait of ${member.name}`} className="w-full h-full object-cover" /> : <FallbackAvatar className="w-full h-full object-cover" />}
+                            </div>
+                            <div className="p-6">
+                              <h3 className="text-xl font-bold text-zinc-900">{member.name}</h3>
+                              <p className="text-zinc-600 font-semibold mt-1">{member.role}</p>
+                              <p className="text-zinc-600 mt-3 text-sm h-20">{member.bio}</p>
+                              <div className="mt-4 pt-4 border-t border-zinc-200">
+                                <span className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">
+                                  View Portfolio →
+                                </span>
+                              </div>
+                            </div>
+                          </>
+                        ) : (
+                          <div className="flex flex-col sm:flex-row items-center w-full">
+                            <div className="w-full sm:w-40 h-40 flex-shrink-0">
+                              {member.avatar ? <img src={member.avatar} alt={`Portrait of ${member.name}`} className="w-full h-full object-cover" /> : <FallbackAvatar className="w-full h-full" />}
+                            </div>
+                            <div className="p-6 flex-grow">
+                              <h3 className="text-xl font-bold text-zinc-900">{member.name}</h3>
+                              <p className="text-zinc-600 font-semibold mt-1">{member.role}</p>
+                              <p className="text-zinc-600 mt-3 text-sm">{member.bio}</p>
+                              <div className="mt-4 pt-4 border-t border-zinc-200">
+                                <span className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">
+                                  View Portfolio →
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </NavLink>
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+
+            {/* CTA Section */}
+            <section className="text-center mt-24 py-12 bg-zinc-50 rounded-lg">
+              <h2 className="text-3xl font-bold tracking-tight text-zinc-900">Want to Join Our Team?</h2>
+              <p className="mt-3 max-w-md mx-auto text-base text-zinc-600">We're always looking for talented individuals. Check out our open positions or get in touch.</p>
+              <div className="mt-8 flex justify-center">
+                <div className="max-w-fit">
+                  <ButtonType3 title="Contact Us" to="/contact" />
+                </div>
+              </div>
+            </section>
+          </div>
         </div>
       </div>
-      <H5 />
+      <div className="relative md:fixed bottom-0 left-0 w-full z-0 h-auto md:h-screen bg-white flex flex-col justify-between">
+        {/* Dimming Overlay for Reveal Effect */}
+        <motion.div
+          style={{ opacity: overlayOpacity }}
+          className="absolute inset-0 bg-black pointer-events-none z-20 hidden md:block"
+        />
+
+        {/* H5 acts as the centered branding content. */}
+        <div className="w-full md:h-full flex items-center justify-center relative z-10">
+          <H5 />
+        </div>
+        <div className="w-full md:absolute md:bottom-0 relative z-10">
+          <Footer />
+        </div>
+      </div>
     </div>
   );
 };
