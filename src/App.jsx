@@ -38,7 +38,7 @@ function App() {
         <div className="flex-1">
           <Outlet></Outlet>
         </div>
-        <Footer></Footer>
+        {location.pathname !== '/' && <Footer></Footer>}
       </div>
     </div>
   );
