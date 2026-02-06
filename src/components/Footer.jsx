@@ -22,7 +22,7 @@ function Footer() {
 
   return (
     <div className=''>
-      <div className="w-full h-px bg-zinc-200 mt-3" />
+      <div className="w-full h-px bg-zinc-200 mt-" />
       {/* hide contact info block on the Contact page */}
       {!isContactPage && (
         <div className='flex flex-col lg:flex-row lg:justify-between lg:flex-wrap px-2 lg:px-10 mt-4 sm:mt-6 lg:mt-10 gap-5 lg:gap-0'>
