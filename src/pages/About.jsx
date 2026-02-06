@@ -64,7 +64,7 @@ const pageData = {
       { icon: <IconInnovation />, title: "Responsibility", text: "Protecting the environment and building with care." },
       { icon: <IconHuman />, title: "Purpose", text: "Celebrating Bhutan’s cultural identity within a forward-looking framework." },
     ],
-    image: philosophyImg,
+    // image: philosophyImg,
   },
   inspiration: {
     heading: "Vision",
