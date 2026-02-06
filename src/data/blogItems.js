@@ -1,16 +1,15 @@
 
-import photo1 from '../assets/project-photo/clocktower.jpg';
-import photo2 from '../assets/project-photo/electricity.jpg';
-import photo3 from '../assets/project-photo/bhutanbank.jpg';
-import photo4 from '../assets/project-photo/YangkhilProjectDocumentation.jpg';
-import photo5 from '../assets/project-photo/Pangbisafarmhouse-1.jpg';
-import photo6 from '../assets/project-photo/bolangerycafe.JPG';
+import blog1 from '../assets/blog/blog1.jpg';
+import blog2 from '../assets/blog/blog2.jpg';
+import blog3 from '../assets/blog/blog3.jpg';
+import blog4 from '../assets/blog/blog4.jpg';
+import blog5 from '../assets/blog/blog5.jpg';
 
-// Using existing project photos as placeholders for now
+// Using new blog images
 export const blogItems = [
     {
         id: 1,
-        image: photo1,
+        image: blog1,
         title: 'Architectural Digest: Future of Urban Design',
         subtitle: 'News',
         domain: 'News',
@@ -21,7 +20,7 @@ export const blogItems = [
     },
     {
         id: 2,
-        image: photo2,
+        image: blog2,
         title: 'Sustainable Materials in Modern Construction',
         subtitle: 'Articles',
         domain: 'Articles',
@@ -30,11 +29,9 @@ export const blogItems = [
         description: "An in-depth analysis of new eco-friendly building materials that are revolutionizing the construction industry while reducing carbon footprint.",
         readTime: "8 min read"
     },
-
-
     {
         id: 5,
-        image: photo5,
+        image: blog3,
         title: 'Heritage Conservation Quarterly',
         subtitle: 'Publications',
         domain: 'Publications',
@@ -45,7 +42,7 @@ export const blogItems = [
     },
     {
         id: 6,
-        image: photo6,
+        image: blog4,
         title: 'Urban Heat Islands: A Case Study',
         subtitle: 'Research',
         domain: 'Research',
@@ -56,7 +53,7 @@ export const blogItems = [
     },
     {
         id: 7,
-        image: photo1,
+        image: blog5,
         title: 'Annual Design Symposium 2025',
         subtitle: 'events',
         domain: 'events',

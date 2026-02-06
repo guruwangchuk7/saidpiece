@@ -36,7 +36,7 @@ const IconHuman = () => (
 // --- Page Content (Expanded with more information) ---
 const pageData = {
   hero: {
-    heading: "saidpiece architect",
+    heading: "saidpiece architects",
   },
   intro: {
     title: "Saidpiece Architects is a registered Bhutanese firm specializing in architectural and engineering solutions.",

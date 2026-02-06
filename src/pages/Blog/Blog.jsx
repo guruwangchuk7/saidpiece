@@ -1,13 +1,14 @@
 
 import { useState, useMemo } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import rightArrow from '../assets/icons/rightArrow.svg';
+import rightArrow from '../../assets/icons/rightArrow.svg';
 
-import { blogItems } from '../data/blogItems';
-import H5 from './home/H5';
+import { blogItems } from '../../data/blogItems';
+import H5 from '../home/H5';
 
 const Blog = () => {
+    const navigate = useNavigate();
     const [selectedFilter, setSelectedFilter] = useState('all');
 
     // Defined filters based on requirements
@@ -77,7 +78,8 @@ const Blog = () => {
                                 <motion.div
                                     key={p.id}
                                     layoutId={`blog-card-${p.id}`}
-                                    className="group flex flex-col gap-3 sm:gap-4 relative z-0"
+                                    onClick={() => navigate(`/blog/${p.id}`)}
+                                    className="group cursor-pointer flex flex-col gap-3 sm:gap-4 relative z-0"
                                     whileHover={{ y: -5 }}
                                     transition={{ duration: 0.2 }}
                                     initial={{ opacity: 0 }}

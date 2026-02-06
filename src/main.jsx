@@ -8,7 +8,8 @@ import Contact from './pages/Contact.jsx'
 import Team from './pages/team/Team.jsx'
 import About from './pages/About.jsx'
 import Portfolio from './pages/Portfolio/Portfolio.jsx'
-import Blog from './pages/Blog.jsx'
+import Blog from './pages/Blog/Blog.jsx'
+import BlogPost from './pages/Blog/BlogPost.jsx'
 import ProjectGallery from './pages/Portfolio/ProjectGallery.jsx'
 import Legal from './pages/Legal.jsx'
 import ThinleyDhendupPortfolio from './pages/team/portfolios/ThinleyDhendupPortfolio.jsx'
@@ -30,6 +31,7 @@ const router = createBrowserRouter(
       <Route path='contact' element={<Contact />}></Route>
       <Route path='portfolio' element={<Portfolio />}></Route>
       <Route path='blog' element={<Blog />}></Route>
+      <Route path='blog/:id' element={<BlogPost />}></Route>
 
       <Route path='team' element={<Team />}></Route>
       <Route path='team/thinley-dhendup' element={<ThinleyDhendupPortfolio />}></Route>
