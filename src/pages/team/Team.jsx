@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { NavLink } from 'react-router-dom';
-import { FaGithub, FaLinkedin, FaEnvelope, FaThLarge, FaList } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope, FaThLarge, FaList, FaChevronDown } from 'react-icons/fa';
 import rightArrow from '../../assets/icons/rightArrow.svg';
 import ButtonType3 from '../../components/ButtonType3';
 import Footer from '../../components/Footer';
@@ -125,9 +125,18 @@ const Team = () => {
   const { user, setShowAuthModal } = useAuth();
   const [activeFilter, setActiveFilter] = useState('All');
   const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  // Get unique roles for filter buttons, including "All"
-  const roles = ['All', ...new Set(teamMembers.map((member) => member.role))];
+  const filterRoles = [
+    'Principal Architect',
+    'Admin',
+    'Civil Engineer',
+    'Architect',
+    'Architecture',
+    'Architecture Intern',
+    'Full Stack Developer'
+  ];
+
 
   const filteredMembers =
     activeFilter === 'All'
@@ -164,7 +173,7 @@ const Team = () => {
 
         <div className="w-full px-6 py-20">
           {/* Header section - similar to Portfolio page */}
-          <div className="mb-16 lg:mb-20">
+          <div className="mb-10 lg:mb-14">
             <h1 className="text-5xl lg:text-7xl font-bold tracking-tight leading-tight uppercase mb-6">
               Meet Our Creative Team
             </h1>
@@ -176,17 +185,72 @@ const Team = () => {
             </div>
           </div>
 
-          {/* Filter and View Controls */}
-          <section className="mb-12 flex flex-col sm:flex-row justify-between items-center gap-6" aria-label="Team display controls">
-            <div className="flex flex-wrap justify-center gap-2 sm:gap-3" role="group" aria-label="Filter team members by role">
-              {roles.map((role) => (
-                <button key={role} onClick={() => setActiveFilter(role)} className={`px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-zinc-500 ${activeFilter === role ? 'bg-zinc-900 text-white shadow' : 'bg-zinc-100 text-zinc-700 hover:bg-zinc-200'}`} aria-pressed={activeFilter === role}>
-                  {role}
+          {/* Filter and View Controls - Updated to match Portfolio style */}
+          <div className="mb-10 sm:mb-16">
+            {/* Mobile Dropdown */}
+            <div className="sm:hidden relative z-30">
+              <button
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="flex items-center justify-between w-full px-4 py-3 bg-white border border-zinc-200 rounded-full shadow-sm"
+              >
+                <div className="flex items-center gap-2">
+                  <div className={`w-2 h-2 rounded-full bg-black`}></div>
+                  <span className="text-sm font-medium text-zinc-900">
+                    {activeFilter === 'All' ? 'All Categories' : activeFilter}
+                  </span>
+                </div>
+                <FaChevronDown className={`w-3 h-3 text-zinc-400 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {isDropdownOpen && (
+                <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-zinc-200 rounded-xl shadow-xl overflow-hidden py-1 z-50">
+                  <button
+                    onClick={() => { setActiveFilter('All'); setIsDropdownOpen(false); }}
+                    className="flex items-center w-full px-4 py-3 hover:bg-zinc-50 border-b border-zinc-100 last:border-0 text-left"
+                  >
+                    <div className={`w-2 h-2 rounded-full mr-3 shrink-0 transition-colors ${activeFilter === 'All' ? 'bg-black' : 'bg-zinc-200'}`}></div>
+                    <span className={`text-sm ${activeFilter === 'All' ? 'text-black font-medium' : 'text-zinc-600'}`}>All Categories</span>
+                  </button>
+                  {filterRoles.map((role) => (
+                    <button
+                      key={role}
+                      onClick={() => { setActiveFilter(role); setIsDropdownOpen(false); }}
+                      className="flex items-center w-full px-4 py-3 hover:bg-zinc-50 border-b border-zinc-100 last:border-0 text-left"
+                    >
+                      <div className={`w-2 h-2 rounded-full mr-3 shrink-0 transition-colors ${activeFilter === role ? 'bg-black' : 'bg-zinc-200'}`}></div>
+                      <span className={`text-sm capitalize ${activeFilter === role ? 'text-black font-medium' : 'text-zinc-600'}`}>{role}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Desktop List */}
+            <div className="hidden sm:flex flex-wrap gap-3 sm:gap-6 items-center">
+              <button
+                onClick={() => setActiveFilter('All')}
+                className="flex items-center gap-2 group cursor-pointer"
+              >
+                <div className={`w-2 h-2 rounded-full transition-all duration-300 ${activeFilter === 'All' ? 'bg-black' : 'bg-zinc-300 group-hover:bg-zinc-400'
+                  }`}></div>
+                <span className="text-xs sm:text-sm text-zinc-600 group-hover:text-black transition-colors">All</span>
+              </button>
+
+              {filterRoles.map((role) => (
+                <button
+                  key={role}
+                  onClick={() => setActiveFilter(role)}
+                  className="flex items-center gap-2 group cursor-pointer"
+                >
+                  <div className={`w-2 h-2 rounded-full transition-all duration-300 ${activeFilter === role ? 'bg-black' : 'bg-zinc-300 group-hover:bg-zinc-400'
+                    }`}></div>
+                  <span className="text-xs sm:text-sm text-zinc-600 group-hover:text-black transition-colors capitalize">
+                    {role}
+                  </span>
                 </button>
               ))}
             </div>
-
-          </section>
+          </div>
 
           {/* Team Members List/Grid */}
           <section>
