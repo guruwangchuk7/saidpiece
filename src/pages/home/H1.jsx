@@ -5,6 +5,12 @@ import { motion, MotionConfig, useScroll } from "motion/react";
 
 function H1() {
 
+  const imageRef = React.useRef(null);
+
+  const handleScrollDown = () => {
+    imageRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+
   return (
     <div>
       <div className="relative h-[100vh] sm:h-[60vh] lg:h-[90vh] flex justify-center items-center text-neutral-900 px-4">
@@ -22,19 +28,22 @@ function H1() {
         </MotionConfig>
 
         <motion.div
-          className="absolute bottom-28 md:bottom-12 flex flex-col items-center gap-3"
+          className="absolute bottom-28 md:bottom-12 flex flex-col items-center gap-3 cursor-pointer"
           initial={{ opacity: 0, y: -10 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 1, duration: 1 }}
           style={{ fontFamily: "century-gothic" }}
+          onClick={handleScrollDown}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
         >
           <img src={rightArrow} alt="Scroll down" className="w-5 rotate-90 opacity-70" />
-          <span className="text-xs font-light border-b border-black md:border-neutral-500 pb-1">scroll down</span>
+          <span className="text-sm font-light border-b border-black md:border-neutral-500 pb-1">scroll down</span>
         </motion.div>
       </div>
 
 
-      <div className="h-auto sm:h-[82vh] md:h-[92vh] mx-3 sm:mx-5 md:mx-10 lg:mx-20 mt-10 sm:mt-[28vh] lg:mt-[14vh] overflow-hidden flex justify-center items-center">
+      <div ref={imageRef} className="h-auto sm:h-[82vh] md:h-[92vh] mx-3 sm:mx-5 md:mx-10 lg:mx-20 mt-10 sm:mt-[28vh] lg:mt-[14vh] overflow-hidden flex justify-center items-center">
         <img
           src={kinleyPhoto}
           alt="Kinley"
