@@ -3,11 +3,9 @@ import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { NavLink } from 'react-router-dom';
-import { motion, useScroll, useTransform } from 'motion/react';
 import rightArrow from '../assets/icons/rightArrow.svg';
 import H5 from './home/H5';
 import Footer from '../components/Footer';
-
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
@@ -84,13 +82,6 @@ const pageData = {
 function About() {
   const mainRef = useRef(null);
 
-  const { scrollYProgress } = useScroll({
-    target: mainRef,
-    offset: ["end end", "end start"]
-  });
-
-  const overlayOpacity = useTransform(scrollYProgress, [0, 1], [0.8, 0]);
-
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -137,138 +128,123 @@ function About() {
   }, []);
 
   return (
-    <div className="w-full">
-      <div className="relative z-10 bg-white shadow-none md:shadow-2xl mb-0 md:mb-[100vh]">
-        <main ref={mainRef} className="w-full flex flex-col bg-zinc-50 antialiased text-zinc-800 relative">
-          <NavLink
-            to="/"
-            className="absolute top-6 sm:top-10 left-7 sm:left-12 lg:left-26 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-20 text-white"
-          >
-            <img src={rightArrow} alt="Back" className="w-4 h-4 rotate-180 invert" />
-            <span>Back to home</span>
-          </NavLink>
+    <main ref={mainRef} className="w-full flex flex-col bg-white antialiased text-zinc-800 relative">
+      <NavLink
+        to="/"
+        className="absolute top-6 sm:top-10 left-7 sm:left-12 lg:left-26 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-20 text-white"
+      >
+        <img src={rightArrow} alt="Back" className="w-4 h-4 rotate-180 invert" />
+        <span>Back to home</span>
+      </NavLink>
 
 
-          {/* === HERO SECTION === */}
-          <header
-            className="relative w-full h-[80vh] flex flex-col justify-center items-center text-white text-center"
-            style={{ backgroundImage: `url(${aboutUsImg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
-          >
-            <div className="absolute inset-0 bg-black/40" />
-            <div data-animate="hero-title" className="relative z-10 px-5">
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-normal max-w-4xl mx-auto leading-tight tracking-wide">
-                {pageData.hero.heading}
-              </h1>
-            </div>
-          </header>
+      {/* === HERO SECTION === */}
+      <header
+        className="relative w-full h-[80vh] flex flex-col justify-center items-center text-white text-center"
+        style={{ backgroundImage: `url(${aboutUsImg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+      >
+        <div className="absolute inset-0 bg-black/40" />
+        <div data-animate="hero-title" className="relative z-10 px-5">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-normal max-w-4xl mx-auto leading-tight tracking-wide">
+            {pageData.hero.heading}
+          </h1>
+        </div>
+      </header>
 
-          {/* === INTRO SECTION === */}
-          <section data-animate-section className="py-16 lg:py-32 px-6 lg:px-20 text-center">
-            <div className="max-w-4xl mx-auto">
-              <h2 data-animate-child className="text-2xl md:text-3xl lg:text-5xl font-light leading-tight mb-6">
-                {pageData.intro.title}
-              </h2>
-              <p data-animate-child className="text-lg lg:text-xl text-zinc-500 leading-relaxed">
-                {pageData.intro.description}
+      {/* === INTRO SECTION === */}
+      <section data-animate-section className="py-16 lg:py-32 px-6 lg:px-20 text-center">
+        <div className="max-w-4xl mx-auto">
+          <h2 data-animate-child className="text-2xl md:text-3xl lg:text-5xl font-light leading-tight mb-6">
+            {pageData.intro.title}
+          </h2>
+          <p data-animate-child className="text-lg lg:text-xl text-zinc-500 leading-relaxed">
+            {pageData.intro.description}
+          </p>
+        </div>
+      </section>
+
+      {/* === OUR PROCESS SECTION (NEW) === */}
+      <section data-animate-section className="py-16 lg:py-32 px-6 lg:px-20 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <h2 data-animate-child className="text-sm font-bold text-zinc-500 tracking-widest uppercase mb-4">{pageData.process.heading}</h2>
+            <p data-animate-child className="text-2xl lg:text-4xl leading-snug">
+              {pageData.process.tagline}
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 border-t border-zinc-200 pt-16">
+            {pageData.process.steps.map((step) => (
+              <div data-animate-child key={step.number}>
+                <span className="text-zinc-400 font-mono text-lg">{step.number}</span>
+                <h3 className="text-2xl font-semibold text-zinc-900 mt-4 mb-3">{step.title}</h3>
+                <p className="text-zinc-600 leading-relaxed">{step.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* === PHILOSOPHY SECTION === */}
+      <section data-animate-section className="py-16 lg:py-32 px-6 lg:px-20 bg-zinc-50">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <h2 data-animate-child className="text-sm font-bold text-zinc-500 tracking-widest uppercase mb-4">{pageData.philosophy.heading}</h2>
+            <p data-animate-child className="text-2xl lg:text-4xl leading-snug">
+              {pageData.philosophy.description}
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            {pageData.philosophy.principles.map((p, index) => (
+              <div data-animate-child key={index} className="text-center p-8">
+                <div className="flex justify-center mb-6">{p.icon}</div>
+                <h3 className="text-xl font-semibold text-zinc-900 mb-3">{p.title}</h3>
+                <p className="text-zinc-600 leading-relaxed">{p.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* === INSPIRED BY BHUTAN SECTION (NEW) === */}
+      <section data-animate-section className="py-16 lg:py-32 px-6 lg:px-20 bg-white text-center">
+        <div className="max-w-4xl mx-auto">
+          <h2 data-animate-child className="text-sm font-bold text-zinc-500 tracking-widest uppercase mb-4">{pageData.inspiration.heading}</h2>
+          <p data-animate-child className="text-xl lg:text-3xl font-light text-zinc-800 leading-relaxed">
+            {pageData.inspiration.description}
+          </p>
+        </div>
+      </section>
+
+      {/* === TEAM SECTION === */}
+      <section data-animate-section className="py-16 lg:py-32 px-6 lg:px-20 bg-zinc-100">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div data-animate-child className="lg:order-last">
+            <img
+              src={pageData.team.image}
+              alt="SaidPiece Team"
+              className="rounded-lg shadow-2xl object-cover w-full h-full max-h-[600px]"
+            />
+          </div>
+          <div data-animate-child className="relative">
+            <span className="absolute -top-12 left-0 lg:-left-8 text-[120px] font-serif text-zinc-200 leading-none z-0">“</span>
+            <div className="relative z-10">
+              <h2 className="text-sm font-bold text-zinc-500 tracking-widest uppercase mb-6 ml-4 lg:ml-0">{pageData.team.heading}</h2>
+              <blockquote className="text-2xl lg:text-4xl font-light leading-snug mb-8">
+                {pageData.team.quote}
+              </blockquote>
+              <p className="text-lg text-zinc-600 leading-relaxed">
+                {pageData.team.description}
               </p>
             </div>
-          </section>
-
-          {/* === OUR PROCESS SECTION (NEW) === */}
-          <section data-animate-section className="py-16 lg:py-32 px-6 lg:px-20 bg-white">
-            <div className="max-w-6xl mx-auto">
-              <div className="text-center max-w-3xl mx-auto mb-20">
-                <h2 data-animate-child className="text-sm font-bold text-zinc-500 tracking-widest uppercase mb-4">{pageData.process.heading}</h2>
-                <p data-animate-child className="text-2xl lg:text-4xl leading-snug">
-                  {pageData.process.tagline}
-                </p>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 border-t border-zinc-200 pt-16">
-                {pageData.process.steps.map((step) => (
-                  <div data-animate-child key={step.number}>
-                    <span className="text-zinc-400 font-mono text-lg">{step.number}</span>
-                    <h3 className="text-2xl font-semibold text-zinc-900 mt-4 mb-3">{step.title}</h3>
-                    <p className="text-zinc-600 leading-relaxed">{step.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* === PHILOSOPHY SECTION === */}
-          <section data-animate-section className="py-16 lg:py-32 px-6 lg:px-20 bg-zinc-50">
-            <div className="max-w-6xl mx-auto">
-              <div className="text-center max-w-3xl mx-auto mb-20">
-                <h2 data-animate-child className="text-sm font-bold text-zinc-500 tracking-widest uppercase mb-4">{pageData.philosophy.heading}</h2>
-                <p data-animate-child className="text-2xl lg:text-4xl leading-snug">
-                  {pageData.philosophy.description}
-                </p>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-                {pageData.philosophy.principles.map((p, index) => (
-                  <div data-animate-child key={index} className="text-center p-8">
-                    <div className="flex justify-center mb-6">{p.icon}</div>
-                    <h3 className="text-xl font-semibold text-zinc-900 mb-3">{p.title}</h3>
-                    <p className="text-zinc-600 leading-relaxed">{p.text}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* === INSPIRED BY BHUTAN SECTION (NEW) === */}
-          <section data-animate-section className="py-16 lg:py-32 px-6 lg:px-20 bg-white text-center">
-            <div className="max-w-4xl mx-auto">
-              <h2 data-animate-child className="text-sm font-bold text-zinc-500 tracking-widest uppercase mb-4">{pageData.inspiration.heading}</h2>
-              <p data-animate-child className="text-xl lg:text-3xl font-light text-zinc-800 leading-relaxed">
-                {pageData.inspiration.description}
-              </p>
-            </div>
-          </section>
-
-          {/* === TEAM SECTION === */}
-          <section data-animate-section className="py-16 lg:py-32 px-6 lg:px-20 bg-zinc-100">
-            <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-              <div data-animate-child className="lg:order-last">
-                <img
-                  src={pageData.team.image}
-                  alt="SaidPiece Team"
-                  className="rounded-lg shadow-2xl object-cover w-full h-full max-h-[600px]"
-                />
-              </div>
-              <div data-animate-child className="relative">
-                <span className="absolute -top-12 left-0 lg:-left-8 text-[120px] font-serif text-zinc-200 leading-none z-0">“</span>
-                <div className="relative z-10">
-                  <h2 className="text-sm font-bold text-zinc-500 tracking-widest uppercase mb-6 ml-4 lg:ml-0">{pageData.team.heading}</h2>
-                  <blockquote className="text-2xl lg:text-4xl font-light leading-snug mb-8">
-                    {pageData.team.quote}
-                  </blockquote>
-                  <p className="text-lg text-zinc-600 leading-relaxed">
-                    {pageData.team.description}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-        </main>
-      </div>
-      <div className="relative md:fixed bottom-0 left-0 w-full z-0 h-auto md:h-screen bg-white flex flex-col justify-between">
-        {/* Dimming Overlay for Reveal Effect */}
-        <motion.div
-          style={{ opacity: overlayOpacity }}
-          className="absolute inset-0 bg-black pointer-events-none z-20 hidden md:block"
-        />
-
-        {/* H5 acts as the centered branding content. */}
-        <div className="w-full md:h-full flex items-center justify-center relative z-10">
-          <H5 />
+          </div>
         </div>
-        <div className="w-full md:absolute md:bottom-0 relative z-10">
-          <Footer />
-        </div>
-      </div>
-    </div>
+      </section>
+
+      {/* === H5 SECTION === */}
+      <H5 />
+
+      <Footer />
+    </main>
   );
 }
 
