@@ -10,12 +10,12 @@ import img4 from "../../assets/project-photo/YangkhilProjectDocumentation.jpg";
 
 const portfolioData = {
   name: [
+    "BHUTAN NATIONAL BANK",
     "CLOCK TOWER REDEVELOPMENT",
     "ELECTRICITY REGOLATORY",
-    "BHUTAN NATIONAL BANK",
     "YANGKHIL CAFE"
   ],
-  image: [img1, img2, img3, img4],
+  image: [img3, img1, img2, img4],
 };
 
 function H4() {
@@ -94,14 +94,14 @@ function H4() {
                 alt={`Project ${index + 1}`}
                 className="w-full h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[85vh] object-cover shadow-zinc-900/5 transition-transform duration-700 ease-out hover:scale-[1.02]"
                 animate={
-                  index === 2 && activeIndex === 2
+                  index === 0 && activeIndex === 0
                     ? {
                       objectPosition: ["center top", "center bottom"],
                     }
                     : { objectPosition: "center center" }
                 }
                 transition={
-                  index === 2 && activeIndex === 2
+                  index === 0 && activeIndex === 0
                     ? {
                       duration: 5,
                       repeat: Infinity,
