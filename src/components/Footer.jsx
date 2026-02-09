@@ -6,7 +6,7 @@ import ButtonType2 from './ButtonType2'
 function AllRightReserved() {
   return (
     <>
-      <div className='flex justify-between items-center px-2 lg:px-10 mt-4 lg:mt-10 py-2 text-[12px] lg:text-[14px]'>
+      <div className='flex justify-between items-center px-2 lg:px-10 mt-4 lg:mt-10 py-2 text-[10px] sm:text-xs lg:text-[14px]'>
         <p>SAIDPIECE © 2023–2026</p>
         <NavLink to={'/legal'} className={`hidden lg:flex`}>Terms of conditions and Privacy policy</NavLink>
         <NavLink to={'greenRoom'}>Website by Saidpiece</NavLink>
@@ -25,7 +25,7 @@ function Footer() {
       <div className="w-full h-px bg-zinc-200 mt-" />
       {/* hide contact info block on the Contact page */}
       {!isContactPage && (
-        <div className='flex flex-col lg:flex-row lg:justify-between lg:flex-wrap px-2 lg:px-10 mt-4 sm:mt-6 lg:mt-10 gap-5 lg:gap-0'>
+        <div className='flex flex-col lg:flex-row lg:justify-between lg:flex-wrap px-2 lg:px-10 mt-4 sm:mt-6 lg:mt-10 gap-5 lg:gap-0 text-sm md:text-base'>
           <div className=''>
             <p>E:</p>
             <p className='mt-2 sm:mt-5'>
