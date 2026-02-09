@@ -1,3 +1,4 @@
+import { motion } from "motion/react";
 import React, { useEffect, useRef } from 'react';
 
 import { gsap } from 'gsap';
@@ -81,6 +82,11 @@ const pageData = {
 
 function About() {
   const mainRef = useRef(null);
+  const introRef = useRef(null);
+
+  const handleScrollDown = () => {
+    introRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -140,19 +146,33 @@ function About() {
 
       {/* === HERO SECTION === */}
       <header
-        className="relative w-full h-[80vh] flex flex-col justify-center items-center text-white text-center"
+        className="relative w-full h-screen flex flex-col justify-center items-center text-white text-center"
         style={{ backgroundImage: `url(${aboutUsImg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
       >
         <div className="absolute inset-0 bg-black/40" />
-        <div data-animate="hero-title" className="relative z-10 px-5">
+        <div data-animate="hero-title" className="relative z-10 px-5 -mt-40">
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-normal max-w-4xl mx-auto leading-tight tracking-wide">
             {pageData.hero.heading}
           </h1>
         </div>
+
+        <motion.div
+          className="absolute bottom-32 flex flex-col items-center gap-3 cursor-pointer z-20"
+          initial={{ opacity: 0, y: -10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1, duration: 1 }}
+          style={{ fontFamily: "century-gothic" }}
+          onClick={handleScrollDown}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <img src={rightArrow} alt="Scroll down" className="w-5 rotate-90 opacity-70 invert" />
+          <span className="text-sm font-light border-b border-white pb-1">scroll down</span>
+        </motion.div>
       </header>
 
       {/* === INTRO SECTION === */}
-      <section data-animate-section className="py-16 lg:py-32 px-6 lg:px-20 text-center">
+      <section ref={introRef} data-animate-section className="py-16 lg:py-32 px-6 lg:px-20 text-center">
         <div className="max-w-4xl mx-auto">
           <h2 data-animate-child className="text-2xl md:text-3xl lg:text-5xl font-light leading-tight mb-6">
             {pageData.intro.title}
