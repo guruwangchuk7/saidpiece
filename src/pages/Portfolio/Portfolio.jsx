@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
+import { FaChevronDown } from 'react-icons/fa';
 import rightArrow from '../../assets/icons/rightArrow.svg';
 
 import { portfolioItems } from '../../data/portfolioItems';
@@ -16,6 +17,7 @@ const Portfolio = () => {
   const { user, setShowAuthModal } = useAuth();
   const [selectedId, setSelectedId] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState('all');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   // Get unique domains
   const domains = useMemo(() => {
@@ -66,29 +68,70 @@ const Portfolio = () => {
           </div>
 
           {/* Filter section */}
-          <div className="mb-10 sm:mb-16 flex flex-wrap gap-3 sm:gap-6 items-center">
-            <button
-              onClick={() => setSelectedFilter('all')}
-              className="flex items-center gap-2 group cursor-pointer"
-            >
-              <div className={`w-2 h-2 rounded-full transition-all duration-300 ${selectedFilter === 'all' ? 'bg-black' : 'bg-zinc-300 group-hover:bg-zinc-400'
-                }`}></div>
-              <span className="text-xs sm:text-sm text-zinc-600 group-hover:text-black transition-colors">All Categories</span>
-            </button>
-
-            {domains.map(domain => (
+          <div className="mb-10 sm:mb-16">
+            {/* Mobile Dropdown */}
+            <div className="sm:hidden relative z-30">
               <button
-                key={domain}
-                onClick={() => setSelectedFilter(domain)}
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="flex items-center justify-between w-full px-4 py-3 bg-white border border-zinc-200 rounded-full shadow-sm"
+              >
+                <div className="flex items-center gap-2">
+                  <div className={`w-2 h-2 rounded-full bg-black`}></div>
+                  <span className="text-sm font-medium text-zinc-900">
+                    {selectedFilter === 'all' ? 'All Categories' : selectedFilter.charAt(0).toUpperCase() + selectedFilter.slice(1)}
+                  </span>
+                </div>
+                <FaChevronDown className={`w-3 h-3 text-zinc-400 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {isDropdownOpen && (
+                <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-zinc-200 rounded-xl shadow-xl overflow-hidden py-1 z-50">
+                  <button
+                    onClick={() => { setSelectedFilter('all'); setIsDropdownOpen(false); }}
+                    className="flex items-center w-full px-4 py-3 hover:bg-zinc-50 border-b border-zinc-100 last:border-0 text-left"
+                  >
+                    <div className={`w-2 h-2 rounded-full mr-3 shrink-0 transition-colors ${selectedFilter === 'all' ? 'bg-black' : 'bg-zinc-200'}`}></div>
+                    <span className={`text-sm ${selectedFilter === 'all' ? 'text-black font-medium' : 'text-zinc-600'}`}>All Categories</span>
+                  </button>
+                  {domains.map((domain) => (
+                    <button
+                      key={domain}
+                      onClick={() => { setSelectedFilter(domain); setIsDropdownOpen(false); }}
+                      className="flex items-center w-full px-4 py-3 hover:bg-zinc-50 border-b border-zinc-100 last:border-0 text-left"
+                    >
+                      <div className={`w-2 h-2 rounded-full mr-3 shrink-0 transition-colors ${selectedFilter === domain ? 'bg-black' : 'bg-zinc-200'}`}></div>
+                      <span className={`text-sm capitalize ${selectedFilter === domain ? 'text-black font-medium' : 'text-zinc-600'}`}>{domain}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Desktop List */}
+            <div className="hidden sm:flex flex-wrap gap-3 sm:gap-6 items-center">
+              <button
+                onClick={() => setSelectedFilter('all')}
                 className="flex items-center gap-2 group cursor-pointer"
               >
-                <div className={`w-2 h-2 rounded-full transition-all duration-300 ${selectedFilter === domain ? 'bg-black' : 'bg-zinc-300 group-hover:bg-zinc-400'
+                <div className={`w-2 h-2 rounded-full transition-all duration-300 ${selectedFilter === 'all' ? 'bg-black' : 'bg-zinc-300 group-hover:bg-zinc-400'
                   }`}></div>
-                <span className="text-xs sm:text-sm text-zinc-600 group-hover:text-black transition-colors capitalize">
-                  {domain.charAt(0).toUpperCase() + domain.slice(1)}
-                </span>
+                <span className="text-xs sm:text-sm text-zinc-600 group-hover:text-black transition-colors">All Categories</span>
               </button>
-            ))}
+
+              {domains.map(domain => (
+                <button
+                  key={domain}
+                  onClick={() => setSelectedFilter(domain)}
+                  className="flex items-center gap-2 group cursor-pointer"
+                >
+                  <div className={`w-2 h-2 rounded-full transition-all duration-300 ${selectedFilter === domain ? 'bg-black' : 'bg-zinc-300 group-hover:bg-zinc-400'
+                    }`}></div>
+                  <span className="text-xs sm:text-sm text-zinc-600 group-hover:text-black transition-colors capitalize">
+                    {domain.charAt(0).toUpperCase() + domain.slice(1)}
+                  </span>
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Portfolio grid */}
@@ -222,8 +265,6 @@ const Portfolio = () => {
                       <span className="text-sm sm:text-base font-medium text-black">{selectedItem.client}</span>
                     </div>
                   </div>
-
-
                 </motion.div>
               </div>
             </motion.div>

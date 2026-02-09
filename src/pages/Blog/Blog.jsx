@@ -2,6 +2,7 @@
 import { useState, useMemo } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
+import { FaChevronDown } from 'react-icons/fa';
 import rightArrow from '../../assets/icons/rightArrow.svg';
 import Footer from '../../components/Footer';
 import { blogItems } from '../../data/blogItems';
@@ -10,6 +11,7 @@ import { blogItems } from '../../data/blogItems';
 const Blog = () => {
     const navigate = useNavigate();
     const [selectedFilter, setSelectedFilter] = useState('all');
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     // Defined filters based on requirements
     const filters = [
@@ -36,36 +38,77 @@ const Blog = () => {
 
                 <div className="w-full px-3 sm:px-6 py-12 sm:py-20">
                     {/* Header section */}
-                    <div className="mb-10 sm:mb-10 lg:mb-10">
+                    <div className="mb-10 lg:mb-14">
                         <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-tight uppercase mb-4 sm:mb-6">
                             Blog
                         </h1>
                     </div>
 
                     {/* Filter section */}
-                    <div className="mb-10 sm:mb-16 flex flex-wrap gap-3 sm:gap-6 items-center">
-                        <button
-                            onClick={() => setSelectedFilter('all')}
-                            className="flex items-center gap-2 group cursor-pointer"
-                        >
-                            <div className={`w-2 h-2 rounded-full transition-all duration-300 ${selectedFilter === 'all' ? 'bg-black' : 'bg-zinc-300 group-hover:bg-zinc-400'
-                                }`}></div>
-                            <span className="text-xs sm:text-sm text-zinc-600 group-hover:text-black transition-colors">All</span>
-                        </button>
-
-                        {filters.map(filter => (
+                    <div className="mb-10 sm:mb-16">
+                        {/* Mobile Dropdown */}
+                        <div className="sm:hidden relative z-30">
                             <button
-                                key={filter}
-                                onClick={() => setSelectedFilter(filter)}
+                                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                                className="flex items-center justify-between w-full px-4 py-3 bg-white border border-zinc-200 rounded-full shadow-sm"
+                            >
+                                <div className="flex items-center gap-2">
+                                    <div className={`w-2 h-2 rounded-full bg-black`}></div>
+                                    <span className="text-sm font-medium text-zinc-900">
+                                        {selectedFilter === 'all' ? 'All Categories' : selectedFilter}
+                                    </span>
+                                </div>
+                                <FaChevronDown className={`w-3 h-3 text-zinc-400 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                            </button>
+
+                            {isDropdownOpen && (
+                                <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-zinc-200 rounded-xl shadow-xl overflow-hidden py-1 z-50">
+                                    <button
+                                        onClick={() => { setSelectedFilter('all'); setIsDropdownOpen(false); }}
+                                        className="flex items-center w-full px-4 py-3 hover:bg-zinc-50 border-b border-zinc-100 last:border-0 text-left"
+                                    >
+                                        <div className={`w-2 h-2 rounded-full mr-3 shrink-0 transition-colors ${selectedFilter === 'all' ? 'bg-black' : 'bg-zinc-200'}`}></div>
+                                        <span className={`text-sm ${selectedFilter === 'all' ? 'text-black font-medium' : 'text-zinc-600'}`}>All Categories</span>
+                                    </button>
+                                    {filters.map((filter) => (
+                                        <button
+                                            key={filter}
+                                            onClick={() => { setSelectedFilter(filter); setIsDropdownOpen(false); }}
+                                            className="flex items-center w-full px-4 py-3 hover:bg-zinc-50 border-b border-zinc-100 last:border-0 text-left"
+                                        >
+                                            <div className={`w-2 h-2 rounded-full mr-3 shrink-0 transition-colors ${selectedFilter === filter ? 'bg-black' : 'bg-zinc-200'}`}></div>
+                                            <span className={`text-sm capitalize ${selectedFilter === filter ? 'text-black font-medium' : 'text-zinc-600'}`}>{filter}</span>
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Desktop List */}
+                        <div className="hidden sm:flex flex-wrap gap-3 sm:gap-6 items-center">
+                            <button
+                                onClick={() => setSelectedFilter('all')}
                                 className="flex items-center gap-2 group cursor-pointer"
                             >
-                                <div className={`w-2 h-2 rounded-full transition-all duration-300 ${selectedFilter === filter ? 'bg-black' : 'bg-zinc-300 group-hover:bg-zinc-400'
+                                <div className={`w-2 h-2 rounded-full transition-all duration-300 ${selectedFilter === 'all' ? 'bg-black' : 'bg-zinc-300 group-hover:bg-zinc-400'
                                     }`}></div>
-                                <span className="text-xs sm:text-sm text-zinc-600 group-hover:text-black transition-colors capitalize">
-                                    {filter}
-                                </span>
+                                <span className="text-xs sm:text-sm text-zinc-600 group-hover:text-black transition-colors">All</span>
                             </button>
-                        ))}
+
+                            {filters.map(filter => (
+                                <button
+                                    key={filter}
+                                    onClick={() => setSelectedFilter(filter)}
+                                    className="flex items-center gap-2 group cursor-pointer"
+                                >
+                                    <div className={`w-2 h-2 rounded-full transition-all duration-300 ${selectedFilter === filter ? 'bg-black' : 'bg-zinc-300 group-hover:bg-zinc-400'
+                                        }`}></div>
+                                    <span className="text-xs sm:text-sm text-zinc-600 group-hover:text-black transition-colors capitalize">
+                                        {filter}
+                                    </span>
+                                </button>
+                            ))}
+                        </div>
                     </div>
 
                     {/* Blog grid */}
