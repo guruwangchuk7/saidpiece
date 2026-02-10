@@ -88,7 +88,7 @@ const AdminDashboard = () => {
     };
 
     const handleImportProjects = async () => {
-        if (!window.confirm("Import static Portfolio Projects into the database?")) return;
+        if (!window.confirm("Import static Portfolio Projects into the database? This will upload images to storage.")) return;
         setImportStatus(prev => ({ ...prev, projects: 'loading' }));
         try {
             // Check for existing projects by title to avoid duplicates
@@ -99,21 +99,50 @@ const AdminDashboard = () => {
             if (fetchError) throw fetchError;
 
             const existingTitles = new Set(existing?.map(p => p.title) || []);
+            const projectsToInsert = [];
 
-            const projectsToInsert = portfolioItems
-                .filter(item => !existingTitles.has(item.title))
-                .map(({ id, ...item }) => ({
+            for (const item of portfolioItems) {
+                // Skip if already exists
+                if (existingTitles.has(item.title)) continue;
+
+                let imageUrl = item.image;
+                // Upload image if it exists
+                if (item.image) {
+                    try {
+                        const response = await fetch(item.image);
+                        const blob = await response.blob();
+                        const fileExt = blob.type.split('/')[1] || 'jpg';
+                        const fileName = `project_import_${Date.now()}_${Math.random().toString(36).substr(2, 9)}.${fileExt}`;
+
+                        const { error: uploadError } = await supabase.storage
+                            .from('blog-images')
+                            .upload(fileName, blob);
+
+                        if (uploadError) throw uploadError;
+
+                        const { data: { publicUrl } } = supabase.storage
+                            .from('blog-images')
+                            .getPublicUrl(fileName);
+
+                        imageUrl = publicUrl;
+                    } catch (err) {
+                        console.error(`Failed to upload image for ${item.title}:`, err);
+                    }
+                }
+
+                projectsToInsert.push({
                     title: item.title,
                     subtitle: item.subtitle,
                     domain: item.domain,
                     location: item.location,
                     description: item.description,
-                    image: item.image,
+                    image: imageUrl,
                     year: item.year,
                     size: item.size,
                     client: item.client,
                     collaboration: item.collaboration
-                }));
+                });
+            }
 
             if (projectsToInsert.length === 0) {
                 alert("All projects already exist in the database.");
@@ -143,7 +172,7 @@ const AdminDashboard = () => {
     };
 
     const handleImportTeam = async () => {
-        if (!window.confirm("Import static Team Members into the database?")) return;
+        if (!window.confirm("Import static Team Members into the database? This will upload images to storage.")) return;
         setImportStatus(prev => ({ ...prev, team: 'loading' }));
         try {
             // Check for existing members by name/slug to avoid duplicates
@@ -155,17 +184,44 @@ const AdminDashboard = () => {
 
             const existingSlugs = new Set(existing?.map(m => m.slug) || []);
             const existingNames = new Set(existing?.map(m => m.name) || []);
+            const teamToInsert = [];
 
-            const teamToInsert = staticTeamMembers
-                .filter(item => !existingSlugs.has(item.slug) && !existingNames.has(item.name))
-                .map(({ id, ...item }) => ({
+            for (const item of staticTeamMembers) {
+                if (existingSlugs.has(item.slug) || existingNames.has(item.name)) continue;
+
+                let avatarUrl = item.avatar;
+                if (item.avatar) {
+                    try {
+                        const response = await fetch(item.avatar);
+                        const blob = await response.blob();
+                        const fileExt = blob.type.split('/')[1] || 'jpg';
+                        const fileName = `team_import_${Date.now()}_${Math.random().toString(36).substr(2, 9)}.${fileExt}`;
+
+                        const { error: uploadError } = await supabase.storage
+                            .from('blog-images')
+                            .upload(fileName, blob);
+
+                        if (uploadError) throw uploadError;
+
+                        const { data: { publicUrl } } = supabase.storage
+                            .from('blog-images')
+                            .getPublicUrl(fileName);
+
+                        avatarUrl = publicUrl;
+                    } catch (err) {
+                        console.error(`Failed to upload avatar for ${item.name}:`, err);
+                    }
+                }
+
+                teamToInsert.push({
                     name: item.name,
                     role: item.role,
                     bio: item.bio,
-                    avatar: item.avatar,
+                    avatar: avatarUrl,
                     slug: item.slug,
                     socials: item.socials
-                }));
+                });
+            }
 
             if (teamToInsert.length === 0) {
                 alert("All team members already exist in the database.");
@@ -189,7 +245,7 @@ const AdminDashboard = () => {
     };
 
     const handleImportBlogs = async () => {
-        if (!window.confirm("Import static Blog Posts into the database?")) return;
+        if (!window.confirm("Import static Blog Posts into the database? This will upload images to storage.")) return;
         setImportStatus(prev => ({ ...prev, blogs: 'loading' }));
         try {
             // Check for existing blogs by title
@@ -200,19 +256,46 @@ const AdminDashboard = () => {
             if (fetchError) throw fetchError;
 
             const existingTitles = new Set(existing?.map(b => b.title) || []);
+            const blogsToInsert = [];
 
-            const blogsToInsert = blogItems
-                .filter(item => !existingTitles.has(item.title))
-                .map(({ id, ...item }) => ({
+            for (const item of blogItems) {
+                if (existingTitles.has(item.title)) continue;
+
+                let imageUrl = item.image;
+                if (item.image) {
+                    try {
+                        const response = await fetch(item.image);
+                        const blob = await response.blob();
+                        const fileExt = blob.type.split('/')[1] || 'jpg';
+                        const fileName = `blog_import_${Date.now()}_${Math.random().toString(36).substr(2, 9)}.${fileExt}`;
+
+                        const { error: uploadError } = await supabase.storage
+                            .from('blog-images')
+                            .upload(fileName, blob);
+
+                        if (uploadError) throw uploadError;
+
+                        const { data: { publicUrl } } = supabase.storage
+                            .from('blog-images')
+                            .getPublicUrl(fileName);
+
+                        imageUrl = publicUrl;
+                    } catch (err) {
+                        console.error(`Failed to upload image for ${item.title}:`, err);
+                    }
+                }
+
+                blogsToInsert.push({
                     title: item.title,
                     subtitle: item.subtitle,
                     domain: item.domain,
                     author: item.author,
                     description: item.description,
-                    image: item.image,
+                    image: imageUrl,
                     date: item.date,
                     read_time: item.readTime
-                }));
+                });
+            }
 
             if (blogsToInsert.length === 0) {
                 alert("All blog posts already exist in the database.");
