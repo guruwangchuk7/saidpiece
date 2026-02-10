@@ -13,18 +13,18 @@ const StatCard = ({ title, count, icon, color, link }) => {
     return (
         <div
             onClick={() => navigate(link)}
-            className="bg-white rounded-xl p-6 shadow-sm border border-zinc-100 hover:shadow-md transition-shadow cursor-pointer group"
+            className="bg-white rounded-lg p-8 border border-zinc-100 hover:border-zinc-900 transition-all cursor-pointer group"
         >
-            <div className="flex justify-between items-start mb-4">
+            <div className="flex justify-between items-start mb-6">
                 <div className={`p-3 rounded-lg ${color} text-white`}>
                     {icon}
                 </div>
-                <div className="text-zinc-400 group-hover:text-black transition-colors">
+                <div className="text-zinc-300 group-hover:text-zinc-900 transition-colors">
                     <FaArrowRight />
                 </div>
             </div>
-            <h3 className="text-3xl font-bold text-zinc-900 mb-1">{count}</h3>
-            <p className="text-sm text-zinc-500 font-medium uppercase tracking-wider">{title}</p>
+            <h3 className="text-4xl font-bold text-zinc-900 mb-2 tracking-tight">{count}</h3>
+            <p className="text-xs text-zinc-500 font-medium uppercase tracking-widest">{title}</p>
         </div>
     );
 };
@@ -108,7 +108,7 @@ const AdminDashboard = () => {
                     domain: item.domain,
                     location: item.location,
                     description: item.description,
-                    image: item.image, // Note: Static import path
+                    image: item.image,
                     year: item.year,
                     size: item.size,
                     client: item.client,
@@ -162,7 +162,7 @@ const AdminDashboard = () => {
                     name: item.name,
                     role: item.role,
                     bio: item.bio,
-                    avatar: item.avatar, // Note: Static import path
+                    avatar: item.avatar,
                     slug: item.slug,
                     socials: item.socials
                 }));
@@ -209,7 +209,7 @@ const AdminDashboard = () => {
                     domain: item.domain,
                     author: item.author,
                     description: item.description,
-                    image: item.image, // Note: Static import path
+                    image: item.image,
                     date: item.date,
                     read_time: item.readTime
                 }));
@@ -243,129 +243,127 @@ const AdminDashboard = () => {
 
     return (
         <div className="max-w-7xl mx-auto pb-20">
-            <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div>
-                    <h1 className="text-2xl font-bold text-zinc-900">Dashboard Overview</h1>
-                    <p className="text-zinc-500">Welcome back to your content management system.</p>
-                </div>
+            {/* Header */}
+            <div className="mb-12">
+                <h1 className="text-4xl lg:text-5xl font-bold text-zinc-900 tracking-tight leading-tight uppercase mb-3">
+                    Dashboard
+                </h1>
+                <p className="text-zinc-600 text-sm lg:text-base">Manage your content and site data.</p>
             </div>
 
             {isDbEmpty && !loading && (
                 <div className="mb-8 p-4 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-3 text-amber-800">
                     <FaExclamationCircle className="mt-1 shrink-0" />
                     <div>
-                        <p className="font-bold">Your database is currently empty.</p>
-                        <p className="text-sm">Use the Data Management section below to import your existing static content.</p>
+                        <p className="font-semibold text-sm">Your database is currently empty.</p>
+                        <p className="text-xs mt-1">Use the Data Management section below to import your existing static content.</p>
                     </div>
                 </div>
             )}
 
             {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
                 <StatCard
-                    title="Active Projects"
+                    title="Projects"
                     count={stats.projects}
                     icon={<FaProjectDiagram size={20} />}
-                    color="bg-blue-600"
+                    color="bg-zinc-900"
                     link="/admin/projects"
                 />
                 <StatCard
                     title="Team Members"
                     count={stats.team}
                     icon={<FaUsers size={20} />}
-                    color="bg-purple-600"
+                    color="bg-zinc-900"
                     link="/admin/team"
                 />
                 <StatCard
                     title="Blog Posts"
                     count={stats.blogs}
                     icon={<FaBlog size={20} />}
-                    color="bg-pink-600"
+                    color="bg-zinc-900"
                     link="/admin/blog"
                 />
             </div>
 
             {/* Quick Actions */}
-            <div className="mb-12">
-                <h2 className="text-lg font-bold mb-4">Quick Actions</h2>
+            <div className="mb-16">
+                <h2 className="text-lg font-bold mb-6 uppercase tracking-wider text-zinc-900">Quick Actions</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                    <button className="p-4 bg-white border border-zinc-200 rounded-lg text-left hover:border-black transition-colors" onClick={() => window.location.href = '/admin/blog'}>
-                        <span className="block font-bold text-black mb-1">+ New Blog Post</span>
+                    <button className="p-5 bg-white border border-zinc-200 rounded-lg text-left hover:border-zinc-900 transition-all group" onClick={() => window.location.href = '/admin/blog'}>
+                        <span className="block font-bold text-zinc-900 mb-2 text-sm uppercase tracking-wide">+ New Blog Post</span>
                         <span className="text-xs text-zinc-500">Write an article</span>
                     </button>
-                    <button className="p-4 bg-white border border-zinc-200 rounded-lg text-left hover:border-black transition-colors" onClick={() => window.location.href = '/admin/projects'}>
-                        <span className="block font-bold text-black mb-1">+ Add Project</span>
+                    <button className="p-5 bg-white border border-zinc-200 rounded-lg text-left hover:border-zinc-900 transition-all group" onClick={() => window.location.href = '/admin/projects'}>
+                        <span className="block font-bold text-zinc-900 mb-2 text-sm uppercase tracking-wide">+ Add Project</span>
                         <span className="text-xs text-zinc-500">Showcase work</span>
                     </button>
-                    <button className="p-4 bg-white border border-zinc-200 rounded-lg text-left hover:border-black transition-colors" onClick={() => window.location.href = '/admin/team'}>
-                        <span className="block font-bold text-black mb-1">+ Add Team Member</span>
+                    <button className="p-5 bg-white border border-zinc-200 rounded-lg text-left hover:border-zinc-900 transition-all group" onClick={() => window.location.href = '/admin/team'}>
+                        <span className="block font-bold text-zinc-900 mb-2 text-sm uppercase tracking-wide">+ Add Team Member</span>
                         <span className="text-xs text-zinc-500">Grow your team</span>
                     </button>
-                    <button className="p-4 bg-white border border-zinc-200 rounded-lg text-left hover:border-black transition-colors" onClick={() => {
+                    <button className="p-5 bg-white border border-zinc-200 rounded-lg text-left hover:border-zinc-900 transition-all group" onClick={() => {
                         const el = document.getElementById('data-management');
                         if (el) el.scrollIntoView({ behavior: 'smooth' });
                     }}>
-                        <span className="block font-bold text-black mb-1"><FaDatabase className="inline mr-1" /> Import Data</span>
+                        <span className="block font-bold text-zinc-900 mb-2 text-sm uppercase tracking-wide"><FaDatabase className="inline mr-1" /> Import Data</span>
                         <span className="text-xs text-zinc-500">Manage static imports</span>
                     </button>
                 </div>
             </div>
 
             {/* Recent Content Lists */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
                 {/* Recent Projects */}
-                <div className="bg-white rounded-xl shadow-sm border border-zinc-100 overflow-hidden">
-                    <div className="px-6 py-4 border-b border-zinc-100 flex justify-between items-center bg-zinc-50">
-                        <h3 className="font-bold text-zinc-700">Recent Projects</h3>
-                        <a href="/admin/projects" className="text-xs text-blue-600 hover:underline">View All</a>
+                <div className="bg-white rounded-lg border border-zinc-100 overflow-hidden">
+                    <div className="px-6 py-4 border-b border-zinc-100 bg-zinc-50">
+                        <h3 className="font-bold text-zinc-900 text-sm uppercase tracking-wider">Recent Projects</h3>
                     </div>
                     <ul className="divide-y divide-zinc-100">
                         {recentData.projects.map(p => (
-                            <li key={p.id} className="px-6 py-4 hover:bg-zinc-50 flex items-center gap-3">
+                            <li key={p.id} className="px-6 py-4 hover:bg-zinc-50 flex items-center gap-3 transition-colors">
                                 <div className="w-10 h-10 bg-zinc-200 rounded overflow-hidden shrink-0">
                                     {p.image && <img src={p.image} alt="" className="w-full h-full object-cover" />}
                                 </div>
                                 <div className="min-w-0">
                                     <p className="text-sm font-semibold truncate text-zinc-900">{p.title}</p>
-                                    <p className="text-xs text-zinc-500 truncate">{p.domain}</p>
+                                    <p className="text-xs text-zinc-500 truncate uppercase tracking-wide">{p.domain}</p>
                                 </div>
                             </li>
                         ))}
-                        {recentData.projects.length === 0 && <li className="px-6 py-8 text-center text-zinc-400 text-sm">No projects yet.</li>}
+                        {recentData.projects.length === 0 && <li className="px-6 py-8 text-center text-zinc-400 text-xs uppercase tracking-wider">No projects yet.</li>}
                     </ul>
                 </div>
 
                 {/* Recent Team */}
-                <div className="bg-white rounded-xl shadow-sm border border-zinc-100 overflow-hidden">
-                    <div className="px-6 py-4 border-b border-zinc-100 flex justify-between items-center bg-zinc-50">
-                        <h3 className="font-bold text-zinc-700">Recent Team</h3>
-                        <a href="/admin/team" className="text-xs text-blue-600 hover:underline">View All</a>
+                <div className="bg-white rounded-lg border border-zinc-100 overflow-hidden">
+                    <div className="px-6 py-4 border-b border-zinc-100 bg-zinc-50">
+                        <h3 className="font-bold text-zinc-900 text-sm uppercase tracking-wider">Recent Team</h3>
                     </div>
                     <ul className="divide-y divide-zinc-100">
                         {recentData.team.map(m => (
-                            <li key={m.id} className="px-6 py-4 hover:bg-zinc-50 flex items-center gap-3">
+                            <li key={m.id} className="px-6 py-4 hover:bg-zinc-50 flex items-center gap-3 transition-colors">
                                 <div className="w-10 h-10 bg-zinc-200 rounded-full overflow-hidden shrink-0">
                                     {m.avatar ? <img src={m.avatar} alt="" className="w-full h-full object-cover" /> : <div className="w-full h-full bg-zinc-300"></div>}
                                 </div>
                                 <div className="min-w-0">
                                     <p className="text-sm font-semibold truncate text-zinc-900">{m.name}</p>
-                                    <p className="text-xs text-zinc-500 truncate">{m.role}</p>
+                                    <p className="text-xs text-zinc-500 truncate uppercase tracking-wide">{m.role}</p>
                                 </div>
                             </li>
                         ))}
-                        {recentData.team.length === 0 && <li className="px-6 py-8 text-center text-zinc-400 text-sm">No team members yet.</li>}
+                        {recentData.team.length === 0 && <li className="px-6 py-8 text-center text-zinc-400 text-xs uppercase tracking-wider">No team members yet.</li>}
                     </ul>
                 </div>
 
                 {/* Recent Blogs */}
-                <div className="bg-white rounded-xl shadow-sm border border-zinc-100 overflow-hidden">
-                    <div className="px-6 py-4 border-b border-zinc-100 flex justify-between items-center bg-zinc-50">
-                        <h3 className="font-bold text-zinc-700">Recent Blogs</h3>
-                        <a href="/admin/blog" className="text-xs text-blue-600 hover:underline">View All</a>
+                <div className="bg-white rounded-lg border border-zinc-100 overflow-hidden">
+                    <div className="px-6 py-4 border-b border-zinc-100 bg-zinc-50">
+                        <h3 className="font-bold text-zinc-900 text-sm uppercase tracking-wider">Recent Blogs</h3>
                     </div>
                     <ul className="divide-y divide-zinc-100">
                         {recentData.blogs.map(b => (
-                            <li key={b.id} className="px-6 py-4 hover:bg-zinc-50 flex items-center gap-3">
+                            <li key={b.id} className="px-6 py-4 hover:bg-zinc-50 flex items-center gap-3 transition-colors">
                                 <div className="w-10 h-10 bg-zinc-200 rounded overflow-hidden shrink-0">
                                     {b.image && <img src={b.image} alt="" className="w-full h-full object-cover" />}
                                 </div>
@@ -375,32 +373,32 @@ const AdminDashboard = () => {
                                 </div>
                             </li>
                         ))}
-                        {recentData.blogs.length === 0 && <li className="px-6 py-8 text-center text-zinc-400 text-sm">No blogs yet.</li>}
+                        {recentData.blogs.length === 0 && <li className="px-6 py-8 text-center text-zinc-400 text-xs uppercase tracking-wider">No blogs yet.</li>}
                     </ul>
                 </div>
             </div>
 
             {/* Data Management Section */}
             <div id="data-management" className="mb-12">
-                <h2 className="text-lg font-bold mb-4">Data Management</h2>
-                <div className="bg-white border border-zinc-200 rounded-xl p-6">
-                    <p className="text-zinc-600 mb-6">Import static content from your local files into the database. Use this to perform an initial migration or restore default content.</p>
+                <h2 className="text-lg font-bold mb-6 uppercase tracking-wider text-zinc-900">Data Management</h2>
+                <div className="bg-white border border-zinc-200 rounded-lg p-8">
+                    <p className="text-zinc-600 mb-8 text-sm">Import static content from your local files into the database. Use this to perform an initial migration or restore default content.</p>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {/* Projects Import Card */}
-                        <div className="border border-zinc-100 rounded-lg p-4 bg-zinc-50 flex flex-col justify-between">
+                        <div className="border border-zinc-100 rounded-lg p-6 bg-zinc-50 flex flex-col justify-between hover:border-zinc-900 transition-all">
                             <div>
-                                <h3 className="font-bold text-zinc-900 mb-2 flex items-center gap-2">
-                                    <FaProjectDiagram className="text-blue-600" /> Projects
+                                <h3 className="font-bold text-zinc-900 mb-2 flex items-center gap-2 uppercase tracking-wide text-sm">
+                                    <FaProjectDiagram className="text-zinc-900" /> Projects
                                 </h3>
-                                <p className="text-xs text-zinc-500 mb-4">Import {portfolioItems.length} portfolio items from static files.</p>
+                                <p className="text-xs text-zinc-500 mb-6">Import {portfolioItems.length} portfolio items from static files.</p>
                             </div>
                             <button
                                 onClick={handleImportProjects}
                                 disabled={importStatus.projects === 'loading' || importStatus.projects === 'success'}
-                                className={`w-full py-2 px-4 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2 ${importStatus.projects === 'success' ? 'bg-green-100 text-green-700 border border-green-200' :
+                                className={`w-full py-3 px-4 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 ${importStatus.projects === 'success' ? 'bg-green-100 text-green-700 border border-green-200' :
                                     importStatus.projects === 'loading' ? 'bg-zinc-100 text-zinc-400 border border-zinc-200' :
-                                        'bg-white text-zinc-900 border border-zinc-300 hover:bg-zinc-50 hover:border-zinc-400'
+                                        'bg-zinc-900 text-white hover:bg-zinc-800'
                                     }`}
                             >
                                 {importStatus.projects === 'loading' ? <><FaSpinner className="animate-spin" /> Importing...</> :
@@ -410,19 +408,19 @@ const AdminDashboard = () => {
                         </div>
 
                         {/* Team Import Card */}
-                        <div className="border border-zinc-100 rounded-lg p-4 bg-zinc-50 flex flex-col justify-between">
+                        <div className="border border-zinc-100 rounded-lg p-6 bg-zinc-50 flex flex-col justify-between hover:border-zinc-900 transition-all">
                             <div>
-                                <h3 className="font-bold text-zinc-900 mb-2 flex items-center gap-2">
-                                    <FaUsers className="text-purple-600" /> Team
+                                <h3 className="font-bold text-zinc-900 mb-2 flex items-center gap-2 uppercase tracking-wide text-sm">
+                                    <FaUsers className="text-zinc-900" /> Team
                                 </h3>
-                                <p className="text-xs text-zinc-500 mb-4">Import {staticTeamMembers.length} team members from static files.</p>
+                                <p className="text-xs text-zinc-500 mb-6">Import {staticTeamMembers.length} team members from static files.</p>
                             </div>
                             <button
                                 onClick={handleImportTeam}
                                 disabled={importStatus.team === 'loading' || importStatus.team === 'success'}
-                                className={`w-full py-2 px-4 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2 ${importStatus.team === 'success' ? 'bg-green-100 text-green-700 border border-green-200' :
+                                className={`w-full py-3 px-4 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 ${importStatus.team === 'success' ? 'bg-green-100 text-green-700 border border-green-200' :
                                     importStatus.team === 'loading' ? 'bg-zinc-100 text-zinc-400 border border-zinc-200' :
-                                        'bg-white text-zinc-900 border border-zinc-300 hover:bg-zinc-50 hover:border-zinc-400'
+                                        'bg-zinc-900 text-white hover:bg-zinc-800'
                                     }`}
                             >
                                 {importStatus.team === 'loading' ? <><FaSpinner className="animate-spin" /> Importing...</> :
@@ -432,19 +430,19 @@ const AdminDashboard = () => {
                         </div>
 
                         {/* Blogs Import Card */}
-                        <div className="border border-zinc-100 rounded-lg p-4 bg-zinc-50 flex flex-col justify-between">
+                        <div className="border border-zinc-100 rounded-lg p-6 bg-zinc-50 flex flex-col justify-between hover:border-zinc-900 transition-all">
                             <div>
-                                <h3 className="font-bold text-zinc-900 mb-2 flex items-center gap-2">
-                                    <FaBlog className="text-pink-600" /> Blogs
+                                <h3 className="font-bold text-zinc-900 mb-2 flex items-center gap-2 uppercase tracking-wide text-sm">
+                                    <FaBlog className="text-zinc-900" /> Blogs
                                 </h3>
-                                <p className="text-xs text-zinc-500 mb-4">Import {blogItems.length} blog posts from static files.</p>
+                                <p className="text-xs text-zinc-500 mb-6">Import {blogItems.length} blog posts from static files.</p>
                             </div>
                             <button
                                 onClick={handleImportBlogs}
                                 disabled={importStatus.blogs === 'loading' || importStatus.blogs === 'success'}
-                                className={`w-full py-2 px-4 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2 ${importStatus.blogs === 'success' ? 'bg-green-100 text-green-700 border border-green-200' :
+                                className={`w-full py-3 px-4 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 ${importStatus.blogs === 'success' ? 'bg-green-100 text-green-700 border border-green-200' :
                                     importStatus.blogs === 'loading' ? 'bg-zinc-100 text-zinc-400 border border-zinc-200' :
-                                        'bg-white text-zinc-900 border border-zinc-300 hover:bg-zinc-50 hover:border-zinc-400'
+                                        'bg-zinc-900 text-white hover:bg-zinc-800'
                                     }`}
                             >
                                 {importStatus.blogs === 'loading' ? <><FaSpinner className="animate-spin" /> Importing...</> :
