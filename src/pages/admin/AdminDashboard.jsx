@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../../supabaseClient';
 import { FaProjectDiagram, FaUsers, FaBlog, FaArrowRight, FaDatabase, FaCheckCircle, FaExclamationCircle, FaSpinner, FaCloudUploadAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { importProjects, importTeam, importBlogs } from '../../utils/seedDatabase';
 
-// Import Static Data for Seeding
+// Import Static Data for UI Counts only
 import { portfolioItems } from '../../data/portfolioItems';
 import { blogItems } from '../../data/blogItems';
 import { staticTeamMembers } from '../team/Team';
@@ -91,72 +92,11 @@ const AdminDashboard = () => {
         if (!window.confirm("Import static Portfolio Projects into the database? This will upload images to storage.")) return;
         setImportStatus(prev => ({ ...prev, projects: 'loading' }));
         try {
-            // Check for existing projects by title to avoid duplicates
-            const { data: existing, error: fetchError } = await supabase
-                .from('projects')
-                .select('title');
-
-            if (fetchError) throw fetchError;
-
-            const existingTitles = new Set(existing?.map(p => p.title) || []);
-            const projectsToInsert = [];
-
-            for (const item of portfolioItems) {
-                // Skip if already exists
-                if (existingTitles.has(item.title)) continue;
-
-                let imageUrl = item.image;
-                // Upload image if it exists
-                if (item.image) {
-                    try {
-                        const response = await fetch(item.image);
-                        const blob = await response.blob();
-                        const fileExt = blob.type.split('/')[1] || 'jpg';
-                        const fileName = `project_import_${Date.now()}_${Math.random().toString(36).substr(2, 9)}.${fileExt}`;
-
-                        const { error: uploadError } = await supabase.storage
-                            .from('blog-images')
-                            .upload(fileName, blob);
-
-                        if (uploadError) throw uploadError;
-
-                        const { data: { publicUrl } } = supabase.storage
-                            .from('blog-images')
-                            .getPublicUrl(fileName);
-
-                        imageUrl = publicUrl;
-                    } catch (err) {
-                        console.error(`Failed to upload image for ${item.title}:`, err);
-                    }
-                }
-
-                projectsToInsert.push({
-                    title: item.title,
-                    subtitle: item.subtitle,
-                    domain: item.domain,
-                    location: item.location,
-                    description: item.description,
-                    image: imageUrl,
-                    year: item.year,
-                    size: item.size,
-                    client: item.client,
-                    collaboration: item.collaboration
-                });
-            }
-
-            if (projectsToInsert.length === 0) {
-                alert("All projects already exist in the database.");
-                setImportStatus(prev => ({ ...prev, projects: 'success' }));
-                setTimeout(() => setImportStatus(prev => ({ ...prev, projects: 'idle' })), 3000);
-            } else {
-                const { error } = await supabase.from('projects').insert(projectsToInsert);
-                if (error) throw error;
-
-                alert(`Successfully imported ${projectsToInsert.length} new projects.`);
-                setImportStatus(prev => ({ ...prev, projects: 'success' }));
-                fetchData();
-                setTimeout(() => setImportStatus(prev => ({ ...prev, projects: 'idle' })), 3000);
-            }
+            const result = await importProjects();
+            alert(result.message);
+            setImportStatus(prev => ({ ...prev, projects: 'success' }));
+            if (result.count > 0) fetchData();
+            setTimeout(() => setImportStatus(prev => ({ ...prev, projects: 'idle' })), 3000);
         } catch (error) {
             console.error("Project import error:", error);
             setImportStatus(prev => ({ ...prev, projects: 'error' }));
@@ -175,67 +115,11 @@ const AdminDashboard = () => {
         if (!window.confirm("Import static Team Members into the database? This will upload images to storage.")) return;
         setImportStatus(prev => ({ ...prev, team: 'loading' }));
         try {
-            // Check for existing members by name/slug to avoid duplicates
-            const { data: existing, error: fetchError } = await supabase
-                .from('team_members')
-                .select('slug, name');
-
-            if (fetchError) throw fetchError;
-
-            const existingSlugs = new Set(existing?.map(m => m.slug) || []);
-            const existingNames = new Set(existing?.map(m => m.name) || []);
-            const teamToInsert = [];
-
-            for (const item of staticTeamMembers) {
-                if (existingSlugs.has(item.slug) || existingNames.has(item.name)) continue;
-
-                let avatarUrl = item.avatar;
-                if (item.avatar) {
-                    try {
-                        const response = await fetch(item.avatar);
-                        const blob = await response.blob();
-                        const fileExt = blob.type.split('/')[1] || 'jpg';
-                        const fileName = `team_import_${Date.now()}_${Math.random().toString(36).substr(2, 9)}.${fileExt}`;
-
-                        const { error: uploadError } = await supabase.storage
-                            .from('blog-images')
-                            .upload(fileName, blob);
-
-                        if (uploadError) throw uploadError;
-
-                        const { data: { publicUrl } } = supabase.storage
-                            .from('blog-images')
-                            .getPublicUrl(fileName);
-
-                        avatarUrl = publicUrl;
-                    } catch (err) {
-                        console.error(`Failed to upload avatar for ${item.name}:`, err);
-                    }
-                }
-
-                teamToInsert.push({
-                    name: item.name,
-                    role: item.role,
-                    bio: item.bio,
-                    avatar: avatarUrl,
-                    slug: item.slug,
-                    socials: item.socials
-                });
-            }
-
-            if (teamToInsert.length === 0) {
-                alert("All team members already exist in the database.");
-                setImportStatus(prev => ({ ...prev, team: 'success' }));
-                setTimeout(() => setImportStatus(prev => ({ ...prev, team: 'idle' })), 3000);
-            } else {
-                const { error } = await supabase.from('team_members').insert(teamToInsert);
-                if (error) throw error;
-
-                alert(`Successfully imported ${teamToInsert.length} new team members.`);
-                setImportStatus(prev => ({ ...prev, team: 'success' }));
-                fetchData();
-                setTimeout(() => setImportStatus(prev => ({ ...prev, team: 'idle' })), 3000);
-            }
+            const result = await importTeam();
+            alert(result.message);
+            setImportStatus(prev => ({ ...prev, team: 'success' }));
+            if (result.count > 0) fetchData();
+            setTimeout(() => setImportStatus(prev => ({ ...prev, team: 'idle' })), 3000);
         } catch (error) {
             console.error("Team import error:", error);
             setImportStatus(prev => ({ ...prev, team: 'error' }));
@@ -248,68 +132,11 @@ const AdminDashboard = () => {
         if (!window.confirm("Import static Blog Posts into the database? This will upload images to storage.")) return;
         setImportStatus(prev => ({ ...prev, blogs: 'loading' }));
         try {
-            // Check for existing blogs by title
-            const { data: existing, error: fetchError } = await supabase
-                .from('blogs')
-                .select('title');
-
-            if (fetchError) throw fetchError;
-
-            const existingTitles = new Set(existing?.map(b => b.title) || []);
-            const blogsToInsert = [];
-
-            for (const item of blogItems) {
-                if (existingTitles.has(item.title)) continue;
-
-                let imageUrl = item.image;
-                if (item.image) {
-                    try {
-                        const response = await fetch(item.image);
-                        const blob = await response.blob();
-                        const fileExt = blob.type.split('/')[1] || 'jpg';
-                        const fileName = `blog_import_${Date.now()}_${Math.random().toString(36).substr(2, 9)}.${fileExt}`;
-
-                        const { error: uploadError } = await supabase.storage
-                            .from('blog-images')
-                            .upload(fileName, blob);
-
-                        if (uploadError) throw uploadError;
-
-                        const { data: { publicUrl } } = supabase.storage
-                            .from('blog-images')
-                            .getPublicUrl(fileName);
-
-                        imageUrl = publicUrl;
-                    } catch (err) {
-                        console.error(`Failed to upload image for ${item.title}:`, err);
-                    }
-                }
-
-                blogsToInsert.push({
-                    title: item.title,
-                    subtitle: item.subtitle,
-                    domain: item.domain,
-                    author: item.author,
-                    description: item.description,
-                    image: imageUrl,
-                    date: item.date,
-                    read_time: item.readTime
-                });
-            }
-
-            if (blogsToInsert.length === 0) {
-                alert("All blog posts already exist in the database.");
-                setImportStatus(prev => ({ ...prev, blogs: 'success' }));
-                setTimeout(() => setImportStatus(prev => ({ ...prev, blogs: 'idle' })), 3000);
-            } else {
-                const { error } = await supabase.from('blogs').insert(blogsToInsert);
-                if (error) throw error;
-
-                alert(`Successfully imported ${blogsToInsert.length} new blog posts.`);
-                setImportStatus(prev => ({ ...prev, blogs: 'success' }));
-                fetchData();
-                setTimeout(() => setImportStatus(prev => ({ ...prev, blogs: 'idle' })), 3000);
-            }
+            const result = await importBlogs();
+            alert(result.message);
+            setImportStatus(prev => ({ ...prev, blogs: 'success' }));
+            if (result.count > 0) fetchData();
+            setTimeout(() => setImportStatus(prev => ({ ...prev, blogs: 'idle' })), 3000);
         } catch (error) {
             console.error("Blog import error:", error);
             setImportStatus(prev => ({ ...prev, blogs: 'error' }));

@@ -28,14 +28,9 @@ const AdminLayout = () => {
                     .single();
 
                 if (error || !data) {
-                    // Fallback for initial setup if table empty, allow hardcoded super admin
-                    if (user.email === 'guruwangchuk1234@gmail.com') {
-                        setAdminRole('super_admin');
-                    } else {
-                        alert('Access Denied: You are not an administrator.');
-                        signOut();
-                        navigate('/');
-                    }
+                    alert('Access Denied: You are not an administrator.');
+                    signOut();
+                    navigate('/');
                 } else {
                     setAdminRole(data.role);
                 }
