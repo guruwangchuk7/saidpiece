@@ -3,6 +3,7 @@ import { Outlet, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { supabase } from '../../supabaseClient';
 import { FaTachometerAlt, FaProjectDiagram, FaUsers, FaBlog, FaUserShield, FaSignOutAlt, FaBars, FaTimes } from 'react-icons/fa';
+import { toast } from 'react-hot-toast';
 
 const AdminLayout = () => {
     const { user, signOut, signInWithGoogle } = useAuth();
@@ -28,7 +29,7 @@ const AdminLayout = () => {
                     .single();
 
                 if (error || !data) {
-                    alert('Access Denied: You are not an administrator.');
+                    toast.error('Access Denied: You are not an administrator.');
                     signOut();
                     navigate('/');
                 } else {
