@@ -5,28 +5,22 @@ import rightArrow from '../../assets/icons/rightArrow.svg';
 import { motion } from "motion/react";
 import { supabase } from '../../supabaseClient';
 import { useProjectData } from '../../hooks/useProjectData';
+import { Helmet } from 'react-helmet-async';
 
 const ProjectGallery = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { project, nextProject } = useProjectData(id);
+    const { project, nextProject, loading } = useProjectData(id);
 
-    // Initial load logic for metadata (will add later)
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [id]);
 
-    if (!project) return (
+    if (loading) return (
         <div className="min-h-screen flex items-center justify-center bg-white text-zinc-900">
             <div className="animate-pulse tracking-widest uppercase text-sm">Loading Project...</div>
         </div>
     );
-
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [id]);
-
-
 
     if (!project) return <div className="min-h-screen flex items-center justify-center">Project not found</div>;
 
@@ -43,6 +37,22 @@ const ProjectGallery = () => {
 
     return (
         <div className="min-h-screen bg-white text-zinc-900 selection:bg-zinc-900 selection:text-white pb-20">
+            <Helmet>
+                <title>{project.title} | Saidpiece</title>
+                <meta name="description" content={project.description?.substring(0, 160) || "Project by Saidpiece Architects"} />
+
+                {/* Open Graph / Facebook */}
+                <meta property="og:type" content="article" />
+                <meta property="og:title" content={`${project.title} | Saidpiece`} />
+                <meta property="og:description" content={project.subtitle || project.description?.substring(0, 160)} />
+                <meta property="og:image" content={project.image} />
+
+                {/* Twitter */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content={`${project.title} | Saidpiece`} />
+                <meta name="twitter:description" content={project.subtitle || project.description?.substring(0, 160)} />
+                <meta name="twitter:image" content={project.image} />
+            </Helmet>
             {/* Top Navigation */}
             <div className="fixed top-0 left-0 w-full p-6 z-50 mix-blend-difference text-white flex justify-between items-center pointer-events-none">
                 <NavLink to="/portfolio" className="flex items-center gap-3 group pointer-events-auto">

@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async';
 import Home from './pages/home/Home.jsx'
 import Contact from './pages/Contact.jsx'
 import Team from './pages/team/Team.jsx'
@@ -16,6 +17,7 @@ import TeamPortfolio from './pages/team/portfolios/TeamPortfolio.jsx'
 import { AuthProvider } from './context/AuthContext.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import Dashboard from './pages/Dashboard.jsx'
+import { Toaster } from 'react-hot-toast';
 
 // Admin Components
 import AdminLayout from './pages/admin/AdminLayout.jsx'
@@ -64,8 +66,11 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
+    <HelmetProvider>
+      <AuthProvider>
+        <Toaster position="top-right" />
+        <RouterProvider router={router} />
+      </AuthProvider>
+    </HelmetProvider>
   </StrictMode>
 )

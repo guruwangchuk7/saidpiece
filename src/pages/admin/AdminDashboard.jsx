@@ -3,11 +3,8 @@ import { supabase } from '../../supabaseClient';
 import { FaProjectDiagram, FaUsers, FaBlog, FaArrowRight, FaDatabase, FaCheckCircle, FaExclamationCircle, FaSpinner, FaCloudUploadAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { importProjects, importTeam, importBlogs } from '../../utils/seedDatabase';
-
-// Import Static Data for UI Counts only
-import { portfolioItems } from '../../data/portfolioItems';
-import { blogItems } from '../../data/blogItems';
-import { staticTeamMembers } from '../team/Team';
+import ConfirmModal from '../../components/ConfirmModal';
+import { toast } from 'react-hot-toast';
 
 const StatCard = ({ title, count, icon, color, link }) => {
     const navigate = useNavigate();
@@ -43,11 +40,14 @@ const AdminDashboard = () => {
     });
     const [loading, setLoading] = useState(true);
 
-    // Import statuses: 'idle', 'loading', 'success', 'error'
-    const [importStatus, setImportStatus] = useState({
-        projects: 'idle',
-        team: 'idle',
-        blogs: 'idle'
+    // Modal State
+    const [modalConfig, setModalConfig] = useState({
+        isOpen: false,
+        title: '',
+        message: '',
+        onConfirm: () => { },
+        isLoading: false,
+        isDangerous: false
     });
 
     // Check if DB is effectively empty
@@ -83,66 +83,67 @@ const AdminDashboard = () => {
 
         } catch (error) {
             console.error('Error fetching data:', error);
+            toast.error("Failed to load dashboard data");
         } finally {
             setLoading(false);
         }
     };
 
-    const handleImportProjects = async () => {
-        if (!window.confirm("Import static Portfolio Projects into the database? This will upload images to storage.")) return;
-        setImportStatus(prev => ({ ...prev, projects: 'loading' }));
-        try {
-            const result = await importProjects();
-            alert(result.message);
-            setImportStatus(prev => ({ ...prev, projects: 'success' }));
-            if (result.count > 0) fetchData();
-            setTimeout(() => setImportStatus(prev => ({ ...prev, projects: 'idle' })), 3000);
-        } catch (error) {
-            console.error("Project import error:", error);
-            setImportStatus(prev => ({ ...prev, projects: 'error' }));
+    /**
+     * Generic handler to show confirm modal and execute async action
+     */
+    const handleImportAction = (type) => {
+        let title = '';
+        let message = '';
+        let importFn = null;
 
-            if (error.message?.includes('infinite recursion')) {
-                alert("Error: Infinite recursion in database policy. \n\nThis usually means a Row Level Security (RLS) policy is checking a table that checks itself. \n\nPlease go to Supabase Dashboard > Authentication > Policies and ensure your 'admins' or 'projects' policies don't create a loop.");
-            } else {
-                alert("Error importing projects: " + error.message);
-            }
-
-            setTimeout(() => setImportStatus(prev => ({ ...prev, projects: 'idle' })), 3000);
+        switch (type) {
+            case 'projects':
+                title = 'Import Portfolio Projects';
+                message = 'Are you sure you want to import static project data into the database? This might create duplicates if run multiple times, although checks are in place. Images will be uploaded to storage.';
+                importFn = importProjects;
+                break;
+            case 'team':
+                title = 'Import Team Members';
+                message = 'Are you sure you want to import static team data into the database? This will seed the team table with initial members.';
+                importFn = importTeam;
+                break;
+            case 'blogs':
+                title = 'Import Blog Posts';
+                message = 'Are you sure you want to import static blog posts into the database? This will populate the blog section.';
+                importFn = importBlogs;
+                break;
+            default:
+                return;
         }
-    };
 
-    const handleImportTeam = async () => {
-        if (!window.confirm("Import static Team Members into the database? This will upload images to storage.")) return;
-        setImportStatus(prev => ({ ...prev, team: 'loading' }));
-        try {
-            const result = await importTeam();
-            alert(result.message);
-            setImportStatus(prev => ({ ...prev, team: 'success' }));
-            if (result.count > 0) fetchData();
-            setTimeout(() => setImportStatus(prev => ({ ...prev, team: 'idle' })), 3000);
-        } catch (error) {
-            console.error("Team import error:", error);
-            setImportStatus(prev => ({ ...prev, team: 'error' }));
-            alert("Error importing team: " + error.message);
-            setTimeout(() => setImportStatus(prev => ({ ...prev, team: 'idle' })), 3000);
-        }
-    };
+        setModalConfig({
+            isOpen: true,
+            title,
+            message,
+            onConfirm: async () => {
+                setModalConfig(prev => ({ ...prev, isLoading: true }));
 
-    const handleImportBlogs = async () => {
-        if (!window.confirm("Import static Blog Posts into the database? This will upload images to storage.")) return;
-        setImportStatus(prev => ({ ...prev, blogs: 'loading' }));
-        try {
-            const result = await importBlogs();
-            alert(result.message);
-            setImportStatus(prev => ({ ...prev, blogs: 'success' }));
-            if (result.count > 0) fetchData();
-            setTimeout(() => setImportStatus(prev => ({ ...prev, blogs: 'idle' })), 3000);
-        } catch (error) {
-            console.error("Blog import error:", error);
-            setImportStatus(prev => ({ ...prev, blogs: 'error' }));
-            alert("Error importing blogs: " + error.message);
-            setTimeout(() => setImportStatus(prev => ({ ...prev, blogs: 'idle' })), 3000);
-        }
+                // Use toast.promise for nice UI feedback
+                toast.promise(
+                    importFn(),
+                    {
+                        loading: `Importing ${type}...`,
+                        success: (data) => {
+                            if (data.count > 0) fetchData();
+                            setModalConfig(prev => ({ ...prev, isOpen: false, isLoading: false }));
+                            return data.message;
+                        },
+                        error: (err) => {
+                            setModalConfig(prev => ({ ...prev, isOpen: false, isLoading: false }));
+                            return `Import failed: ${err.message}`;
+                        }
+                    }
+                );
+            },
+            isLoading: false,
+            isDangerous: false
+        });
     };
 
     if (loading) return (
@@ -152,7 +153,18 @@ const AdminDashboard = () => {
     );
 
     return (
-        <div className="max-w-7xl mx-auto pb-20">
+        <div className="max-w-7xl mx-auto pb-20 relative">
+            <ConfirmModal
+                isOpen={modalConfig.isOpen}
+                onClose={() => setModalConfig(prev => ({ ...prev, isOpen: false }))}
+                onConfirm={modalConfig.onConfirm}
+                title={modalConfig.title}
+                message={modalConfig.message}
+                isLoading={modalConfig.isLoading}
+                isDangerous={modalConfig.isDangerous}
+                confirmText="Import Data"
+            />
+
             {/* Header */}
             <div className="mb-12">
                 <h1 className="text-4xl lg:text-5xl font-bold text-zinc-900 tracking-tight leading-tight uppercase mb-3">
@@ -162,7 +174,7 @@ const AdminDashboard = () => {
             </div>
 
             {isDbEmpty && !loading && (
-                <div className="mb-8 p-4 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-3 text-amber-800">
+                <div className="mb-8 p-4 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-3 text-amber-600">
                     <FaExclamationCircle className="mt-1 shrink-0" />
                     <div>
                         <p className="font-semibold text-sm">Your database is currently empty.</p>
@@ -301,19 +313,14 @@ const AdminDashboard = () => {
                                 <h3 className="font-bold text-zinc-900 mb-2 flex items-center gap-2 uppercase tracking-wide text-sm">
                                     <FaProjectDiagram className="text-zinc-900" /> Projects
                                 </h3>
-                                <p className="text-xs text-zinc-500 mb-6">Import {portfolioItems.length} portfolio items from static files.</p>
+                                {/* Assuming portfolioItems is imported */}
+                                <p className="text-xs text-zinc-500 mb-6">Import static portfolio items.</p>
                             </div>
                             <button
-                                onClick={handleImportProjects}
-                                disabled={importStatus.projects === 'loading' || importStatus.projects === 'success'}
-                                className={`w-full py-3 px-4 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 ${importStatus.projects === 'success' ? 'bg-green-100 text-green-700 border border-green-200' :
-                                    importStatus.projects === 'loading' ? 'bg-zinc-100 text-zinc-400 border border-zinc-200' :
-                                        'bg-zinc-900 text-white hover:bg-zinc-800'
-                                    }`}
+                                onClick={() => handleImportAction('projects')}
+                                className="w-full py-3 px-4 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 bg-zinc-900 text-white hover:bg-zinc-800"
                             >
-                                {importStatus.projects === 'loading' ? <><FaSpinner className="animate-spin" /> Importing...</> :
-                                    importStatus.projects === 'success' ? <><FaCheckCircle /> Imported</> :
-                                        <><FaCloudUploadAlt /> Import Projects</>}
+                                <FaCloudUploadAlt /> Import Projects
                             </button>
                         </div>
 
@@ -323,19 +330,13 @@ const AdminDashboard = () => {
                                 <h3 className="font-bold text-zinc-900 mb-2 flex items-center gap-2 uppercase tracking-wide text-sm">
                                     <FaUsers className="text-zinc-900" /> Team
                                 </h3>
-                                <p className="text-xs text-zinc-500 mb-6">Import {staticTeamMembers.length} team members from static files.</p>
+                                <p className="text-xs text-zinc-500 mb-6">Import static team members.</p>
                             </div>
                             <button
-                                onClick={handleImportTeam}
-                                disabled={importStatus.team === 'loading' || importStatus.team === 'success'}
-                                className={`w-full py-3 px-4 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 ${importStatus.team === 'success' ? 'bg-green-100 text-green-700 border border-green-200' :
-                                    importStatus.team === 'loading' ? 'bg-zinc-100 text-zinc-400 border border-zinc-200' :
-                                        'bg-zinc-900 text-white hover:bg-zinc-800'
-                                    }`}
+                                onClick={() => handleImportAction('team')}
+                                className="w-full py-3 px-4 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 bg-zinc-900 text-white hover:bg-zinc-800"
                             >
-                                {importStatus.team === 'loading' ? <><FaSpinner className="animate-spin" /> Importing...</> :
-                                    importStatus.team === 'success' ? <><FaCheckCircle /> Imported</> :
-                                        <><FaCloudUploadAlt /> Import Team</>}
+                                <FaCloudUploadAlt /> Import Team
                             </button>
                         </div>
 
@@ -345,19 +346,13 @@ const AdminDashboard = () => {
                                 <h3 className="font-bold text-zinc-900 mb-2 flex items-center gap-2 uppercase tracking-wide text-sm">
                                     <FaBlog className="text-zinc-900" /> Blogs
                                 </h3>
-                                <p className="text-xs text-zinc-500 mb-6">Import {blogItems.length} blog posts from static files.</p>
+                                <p className="text-xs text-zinc-500 mb-6">Import static blog posts.</p>
                             </div>
                             <button
-                                onClick={handleImportBlogs}
-                                disabled={importStatus.blogs === 'loading' || importStatus.blogs === 'success'}
-                                className={`w-full py-3 px-4 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 ${importStatus.blogs === 'success' ? 'bg-green-100 text-green-700 border border-green-200' :
-                                    importStatus.blogs === 'loading' ? 'bg-zinc-100 text-zinc-400 border border-zinc-200' :
-                                        'bg-zinc-900 text-white hover:bg-zinc-800'
-                                    }`}
+                                onClick={() => handleImportAction('blogs')}
+                                className="w-full py-3 px-4 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 bg-zinc-900 text-white hover:bg-zinc-800"
                             >
-                                {importStatus.blogs === 'loading' ? <><FaSpinner className="animate-spin" /> Importing...</> :
-                                    importStatus.blogs === 'success' ? <><FaCheckCircle /> Imported</> :
-                                        <><FaCloudUploadAlt /> Import Blogs</>}
+                                <FaCloudUploadAlt /> Import Blogs
                             </button>
                         </div>
                     </div>
