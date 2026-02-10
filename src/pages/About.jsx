@@ -137,7 +137,7 @@ function About() {
     <main ref={mainRef} className="w-full flex flex-col bg-white antialiased text-zinc-800 relative">
       <NavLink
         to="/"
-        className="absolute top-6 sm:top-10 left-7 sm:left-12 lg:left-26 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-20 text-white"
+        className="absolute top-6 sm:top-10 left-3 sm:left-5 lg:left-10 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-20 text-white"
       >
         <img src={rightArrow} alt="Back" className="w-4 h-4 rotate-180 invert" />
         <span>Back to home</span>
@@ -172,23 +172,23 @@ function About() {
       </header>
 
       {/* === INTRO SECTION === */}
-      <section ref={introRef} data-animate-section className="py-16 lg:py-32 px-6 lg:px-20 text-center">
+      <section ref={introRef} data-animate-section className="py-16 lg:py-32 px-3 sm:px-5 lg:px-10 text-center">
         <div className="max-w-4xl mx-auto">
-          <h2 data-animate-child className="text-2xl md:text-3xl lg:text-5xl font-light leading-tight mb-6">
+          <h2 data-animate-child className="text-xl md:text-3xl lg:text-5xl font-light leading-tight mb-6">
             {pageData.intro.title}
           </h2>
-          <p data-animate-child className="text-lg lg:text-xl text-zinc-500 leading-relaxed">
+          <p data-animate-child className="text-sm lg:text-xl text-zinc-500 leading-relaxed">
             {pageData.intro.description}
           </p>
         </div>
       </section>
 
       {/* === OUR PROCESS SECTION (NEW) === */}
-      <section data-animate-section className="py-16 lg:py-32 px-6 lg:px-20 bg-white">
+      <section data-animate-section className="py-16 lg:py-32 px-3 sm:px-5 lg:px-10 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-20">
             <h2 data-animate-child className="text-sm font-bold text-zinc-500 tracking-widest uppercase mb-4">{pageData.process.heading}</h2>
-            <p data-animate-child className="text-2xl lg:text-4xl leading-snug">
+            <p data-animate-child className="text-xl lg:text-4xl leading-snug">
               {pageData.process.tagline}
             </p>
           </div>
@@ -205,11 +205,11 @@ function About() {
       </section>
 
       {/* === PHILOSOPHY SECTION === */}
-      <section data-animate-section className="py-16 lg:py-32 px-6 lg:px-20 bg-zinc-50">
+      <section data-animate-section className="py-16 lg:py-32 px-3 sm:px-5 lg:px-10 bg-zinc-50">
         <div className="max-w-6xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-20">
             <h2 data-animate-child className="text-sm font-bold text-zinc-500 tracking-widest uppercase mb-4">{pageData.philosophy.heading}</h2>
-            <p data-animate-child className="text-2xl lg:text-4xl leading-snug">
+            <p data-animate-child className="text-xl lg:text-4xl leading-snug">
               {pageData.philosophy.description}
             </p>
           </div>
@@ -226,17 +226,17 @@ function About() {
       </section>
 
       {/* === INSPIRED BY BHUTAN SECTION (NEW) === */}
-      <section data-animate-section className="py-16 lg:py-32 px-6 lg:px-20 bg-white text-center">
+      <section data-animate-section className="py-16 lg:py-32 px-3 sm:px-5 lg:px-10 bg-white text-center">
         <div className="max-w-4xl mx-auto">
           <h2 data-animate-child className="text-sm font-bold text-zinc-500 tracking-widest uppercase mb-4">{pageData.inspiration.heading}</h2>
-          <p data-animate-child className="text-xl lg:text-3xl font-light text-zinc-800 leading-relaxed">
+          <p data-animate-child className="text-lg lg:text-3xl font-light text-zinc-800 leading-relaxed">
             {pageData.inspiration.description}
           </p>
         </div>
       </section>
 
       {/* === TEAM SECTION === */}
-      <section data-animate-section className="py-16 lg:py-32 px-6 lg:px-20 bg-zinc-100">
+      <section data-animate-section className="py-16 lg:py-32 px-3 sm:px-5 lg:px-10 bg-zinc-100">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div data-animate-child className="lg:order-last">
             <img
@@ -249,10 +249,10 @@ function About() {
             <span className="absolute -top-12 left-0 lg:-left-8 text-[120px] font-serif text-zinc-200 leading-none z-0">“</span>
             <div className="relative z-10">
               <h2 className="text-sm font-bold text-zinc-500 tracking-widest uppercase mb-6 ml-4 lg:ml-0">{pageData.team.heading}</h2>
-              <blockquote className="text-2xl lg:text-4xl font-light leading-snug mb-8">
+              <blockquote className="text-xl lg:text-4xl font-light leading-snug mb-8">
                 {pageData.team.quote}
               </blockquote>
-              <p className="text-lg text-zinc-600 leading-relaxed">
+              <p className="text-sm lg:text-lg text-zinc-600 leading-relaxed">
                 {pageData.team.description}
               </p>
             </div>

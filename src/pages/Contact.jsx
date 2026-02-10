@@ -9,7 +9,7 @@ import officeImage from '../assets/contact/saidpieceofficeimage.jpg'
 const BackButton = () => (
   <NavLink
     to="/"
-    className="absolute top-6 sm:top-10 left-7 sm:left-12 lg:left-26 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-20"
+    className="absolute top-6 sm:top-10 left-3 sm:left-5 lg:left-10 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-20"
   >
     <img src={rightArrow} alt="Back" className="w-4 h-4 rotate-180" />
     <span>Back to home</span>
@@ -87,9 +87,9 @@ const ContactHeader = () => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <p className="text-xl lg:text-2xl text-zinc-500 pointer-events-none">Hello</p>
+      <p className="text-sm lg:text-2xl text-zinc-500 pointer-events-none">Hello</p>
       <div className="relative group cursor-pointer inline-block">
-        <h1 className="text-4xl lg:text-7xl font-bold tracking-tight leading-tight uppercase transition-colors duration-300 group-hover:text-zinc-700">
+        <h1 className="text-3xl lg:text-7xl font-bold tracking-tight leading-tight uppercase transition-colors duration-300 group-hover:text-zinc-700 -ml-0.5">
           LET'S TALK?
         </h1>
         {/* Underline effect to hint interactivity */}
@@ -168,7 +168,7 @@ const ContactContentSection = () => (
 
 function Contact() {
   return (
-    <div className="relative flex flex-col bg-white px-6 lg:px-20 py-4 lg:py-8 pb-32 lg:pb-12">
+    <div className="relative flex flex-col bg-white px-3 sm:px-5 lg:px-10 py-4 lg:py-8 pb-32 lg:pb-12">
       <BackButton />
 
       {/* Main Layout: Stack on Mobile, Row on Desktop */}

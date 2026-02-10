@@ -82,19 +82,19 @@ const Portfolio = () => {
 
   return (
     <div>
-      <div className="min-h-screen relative flex items-start justify-center bg-white px-4 sm:px-6 lg:px-20 py-6 sm:py-10">
-        <NavLink to="/" className="absolute top-6 sm:top-10 left-7 sm:left-12 lg:left-26 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-20">
+      <div className="min-h-screen relative bg-white px-3 sm:px-5 lg:px-10 py-6 sm:py-10">
+        <NavLink to="/" className="absolute top-6 sm:top-10 left-3 sm:left-5 lg:left-10 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-20">
           <img src={rightArrow} alt="back" className="w-4 h-4 rotate-180" />
           <span>Back to home</span>
         </NavLink>
 
-        <div className="w-full px-3 sm:px-6 py-12 sm:py-20">
+        <div className="w-full py-12 sm:py-20">
           {/* Header section */}
           <div className="mb-10 sm:mb-10 lg:mb-10">
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-tight uppercase mb-4 sm:mb-6">
+            <h1 className="text-3xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-tight uppercase mb-4 sm:mb-6 -ml-0.5">
               Portfolio
             </h1>
-            <p className="text-xs sm:text-sm lg:text-base text-zinc-600 leading-relaxed max-w-2xl">
+            <p className="text-sm sm:text-sm lg:text-base text-zinc-600 leading-relaxed max-w-2xl">
               Our projects embody Saidpiece's commitment to cultural authenticity, innovation,
               and sustainability. Each work is a unique reflection of the client's vision,
               harmonized with Bhutanese tradition and modern design.

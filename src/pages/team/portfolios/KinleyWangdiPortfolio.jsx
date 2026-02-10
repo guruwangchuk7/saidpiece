@@ -22,17 +22,17 @@ const KinleyWangdiPortfolio = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="min-h-screen relative flex items-start justify-center bg-white px-4 sm:px-6 lg:px-20 py-6 sm:py-10">
-      <NavLink to="/team" className="absolute top-6 sm:top-10 left-7 sm:left-12 lg:left-26 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-20">
+    <div ref={containerRef} className="min-h-screen relative bg-white px-3 sm:px-5 lg:px-10 py-6 sm:py-10">
+      <NavLink to="/team" className="absolute top-6 sm:top-10 left-3 sm:left-5 lg:left-10 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-20">
         <img src={rightArrow} alt="back" className="w-4 h-4 rotate-180" />
         <span>Back to team</span>
       </NavLink>
 
-      <div className="w-full px-3 sm:px-6 py-12 sm:py-20">
+      <div className="w-full py-12 sm:py-20">
         {/* Header/Profile Section */}
         <section className="flex flex-col lg:flex-row items-start justify-between gap-8 lg:gap-12 mb-20 lg:mb-32 fade-in">
           <div className="flex-1 order-2 lg:order-1 w-full">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-none uppercase mb-4 sm:mb-6">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-none uppercase mb-4 sm:mb-6">
               Kinley<br className="hidden lg:block" /> Wangdi
             </h1>
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-t border-zinc-200 pt-6">

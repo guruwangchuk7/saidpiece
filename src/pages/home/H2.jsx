@@ -15,8 +15,8 @@ function H2() {
 
   return (
     <div className="flex mt-10 sm:mt-16 md:mt-20 flex-wrap justify-between">
-      <div className="w-full lg:w-1/3 px-4 sm:px-5 md:px-8 lg:px-10">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold">{data.heading}</h1>
+      <div className="w-full lg:w-1/3 px-3 sm:px-5 lg:px-10">
+        <h1 className="text-2xl sm:text-4xl md:text-5xl font-semibold">{data.heading}</h1>
         <div className="px-3 sm:px-4 md:px-5 border-l-2 border-zinc-400 ">
           <div className="aboutus mt-6 sm:mt-8 md:mt-10">
             <p className="text-zinc-500 text-sm sm:text-base">About us:</p>
@@ -40,7 +40,7 @@ function H2() {
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
-          className="h-[50vh] sm:h-[60vh] md:h-[70vh] w-full lg:w-200 lg:h-[80vh] mt-8 sm:mt-10 lg:mt-0 px-4 sm:px-5 md:px-8 lg:px-10"
+          className="h-[50vh] sm:h-[60vh] md:h-[70vh] w-full lg:w-200 lg:h-[80vh] mt-8 sm:mt-10 lg:mt-0 px-3 sm:px-5 lg:px-10"
         ></div>
       ))}
     </div>

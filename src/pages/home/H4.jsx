@@ -53,12 +53,12 @@ function H4() {
     <div className="bg-white md:min-h-screen text-[#333333] font-sans selection:bg-zinc-800 selection:text-white">
       <div className="flex flex-col md:flex-row relative">
         {/* Desktop Left Column: Sticky Sidebar */}
-        <div className="hidden md:flex w-full md:w-[40%] px-6 md:px-12 py-10 md:h-screen md:sticky md:top-0 flex-col z-10">
+        <div className="hidden md:flex w-full md:w-[40%] px-3 sm:px-5 lg:px-10 py-10 md:h-screen md:sticky md:top-0 flex-col z-10">
           <motion.h1
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-5xl md:text-6xl font-light tracking-tighter mb-16 mt-10"
+            className="text-4xl md:text-6xl font-light tracking-tighter mb-16 mt-10"
           >
             PORTFOLIO
           </motion.h1>
@@ -80,7 +80,7 @@ function H4() {
         </div>
 
         {/* Desktop Right Column: Scrollable Gallery */}
-        <div className="hidden md:flex w-full md:w-[60%] px-4 sm:px-6 md:px-12 py-6 md:py-20 flex-col gap-12 sm:gap-16 md:gap-24 lg:gap-32">
+        <div className="hidden md:flex w-full md:w-[60%] px-3 sm:px-5 lg:px-10 py-6 md:py-20 flex-col gap-12 sm:gap-16 md:gap-24 lg:gap-32">
           {portfolioData.image.map((item, index) => (
             <motion.div
               key={index}
@@ -119,7 +119,7 @@ function H4() {
         </div>
 
         {/* Mobile Portfolio Section */}
-        <div className="md:hidden w-full px-4 sm:px-5 py-6 sm:py-8">
+        <div className="md:hidden w-full px-3 sm:px-5 lg:px-10 py-6 sm:py-8">
           {/* Mobile Portfolio Header */}
           <motion.h1
             initial={{ opacity: 0, y: -20 }}

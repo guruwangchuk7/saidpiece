@@ -194,19 +194,19 @@ const Team = () => {
 
   return (
     <div>
-      <div className="min-h-screen relative flex items-start justify-center bg-white px-4 lg:px-20 py-10">
-        <NavLink to="/" className="absolute top-6 sm:top-10 left-7 sm:left-12 lg:left-26 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-20">
+      <div className="min-h-screen relative bg-white px-3 sm:px-5 lg:px-10 py-10">
+        <NavLink to="/" className="absolute top-6 sm:top-10 left-3 sm:left-5 lg:left-10 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-20">
           <img src={rightArrow} alt="back" className="w-4 h-4 rotate-180" />
           <span>Back to home</span>
         </NavLink>
 
-        <div className="w-full px-6 py-20">
+        <div className="w-full py-20">
           {/* Header section - similar to Portfolio page */}
           <div className="mb-10 lg:mb-14">
-            <h1 className="text-5xl lg:text-7xl font-bold tracking-tight leading-tight uppercase mb-6">
+            <h1 className="text-3xl lg:text-7xl font-bold tracking-tight leading-tight uppercase mb-6 -ml-0.5">
               Meet Our Creative Team
             </h1>
-            <p className="text-zinc-600 text-base lg:text-lg leading-relaxed max-w-2xl">
+            <p className="text-zinc-600 text-sm lg:text-lg leading-relaxed max-w-2xl">
               We are a collective of designers, developers, and strategists passionate about building exceptional digital experiences.
             </p>
             <div className="mt-8">

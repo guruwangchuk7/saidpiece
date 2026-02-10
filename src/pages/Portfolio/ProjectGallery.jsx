@@ -49,7 +49,7 @@ const ProjectGallery = () => {
             </div>
 
             {/* Hero Section */}
-            <header className="relative w-full h-[85vh] flex flex-col justify-end px-4 md:px-12 lg:px-20 pb-16">
+            <header className="relative w-full h-[85vh] flex flex-col justify-end px-3 sm:px-5 lg:px-10 pb-16">
                 <motion.div
                     initial="hidden"
                     animate="visible"
@@ -83,7 +83,7 @@ const ProjectGallery = () => {
             </header>
 
             {/* Main Content Info Grid */}
-            <section className="px-4 md:px-12 lg:px-20 py-20 border-t border-zinc-200">
+            <section className="px-3 sm:px-5 lg:px-10 py-20 border-t border-zinc-200">
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-20">
                     {/* Metadata Column */}
                     <div className="md:col-span-4 lg:col-span-3 space-y-10">
@@ -120,7 +120,7 @@ const ProjectGallery = () => {
             </section>
 
             {/* Image 1 - Hero Wide */}
-            <section className="w-full px-4 md:px-6 mb-4">
+            <section className="w-full px-3 sm:px-5 mb-4">
                 <div className="w-full h-[60vh] md:h-[90vh] relative overflow-hidden">
                     <motion.img
                         initial={{ scale: 1.1 }}
@@ -142,7 +142,7 @@ const ProjectGallery = () => {
             <div className="h-20 md:h-32"></div>
 
             {/* Image 2 - Detail / Inset */}
-            <section className="px-4 md:px-12 lg:px-20 mb-32">
+            <section className="px-3 sm:px-5 lg:px-10 mb-32">
                 <div className="flex flex-col md:flex-row gap-10 items-center justify-center">
                     <div className="w-full md:w-4/5 aspect-[4/3] bg-zinc-100 relative overflow-hidden">
                         <motion.img

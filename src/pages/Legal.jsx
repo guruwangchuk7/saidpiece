@@ -58,7 +58,7 @@ const Legal = () => {
   const content = {
     "Privacy Notice": (
       <>
-        <h1 className="text-4xl lg:text-6xl font-medium uppercase tracking-tight">Privacy Notice</h1>
+        <h1 className="text-3xl lg:text-6xl font-medium uppercase tracking-tight -ml-0.5">Privacy Notice</h1>
         <p className="text-xs text-zinc-400 mt-4">LAST UPDATED 04/12/2025</p>
 
         <div className="space-y-10 mt-12 text-zinc-700 leading-relaxed">
@@ -84,7 +84,7 @@ const Legal = () => {
 
     "Terms of Use": (
       <>
-        <h1 className="text-4xl lg:text-6xl font-medium uppercase tracking-tight">Terms of Use</h1>
+        <h1 className="text-3xl lg:text-6xl font-medium uppercase tracking-tight -ml-0.5">Terms of Use</h1>
         <p className="text-xs text-zinc-400 mt-4">LAST UPDATED 04/12/2025</p>
 
         <div className="space-y-10 mt-12 text-zinc-700 leading-relaxed">
@@ -110,7 +110,7 @@ const Legal = () => {
 
     "Terms of Sale": (
       <>
-        <h1 className="text-4xl lg:text-6xl font-medium uppercase tracking-tight">Terms of Sale</h1>
+        <h1 className="text-3xl lg:text-6xl font-medium uppercase tracking-tight -ml-0.5">Terms of Sale</h1>
         <p className="text-xs text-zinc-400 mt-4">LAST UPDATED 04/12/2025</p>
 
         <div className="space-y-10 mt-12 text-zinc-700 leading-relaxed">
@@ -136,13 +136,13 @@ const Legal = () => {
   };
 
   return (
-    <div ref={mainRef} className="min-h-screen w-full bg-white px-6 lg:px-20 py-10 relative">
+    <div ref={mainRef} className="min-h-screen w-full bg-white px-3 sm:px-5 lg:px-10 py-10 relative">
 
       {/* Back Button */}
       <NavLink
         to="/"
         data-animate="fade-in"
-        className="absolute top-10 left-6 flex items-center gap-2 text-sm font-medium hover:underline"
+        className="absolute top-10 left-3 sm:left-5 lg:left-10 flex items-center gap-2 text-sm font-medium hover:underline"
       >
         <img src={rightArrow} alt="Back" className="w-4 h-4 rotate-180" />
         <span>Back to Home</span>
