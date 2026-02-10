@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../../supabaseClient';
-import { FaProjectDiagram, FaUsers, FaBlog, FaArrowRight } from 'react-icons/fa';
+import { FaProjectDiagram, FaUsers, FaBlog, FaArrowRight, FaDatabase, FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+
+// Import Static Data for Seeding
+import { portfolioItems } from '../../data/portfolioItems';
+import { blogItems } from '../../data/blogItems';
+import { staticTeamMembers } from '../team/Team';
 
 const StatCard = ({ title, count, icon, color, link }) => {
     const navigate = useNavigate();
@@ -36,41 +41,104 @@ const AdminDashboard = () => {
         blogs: []
     });
     const [loading, setLoading] = useState(true);
+    const [seeding, setSeeding] = useState(false);
+    const [seedSuccess, setSeedSuccess] = useState(false);
+
+    // Check if DB is effectively empty
+    const isDbEmpty = stats.projects === 0 && stats.team === 0 && stats.blogs === 0;
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                // Fetch Counts
-                const { count: projectCount } = await supabase.from('projects').select('*', { count: 'exact', head: true });
-                const { count: teamCount } = await supabase.from('team_members').select('*', { count: 'exact', head: true });
-                const { count: blogCount } = await supabase.from('blogs').select('*', { count: 'exact', head: true });
-
-                setStats({
-                    projects: projectCount || 0,
-                    team: teamCount || 0,
-                    blogs: blogCount || 0
-                });
-
-                // Fetch Recent Items (Limit 5)
-                const { data: recentProjects } = await supabase.from('projects').select('*').order('created_at', { ascending: false }).limit(5);
-                const { data: recentTeam } = await supabase.from('team_members').select('*').order('created_at', { ascending: false }).limit(5);
-                const { data: recentBlogs } = await supabase.from('blogs').select('*').order('created_at', { ascending: false }).limit(5);
-
-                setRecentData({
-                    projects: recentProjects || [],
-                    team: recentTeam || [],
-                    blogs: recentBlogs || []
-                });
-
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
         fetchData();
     }, []);
+
+    const fetchData = async () => {
+        try {
+            // Fetch Counts
+            const { count: projectCount } = await supabase.from('projects').select('*', { count: 'exact', head: true });
+            const { count: teamCount } = await supabase.from('team_members').select('*', { count: 'exact', head: true });
+            const { count: blogCount } = await supabase.from('blogs').select('*', { count: 'exact', head: true });
+
+            setStats({
+                projects: projectCount || 0,
+                team: teamCount || 0,
+                blogs: blogCount || 0
+            });
+
+            // Fetch Recent Items (Limit 5)
+            const { data: recentProjects } = await supabase.from('projects').select('*').order('created_at', { ascending: false }).limit(5);
+            const { data: recentTeam } = await supabase.from('team_members').select('*').order('created_at', { ascending: false }).limit(5);
+            const { data: recentBlogs } = await supabase.from('blogs').select('*').order('created_at', { ascending: false }).limit(5);
+
+            setRecentData({
+                projects: recentProjects || [],
+                team: recentTeam || [],
+                blogs: recentBlogs || []
+            });
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleSeedData = async () => {
+        if (!window.confirm("This will populate your database with the default static content. Continue?")) return;
+        setSeeding(true);
+        try {
+            // Seed Projects
+            const projectsToInsert = portfolioItems.map(item => ({
+                title: item.title,
+                subtitle: item.subtitle,
+                domain: item.domain, // Ensure lowercase consistency if needed
+                location: item.location,
+                description: item.description,
+                image: item.image, // URL or path
+                year: item.year,
+                size: item.size,
+                client: item.client,
+                collaboration: item.collaboration
+            }));
+            const { error: pError } = await supabase.from('projects').insert(projectsToInsert);
+            if (pError) throw pError;
+
+            // Seed Team
+            const teamToInsert = staticTeamMembers.map(item => ({
+                name: item.name,
+                role: item.role,
+                bio: item.bio,
+                avatar: item.avatar,
+                slug: item.slug,
+                socials: item.socials
+            }));
+            const { error: tError } = await supabase.from('team_members').insert(teamToInsert);
+            if (tError) throw tError;
+
+            // Seed Blogs
+            const blogsToInsert = blogItems.map(item => ({
+                title: item.title,
+                subtitle: item.subtitle,
+                domain: item.domain,
+                author: item.author,
+                description: item.description, // Simple desc for now, structured content fields will be empty
+                image: item.image,
+                date: item.date,
+                read_time: item.readTime
+            }));
+            const { error: bError } = await supabase.from('blogs').insert(blogsToInsert);
+            if (bError) throw bError;
+
+            setSeedSuccess(true);
+            setTimeout(() => setSeedSuccess(false), 3000);
+            fetchData(); // Refresh stats
+
+        } catch (error) {
+            console.error("Seeding error:", error);
+            alert("Error seeding database: " + error.message);
+        } finally {
+            setSeeding(false);
+        }
+    };
 
     if (loading) return (
         <div className="flex items-center justify-center min-h-[50vh]">
@@ -80,10 +148,37 @@ const AdminDashboard = () => {
 
     return (
         <div className="max-w-7xl mx-auto">
-            <div className="mb-8">
-                <h1 className="text-2xl font-bold text-zinc-900">Dashboard Overview</h1>
-                <p className="text-zinc-500">Welcome back to your content management system.</p>
+            <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h1 className="text-2xl font-bold text-zinc-900">Dashboard Overview</h1>
+                    <p className="text-zinc-500">Welcome back to your content management system.</p>
+                </div>
+                {isDbEmpty && !loading && (
+                    <button
+                        onClick={handleSeedData}
+                        disabled={seeding}
+                        className={`flex items-center gap-2 px-6 py-3 rounded-lg shadow-sm font-bold transition-all ${seedSuccess ? 'bg-green-600 text-white' : 'bg-black text-white hover:bg-zinc-800'}`}
+                    >
+                        {seeding ? (
+                            <>Processing...</>
+                        ) : seedSuccess ? (
+                            <><FaCheckCircle /> Data Imported!</>
+                        ) : (
+                            <><FaDatabase /> Initialize Database Content</>
+                        )}
+                    </button>
+                )}
             </div>
+
+            {isDbEmpty && !loading && !seedSuccess && (
+                <div className="mb-8 p-4 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-3 text-amber-800">
+                    <FaExclamationCircle className="mt-1 shrink-0" />
+                    <div>
+                        <p className="font-bold">Your database is currently empty.</p>
+                        <p className="text-sm">The public site is showing static fallback content. Click the "Initialize Database Content" button above to import your existing portfolio, team, and blog posts into the CMS for editing.</p>
+                    </div>
+                </div>
+            )}
 
             {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">

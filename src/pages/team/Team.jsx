@@ -15,7 +15,7 @@ import thinleyDhendup from '../../assets/teamphoto/thinleydendupb.jpeg';
 import ash from '../../assets/teamphoto/ashb.jpeg';
 import karma from '../../assets/teamphoto/karm.jpeg';
 
-const staticTeamMembers = [
+export const staticTeamMembers = [
   {
     id: 1,
     name: ' Thinley Dhendup',
