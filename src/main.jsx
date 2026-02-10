@@ -9,6 +9,7 @@ import Team from './pages/team/Team.jsx'
 import About from './pages/About.jsx'
 import Portfolio from './pages/Portfolio/Portfolio.jsx'
 import Blog from './pages/Blog/Blog.jsx'
+import BlogAdmin from './pages/Admin/BlogAdmin.jsx'
 import BlogPost from './pages/Blog/BlogPost.jsx'
 import ProjectGallery from './pages/Portfolio/ProjectGallery.jsx'
 import Legal from './pages/Legal.jsx'
@@ -47,6 +48,7 @@ const router = createBrowserRouter(
         <Route path='team/guru-wangchuk' element={<GuruWangchukPortfolio />}></Route>
         <Route path='team/karma' element={<KarmaPortfolio />}></Route>
       </Route>
+      <Route path='admin/blog' element={<BlogAdmin />}></Route>
     </Route>
   )
 )

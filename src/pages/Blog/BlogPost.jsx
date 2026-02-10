@@ -1,27 +1,82 @@
-import { useEffect } from 'react';
+
+import { useEffect, useState } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
 import { blogItems } from '../../data/blogItems';
+import { supabase } from '../../supabaseClient';
 import rightArrow from '../../assets/icons/rightArrow.svg';
 import Footer from '../../components/Footer';
 
 
 const BlogPost = () => {
     const { id } = useParams();
-    const selectedItem = blogItems.find(p => p.id === parseInt(id));
+    const [selectedItem, setSelectedItem] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    // Get 2 other blog items for the "Further on..." section
+    // Get 2 other blog items for the "Further on..." section - keep static for now or fetch random
     const relatedItems = blogItems
-        .filter(item => item.id !== parseInt(id))
+        .filter(item => String(item.id) !== id)
         .slice(0, 2);
 
     useEffect(() => {
-        window.scrollTo(0, 0);
+        const fetchPost = async () => {
+            window.scrollTo(0, 0);
+            setLoading(true);
+
+            // 1. Try to find in static data
+            // parsing int safely
+            let staticItem = null;
+            const idInt = parseInt(id);
+            if (!isNaN(idInt)) {
+                staticItem = blogItems.find(p => p.id === idInt);
+            }
+
+            if (staticItem) {
+                setSelectedItem(staticItem);
+                setLoading(false);
+            } else {
+                // 2. Fetch from Supabase
+                try {
+                    const { data, error } = await supabase
+                        .from('blogs')
+                        .select('*')
+                        .eq('id', id)
+                        .single();
+
+                    if (error) {
+                        console.error("Supabase fetch error:", error);
+                        setSelectedItem(null);
+                    } else if (data) {
+                        setSelectedItem({
+                            ...data,
+                            subtitle: data.subtitle || data.domain,
+                        });
+                    }
+                } catch (err) {
+                    console.error("Fetch error:", err);
+                } finally {
+                    setLoading(false);
+                }
+            }
+        };
+
+        fetchPost();
     }, [id]);
+
+    if (loading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-white text-zinc-900">
+                <p className="animate-pulse">Loading article...</p>
+            </div>
+        );
+    }
 
     if (!selectedItem) {
         return (
-            <div className="min-h-screen flex items-center justify-center">
-                <p>Post not found</p>
+            <div className="min-h-screen flex items-center justify-center bg-white text-zinc-900">
+                <div className="text-center">
+                    <h2 className="text-2xl font-bold mb-4">Post not found</h2>
+                    <NavLink to="/blog" className="underline hover:text-zinc-600">Return to Blog</NavLink>
+                </div>
             </div>
         );
     }
@@ -51,11 +106,11 @@ const BlogPost = () => {
 
                         {/* Title Section */}
                         <div className="mb-12 lg:mb-20">
-                            <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium uppercase mb-8">
+                            <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium uppercase mb-8 leading-tight">
                                 {selectedItem.title}
                             </h1>
 
-                            <div className="flex justify-between items-center text-xs sm:text-sm uppercase tracking-widest border-t border-b border-zinc-400 py-4 mt-8 text-zinc-600 font-medium">
+                            <div className="flex justify-between items-center text-xs sm:text-sm uppercase tracking-widest border-t border-b border-zinc-400 py-4 mt-8 text-zinc-600 font-medium flex-wrap gap-2">
                                 <span>Author: {selectedItem.author}</span>
                                 <span className="uppercase">{selectedItem.domain}</span>
                                 <span>{selectedItem.date}</span>
@@ -65,34 +120,26 @@ const BlogPost = () => {
                         {/* Article Content */}
                         <div className="prose prose-zinc max-w-none text-zinc-800 leading-relaxed text-sm sm:text-base">
                             <h3 className="uppercase text-sm font-bold tracking-widest mb-4 text-zinc-500">Why we are talking about this</h3>
-                            <p className="mb-6">
-                                {selectedItem.description}
-                            </p>
-                            <p className="mb-6">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                            </p>
-                            <p className="mb-6">
-                                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </p>
 
-                            <blockquote className="border-l-2 border-zinc-900 pl-6 italic my-10 text-xl md:text-2xl text-zinc-900 font-serif">
-                                "Architecture is the will of an epoch translated into space."
-                            </blockquote>
+                            {/* Render description as multiple paragraphs if it contains newlines */}
+                            {selectedItem.description.split('\n').map((paragraph, idx) => (
+                                paragraph.trim() && <p key={idx} className="mb-6">{paragraph}</p>
+                            ))}
 
-                            <p className="mb-6">
-                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.
-                            </p>
-                            <p className="mb-6">
-                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
-                            </p>
-                            <p className="mb-6">
-                                Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.
-                            </p>
-
-                            <h3 className="text-xl font-bold mt-10 mb-4 uppercase">The Future of Design</h3>
-                            <p className="mb-6">
-                                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
-                            </p>
+                            {/* Show placeholder content only if it's a static item (id < 100 assumed) or if description is short */}
+                            {String(selectedItem.id).length < 5 && (
+                                <>
+                                    <p className="mb-6">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                    </p>
+                                    <blockquote className="border-l-2 border-zinc-900 pl-6 italic my-10 text-xl md:text-2xl text-zinc-900 font-serif">
+                                        "Architecture is the will of an epoch translated into space."
+                                    </blockquote>
+                                    <p className="mb-6">
+                                        Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
+                                    </p>
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -105,8 +152,9 @@ const BlogPost = () => {
                     <img
                         src={selectedItem.image}
                         alt=""
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover opacity-90"
                     />
+                    <div className="absolute inset-0 bg-black/20"></div>
                 </div>
 
                 <div className="relative z-10 w-full text-white shadow-black/20">
@@ -162,7 +210,7 @@ const BlogPost = () => {
                     ))}
                 </div>
             </div>
-            <Footer />  
+            <Footer />
         </div>
     );
 };

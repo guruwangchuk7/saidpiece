@@ -1,17 +1,43 @@
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { FaChevronDown } from 'react-icons/fa';
 import rightArrow from '../../assets/icons/rightArrow.svg';
 import Footer from '../../components/Footer';
 import { blogItems } from '../../data/blogItems';
+import { supabase } from '../../supabaseClient';
 
 
 const Blog = () => {
     const navigate = useNavigate();
     const [selectedFilter, setSelectedFilter] = useState('all');
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [posts, setPosts] = useState(blogItems);
+
+    useEffect(() => {
+        const fetchBlogs = async () => {
+            const { data, error } = await supabase
+                .from('blogs')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                console.error('Error fetching blogs:', error);
+            } else if (data) {
+                // Merge static items with fetched items
+                // Ensure properties match
+                const formattedData = data.map(item => ({
+                    ...item,
+                    subtitle: item.subtitle || item.domain, // Fallback if subtitle missing
+                }));
+                // Place new dynamic posts first
+                setPosts([...formattedData, ...blogItems]);
+            }
+        };
+
+        fetchBlogs();
+    }, []);
 
     // Defined filters based on requirements
     const filters = [
@@ -24,9 +50,9 @@ const Blog = () => {
 
     // Filter items based on selected domain
     const filteredItems = useMemo(() => {
-        if (selectedFilter === 'all') return blogItems;
-        return blogItems.filter(item => item.domain === selectedFilter);
-    }, [selectedFilter]);
+        if (selectedFilter === 'all') return posts;
+        return posts.filter(item => item.domain === selectedFilter);
+    }, [selectedFilter, posts]);
 
     return (
         <div>
