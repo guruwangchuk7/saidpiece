@@ -9,7 +9,6 @@ import Team from './pages/team/Team.jsx'
 import About from './pages/About.jsx'
 import Portfolio from './pages/Portfolio/Portfolio.jsx'
 import Blog from './pages/Blog/Blog.jsx'
-import BlogAdmin from './pages/Admin/BlogAdmin.jsx'
 import BlogPost from './pages/Blog/BlogPost.jsx'
 import ProjectGallery from './pages/Portfolio/ProjectGallery.jsx'
 import Legal from './pages/Legal.jsx'
@@ -24,34 +23,54 @@ import { AuthProvider } from './context/AuthContext.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import Dashboard from './pages/Dashboard.jsx'
 
+// Admin Components
+import AdminLayout from './pages/Admin/AdminLayout.jsx'
+import AdminDashboard from './pages/Admin/AdminDashboard.jsx'
+import ProjectAdmin from './pages/Admin/ProjectAdmin.jsx'
+import TeamAdmin from './pages/Admin/TeamAdmin.jsx'
+import BlogAdmin from './pages/Admin/BlogAdmin.jsx'
+import AdminManager from './pages/Admin/AdminManager.jsx'
+
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<App />}>
-      <Route index element={<Home />}></Route>
-      <Route path='about' element={<About />}></Route>
-      <Route path='contact' element={<Contact />}></Route>
-      <Route path='portfolio' element={<Portfolio />}></Route>
-      <Route path='blog' element={<Blog />}></Route>
-      <Route path='blog/:id' element={<BlogPost />}></Route>
+    <>
+      <Route path="/" element={<App />}>
+        <Route index element={<Home />}></Route>
+        <Route path='about' element={<About />}></Route>
+        <Route path='contact' element={<Contact />}></Route>
+        <Route path='portfolio' element={<Portfolio />}></Route>
+        <Route path='blog' element={<Blog />}></Route>
+        <Route path='blog/:id' element={<BlogPost />}></Route>
 
-      <Route path='team' element={<Team />}></Route>
-      <Route path='team/thinley-dhendup' element={<ThinleyDhendupPortfolio />}></Route>
-      <Route path='legal' element={<Legal />}></Route>
+        <Route path='team' element={<Team />}></Route>
+        <Route path='team/thinley-dhendup' element={<ThinleyDhendupPortfolio />}></Route>
+        <Route path='legal' element={<Legal />}></Route>
 
-      <Route element={<ProtectedRoute />}>
-        <Route path='dashboard' element={<Dashboard />}></Route>
-        <Route path='portfolio/gallery/:id' element={<ProjectGallery />}></Route>
-        <Route path='team/kinley-wangdi' element={<KinleyWangdiPortfolio />}></Route>
-        <Route path='team/ash' element={<AshPortfolio />}></Route>
-        <Route path='team/ocean-rai' element={<OceanRaiPortfolio />}></Route>
-        <Route path='team/tashi-dendup' element={<TashiDendupPortfolio />}></Route>
-        <Route path='team/guru-wangchuk' element={<GuruWangchukPortfolio />}></Route>
-        <Route path='team/karma' element={<KarmaPortfolio />}></Route>
+        <Route element={<ProtectedRoute />}>
+          <Route path='dashboard' element={<Dashboard />}></Route>
+          <Route path='portfolio/gallery/:id' element={<ProjectGallery />}></Route>
+          <Route path='team/kinley-wangdi' element={<KinleyWangdiPortfolio />}></Route>
+          <Route path='team/ash' element={<AshPortfolio />}></Route>
+          <Route path='team/ocean-rai' element={<OceanRaiPortfolio />}></Route>
+          <Route path='team/tashi-dendup' element={<TashiDendupPortfolio />}></Route>
+          <Route path='team/guru-wangchuk' element={<GuruWangchukPortfolio />}></Route>
+          <Route path='team/karma' element={<KarmaPortfolio />}></Route>
+        </Route>
       </Route>
-      <Route path='admin/blog' element={<BlogAdmin />}></Route>
-    </Route>
+
+      {/* Admin Routes - Separate Layout */}
+      <Route path="/admin" element={<AdminLayout />}>
+        <Route index element={<AdminDashboard />} />
+        <Route path="dashboard" element={<AdminDashboard />} />
+        <Route path="projects" element={<ProjectAdmin />} />
+        <Route path="team" element={<TeamAdmin />} />
+        <Route path="blog" element={<BlogAdmin />} />
+        <Route path="users" element={<AdminManager />} />
+      </Route>
+    </>
   )
 )
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthProvider>

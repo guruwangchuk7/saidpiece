@@ -4,32 +4,61 @@ import { NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { FaChevronDown } from 'react-icons/fa';
 import rightArrow from '../../assets/icons/rightArrow.svg';
+import { supabase } from '../../supabaseClient';
 
-import { portfolioItems } from '../../data/portfolioItems';
+import { portfolioItems as staticPortfolioItems } from '../../data/portfolioItems';
 
 import ButtonType3 from '../../components/ButtonType3';
-import H5 from '../home/H5';
 import Footer from '../../components/Footer';
-
-
 
 const Portfolio = () => {
   const { user, setShowAuthModal } = useAuth();
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const [selectedId, setSelectedId] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState('all');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  useEffect(() => {
+    fetchProjects();
+  }, []);
+
+  const fetchProjects = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('projects')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.warn('Error fetching projects (using static data):', error.message);
+        setProjects(staticPortfolioItems);
+      } else if (data && data.length > 0) {
+        setProjects(data);
+      } else {
+        // Fallback to static if DB is empty
+        setProjects(staticPortfolioItems);
+      }
+    } catch (err) {
+      console.error(err);
+      setProjects(staticPortfolioItems);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Get unique domains
   const domains = useMemo(() => {
-    const uniqueDomains = [...new Set(portfolioItems.map(item => item.domain))];
+    const uniqueDomains = [...new Set(projects.map(item => item.domain))];
     return uniqueDomains;
-  }, []);
+  }, [projects]);
 
   // Filter items based on selected domain
   const filteredItems = useMemo(() => {
-    if (selectedFilter === 'all') return portfolioItems;
-    return portfolioItems.filter(item => item.domain === selectedFilter);
-  }, [selectedFilter]);
+    if (selectedFilter === 'all') return projects;
+    return projects.filter(item => item.domain === selectedFilter);
+  }, [selectedFilter, projects]);
 
   // Disable body scroll when modal is open
   useEffect(() => {
@@ -41,7 +70,15 @@ const Portfolio = () => {
     return () => { document.body.style.overflow = 'unset'; };
   }, [selectedId]);
 
-  const selectedItem = portfolioItems.find(p => p.id === selectedId);
+  const selectedItem = projects.find(p => p.id === selectedId);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-black"></div>
+      </div>
+    );
+  }
 
   return (
     <div>

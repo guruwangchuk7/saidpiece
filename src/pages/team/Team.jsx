@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { supabase } from '../../supabaseClient';
 import { useAuth } from '../../context/AuthContext';
 import { NavLink } from 'react-router-dom';
 import { FaGithub, FaLinkedin, FaEnvelope, FaThLarge, FaList, FaChevronDown } from 'react-icons/fa';
@@ -14,7 +15,7 @@ import thinleyDhendup from '../../assets/teamphoto/thinleydendupb.jpeg';
 import ash from '../../assets/teamphoto/ashb.jpeg';
 import karma from '../../assets/teamphoto/karm.jpeg';
 
-const teamMembers = [
+const staticTeamMembers = [
   {
     id: 1,
     name: ' Thinley Dhendup',
@@ -127,21 +128,49 @@ const Team = () => {
   const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const filterRoles = [
-    'Principal Architect',
-    'Admin',
-    'Civil Engineer',
-    'Architect',
-    'Architecture',
-    'Architecture Intern',
-    'Full Stack Developer'
-  ];
+  // DB State
+  const [members, setMembers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchMembers();
+  }, []);
+
+  const fetchMembers = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('team_members')
+        .select('*')
+        .order('created_at', { ascending: true });
+
+      if (error) {
+        console.warn('Error fetching team (using static):', error.message);
+        setMembers(staticTeamMembers);
+      } else if (data && data.length > 0) {
+        setMembers(data);
+      } else {
+        setMembers(staticTeamMembers);
+      }
+    } catch (err) {
+      console.error(err);
+      setMembers(staticTeamMembers);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Get unique roles from members
+  const filterRoles = useMemo(() => {
+    // Default roles to ensure order if static data used, or just dynamic
+    const roles = [...new Set(members.map(m => m.role))];
+    return roles.sort();
+  }, [members]);
 
 
   const filteredMembers =
     activeFilter === 'All'
-      ? teamMembers
-      : teamMembers.filter((member) => member.role === activeFilter);
+      ? members
+      : members.filter((member) => member.role === activeFilter);
 
   const socialIcons = (socials, name) => (
     <div className="flex items-center space-x-4 mt-4 pt-4 border-t border-zinc-200">
