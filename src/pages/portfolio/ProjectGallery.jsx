@@ -3,7 +3,7 @@ import { useParams, NavLink, useNavigate } from 'react-router-dom';
 import { portfolioItems as staticPortfolioItems } from '../../data/portfolioItems';
 import rightArrow from '../../assets/icons/rightArrow.svg';
 import { motion } from "motion/react";
-import { supabase } from '../../supabaseClient';
+import { supabase } from '../../services/supabaseClient';
 import { useProjectData } from '../../hooks/useProjectData';
 import { Helmet } from 'react-helmet-async';
 

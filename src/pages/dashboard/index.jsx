@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { supabase } from '../supabaseClient';
+import { useAuth } from '../../context/AuthContext';
+import { supabase } from '../../services/supabaseClient';
 import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {

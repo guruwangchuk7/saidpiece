@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import ham from '../assets/icons/ham.svg'
-import close from '../assets/icons/close.svg'
-import { useAuth } from '../context/AuthContext'
+import ham from '../../assets/icons/ham.svg'
+import close from '../../assets/icons/close.svg'
+import { useAuth } from '../../context/AuthContext'
 
 function Navbar() {
 

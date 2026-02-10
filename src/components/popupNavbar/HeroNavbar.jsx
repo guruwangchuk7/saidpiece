@@ -5,7 +5,7 @@ import { motion, AnimatePresence, easeInOut } from "motion/react";
 import { useNav } from "./VisiblityContext";
 import rightArrowWhite from "../../assets/icons/rightArrowWhite.svg";
 import { useAuth } from "../../context/AuthContext";
-import Footer from "../Footer";
+import Footer from "../layout/Footer";
 
 const HeroNavbar = () => {
   const { open, close } = useNav();

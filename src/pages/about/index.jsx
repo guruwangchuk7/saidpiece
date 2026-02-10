@@ -4,16 +4,16 @@ import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { NavLink } from 'react-router-dom';
-import rightArrow from '../assets/icons/rightArrow.svg';
-import H5 from './home/H5';
-import Footer from '../components/Footer';
+import rightArrow from '../../assets/icons/rightArrow.svg';
+import H5 from '../home/H5';
+import Footer from '../../components/layout/Footer';
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
 // --- Asset Imports ---
-import aboutUsImg from '../assets/aboutusphoto/aboutus.jpg';
-// import philosophyImg from '../assets/homephoto/mainbg.svg'; // Unused and heavy (12MB)
-import teamImg from '../assets/homephoto/page3Bg.jpg';
+import aboutUsImg from '../../assets/aboutusphoto/aboutus.jpg';
+// import philosophyImg from '../../assets/homephoto/mainbg.svg'; // Unused and heavy (12MB)
+import teamImg from '../../assets/homephoto/page3Bg.jpg';
 
 
 // --- SVG Icons ---

@@ -10,16 +10,16 @@ import { Toaster } from 'react-hot-toast';
 
 // Lazy Load Pages
 const Home = lazy(() => import('./pages/home/Home.jsx'));
-const Contact = lazy(() => import('./pages/Contact.jsx'));
+const Contact = lazy(() => import('./pages/contact/index.jsx'));
 const Team = lazy(() => import('./pages/team/Team.jsx'));
-const About = lazy(() => import('./pages/About.jsx'));
+const About = lazy(() => import('./pages/about/index.jsx'));
 const Portfolio = lazy(() => import('./pages/portfolio/Portfolio.jsx'));
 const Blog = lazy(() => import('./pages/blog/Blog.jsx'));
 const BlogPost = lazy(() => import('./pages/blog/BlogPost.jsx'));
 const ProjectGallery = lazy(() => import('./pages/portfolio/ProjectGallery.jsx'));
-const Legal = lazy(() => import('./pages/Legal.jsx'));
+const Legal = lazy(() => import('./pages/legal/index.jsx'));
 const TeamPortfolio = lazy(() => import('./pages/team/portfolios/TeamPortfolio.jsx'));
-const Dashboard = lazy(() => import('./pages/Dashboard.jsx'));
+const Dashboard = lazy(() => import('./pages/dashboard/index.jsx'));
 
 // Lazy Load Admin Components
 const AdminLayout = lazy(() => import('./pages/admin/AdminLayout.jsx'));

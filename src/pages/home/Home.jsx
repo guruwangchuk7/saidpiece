@@ -5,7 +5,7 @@ import H2 from './H2.jsx'
 import H3 from './H3.jsx'
 import H4 from './H4.jsx'
 import H5 from './H5.jsx'
-import Footer from '../../components/Footer'
+import Footer from '../../components/layout/Footer'
 
 function Home() {
   const contentRef = useRef(null)

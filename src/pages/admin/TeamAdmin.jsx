@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { supabase } from '../../supabaseClient';
+import { supabase } from '../../services/supabaseClient';
 import { FaEdit, FaTrash, FaPlus, FaTimes, FaGlobe, FaLinkedin, FaGithub, FaEnvelope } from 'react-icons/fa';
 
 const TeamAdmin = () => {

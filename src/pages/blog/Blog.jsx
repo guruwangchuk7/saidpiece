@@ -4,9 +4,9 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { FaChevronDown } from 'react-icons/fa';
 import rightArrow from '../../assets/icons/rightArrow.svg';
-import Footer from '../../components/Footer';
+import Footer from '../../components/layout/Footer';
 // import { blogItems } from '../../data/blogItems';
-import { supabase } from '../../supabaseClient';
+import { supabase } from '../../services/supabaseClient';
 
 
 const Blog = () => {

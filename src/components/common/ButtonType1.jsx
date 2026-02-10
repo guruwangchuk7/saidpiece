@@ -1,5 +1,5 @@
 import React from 'react'
-import rightArrow from '../assets/icons/rightArrow.svg'
+import rightArrow from '../../assets/icons/rightArrow.svg'
 
 function ButtonType1({ title }) {
   return (

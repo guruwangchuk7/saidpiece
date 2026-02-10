@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
 // import { blogItems } from '../../data/blogItems';
 import ReactMarkdown from 'react-markdown';
-import { supabase } from '../../supabaseClient';
+import { supabase } from '../../services/supabaseClient';
 import rightArrow from '../../assets/icons/rightArrow.svg';
-import Footer from '../../components/Footer';
+import Footer from '../../components/layout/Footer';
 
 
 const BlogPost = () => {

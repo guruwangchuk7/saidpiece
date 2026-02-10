@@ -1,6 +1,6 @@
 import { button } from 'motion/react-client'
 import React from 'react'
-import rightArrow from '../assets/icons/rightArrow.svg'
+import rightArrow from '../../assets/icons/rightArrow.svg'
 
 function ButtonType2({ title, idx, active }) {
   return (

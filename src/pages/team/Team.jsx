@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { supabase } from '../../supabaseClient';
+import { supabase } from '../../services/supabaseClient';
 import { useAuth } from '../../context/AuthContext';
 import { NavLink } from 'react-router-dom';
 import { FaGithub, FaLinkedin, FaEnvelope, FaThLarge, FaList, FaChevronDown } from 'react-icons/fa';
 import rightArrow from '../../assets/icons/rightArrow.svg';
-import ButtonType3 from '../../components/ButtonType3';
-import Footer from '../../components/Footer';
+import ButtonType3 from '../../components/common/ButtonType3';
+import Footer from '../../components/layout/Footer';
 import guru from '../../assets/teamphoto/gurub.jpeg';
 import kinley from '../../assets/teamphoto/kinleyb.jpeg';
 import ocean from '../../assets/teamphoto/oceanb.jpeg';

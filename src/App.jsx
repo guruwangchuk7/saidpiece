@@ -2,13 +2,13 @@ import React from "react";
 import { VisibilityProvider } from "./components/popupNavbar/VisiblityContext";
 import { Outlet, useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import ScrollToTop from "./components/ScrollToTop";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import ScrollToTop from "./components/common/ScrollToTop";
+import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
 import HeroNavbar from "./components/popupNavbar/HeroNavbar";
 import ToggleNavbarBtn from "./components/popupNavbar/ToggleNavbarBtn";
 
-import AuthModal from "./components/AuthModal";
+import AuthModal from "./components/features/auth/AuthModal";
 
 function App() {
   const location = useLocation();

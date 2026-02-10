@@ -1,4 +1,4 @@
-import { supabase } from '../supabaseClient';
+import { supabase } from '../services/supabaseClient';
 import { portfolioItems } from '../data/portfolioItems';
 import { blogItems } from '../data/blogItems';
 import { staticTeamMembers } from '../pages/team/Team';

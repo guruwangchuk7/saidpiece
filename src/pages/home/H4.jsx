@@ -1,8 +1,8 @@
 import { motion, AnimatePresence } from "motion/react";
 import React, { useState } from "react";
 import { NavLink } from 'react-router-dom';
-import Btn2 from "../../components/ButtonType2";
-import BtnT1 from "../../components/ButtonType1";
+import Btn2 from "../../components/common/ButtonType2";
+import BtnT1 from "../../components/common/ButtonType1";
 import img1 from "../../assets/project-photo/clocktower.jpg";
 import img2 from "../../assets/project-photo/electricity.jpg";
 import img3 from "../../assets/project-photo/bhutanbank.jpg";

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { supabase } from '../../supabaseClient';
+import { supabase } from '../../services/supabaseClient';
 import { FaUserPlus, FaTrash, FaUserShield } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
 

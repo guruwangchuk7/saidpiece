@@ -1,7 +1,7 @@
 // AuthModal Component - Login/Signup Modal with Google OAuth
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../../../context/AuthContext';
 
 const AuthModal = () => {
     const navigate = useNavigate();

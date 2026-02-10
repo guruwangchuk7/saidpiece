@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { supabase } from '../../supabaseClient';
+import { supabase } from '../../services/supabaseClient';
 import { FaProjectDiagram, FaUsers, FaBlog, FaArrowRight, FaDatabase, FaCheckCircle, FaExclamationCircle, FaSpinner, FaCloudUploadAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { importProjects, importTeam, importBlogs } from '../../utils/seedDatabase';
-import ConfirmModal from '../../components/ConfirmModal';
+import ConfirmModal from '../../components/common/ConfirmModal';
 import { toast } from 'react-hot-toast';
 
 const StatCard = ({ title, count, icon, color, link }) => {

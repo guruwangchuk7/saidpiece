@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import rightArrow from "../assets/icons/rightArrow.svg";
+import rightArrow from "../../assets/icons/rightArrow.svg";
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);

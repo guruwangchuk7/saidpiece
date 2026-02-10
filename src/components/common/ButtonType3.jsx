@@ -1,8 +1,8 @@
 import React from 'react';
-import rightArrow from '../assets/icons/rightArrow.svg';
+import rightArrow from '../../assets/icons/rightArrow.svg';
 import { useNavigate } from 'react-router-dom';
 
-function ButtonType3({ title, to , classes }) {
+function ButtonType3({ title, to, classes }) {
   const navigate = useNavigate();
   return (
     <button
