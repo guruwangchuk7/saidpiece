@@ -23,11 +23,11 @@ const HeroNavbar = () => {
 
   const data = [
     { to: "/", title: "HOMEPAGE" },
-    { to: "about", title: "ABOUT" },
-    { to: "portfolio", title: "PROJECTS" },
-    { to: "team", title: "TEAM" },
-    { to: "blog", title: "BLOG" },
-    { to: "contact", title: "CONTACT" },
+    { to: "/about", title: "ABOUT" },
+    { to: "/portfolio", title: "PROJECTS" },
+    { to: "/team", title: "TEAM" },
+    { to: "/blog", title: "BLOG" },
+    { to: "/contact", title: "CONTACT" },
   ];
 
   const variants = {
