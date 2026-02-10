@@ -7,29 +7,23 @@ import Home from './pages/home/Home.jsx'
 import Contact from './pages/Contact.jsx'
 import Team from './pages/team/Team.jsx'
 import About from './pages/About.jsx'
-import Portfolio from './pages/Portfolio/Portfolio.jsx'
-import Blog from './pages/Blog/Blog.jsx'
-import BlogPost from './pages/Blog/BlogPost.jsx'
-import ProjectGallery from './pages/Portfolio/ProjectGallery.jsx'
+import Portfolio from './pages/portfolio/Portfolio.jsx'
+import Blog from './pages/blog/Blog.jsx'
+import BlogPost from './pages/blog/BlogPost.jsx'
+import ProjectGallery from './pages/portfolio/ProjectGallery.jsx'
 import Legal from './pages/Legal.jsx'
-import ThinleyDhendupPortfolio from './pages/team/portfolios/ThinleyDhendupPortfolio.jsx'
-import KinleyWangdiPortfolio from './pages/team/portfolios/KinleyWangdiPortfolio.jsx'
-import AshPortfolio from './pages/team/portfolios/AshPortfolio.jsx'
-import OceanRaiPortfolio from './pages/team/portfolios/OceanRaiPortfolio.jsx'
-import TashiDendupPortfolio from './pages/team/portfolios/TashiDendupPortfolio.jsx'
-import GuruWangchukPortfolio from './pages/team/portfolios/GuruWangchukPortfolio.jsx'
-import KarmaPortfolio from './pages/team/portfolios/KarmaPortfolio.jsx'
+import TeamPortfolio from './pages/team/portfolios/TeamPortfolio.jsx'
 import { AuthProvider } from './context/AuthContext.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import Dashboard from './pages/Dashboard.jsx'
 
 // Admin Components
-import AdminLayout from './pages/Admin/AdminLayout.jsx'
-import AdminDashboard from './pages/Admin/AdminDashboard.jsx'
-import ProjectAdmin from './pages/Admin/ProjectAdmin.jsx'
-import TeamAdmin from './pages/Admin/TeamAdmin.jsx'
-import BlogAdmin from './pages/Admin/BlogAdmin.jsx'
-import AdminManager from './pages/Admin/AdminManager.jsx'
+import AdminLayout from './pages/admin/AdminLayout.jsx'
+import AdminDashboard from './pages/admin/AdminDashboard.jsx'
+import ProjectAdmin from './pages/admin/ProjectAdmin.jsx'
+import TeamAdmin from './pages/admin/TeamAdmin.jsx'
+import BlogAdmin from './pages/admin/BlogAdmin.jsx'
+import AdminManager from './pages/admin/AdminManager.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -43,18 +37,15 @@ const router = createBrowserRouter(
         <Route path='blog/:id' element={<BlogPost />}></Route>
 
         <Route path='team' element={<Team />}></Route>
-        <Route path='team/thinley-dhendup' element={<ThinleyDhendupPortfolio />}></Route>
+        {/* Public team member profile */}
+        <Route path='team/thinley-dhendup' element={<TeamPortfolio />}></Route>
         <Route path='legal' element={<Legal />}></Route>
 
         <Route element={<ProtectedRoute />}>
           <Route path='dashboard' element={<Dashboard />}></Route>
           <Route path='portfolio/gallery/:id' element={<ProjectGallery />}></Route>
-          <Route path='team/kinley-wangdi' element={<KinleyWangdiPortfolio />}></Route>
-          <Route path='team/ash' element={<AshPortfolio />}></Route>
-          <Route path='team/ocean-rai' element={<OceanRaiPortfolio />}></Route>
-          <Route path='team/tashi-dendup' element={<TashiDendupPortfolio />}></Route>
-          <Route path='team/guru-wangchuk' element={<GuruWangchukPortfolio />}></Route>
-          <Route path='team/karma' element={<KarmaPortfolio />}></Route>
+          {/* Dynamic route for protected team members */}
+          <Route path='team/:slug' element={<TeamPortfolio />}></Route>
         </Route>
       </Route>
 

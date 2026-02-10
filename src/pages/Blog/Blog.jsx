@@ -55,22 +55,26 @@ const Blog = () => {
 
     return (
         <div>
-            <div className="min-h-screen relative flex items-start justify-center bg-white px-4 sm:px-6 lg:px-20 py-6 sm:py-10">
-                <NavLink to="/" className="absolute top-6 sm:top-10 left-7 sm:left-12 lg:left-26 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-20">
+            <div className="min-h-screen relative flex items-start justify-center bg-white px-3 sm:px-5 lg:px-10 py-6 sm:py-10 selection:bg-zinc-900 selection:text-white">
+                <NavLink to="/" className="absolute top-6 sm:top-10 left-3 sm:left-5 lg:left-10 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-20">
                     <img src={rightArrow} alt="back" className="w-4 h-4 rotate-180" />
                     <span>Back to home</span>
                 </NavLink>
 
-                <div className="w-full px-3 sm:px-6 py-12 sm:py-20">
+                <div className="w-full py-12 sm:py-20">
                     {/* Header section */}
-                    <div className="mb-10 lg:mb-14">
-                        <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-tight uppercase mb-4 sm:mb-6">
+                    <div className="mb-10 sm:mb-10 lg:mb-10">
+                        <h1 className="text-3xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-tight uppercase mb-4 sm:mb-6 -ml-0.5">
                             Blog
                         </h1>
+                        <p className="text-sm sm:text-sm lg:text-base text-zinc-600 leading-relaxed max-w-2xl">
+                            Insights, stories, and latest updates from Saidpiece Architects.
+                            Explore our thoughts on design, culture, and architecture.
+                        </p>
                     </div>
 
                     {/* Filter section */}
-                    <div className="mb-10 sm:mb-16">
+                    <div className="mb-12 sm:mb-16">
                         {/* Mobile Dropdown */}
                         <div className="sm:hidden relative z-30">
                             <button
@@ -117,7 +121,7 @@ const Blog = () => {
                             >
                                 <div className={`w-2 h-2 rounded-full transition-all duration-300 ${selectedFilter === 'all' ? 'bg-black' : 'bg-zinc-300 group-hover:bg-zinc-400'
                                     }`}></div>
-                                <span className="text-xs sm:text-sm text-zinc-600 group-hover:text-black transition-colors">All</span>
+                                <span className="text-xs sm:text-sm text-zinc-600 group-hover:text-black transition-colors">All Categories</span>
                             </button>
 
                             {filters.map(filter => (
@@ -139,7 +143,7 @@ const Blog = () => {
                     {/* Blog grid */}
                     <motion.div
                         layout
-                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-16"
+                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-12"
                     >
                         <AnimatePresence mode="popLayout">
                             {filteredItems.map((p) => (
@@ -154,30 +158,33 @@ const Blog = () => {
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
                                 >
-                                    <div className="relative overflow-hidden w-full h-[250px] sm:h-[300px] lg:h-[350px]">
+                                    <div className="relative overflow-hidden w-full h-[300px] sm:h-[350px] lg:h-[450px]">
                                         <motion.img
                                             layoutId={`blog-image-${p.id}`}
                                             src={p.image}
                                             alt={p.title}
                                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                         />
-                                        {/* Centered Overlay (Author) */}
-                                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-black/20">
-                                            <span className="text-white text-sm sm:text-base font-light tracking-widest uppercase text-center px-4 drop-shadow-md">
-                                                By {p.author}
+                                        {/* Hover overlay hint */}
+                                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                            <span className="bg-white/90 text-black px-3 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-medium transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                                                Read Article
                                             </span>
                                         </div>
                                     </div>
 
-                                    <motion.div layoutId={`blog-info-${p.id}`} className="pt-4 bg-white">
+                                    <motion.div layoutId={`blog-info-${p.id}`} className="border-t border-zinc-200 pt-3 sm:pt-4 bg-white">
                                         <div className="flex justify-between items-start gap-4">
-                                            <h3 className="text-black uppercase font-semibold text-xs sm:text-sm lg:text-base tracking-tight leading-tight border-b border-zinc-300 pb-1 group-hover:border-black transition-colors">
+                                            <h3 className="text-black uppercase font-semibold text-base sm:text-lg lg:text-xl tracking-tight leading-tight group-hover:text-zinc-600 transition-colors">
                                                 {p.title}
                                             </h3>
                                             <span className="text-zinc-500 text-xs sm:text-sm whitespace-nowrap mt-1 font-medium">{p.date}</span>
                                         </div>
-                                        <p className="text-zinc-400 text-sm mt-3 font-normal">
-                                            {p.domain}
+                                        <p className="text-zinc-500 text-xs sm:text-sm lg:text-base mt-1">
+                                            {p.subtitle || p.domain}
+                                        </p>
+                                        <p className="text-zinc-400 text-xs lg:text-sm mt-1 uppercase tracking-wider font-medium">
+                                            By {p.author}
                                         </p>
                                     </motion.div>
                                 </motion.div>

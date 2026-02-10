@@ -1,26 +1,73 @@
-
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, NavLink, useNavigate } from 'react-router-dom';
-import { portfolioItems } from '../../data/portfolioItems';
+import { portfolioItems as staticPortfolioItems } from '../../data/portfolioItems';
 import rightArrow from '../../assets/icons/rightArrow.svg';
 import { motion } from "motion/react";
+import { supabase } from '../../supabaseClient';
 
 const ProjectGallery = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const [project, setProject] = useState(null);
+    const [nextProject, setNextProject] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    // Find current project
-    const projectIndex = portfolioItems.findIndex(p => p.id == id);
-    const project = portfolioItems[projectIndex];
+    useEffect(() => {
+        const fetchProjectData = async () => {
+            setLoading(true);
+            try {
+                // 1. Try to fetch from Supabase
+                const { data: dbProjects, error } = await supabase
+                    .from('projects')
+                    .select('*')
+                    .order('created_at', { ascending: false });
 
-    // Find next project for navigation
-    const nextProject = projectIndex !== -1 && projectIndex < portfolioItems.length - 1
-        ? portfolioItems[projectIndex + 1]
-        : portfolioItems[0]; // Loop back to start
+                let allProjects = [];
+                if (error || !dbProjects || dbProjects.length === 0) {
+                    allProjects = staticPortfolioItems;
+                } else {
+                    allProjects = dbProjects;
+                }
+
+                const projectIndex = allProjects.findIndex(p => p.id == id);
+
+                if (projectIndex !== -1) {
+                    setProject(allProjects[projectIndex]);
+                    const nextIdx = (projectIndex + 1) % allProjects.length;
+                    setNextProject(allProjects[nextIdx]);
+                } else {
+                    // If not found in combined list, try static specifically
+                    const staticIdx = staticPortfolioItems.findIndex(p => p.id == id);
+                    if (staticIdx !== -1) {
+                        setProject(staticPortfolioItems[staticIdx]);
+                        const nextIdx = (staticIdx + 1) % staticPortfolioItems.length;
+                        setNextProject(staticPortfolioItems[nextIdx]);
+                    }
+                }
+            } catch (err) {
+                console.error("Error fetching project gallery data:", err);
+                const staticIdx = staticPortfolioItems.findIndex(p => p.id == id);
+                if (staticIdx !== -1) {
+                    setProject(staticPortfolioItems[staticIdx]);
+                    setNextProject(staticPortfolioItems[(staticIdx + 1) % staticPortfolioItems.length]);
+                }
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProjectData();
+    }, [id]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [id]);
+
+    if (loading) return (
+        <div className="min-h-screen flex items-center justify-center bg-white text-zinc-900">
+            <div className="animate-pulse tracking-widest uppercase text-sm">Loading Project...</div>
+        </div>
+    );
 
     if (!project) return <div className="min-h-screen flex items-center justify-center">Project not found</div>;
 
