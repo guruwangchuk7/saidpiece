@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { FaChevronDown } from 'react-icons/fa';
 import rightArrow from '../../assets/icons/rightArrow.svg';
 import Footer from '../../components/Footer';
-import { blogItems } from '../../data/blogItems';
+// import { blogItems } from '../../data/blogItems';
 import { supabase } from '../../supabaseClient';
 
 
@@ -13,7 +13,7 @@ const Blog = () => {
     const navigate = useNavigate();
     const [selectedFilter, setSelectedFilter] = useState('all');
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [posts, setPosts] = useState(blogItems);
+    const [posts, setPosts] = useState([]);
 
     useEffect(() => {
         const fetchBlogs = async () => {
@@ -25,14 +25,13 @@ const Blog = () => {
             if (error) {
                 console.error('Error fetching blogs:', error);
             } else if (data) {
-                // Merge static items with fetched items
                 // Ensure properties match
                 const formattedData = data.map(item => ({
                     ...item,
                     subtitle: item.subtitle || item.domain, // Fallback if subtitle missing
                 }));
-                // Place new dynamic posts first
-                setPosts([...formattedData, ...blogItems]);
+                // Set posts to fetched data only
+                setPosts(formattedData);
             }
         };
 

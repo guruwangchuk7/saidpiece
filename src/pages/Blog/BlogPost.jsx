@@ -1,7 +1,8 @@
 
 import { useEffect, useState } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
-import { blogItems } from '../../data/blogItems';
+// import { blogItems } from '../../data/blogItems';
+import ReactMarkdown from 'react-markdown';
 import { supabase } from '../../supabaseClient';
 import rightArrow from '../../assets/icons/rightArrow.svg';
 import Footer from '../../components/Footer';
@@ -13,49 +14,46 @@ const BlogPost = () => {
     const [loading, setLoading] = useState(true);
 
     // Get 2 other blog items for the "Further on..." section - keep static for now or fetch random
-    const relatedItems = blogItems
-        .filter(item => String(item.id) !== id)
-        .slice(0, 2);
+    const [relatedPosts, setRelatedPosts] = useState([]);
 
     useEffect(() => {
         const fetchPost = async () => {
             window.scrollTo(0, 0);
             setLoading(true);
 
-            // 1. Try to find in static data
-            // parsing int safely
-            let staticItem = null;
-            const idInt = parseInt(id);
-            if (!isNaN(idInt)) {
-                staticItem = blogItems.find(p => p.id === idInt);
-            }
+            // Fetch from Supabase (Numeric ID)
+            try {
+                // Fetch current post
+                const { data: postData, error: postError } = await supabase
+                    .from('blogs')
+                    .select('*')
+                    .eq('id', id)
+                    .single();
 
-            if (staticItem) {
-                setSelectedItem(staticItem);
-                setLoading(false);
-            } else {
-                // 2. Fetch from Supabase
-                try {
-                    const { data, error } = await supabase
+                if (postError) {
+                    console.error("Supabase fetch error:", postError);
+                    setSelectedItem(null);
+                } else if (postData) {
+                    setSelectedItem({
+                        ...postData,
+                        subtitle: postData.subtitle || postData.domain,
+                    });
+
+                    // Fetch related posts (exclude current)
+                    const { data: relatedData } = await supabase
                         .from('blogs')
-                        .select('*')
-                        .eq('id', id)
-                        .single();
+                        .select('id, title, image, domain, date')
+                        .neq('id', id)
+                        .limit(2);
 
-                    if (error) {
-                        console.error("Supabase fetch error:", error);
-                        setSelectedItem(null);
-                    } else if (data) {
-                        setSelectedItem({
-                            ...data,
-                            subtitle: data.subtitle || data.domain,
-                        });
+                    if (relatedData) {
+                        setRelatedPosts(relatedData);
                     }
-                } catch (err) {
-                    console.error("Fetch error:", err);
-                } finally {
-                    setLoading(false);
                 }
+            } catch (err) {
+                console.error("Fetch error:", err);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -119,27 +117,15 @@ const BlogPost = () => {
 
                         {/* Article Content */}
                         <div className="prose prose-zinc max-w-none text-zinc-800 leading-relaxed text-sm sm:text-base">
-                            <h3 className="uppercase text-sm font-bold tracking-widest mb-4 text-zinc-500">Why we are talking about this</h3>
-
-                            {/* Render description as multiple paragraphs if it contains newlines */}
-                            {selectedItem.description.split('\n').map((paragraph, idx) => (
-                                paragraph.trim() && <p key={idx} className="mb-6">{paragraph}</p>
-                            ))}
-
-                            {/* Show placeholder content only if it's a static item (id < 100 assumed) or if description is short */}
-                            {String(selectedItem.id).length < 5 && (
-                                <>
-                                    <p className="mb-6">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                    </p>
-                                    <blockquote className="border-l-2 border-zinc-900 pl-6 italic my-10 text-xl md:text-2xl text-zinc-900 font-serif">
-                                        "Architecture is the will of an epoch translated into space."
-                                    </blockquote>
-                                    <p className="mb-6">
-                                        Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
-                                    </p>
-                                </>
-                            )}
+                            <ReactMarkdown
+                                components={{
+                                    h3: ({ node, ...props }) => <h3 className="uppercase text-sm font-bold tracking-widest mb-4 text-zinc-500 mt-8" {...props} />,
+                                    p: ({ node, ...props }) => <p className="mb-6" {...props} />,
+                                    blockquote: ({ node, ...props }) => <blockquote className="border-l-2 border-zinc-900 pl-6 italic my-10 text-xl md:text-2xl text-zinc-900 font-serif" {...props} />,
+                                }}
+                            >
+                                {selectedItem.description}
+                            </ReactMarkdown>
                         </div>
                     </div>
                 </div>
@@ -189,7 +175,7 @@ const BlogPost = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
-                    {relatedItems.map(item => (
+                    {relatedPosts.map(item => (
                         <NavLink key={item.id} to={`/blog/${item.id}`} className="group block cursor-pointer">
                             <div className="relative overflow-hidden aspect-[4/3] mb-4">
                                 <img
