@@ -47,14 +47,17 @@ const ContactForm = () => {
 
       if (SERVICE_ID) {
         try {
-          await emailjs.send(SERVICE_ID, TEMPLATE_ID, {
+          console.log("Attempting to send email via EmailJS...", { SERVICE_ID, TEMPLATE_ID, PUBLIC_KEY });
+          const emailResponse = await emailjs.send(SERVICE_ID, TEMPLATE_ID, {
             from_name: formData.name,
             from_email: formData.email,
             message: formData.message,
             to_email: 'saidpiecearchitect@gmail.com'
           }, PUBLIC_KEY);
+          console.log("EmailJS Success:", emailResponse.status, emailResponse.text);
         } catch (emailError) {
           console.error("Failed to send email notification:", emailError);
+          alert(`Email Notification Failed: ${JSON.stringify(emailError)}`); // Temporary alert for debugging
         }
       }
 
