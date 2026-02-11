@@ -32,8 +32,8 @@ const Team = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   // DB State
-  const [members, setMembers] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [members, setMembers] = useState(staticTeamMembers);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchMembers();
@@ -50,7 +50,43 @@ const Team = () => {
         console.warn('Error fetching team (using static):', error.message);
         setMembers(staticTeamMembers);
       } else if (data && data.length > 0) {
-        setMembers(data);
+        // Normalize roles to match static data
+        const normalizedData = data.map(member => ({
+          ...member,
+          role: member.role === 'Full Stack Developer' ? 'Full Stack Engineer' :
+            member.role === 'Architecture' ? 'Architect' :
+              member.role === 'Architecture Intern' ? 'Architect Intern' : member.role
+        }));
+
+        // Enforce fixed order for core team
+        const fixedOrder = [
+          'thinley-dhendup',
+          'karma',
+          'ocean-rai',
+          'kinley-wangdi',
+          'ash',
+          'tashi-dendup',
+          'guru-wangchuk'
+        ];
+
+        const sortedData = normalizedData.sort((a, b) => {
+          const indexA = fixedOrder.indexOf(a.slug);
+          const indexB = fixedOrder.indexOf(b.slug);
+
+          // If both are in fixed list, sort by separate fixed order
+          if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+
+          // If a is fixed, it comes first
+          if (indexA !== -1) return -1;
+
+          // If b is fixed, it comes first
+          if (indexB !== -1) return 1;
+
+          // If neither is fixed, maintain original date-based order (created_at)
+          return 0;
+        });
+
+        setMembers(sortedData);
       } else {
         setMembers(staticTeamMembers);
       }
@@ -62,11 +98,28 @@ const Team = () => {
     }
   };
 
-  // Get unique roles from members
+  // Get unique roles from members and sort them
   const filterRoles = useMemo(() => {
-    // Default roles to ensure order if static data used, or just dynamic
     const roles = [...new Set(members.map(m => m.role))];
-    return roles.sort();
+    const customOrder = [
+      'Principal Architect',
+      'Admin',
+      'Civil Engineer',
+      'Architect',
+      'Architect Intern',
+      'Full Stack Engineer'
+    ];
+    return roles.sort((a, b) => {
+      const indexA = customOrder.indexOf(a);
+      const indexB = customOrder.indexOf(b);
+      // If both are in custom list, sort by index
+      if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+      // If one is in list, prioritize it
+      if (indexA !== -1) return -1;
+      if (indexB !== -1) return 1;
+      // Otherwise alphabetical
+      return a.localeCompare(b);
+    });
   }, [members]);
 
 
@@ -139,10 +192,10 @@ const Team = () => {
             </div>
 
             {/* Desktop List */}
-            <div className="hidden sm:flex flex-wrap gap-3 sm:gap-6 items-center">
+            <div className="hidden sm:flex flex-nowrap overflow-x-auto gap-3 sm:gap-6 items-center pb-2 items-start justify-start w-full no-scrollbar">
               <button
                 onClick={() => setActiveFilter('All')}
-                className="flex items-center gap-2 group cursor-pointer"
+                className="flex items-center gap-2 group cursor-pointer whitespace-nowrap shrink-0"
               >
                 <div className={`w-2 h-2 rounded-full transition-all duration-300 ${activeFilter === 'All' ? 'bg-black' : 'bg-zinc-300 group-hover:bg-zinc-400'
                   }`}></div>
@@ -153,7 +206,7 @@ const Team = () => {
                 <button
                   key={role}
                   onClick={() => setActiveFilter(role)}
-                  className="flex items-center gap-2 group cursor-pointer"
+                  className="flex items-center gap-2 group cursor-pointer whitespace-nowrap shrink-0"
                 >
                   <div className={`w-2 h-2 rounded-full transition-all duration-300 ${activeFilter === role ? 'bg-black' : 'bg-zinc-300 group-hover:bg-zinc-400'
                     }`}></div>
@@ -167,52 +220,72 @@ const Team = () => {
 
           {/* Team Members List/Grid */}
           <section>
-            <ul className={viewMode === 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12' : 'flex flex-col gap-6'}>
-              {filteredMembers.map((member) => {
-                return (
-                  <li key={member.id} className={`bg-white rounded-lg border border-zinc-200 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 cursor-pointer ${viewMode === 'list' ? 'flex flex-col sm:flex-row items-center overflow-hidden' : 'overflow-hidden'}`}>
-                    <NavLink
-                      to={`/team/${member.slug}`}
-                      className="block w-full h-full"
-                    >
-                      {viewMode === 'grid' ? (
-                        <> {/* Grid View Layout */}
-                          <div className="aspect-w-1 aspect-h-1">
-                            {member.avatar ? <img src={member.avatar} alt={`Portrait of ${member.name}`} className="w-full h-full object-cover" /> : <FallbackAvatar className="w-full h-full object-cover" />}
-                          </div>
-                          <div className="p-6">
-                            <h3 className="text-xl font-bold text-zinc-900">{member.name}</h3>
-                            <p className="text-zinc-600 font-semibold mt-1">{member.role}</p>
-                            <p className="text-zinc-600 mt-3 text-sm h-20">{member.bio}</p>
-                            <div className="mt-4 pt-4 border-t border-zinc-200">
-                              <span className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">
-                                View Portfolio →
-                              </span>
-                            </div>
-                          </div>
-                        </>
-                      ) : (
-                        <div className="flex flex-col sm:flex-row items-center w-full">
-                          <div className="w-full sm:w-40 h-40 flex-shrink-0">
-                            {member.avatar ? <img src={member.avatar} alt={`Portrait of ${member.name}`} className="w-full h-full object-cover" /> : <FallbackAvatar className="w-full h-full" />}
-                          </div>
-                          <div className="p-6 flex-grow">
-                            <h3 className="text-xl font-bold text-zinc-900">{member.name}</h3>
-                            <p className="text-zinc-600 font-semibold mt-1">{member.role}</p>
-                            <p className="text-zinc-600 mt-3 text-sm">{member.bio}</p>
-                            <div className="mt-4 pt-4 border-t border-zinc-200">
-                              <span className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">
-                                View Portfolio →
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </NavLink>
+            {loading ? (
+              <ul className={viewMode === 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12' : 'flex flex-col gap-6'}>
+                {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+                  <li key={i} className={`bg-white rounded-lg border border-zinc-100 shadow-sm animate-pulse overflow-hidden ${viewMode === 'list' ? 'flex flex-col sm:flex-row h-auto sm:h-48' : ''}`}>
+                    <div className={`${viewMode === 'list' ? 'w-full sm:w-48 h-48 sm:h-full' : 'w-full aspect-square'} bg-zinc-200 shrink-0`} />
+                    <div className="p-6 w-full flex flex-col justify-center">
+                      <div className="h-7 bg-zinc-200 rounded w-3/4 mb-3" />
+                      <div className="h-5 bg-zinc-200 rounded w-1/2 mb-4" />
+                      <div className="space-y-2 mb-6">
+                        <div className="h-3 bg-zinc-200 rounded w-full" />
+                        <div className="h-3 bg-zinc-200 rounded w-5/6" />
+                        <div className="h-3 bg-zinc-200 rounded w-4/6" />
+                      </div>
+                      <div className="h-4 bg-zinc-200 rounded w-1/3 mt-auto" />
+                    </div>
                   </li>
-                );
-              })}
-            </ul>
+                ))}
+              </ul>
+            ) : (
+              <ul className={viewMode === 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12' : 'flex flex-col gap-6'}>
+                {filteredMembers.map((member) => {
+                  return (
+                    <li key={member.id} className={`bg-white rounded-lg border border-zinc-200 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 cursor-pointer ${viewMode === 'list' ? 'flex flex-col sm:flex-row items-center overflow-hidden' : 'overflow-hidden'}`}>
+                      <NavLink
+                        to={`/team/${member.slug}`}
+                        className="block w-full h-full"
+                      >
+                        {viewMode === 'grid' ? (
+                          <> {/* Grid View Layout */}
+                            <div className="aspect-w-1 aspect-h-1">
+                              {member.avatar ? <img src={member.avatar} alt={`Portrait of ${member.name}`} className="w-full h-full object-cover" loading="eager" /> : <FallbackAvatar className="w-full h-full object-cover" />}
+                            </div>
+                            <div className="p-6">
+                              <h3 className="text-xl font-bold text-zinc-900">{member.name}</h3>
+                              <p className="text-zinc-600 font-semibold mt-1">{member.role}</p>
+                              <p className="text-zinc-600 mt-3 text-sm h-20 line-clamp-3">{member.bio}</p>
+                              <div className="mt-4 pt-4 border-t border-zinc-200">
+                                <span className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">
+                                  View Portfolio →
+                                </span>
+                              </div>
+                            </div>
+                          </>
+                        ) : (
+                          <div className="flex flex-col sm:flex-row items-center w-full h-full">
+                            <div className="w-full sm:w-48 h-64 sm:h-full flex-shrink-0">
+                              {member.avatar ? <img src={member.avatar} alt={`Portrait of ${member.name}`} className="w-full h-full object-cover" loading="eager" /> : <FallbackAvatar className="w-full h-full" />}
+                            </div>
+                            <div className="p-6 flex-grow flex flex-col justify-center h-full">
+                              <h3 className="text-xl font-bold text-zinc-900">{member.name}</h3>
+                              <p className="text-zinc-600 font-semibold mt-1">{member.role}</p>
+                              <p className="text-zinc-600 mt-3 text-sm line-clamp-2">{member.bio}</p>
+                              <div className="mt-4 pt-4 border-t border-zinc-200">
+                                <span className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">
+                                  View Portfolio →
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </NavLink>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
           </section>
 
           {/* CTA Section */}

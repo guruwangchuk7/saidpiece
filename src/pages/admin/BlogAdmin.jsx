@@ -207,7 +207,7 @@ const BlogAdmin = () => {
                                         setDomain(e.target.value);
                                         setSubtitle(e.target.value);
                                     }}
-                                    className="w-full px-3 py-2 border border-zinc-300 rounded focus:ring-black focus:border-black text-sm"
+                                    className="w-full px-3 py-2 border border-zinc-300 rounded focus:ring-black focus:border-black text-sm bg-white"
                                 >
                                     <option value="News">News</option>
                                     <option value="Articles">Articles</option>

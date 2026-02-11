@@ -11,7 +11,7 @@ const BackButton = () => (
     to="/"
     className="absolute top-6 sm:top-10 left-3 sm:left-5 lg:left-10 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-20"
   >
-    <img src={rightArrow} alt="Back" className="w-4 h-4 rotate-180" />
+    <img src={rightArrow} alt="Back" className="w-4 h-4 rotate-180" loading="eager" />
     <span>Back to home</span>
   </NavLink>
 )
@@ -159,6 +159,7 @@ const ContactContentSection = () => (
         src={officeImage}
         alt="Saidpiece office"
         className="w-full h-auto lg:h-full lg:max-h-[60vh] object-cover rounded-sm"
+        loading="eager"
       />
     </div>
   </div>

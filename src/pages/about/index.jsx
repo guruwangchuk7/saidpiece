@@ -251,6 +251,7 @@ function About() {
               src={pageData.team.image}
               alt="SaidPiece Team"
               className="rounded-lg shadow-2xl object-cover w-full h-full max-h-[600px]"
+              loading="eager"
             />
           </div>
           <div data-animate-child className="relative">

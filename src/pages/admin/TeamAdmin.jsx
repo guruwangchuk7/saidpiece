@@ -197,7 +197,21 @@ const TeamAdmin = () => {
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-zinc-700 mb-1">Role</label>
-                                <input type="text" name="role" value={formData.role} onChange={handleInputChange} required className="w-full px-3 py-2 border border-zinc-300 rounded-md focus:ring-black focus:border-black" />
+                                <select
+                                    name="role"
+                                    value={formData.role}
+                                    onChange={handleInputChange}
+                                    required
+                                    className="w-full px-3 py-2 border border-zinc-300 rounded-md focus:ring-black focus:border-black bg-white"
+                                >
+                                    <option value="">Select a Role</option>
+                                    <option value="Principal Architect">Principal Architect</option>
+                                    <option value="Admin">Admin</option>
+                                    <option value="Civil Engineer">Civil Engineer</option>
+                                    <option value="Architect">Architect</option>
+                                    <option value="Architect Intern">Architect Intern</option>
+                                    <option value="Full Stack Engineer">Full Stack Engineer</option>
+                                </select>
                             </div>
                             <div className="md:col-span-2">
                                 <label className="block text-sm font-medium text-zinc-700 mb-1">Bio</label>

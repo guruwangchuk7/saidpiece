@@ -48,6 +48,7 @@ function H1() {
           src={kinleyPhoto}
           alt="Kinley"
           className="w-full h-auto sm:h-full object-contain sm:object-cover object-center"
+          loading="eager"
         />
       </div>
     </div>

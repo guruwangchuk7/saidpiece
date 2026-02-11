@@ -137,7 +137,7 @@ const TeamPortfolio = ({ slug: propSlug }) => {
                     <div className="w-full lg:w-1/6 order-1 lg:order-2 mb-8 lg:mb-0 lg:-mt-25">
                         <div className="aspect-[3/4] overflow-hidden grayscale hover:grayscale-0 transition-all duration-700 relative bg-zinc-100 flex items-center justify-center">
                             {member.avatar ? (
-                                <img src={member.avatar} alt={member.name} className="absolute inset-0 w-full h-full object-cover" />
+                                <img src={member.avatar} alt={member.name} className="absolute inset-0 w-full h-full object-cover" loading="eager" />
                             ) : (
                                 <span className="text-4xl font-bold text-zinc-300">{getInitials(member.name)}</span>
                             )}

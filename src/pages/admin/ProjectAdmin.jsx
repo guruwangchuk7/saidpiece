@@ -188,13 +188,20 @@ const ProjectAdmin = () => {
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-zinc-700 mb-1">Domain</label>
-                                <select name="domain" value={formData.domain} onChange={handleInputChange} className="w-full px-3 py-2 border border-zinc-300 rounded-md focus:ring-black focus:border-black">
+                                <select
+                                    name="domain"
+                                    value={formData.domain}
+                                    onChange={handleInputChange}
+                                    className="w-full px-3 py-2 border border-zinc-300 rounded-md focus:ring-black focus:border-black bg-white"
+                                >
                                     <option value="landscape">Landscape</option>
                                     <option value="office">Office</option>
                                     <option value="bank">Bank</option>
                                     <option value="residential">Residential</option>
                                     <option value="commercial">Commercial</option>
                                     <option value="cafe">Cafe</option>
+                                    <option value="hospitality">Hospitality</option>
+                                    <option value="institutional">Institutional</option>
                                 </select>
                             </div>
                             <div>

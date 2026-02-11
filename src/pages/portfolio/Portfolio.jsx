@@ -13,8 +13,8 @@ import Footer from '../../components/layout/Footer';
 
 const Portfolio = () => {
   const { user, setShowAuthModal } = useAuth();
-  const [projects, setProjects] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [projects, setProjects] = useState(staticPortfolioItems);
+  const [loading, setLoading] = useState(false);
 
   const [selectedId, setSelectedId] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState('all');
@@ -72,13 +72,7 @@ const Portfolio = () => {
 
   const selectedItem = projects.find(p => p.id === selectedId);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-black"></div>
-      </div>
-    );
-  }
+
 
   return (
     <div>
@@ -177,46 +171,66 @@ const Portfolio = () => {
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-12"
           >
             <AnimatePresence mode="popLayout">
-              {filteredItems.map((p) => (
-                <motion.div
-                  key={p.id}
-                  layoutId={`card-container-${p.id}`}
-                  onClick={() => {
-                    if (!user) {
-                      setShowAuthModal(true);
-                    } else {
-                      setSelectedId(p.id);
-                    }
-                  }}
-                  className="group cursor-pointer flex flex-col gap-3 sm:gap-4 relative z-0"
-                  whileHover={{ y: -5 }}
-                  transition={{ duration: 0.2 }}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                >
-                  <div className="relative overflow-hidden w-full h-[300px] sm:h-[350px] lg:h-[450px]">
-                    <motion.img
-                      layoutId={`card-image-${p.id}`}
-                      src={p.image}
-                      alt={p.title}
-                      className="w-full h-full object-cover"
-                    />
-                    {/* Hover overlay hint */}
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                      <span className="bg-white/90 text-black px-3 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-medium transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        View Project
-                      </span>
+              {loading ? (
+                [1, 2, 3, 4, 5, 6].map((i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="flex flex-col gap-3 sm:gap-4 relative z-0 animate-pulse"
+                  >
+                    <div className="w-full h-[300px] sm:h-[350px] lg:h-[450px] bg-zinc-200"></div>
+                    <div className="border-t border-zinc-200 pt-3 sm:pt-4 bg-white">
+                      <div className="h-6 bg-zinc-200 rounded w-3/4 mb-2"></div>
+                      <div className="h-4 bg-zinc-200 rounded w-1/2 mb-2"></div>
+                      <div className="h-3 bg-zinc-200 rounded w-1/3"></div>
                     </div>
-                  </div>
-
-                  <motion.div layoutId={`card-info-${p.id}`} className="border-t border-zinc-200 pt-3 sm:pt-4 bg-white">
-                    <h3 className="text-black uppercase font-semibold text-base sm:text-lg lg:text-xl tracking-tight">{p.title}</h3>
-                    <p className="text-zinc-500 text-xs sm:text-sm lg:text-base">{p.subtitle}</p>
-                    <p className="text-zinc-400 text-xs lg:text-sm mt-1">{p.location}</p>
                   </motion.div>
-                </motion.div>
-              ))}
+                ))
+              ) : (
+                filteredItems.map((p) => (
+                  <motion.div
+                    key={p.id}
+                    layoutId={`card-container-${p.id}`}
+                    onClick={() => {
+                      if (!user) {
+                        setShowAuthModal(true);
+                      } else {
+                        setSelectedId(p.id);
+                      }
+                    }}
+                    className="group cursor-pointer flex flex-col gap-3 sm:gap-4 relative z-0"
+                    whileHover={{ y: -5 }}
+                    transition={{ duration: 0.2 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    <div className="relative overflow-hidden w-full h-[300px] sm:h-[350px] lg:h-[450px]">
+                      <motion.img
+                        layoutId={`card-image-${p.id}`}
+                        src={p.image}
+                        alt={p.title}
+                        className="w-full h-full object-cover"
+                        loading="eager"
+                      />
+                      {/* Hover overlay hint */}
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                        <span className="bg-white/90 text-black px-3 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-medium transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                          View Project
+                        </span>
+                      </div>
+                    </div>
+
+                    <motion.div layoutId={`card-info-${p.id}`} className="border-t border-zinc-200 pt-3 sm:pt-4 bg-white">
+                      <h3 className="text-black uppercase font-semibold text-base sm:text-lg lg:text-xl tracking-tight">{p.title}</h3>
+                      <p className="text-zinc-500 text-xs sm:text-sm lg:text-base">{p.subtitle}</p>
+                      <p className="text-zinc-400 text-xs lg:text-sm mt-1">{p.location}</p>
+                    </motion.div>
+                  </motion.div>
+                ))
+              )}
             </AnimatePresence>
           </motion.div>
         </div>

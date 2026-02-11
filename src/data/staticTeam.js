@@ -61,7 +61,7 @@ export const staticTeamMembers = [
     },
     {
         id: 5, name: 'Ash',
-        role: 'Architecture',
+        role: 'Architect',
         avatar: ash,
         bio: 'Supports architectural projects with creativity and technical skills.',
         slug: 'ash',
@@ -74,7 +74,7 @@ export const staticTeamMembers = [
     {
         id: 6,
         name: 'Tashi Dendup',
-        role: 'Architecture Intern',
+        role: 'Architect Intern',
         avatar: tashi,
         bio: 'Assists design teams while gaining practical architectural experience.',
         slug: 'tashi-dendup',
@@ -87,7 +87,7 @@ export const staticTeamMembers = [
     {
         id: 7,
         name: 'Guru Wangchuk',
-        role: 'Full Stack Developer',
+        role: 'Full Stack Engineer',
         avatar: guru,
         bio: 'Builds scalable and user-focused web applications across the full stack.',
         slug: 'guru-wangchuk',
