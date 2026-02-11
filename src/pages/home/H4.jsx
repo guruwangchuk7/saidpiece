@@ -92,7 +92,6 @@ function H4() {
               <motion.img
                 src={item}
                 alt={`Project ${index + 1}`}
-                loading="lazy"
                 className="w-full h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[85vh] object-cover shadow-zinc-900/5 transition-transform duration-700 ease-out hover:scale-[1.02]"
                 animate={
                   index === 0 && activeIndex === 0
@@ -147,7 +146,6 @@ function H4() {
                 <img
                   src={portfolioData.image[activeIndex]}
                   alt={portfolioData.name[activeIndex]}
-                  loading="lazy"
                   className="w-full h-[60vh] sm:h-[65vh] object-cover"
                 />
               </motion.div>

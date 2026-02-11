@@ -8,17 +8,18 @@ import { AuthProvider } from './context/AuthContext.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import { Toaster } from 'react-hot-toast';
 
-// Lazy Load Pages
-const Home = lazy(() => import('./pages/home/Home.jsx'));
-const Contact = lazy(() => import('./pages/contact/index.jsx'));
-const Team = lazy(() => import('./pages/team/Team.jsx'));
-const About = lazy(() => import('./pages/about/index.jsx'));
-const Portfolio = lazy(() => import('./pages/portfolio/Portfolio.jsx'));
-const Blog = lazy(() => import('./pages/blog/Blog.jsx'));
-const BlogPost = lazy(() => import('./pages/blog/BlogPost.jsx'));
-const ProjectGallery = lazy(() => import('./pages/portfolio/ProjectGallery.jsx'));
-const Legal = lazy(() => import('./pages/legal/index.jsx'));
-const TeamPortfolio = lazy(() => import('./pages/team/portfolios/TeamPortfolio.jsx'));
+// Core Pages
+import Home from './pages/home/Home.jsx';
+import Contact from './pages/contact/index.jsx';
+import Team from './pages/team/Team.jsx';
+import About from './pages/about/index.jsx';
+import Portfolio from './pages/portfolio/Portfolio.jsx';
+import Blog from './pages/blog/Blog.jsx';
+
+import BlogPost from './pages/blog/BlogPost.jsx';
+import ProjectGallery from './pages/portfolio/ProjectGallery.jsx';
+import Legal from './pages/legal/index.jsx';
+import TeamPortfolio from './pages/team/portfolios/TeamPortfolio.jsx';
 const Dashboard = lazy(() => import('./pages/dashboard/index.jsx'));
 
 // Lazy Load Admin Components
@@ -40,26 +41,23 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<App />}>
-        <Route index element={<Suspense fallback={<PageLoader />}><Home /></Suspense>}></Route>
-        <Route path='about' element={<Suspense fallback={<PageLoader />}><About /></Suspense>}></Route>
-        <Route path='contact' element={<Suspense fallback={<PageLoader />}><Contact /></Suspense>}></Route>
-        <Route path='portfolio' element={<Suspense fallback={<PageLoader />}><Portfolio /></Suspense>}></Route>
-        <Route path='blog' element={<Suspense fallback={<PageLoader />}><Blog /></Suspense>}></Route>
-        <Route path='blog/:id' element={<Suspense fallback={<PageLoader />}><BlogPost /></Suspense>}></Route>
+        <Route index element={<Home />}></Route>
+        <Route path='about' element={<About />}></Route>
+        <Route path='contact' element={<Contact />}></Route>
+        <Route path='portfolio' element={<Portfolio />}></Route>
+        <Route path='blog' element={<Blog />}></Route>
+        <Route path='blog/:id' element={<BlogPost />}></Route>
+        <Route path='team' element={<Team />}></Route>
 
-        <Route path='team' element={<Suspense fallback={<PageLoader />}><Team /></Suspense>}></Route>
+        {/* Team member profiles - All public */}
+        <Route path='team/:slug' element={<TeamPortfolio />}></Route>
 
-        {/* Public team member profiles */}
-        <Route path='team/thinley-dhendup' element={<Suspense fallback={<PageLoader />}><TeamPortfolio slug="thinley-dhendup" /></Suspense>}></Route>
-        <Route path='team/guru-wangchuk' element={<Suspense fallback={<PageLoader />}><TeamPortfolio slug="guru-wangchuk" /></Suspense>}></Route>
-
-        <Route path='legal' element={<Suspense fallback={<PageLoader />}><Legal /></Suspense>}></Route>
+        <Route path='legal' element={<Legal />}></Route>
+        <Route path='portfolio/:id' element={<ProjectGallery />}></Route>
 
         <Route element={<ProtectedRoute />}>
           <Route path='dashboard' element={<Suspense fallback={<PageLoader />}><Dashboard /></Suspense>}></Route>
-          <Route path='portfolio/gallery/:id' element={<Suspense fallback={<PageLoader />}><ProjectGallery /></Suspense>}></Route>
-          {/* Dynamic route for protected team members */}
-          <Route path='team/:slug' element={<Suspense fallback={<PageLoader />}><TeamPortfolio /></Suspense>}></Route>
+          <Route path='portfolio/gallery/:id' element={<ProjectGallery />}></Route>
         </Route>
 
         {/* Catch-all route for 404 */}

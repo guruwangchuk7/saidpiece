@@ -4,7 +4,7 @@ import { FaLinkedin, FaGithub, FaEnvelope } from 'react-icons/fa';
 import gsap from 'gsap';
 import { supabase } from '../../../services/supabaseClient';
 import rightArrow from '../../../assets/icons/rightArrow.svg';
-import { staticTeamMembers } from '../Team';
+import { staticTeamMembers } from '../../../data/staticTeam';
 import { teamPortfolios } from '../../../data/teamPortfolios';
 
 const TeamPortfolio = ({ slug: propSlug }) => {
@@ -17,35 +17,45 @@ const TeamPortfolio = ({ slug: propSlug }) => {
 
     useEffect(() => {
         const fetchMemberData = async () => {
+            const cleanSlug = slug?.trim();
+            console.log("Fetching team member for slug:", cleanSlug);
             setLoading(true);
             try {
                 // 1. Try to fetch from Supabase
                 const { data, error } = await supabase
                     .from('team_members')
                     .select('*')
-                    .eq('slug', slug)
+                    .eq('slug', cleanSlug)
                     .single();
 
                 if (data && !error) {
+                    console.log("Found member in Supabase:", data.name);
                     setMember(data);
                 } else {
+                    if (error) console.warn("Supabase fetch failed or member not found:", error.message);
+                    console.log("Searching in staticTeamMembers. Count:", staticTeamMembers.length);
+                    console.log("Available slugs:", staticTeamMembers.map(m => m.slug));
+
                     // 2. Fallback to static data
-                    const staticMember = staticTeamMembers.find(m => m.slug === slug);
+                    const staticMember = staticTeamMembers.find(m => m.slug === cleanSlug);
                     if (staticMember) {
+                        console.log("Found member in Static data:", staticMember.name);
                         setMember(staticMember);
+                    } else {
+                        console.error("Member not found in Supabase or Static for slug:", cleanSlug);
                     }
                 }
 
                 // 3. Get extra details from teamPortfolios.js if available
-                if (teamPortfolios[slug]) {
-                    setDetailData(teamPortfolios[slug]);
+                if (teamPortfolios[cleanSlug]) {
+                    setDetailData(teamPortfolios[cleanSlug]);
                 } else {
                     setDetailData(null);
                 }
 
             } catch (err) {
-                console.error("Error fetching team member:", err);
-                const staticMember = staticTeamMembers.find(m => m.slug === slug);
+                console.error("Error in fetchMemberData:", err);
+                const staticMember = staticTeamMembers.find(m => m.slug === cleanSlug);
                 if (staticMember) setMember(staticMember);
             } finally {
                 setLoading(false);

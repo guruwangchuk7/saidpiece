@@ -69,7 +69,7 @@ const HeroNavbar = () => {
           initial={{ y: -1000, opacity: 0, scale: 1 }}
           animate={{ y: 0, opacity: 1, scale: 1 }}
           exit={{ y: 1000, opacity: 0, scale: 1.5 }}
-          transition={{ duration: 1, ease: easeInOut }}
+          transition={{ duration: 0.6, ease: easeInOut }}
         >
           <button
             onClick={close}

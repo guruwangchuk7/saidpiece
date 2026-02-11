@@ -127,6 +127,14 @@ function About() {
           },
         });
       });
+      // Refresh ScrollTrigger to ensure correct placement after layout changes
+      const timer = setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 100);
+
+      return () => {
+        clearTimeout(timer);
+      };
     }, mainRef);
 
     // Cleanup function to revert all animations
@@ -242,7 +250,6 @@ function About() {
             <img
               src={pageData.team.image}
               alt="SaidPiece Team"
-              loading="lazy"
               className="rounded-lg shadow-2xl object-cover w-full h-full max-h-[600px]"
             />
           </div>
