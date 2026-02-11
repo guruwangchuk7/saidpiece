@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react'
 import { NavLink } from 'react-router-dom'
 import rightArrow from '../../assets/icons/rightArrow.svg'
 import officeImage from '../../assets/contact/saidpieceofficeimage.jpg'
+import { supabase } from '../../services/supabaseClient'
 
 // -- Sub-components --
 
@@ -18,18 +19,58 @@ const BackButton = () => (
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
+  const [status, setStatus] = useState('idle') // idle, loading, success, error
+  const [errorMessage, setErrorMessage] = useState('')
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // Handle form submission logic here
-    console.log('Form submitted:', formData)
-    alert('Message sent! (Demo)')
-    setFormData({ name: '', email: '', message: '' })
+    setStatus('loading')
+    setErrorMessage('')
+
+    try {
+      const { error } = await supabase
+        .from('messages')
+        .insert([{
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          created_at: new Date().toISOString()
+        }])
+
+      if (error) throw error
+
+      setStatus('success')
+      setFormData({ name: '', email: '', message: '' })
+
+      // Reset success message after 5 seconds
+      setTimeout(() => setStatus('idle'), 5000)
+    } catch (err) {
+      console.error('Error sending message:', err)
+      setStatus('error')
+      if (err.message && err.message.includes('relation "messages" does not exist')) {
+        setErrorMessage("System Error: The 'messages' table does not exist in the database. Please contact the administrator.")
+      } else {
+        setErrorMessage('Failed to send message. Please try again later.')
+      }
+    }
   }
 
   return (
     <div className="flex flex-col gap-4">
       <h3 className="text-lg font-bold text-zinc-800 uppercase tracking-tight">Send a Message</h3>
+
+      {status === 'success' && (
+        <div className="bg-green-50 border border-green-200 text-green-800 text-sm p-3 rounded-sm mb-2">
+          Message sent successfully! We'll get back to you soon.
+        </div>
+      )}
+
+      {status === 'error' && (
+        <div className="bg-red-50 border border-red-200 text-red-800 text-sm p-3 rounded-sm mb-2">
+          {errorMessage || "Something went wrong. Please try again."}
+        </div>
+      )}
+
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
         <div>
           <label htmlFor="name" className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-1 block">Full Name</label>
@@ -41,6 +82,7 @@ const ContactForm = () => {
             placeholder="Your name"
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            disabled={status === 'loading'}
           />
         </div>
         <div>
@@ -53,6 +95,7 @@ const ContactForm = () => {
             placeholder="example@gmail.com"
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            disabled={status === 'loading'}
           />
         </div>
         <div>
@@ -65,13 +108,15 @@ const ContactForm = () => {
             placeholder="Your question or message..."
             value={formData.message}
             onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+            disabled={status === 'loading'}
           />
         </div>
         <button
           type="submit"
-          className="mt-2 bg-zinc-900 text-white text-sm font-medium py-2 px-4 rounded-sm hover:bg-zinc-700 transition-colors uppercase tracking-widest w-full lg:w-auto self-start"
+          disabled={status === 'loading'}
+          className="mt-2 bg-zinc-900 text-white text-sm font-medium py-2 px-4 rounded-sm hover:bg-zinc-700 transition-colors uppercase tracking-widest w-full lg:w-auto self-start disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Submit
+          {status === 'loading' ? 'Sending...' : 'Submit'}
         </button>
       </form>
     </div>
