@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Outlet, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { supabase } from '../../services/supabaseClient';
-import { FaTachometerAlt, FaProjectDiagram, FaUsers, FaBlog, FaUserShield, FaSignOutAlt, FaBars, FaTimes } from 'react-icons/fa';
+import { FaTachometerAlt, FaProjectDiagram, FaUsers, FaBlog, FaEnvelope, FaUserShield, FaSignOutAlt, FaBars, FaTimes } from 'react-icons/fa';
 import { toast } from 'react-hot-toast';
 
 const AdminLayout = () => {
@@ -52,6 +52,7 @@ const AdminLayout = () => {
         { path: '/admin/projects', label: 'Projects', icon: <FaProjectDiagram /> },
         { path: '/admin/team', label: 'Team', icon: <FaUsers /> },
         { path: '/admin/blog', label: 'Blog', icon: <FaBlog /> },
+        { path: '/admin/messages', label: 'Messages', icon: <FaEnvelope /> },
     ];
 
     if (adminRole === 'super_admin') {

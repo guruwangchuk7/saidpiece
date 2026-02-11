@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../../services/supabaseClient';
-import { FaProjectDiagram, FaUsers, FaBlog, FaArrowRight, FaDatabase, FaCheckCircle, FaExclamationCircle, FaSpinner, FaCloudUploadAlt } from 'react-icons/fa';
+import { FaProjectDiagram, FaUsers, FaBlog, FaArrowRight, FaDatabase, FaCheckCircle, FaExclamationCircle, FaSpinner, FaCloudUploadAlt, FaEnvelope } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { importProjects, importTeam, importBlogs } from '../../utils/seedDatabase';
 import ConfirmModal from '../../components/common/ConfirmModal';
@@ -31,12 +31,14 @@ const AdminDashboard = () => {
     const [stats, setStats] = useState({
         projects: 0,
         team: 0,
-        blogs: 0
+        blogs: 0,
+        messages: 0
     });
     const [recentData, setRecentData] = useState({
         projects: [],
         team: [],
-        blogs: []
+        blogs: [],
+        messages: []
     });
     const [loading, setLoading] = useState(true);
 
@@ -63,22 +65,26 @@ const AdminDashboard = () => {
             const { count: projectCount } = await supabase.from('projects').select('*', { count: 'exact', head: true });
             const { count: teamCount } = await supabase.from('team_members').select('*', { count: 'exact', head: true });
             const { count: blogCount } = await supabase.from('blogs').select('*', { count: 'exact', head: true });
+            const { count: messageCount } = await supabase.from('messages').select('*', { count: 'exact', head: true });
 
             setStats({
                 projects: projectCount || 0,
                 team: teamCount || 0,
-                blogs: blogCount || 0
+                blogs: blogCount || 0,
+                messages: messageCount || 0
             });
 
             // Fetch Recent Items (Limit 5)
             const { data: recentProjects } = await supabase.from('projects').select('*').order('created_at', { ascending: false }).limit(5);
             const { data: recentTeam } = await supabase.from('team_members').select('*').order('created_at', { ascending: false }).limit(5);
             const { data: recentBlogs } = await supabase.from('blogs').select('*').order('created_at', { ascending: false }).limit(5);
+            const { data: recentMessages } = await supabase.from('messages').select('*').order('created_at', { ascending: false }).limit(5);
 
             setRecentData({
                 projects: recentProjects || [],
                 team: recentTeam || [],
-                blogs: recentBlogs || []
+                blogs: recentBlogs || [],
+                messages: recentMessages || []
             });
 
         } catch (error) {
@@ -184,7 +190,7 @@ const AdminDashboard = () => {
             )}
 
             {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
                 <StatCard
                     title="Projects"
                     count={stats.projects}
@@ -205,6 +211,13 @@ const AdminDashboard = () => {
                     icon={<FaBlog size={20} />}
                     color="bg-zinc-900"
                     link="/admin/blog"
+                />
+                <StatCard
+                    title="Messages"
+                    count={stats.messages}
+                    icon={<FaEnvelope size={20} />}
+                    color="bg-zinc-900"
+                    link="/admin/messages"
                 />
             </div>
 
@@ -235,7 +248,7 @@ const AdminDashboard = () => {
             </div>
 
             {/* Recent Content Lists */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
                 {/* Recent Projects */}
                 <div className="bg-white rounded-lg border border-zinc-100 overflow-hidden">
                     <div className="px-6 py-4 border-b border-zinc-100 bg-zinc-50">
@@ -296,6 +309,27 @@ const AdminDashboard = () => {
                             </li>
                         ))}
                         {recentData.blogs.length === 0 && <li className="px-6 py-8 text-center text-zinc-400 text-xs uppercase tracking-wider">No blogs yet.</li>}
+                    </ul>
+                </div>
+
+                {/* Recent Messages */}
+                <div className="bg-white rounded-lg border border-zinc-100 overflow-hidden">
+                    <div className="px-6 py-4 border-b border-zinc-100 bg-zinc-50">
+                        <h3 className="font-bold text-zinc-900 text-sm uppercase tracking-wider">Recent Messages</h3>
+                    </div>
+                    <ul className="divide-y divide-zinc-100">
+                        {recentData.messages.map(m => (
+                            <li key={m.id} className="px-6 py-4 hover:bg-zinc-50 flex items-center gap-3 transition-colors cursor-pointer" onClick={() => window.location.href = '/admin/messages'}>
+                                <div className="w-10 h-10 bg-zinc-200 rounded-full flex items-center justify-center text-zinc-500 font-bold text-xs shrink-0">
+                                    {m.name.charAt(0).toUpperCase()}
+                                </div>
+                                <div className="min-w-0">
+                                    <p className="text-sm font-semibold truncate text-zinc-900">{m.name}</p>
+                                    <p className="text-xs text-zinc-500 truncate">{m.message}</p>
+                                </div>
+                            </li>
+                        ))}
+                        {recentData.messages.length === 0 && <li className="px-6 py-8 text-center text-zinc-400 text-xs uppercase tracking-wider">No messages yet.</li>}
                     </ul>
                 </div>
             </div>

@@ -29,6 +29,7 @@ const ProjectAdmin = lazy(() => import('./pages/admin/ProjectAdmin.jsx'));
 const TeamAdmin = lazy(() => import('./pages/admin/TeamAdmin.jsx'));
 const BlogAdmin = lazy(() => import('./pages/admin/BlogAdmin.jsx'));
 const AdminManager = lazy(() => import('./pages/admin/AdminManager.jsx'));
+const MessagesAdmin = lazy(() => import('./pages/admin/MessagesAdmin.jsx'));
 
 // Loading Fallback Component
 const PageLoader = () => (
@@ -74,6 +75,7 @@ const router = createBrowserRouter(
         <Route path="projects" element={<Suspense fallback={<PageLoader />}><ProjectAdmin /></Suspense>} />
         <Route path="team" element={<Suspense fallback={<PageLoader />}><TeamAdmin /></Suspense>} />
         <Route path="blog" element={<Suspense fallback={<PageLoader />}><BlogAdmin /></Suspense>} />
+        <Route path="messages" element={<Suspense fallback={<PageLoader />}><MessagesAdmin /></Suspense>} />
         <Route path="users" element={<Suspense fallback={<PageLoader />}><AdminManager /></Suspense>} />
       </Route>
     </>
