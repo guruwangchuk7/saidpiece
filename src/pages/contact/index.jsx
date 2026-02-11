@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom'
 import rightArrow from '../../assets/icons/rightArrow.svg'
 import officeImage from '../../assets/contact/saidpieceofficeimage.jpg'
 import { supabase } from '../../services/supabaseClient'
+import emailjs from '@emailjs/browser'
 
 // -- Sub-components --
 
@@ -38,6 +39,25 @@ const ContactForm = () => {
         }])
 
       if (error) throw error
+
+      // 2. Send email via EmailJS (Optional)
+      // TODO: Replace these with your actual EmailJS credentials
+      const SERVICE_ID = 'your_service_id';
+      const TEMPLATE_ID = 'your_template_id';
+      const PUBLIC_KEY = 'your_public_key';
+
+      if (SERVICE_ID !== 'your_service_id') {
+        try {
+          await emailjs.send(SERVICE_ID, TEMPLATE_ID, {
+            from_name: formData.name,
+            from_email: formData.email,
+            message: formData.message,
+            to_email: 'saidpiecearchitect@gmail.com'
+          }, PUBLIC_KEY);
+        } catch (emailError) {
+          console.error("Failed to send email notification:", emailError);
+        }
+      }
 
       setStatus('success')
       setFormData({ name: '', email: '', message: '' })
