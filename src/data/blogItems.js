@@ -1,10 +1,10 @@
 
-import blog1 from '../assets/blog/blog1.jpg';
-import blog2 from '../assets/blog/blog2.jpg';
-import blog3 from '../assets/blog/blog3.jpg';
-import blog4 from '../assets/blog/blog4.jpg';
-import blog5 from '../assets/blog/blog5.jpg';
-import blog6 from '../assets/blog/blog6.jpg';
+import blog1 from '../assets/blog/blog1.webp';
+import blog2 from '../assets/blog/blog2.webp';
+import blog3 from '../assets/blog/blog3.webp';
+import blog4 from '../assets/blog/blog4.webp';
+import blog5 from '../assets/blog/blog5.webp';
+import blog6 from '../assets/blog/blog6.webp';
 
 // Using new blog images
 export const blogItems = [
