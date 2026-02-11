@@ -1,7 +1,7 @@
 import { supabase } from '../services/supabaseClient';
 import { portfolioItems } from '../data/portfolioItems';
 import { blogItems } from '../data/blogItems';
-import { staticTeamMembers } from '../pages/team/Team';
+import { staticTeamMembers } from '../data/staticTeam';
 
 /**
  * Imports static portfolio projects into the database.
