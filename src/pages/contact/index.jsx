@@ -40,13 +40,12 @@ const ContactForm = () => {
 
       if (error) throw error
 
-      // 2. Send email via EmailJS (Optional)
-      // TODO: Replace these with your actual EmailJS credentials
-      const SERVICE_ID = 'your_service_id';
-      const TEMPLATE_ID = 'your_template_id';
-      const PUBLIC_KEY = 'your_public_key';
+      // 2. Send email via EmailJS
+      const SERVICE_ID = 'service_oaqnzvz';
+      const TEMPLATE_ID = 'template_contact'; // TODO: Create a template in EmailJS with this ID
+      const PUBLIC_KEY = 'XkNzaXXHW5Z1e0x48';
 
-      if (SERVICE_ID !== 'your_service_id') {
+      if (SERVICE_ID) {
         try {
           await emailjs.send(SERVICE_ID, TEMPLATE_ID, {
             from_name: formData.name,
