@@ -49,10 +49,10 @@ const ContactForm = () => {
         try {
           console.log("Attempting to send email via EmailJS...", { SERVICE_ID, TEMPLATE_ID, PUBLIC_KEY });
           const emailResponse = await emailjs.send(SERVICE_ID, TEMPLATE_ID, {
-            from_name: formData.name,
-            from_email: formData.email,
-            message: formData.message,
-            to_email: 'saidpiecearchitect@gmail.com'
+            name: formData.name,      // Matches {{name}} in template
+            email: formData.email,    // Matches {{email}} in template
+            message: formData.message,// Matches {{message}} in template (Please add this to your template!)
+            title: 'New Website Enquiry' // Matches {{title}} in subject
           }, PUBLIC_KEY);
           console.log("EmailJS Success:", emailResponse.status, emailResponse.text);
         } catch (emailError) {
