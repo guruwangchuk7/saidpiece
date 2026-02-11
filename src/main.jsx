@@ -48,8 +48,11 @@ const router = createBrowserRouter(
         <Route path='blog/:id' element={<Suspense fallback={<PageLoader />}><BlogPost /></Suspense>}></Route>
 
         <Route path='team' element={<Suspense fallback={<PageLoader />}><Team /></Suspense>}></Route>
-        {/* Public team member profile */}
-        <Route path='team/thinley-dhendup' element={<Suspense fallback={<PageLoader />}><TeamPortfolio /></Suspense>}></Route>
+
+        {/* Public team member profiles */}
+        <Route path='team/thinley-dhendup' element={<Suspense fallback={<PageLoader />}><TeamPortfolio slug="thinley-dhendup" /></Suspense>}></Route>
+        <Route path='team/guru-wangchuk' element={<Suspense fallback={<PageLoader />}><TeamPortfolio slug="guru-wangchuk" /></Suspense>}></Route>
+
         <Route path='legal' element={<Suspense fallback={<PageLoader />}><Legal /></Suspense>}></Route>
 
         <Route element={<ProtectedRoute />}>
@@ -58,6 +61,12 @@ const router = createBrowserRouter(
           {/* Dynamic route for protected team members */}
           <Route path='team/:slug' element={<Suspense fallback={<PageLoader />}><TeamPortfolio /></Suspense>}></Route>
         </Route>
+
+        {/* Catch-all route for 404 */}
+        <Route path="*" element={<div className="flex flex-col items-center justify-center min-h-screen">
+          <h1 className="text-4xl font-bold mb-4">404 - Page Not Found</h1>
+          <a href="/" className="text-zinc-600 hover:underline">Return to Home</a>
+        </div>} />
       </Route>
 
       {/* Admin Routes - Separate Layout */}

@@ -170,7 +170,6 @@ const ProjectGallery = () => {
                             src={project.image}
                             alt={`${project.title} view 2`}
                             className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                            loading="lazy"
                         />
                     </div>
                 </div>

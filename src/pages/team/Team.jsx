@@ -172,25 +172,6 @@ const Team = () => {
       ? members
       : members.filter((member) => member.role === activeFilter);
 
-  const socialIcons = (socials, name) => (
-    <div className="flex items-center space-x-4 mt-4 pt-4 border-t border-zinc-200">
-      {socials.github && (
-        <a href={socials.github} target="_blank" rel="noopener noreferrer" aria-label={`${name}'s GitHub profile`} className="text-zinc-400 hover:text-zinc-900 transition-colors">
-          <FaGithub size={20} />
-        </a>
-      )}
-      {socials.linkedin && (
-        <a href={socials.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${name}'s LinkedIn profile`} className="text-zinc-400 hover:text-zinc-700 transition-colors">
-          <FaLinkedin size={20} />
-        </a>
-      )}
-      {socials.email && (
-        <a href={socials.email} aria-label={`Email ${name}`} className="text-zinc-400 hover:text-zinc-700 transition-colors">
-          <FaEnvelope size={20} />
-        </a>
-      )}
-    </div>
-  );
 
   return (
     <div>
@@ -285,7 +266,7 @@ const Team = () => {
           <section>
             <ul className={viewMode === 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12' : 'flex flex-col gap-6'}>
               {filteredMembers.map((member) => {
-                const isProtected = member.slug !== 'thinley-dhendup';
+                const isProtected = !['thinley-dhendup', 'guru-wangchuk'].includes(member.slug);
                 const handleClick = (e) => {
                   if (isProtected && !user) {
                     e.preventDefault();

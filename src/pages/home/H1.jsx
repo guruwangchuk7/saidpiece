@@ -47,6 +47,7 @@ function H1() {
         <img
           src={kinleyPhoto}
           alt="Kinley"
+          loading="lazy"
           className="w-full h-auto sm:h-full object-contain sm:object-cover object-center"
         />
       </div>

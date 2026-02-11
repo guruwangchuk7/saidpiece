@@ -242,6 +242,7 @@ function About() {
             <img
               src={pageData.team.image}
               alt="SaidPiece Team"
+              loading="lazy"
               className="rounded-lg shadow-2xl object-cover w-full h-full max-h-[600px]"
             />
           </div>

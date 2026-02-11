@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useParams, NavLink, useNavigate } from 'react-router-dom';
+import { useParams, NavLink } from 'react-router-dom';
 import { FaLinkedin, FaGithub, FaEnvelope } from 'react-icons/fa';
 import gsap from 'gsap';
 import { supabase } from '../../../services/supabaseClient';
@@ -7,9 +7,9 @@ import rightArrow from '../../../assets/icons/rightArrow.svg';
 import { staticTeamMembers } from '../Team';
 import { teamPortfolios } from '../../../data/teamPortfolios';
 
-const TeamPortfolio = () => {
-    const { slug } = useParams();
-    const navigate = useNavigate();
+const TeamPortfolio = ({ slug: propSlug }) => {
+    const { slug: paramSlug } = useParams();
+    const slug = propSlug || paramSlug;
     const containerRef = useRef(null);
     const [member, setMember] = useState(null);
     const [detailData, setDetailData] = useState(null);
