@@ -124,33 +124,40 @@ const ContactForm = () => {
 }
 
 const ContactHeader = () => {
-  const [isHovered, setIsHovered] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <div
-      className="relative flex flex-col items-start gap-2 max-w-lg z-10"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+    <div className="relative flex flex-col items-start gap-2 max-w-lg z-10">
       <p className="text-sm lg:text-2xl text-zinc-500 pointer-events-none">Hello</p>
-      <div className="relative group cursor-pointer inline-block">
+      <div
+        className="relative group cursor-pointer inline-block"
+        onClick={() => setIsOpen(!isOpen)}
+      >
         <h1 className="text-3xl lg:text-7xl font-bold tracking-tight leading-tight uppercase transition-colors duration-300 group-hover:text-zinc-700 -ml-0.5">
           LET'S TALK?
         </h1>
         {/* Underline effect to hint interactivity */}
-        <span className="absolute left-0 bottom-0 w-0 h-1 bg-zinc-800 transition-all duration-300 group-hover:w-full"></span>
+        <span className={`absolute left-0 bottom-0 h-1 bg-zinc-800 transition-all duration-300 ${isOpen ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
       </div>
 
       <AnimatePresence>
-        {isHovered && (
+        {isOpen && (
           <motion.div
             initial={{ opacity: 0, y: 15, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 15, scale: 0.98 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="absolute top-full left-0 mt-4 w-[90vw] md:w-[400px] bg-white border border-zinc-200 shadow-2xl rounded-lg p-6 lg:p-8 overflow-hidden"
-            style={{ maxWidth: 'calc(100vw - 48px)' }} // Ensure it doesn't overflow screen on small mobile
+            className="absolute top-full left-0 mt-4 w-[90vw] md:w-[400px] bg-white border border-zinc-200 shadow-2xl rounded-lg p-6 lg:p-8 overflow-hidden z-50"
+            style={{ maxWidth: 'calc(100vw - 48px)' }}
           >
+            <div className="flex justify-between items-center mb-4">
+              <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider">Contact Form</span>
+              <button onClick={() => setIsOpen(false)} className="text-zinc-400 hover:text-zinc-900">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </button>
+            </div>
             <ContactForm />
           </motion.div>
         )}
