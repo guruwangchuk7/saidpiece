@@ -42,7 +42,7 @@ const ContactForm = () => {
 
       // 2. Send email via EmailJS
       const SERVICE_ID = 'service_oaqnzvz';
-      const TEMPLATE_ID = 'template_veu469b';
+      const TEMPLATE_ID = 'template_tl4scas';
       const PUBLIC_KEY = 'XkNzaXXHW5Z1e0x48';
 
       if (SERVICE_ID) {
