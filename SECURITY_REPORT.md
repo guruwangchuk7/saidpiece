@@ -148,34 +148,80 @@ npm audit fix
 
 ---
 
+### 3a. 🔴 HIGH: node-tar Path Traversal Vulnerabilities
+
+**Severity**: HIGH  
+**Status**: ❌ Unresolved  
+**CVSS Score**: 7.5+
+
+**Description**:
+Transitive dependency `tar` (<=7.5.6) contains multiple path traversal vulnerabilities.
+
+**Vulnerability Details**:
+- **Advisory 1**: GHSA-8qq5-rm4j-mr97 - Arbitrary File Overwrite via Insufficient Path Sanitization
+- **Advisory 2**: GHSA-r6q2-hw4h-h46w - Race Condition in Path Reservations via Unicode Ligature Collisions on macOS
+- **Advisory 3**: GHSA-34x7-hfp2-rc4v - Arbitrary File Creation/Overwrite via Hardlink Path Traversal
+- **Affected**: tar <= 7.5.6
+- **Fix Available**: Yes (automatic via `npm audit fix`)
+
+**Impact**:
+- Arbitrary file overwrite on the system
+- Potential for code execution
+- Symlink/hardlink poisoning attacks
+
+**Recommendation**:
+```bash
+npm audit fix
+```
+
+---
+
+### 3b. 🟡 MODERATE: Vite server.fs.deny Bypass
+
+**Severity**: MODERATE  
+**Status**: ❌ Unresolved
+
+**Description**:
+Development dependency `vite` (v7.1.0-7.1.10) allows bypass of `server.fs.deny` via backslash on Windows.
+
+**Vulnerability Details**:
+- **Advisory**: GHSA-93m4-6634-74q7
+- **Affected**: vite 7.1.0 - 7.1.10
+- **Fix Available**: Yes (automatic via `npm audit fix`)
+- **Current Version**: 7.1.2
+
+**Impact**:
+- Only affects development environment on Windows
+- Potential file system access bypass
+- Low risk for production (development dependency)
+
+**Recommendation**:
+```bash
+npm audit fix
+```
+
+---
+
 ## High-Risk Security Issues
 
 ### 4. 🟡 Missing .env in .gitignore
 
 **Severity**: HIGH  
-**Status**: ❌ Unresolved
+**Status**: ✅ FIXED
 
 **Description**:
-The `.gitignore` file does NOT exclude `.env` files, allowing sensitive environment files to be committed.
+The `.gitignore` file did NOT exclude `.env` files, allowing sensitive environment files to be committed.
 
-**Current .gitignore**:
-```
-# Missing .env patterns!
-*.local  # Only excludes *.local files
-```
-
-**Recommendation**:
-Add to `.gitignore`:
+**Fix Applied**:
+Added to `.gitignore`:
 ```gitignore
 # Environment variables
 .env
 .env.*
-.env.local
-.env.development
-.env.production
-.env.test
 !.env.example
 ```
+
+**Note**: While this prevents future commits, the `.env` file in git history is still exposed and requires credential rotation.
 
 ---
 
@@ -378,38 +424,49 @@ Consider adding:
 
 ### Critical Priority (Immediate Action Required)
 
-1. **✅ Add `.env` to `.gitignore`**
+1. **✅ COMPLETED: Add `.env` to `.gitignore`**
    ```gitignore
    .env
    .env.*
    !.env.example
    ```
+   **Status**: `.gitignore` has been updated, `.env.example` created
 
-2. **✅ Rotate ALL exposed credentials**
+2. **⚠️ URGENT: Rotate ALL exposed credentials**
    - Supabase URL and anon key
    - EmailJS public key, service ID, template ID
    - Generate new credentials in respective dashboards
+   **Status**: Manual action required - credentials are still exposed in git history
 
-3. **✅ Move hardcoded secrets to environment variables**
+3. **⚠️ TODO: Move hardcoded secrets to environment variables**
    ```javascript
    // .env (never commit this)
    VITE_EMAILJS_PUBLIC_KEY=your_new_key
    VITE_EMAILJS_SERVICE_ID=your_service_id
    VITE_EMAILJS_TEMPLATE_ID=your_template_id
    ```
+   **Status**: `.env.example` created; code changes required in `/src/pages/contact/index.jsx`
 
-4. **✅ Upgrade React Router**
+4. **⚠️ TODO: Upgrade React Router**
    ```bash
    npm install react-router@^7.12.0 react-router-dom@^7.12.0
    ```
+   **Status**: Not yet applied - requires testing after upgrade
 
 ### High Priority (Within 1 Week)
 
-5. **Fix all dependency vulnerabilities**
+5. **⚠️ TODO: Fix all dependency vulnerabilities**
    ```bash
    npm audit fix
    npm update
    ```
+   **Known vulnerabilities to fix**:
+   - React Router: 5 XSS/CSRF vulnerabilities (upgrade to 7.12.0+)
+   - node-tar: 3 path traversal vulnerabilities
+   - js-yaml: 1 prototype pollution vulnerability
+   - vite: 1 server.fs.deny bypass (dev dependency)
+   
+   **Total**: 5 vulnerabilities (3 moderate, 2 high)
 
 6. **Implement secret scanning in CI/CD**
    - Add GitHub secret scanning
@@ -519,9 +576,21 @@ If credentials are compromised:
 
 The application has **CRITICAL** security vulnerabilities that must be addressed immediately, particularly:
 
-1. ✅ Exposed secrets in version control
-2. ✅ Vulnerable React Router dependencies
-3. ✅ Missing .env in .gitignore
+1. **🔴 Exposed secrets in version control** - `.env` committed with Supabase & EmailJS credentials
+2. **🔴 Vulnerable React Router dependencies** - XSS and CSRF vulnerabilities
+3. **⚠️ Missing .env in .gitignore** - FIXED ✅
+
+**What We've Fixed**:
+- ✅ Added `.env` to `.gitignore` to prevent future commits
+- ✅ Created `.env.example` as a secure template
+- ✅ Generated comprehensive security documentation (SECURITY_REPORT.md, SECURITY.md, SECURITY_ACTION_PLAN.md)
+- ✅ Identified all security vulnerabilities with detailed remediation steps
+
+**What Still Needs Immediate Action**:
+- ⚠️ **CRITICAL**: Rotate all exposed credentials (Supabase, EmailJS)
+- ⚠️ **HIGH**: Upgrade React Router to 7.12.0+
+- ⚠️ **HIGH**: Run `npm audit fix` to resolve 5 dependency vulnerabilities
+- ⚠️ **HIGH**: Move EmailJS credentials from source code to environment variables
 
 The good news is that most issues can be resolved quickly with the recommended actions. The application has a solid foundation with security headers and no direct code-level XSS vulnerabilities.
 
