@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { NavLink } from 'react-router-dom'
 import rightArrow from '../../assets/icons/rightArrow.svg'
 import officeImage from '../../assets/contact/saidpieceofficeimage.jpg'
 import { supabase } from '../../services/supabaseClient'
 import emailjs from '@emailjs/browser'
+
+// Initialize EmailJS
+emailjs.init('XkNzaXXHW5Z1e0x48');
 
 // -- Sub-components --
 
@@ -22,6 +25,7 @@ const ContactForm = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
   const [status, setStatus] = useState('idle') // idle, loading, success, error
   const [errorMessage, setErrorMessage] = useState('')
+
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -43,21 +47,26 @@ const ContactForm = () => {
       // 2. Send email via EmailJS
       const SERVICE_ID = 'service_oaqnzvz';
       const TEMPLATE_ID = 'template_tl4scas';
-      const PUBLIC_KEY = 'XkNzaXXHW5Z1e0x48';
 
       if (SERVICE_ID) {
         try {
-          console.log("Attempting to send email via EmailJS...", { SERVICE_ID, TEMPLATE_ID, PUBLIC_KEY });
+          console.log("Attempting to send email via EmailJS...", { SERVICE_ID, TEMPLATE_ID });
           const emailResponse = await emailjs.send(SERVICE_ID, TEMPLATE_ID, {
             name: formData.name,      // Matches {{name}} in template
             email: formData.email,    // Matches {{email}} in template
-            message: formData.message,// Matches {{message}} in template (Please add this to your template!)
+            message: formData.message,// Matches {{message}} in template
             title: 'New Website Enquiry' // Matches {{title}} in subject
-          }, PUBLIC_KEY);
+          });
           console.log("EmailJS Success:", emailResponse.status, emailResponse.text);
         } catch (emailError) {
           console.error("Failed to send email notification:", emailError);
-          alert(`Email Notification Failed: ${JSON.stringify(emailError)}`); // Temporary alert for debugging
+          console.error("Error details:", {
+            message: emailError.message,
+            text: emailError.text,
+            status: emailError.status,
+            stack: emailError.stack
+          });
+          alert(`Email Failed!\nMessage: ${emailError.message || 'Unknown'}\nStatus: ${emailError.status || 'N/A'}\nText: ${emailError.text || 'N/A'}`);
         }
       }
 
