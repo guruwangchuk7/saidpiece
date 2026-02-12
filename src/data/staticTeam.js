@@ -60,15 +60,16 @@ export const staticTeamMembers = [
         },
     },
     {
-        id: 5, name: 'Ash',
+        id: 5,
+        name: 'Karma Tshering',
         role: 'Architect',
         avatar: ash,
-        bio: 'Supports architectural projects with creativity and technical skills.',
+        bio: 'Focused on creating sustainable and responsive spaces that honor cultural and environmental context.',
         slug: 'ash',
         socials: {
             github: null,
-            linkedin: null,
-            email: null,
+            linkedin: 'https://www.linkedin.com/in/ash-tshering-696536211',
+            email: 'ash.tshering.644a@gmail.com',
         },
     },
     {

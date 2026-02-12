@@ -19,18 +19,21 @@ export const teamPortfolios = {
         ]
     },
     'ash': {
-        aboutQuote: "Creating spaces that tell stories and connect with their users on an emotional level through contemporary design.",
+        aboutQuote: "Designing sustainable and responsive spaces that honor people, place, and architectural context.",
         detailedBio: [
-            "As an Architect with 3+ years of professional experience, I specialize in contemporary design solutions that balance form and function. My passion lies in creating spaces that tell stories and connect with their users on an emotional level. I approach each project with fresh eyes, seeking innovative solutions while respecting the context and constraints of the site."
+            "I am Karma Tshering, an architecture graduate from the College of Science and Technology. My design philosophy centers on creating sustainable and responsive spaces, supported by expertise in spatial planning and technical drafting using tools like Revit and AutoCAD.",
+            "Through my experience with projects ranging from monastic residences to luxury resort infrastructure, I focus on delivering functional and culturally meaningful solutions. I aim to contribute architecture that enhances communities while maintaining the highest standards of quality and innovation."
         ],
         expertise: {
-            "Technical Skills": ['AutoCAD', 'Revit', 'SketchUp', 'Lumion', 'Photoshop', 'InDesign'],
-            "Core Competencies": ['Conceptual Design', 'Space Planning', 'Detail Drawings', 'Material Selection', 'Code Compliance', 'Client Presentation']
+            "Technical Skills": ['Revit', 'AutoCAD', 'Sketchup', 'Lumion / D5', 'Photoshop', 'YQArch'],
+            "Design Competencies": ['Sustainable Design', 'Spatial Planning', 'Technical Drafting', '3D Visualization', 'Site Analysis', 'Project Collaboration']
         },
         selectedWorks: [
-            { title: 'Modern Family Home', location: 'Bhutan', role: 'Architect', type: 'Residential', year: '2022' },
-            { title: 'Retail Space Reno', location: 'Thimphu, Bhutan', role: 'Design Lead', type: 'Commercial', year: '2023' },
-            { title: 'Community Center', location: 'Bhutan', role: 'Architect', type: 'Public', year: '2023' }
+            { title: 'Rimpochoe Mansion', location: 'Thimphu', role: 'Architect (OJT)', type: 'Residential', year: '2024' },
+            { title: 'City Hotel Extension', location: 'Thimphu', role: 'Architect (OJT)', type: 'Commercial', year: '2024' },
+            { title: 'Taj Resort Infinity Pool', location: 'Phobjikha', role: 'Design Lead', type: 'Hospitality', year: '2024' },
+            { title: 'Mobius Theatre', location: 'Gelephu', role: 'Thesis Project', type: 'Cultural', year: '2025' },
+            { title: 'Regenerative Thimphu', location: 'Thimphu', role: 'Academic Project', type: 'Urban Planning', year: '2024' }
         ]
     },
     'karma': {
