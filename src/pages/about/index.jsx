@@ -14,6 +14,7 @@ gsap.registerPlugin(ScrollTrigger);
 import aboutUsImg from '../../assets/aboutusphoto/aboutus.webp';
 // import philosophyImg from '../../assets/homephoto/mainbg.svg'; // Unused and heavy (12MB)
 import teamImg from '../../assets/homephoto/page3Bg.jpg';
+import teamGuruImg from '../../assets/aboutusphoto/teamguru.png';
 
 
 // --- SVG Icons ---
@@ -245,12 +246,12 @@ function About() {
 
       {/* === TEAM SECTION === */}
       <section data-animate-section className="py-16 lg:py-32 px-3 sm:px-5 lg:px-10 bg-zinc-100">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div data-animate-child className="lg:order-last">
             <img
-              src={pageData.team.image}
+              src={teamGuruImg}
               alt="SaidPiece Team"
-              className="rounded-lg shadow-2xl object-cover w-full h-full max-h-[600px]"
+              className="rounded-lg shadow-2xl object-cover w-full h-full max-h-[850px]"
               loading="eager"
             />
           </div>
