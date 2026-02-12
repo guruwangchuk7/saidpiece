@@ -100,5 +100,22 @@ export const teamPortfolios = {
             { title: 'BNBL Phuntsholing', location: 'Phuntsholing', role: 'Design Consultant', type: 'Commercial', year: '2025' },
             { title: '21 Tara Centre', location: 'Gelephu', role: 'Conceptual Design', type: 'Cultural', year: '2024' }
         ]
+    },
+    'tashi-dendup': {
+        aboutQuote: "Gaining hands-on experience in architectural practice while contributing to meaningful community and hospitality projects.",
+        detailedBio: [
+            "I am Tashi Dendup, an Architecture Intern currently pursuing my Bachelor's in Architecture at the College of Science and Technology. Since joining Saidpiece Architects, I have been actively involved in diverse projects, gaining practical experience in conceptual design and construction documentation.",
+            "My experience includes supporting significant developments such as the Yongkola ECO-Lodge, Yangkhil Cafe, and monastic monastic centers. I am dedicated to developing a strong foundation in architecture and contributing to projects that prioritize both function and cultural relevance."
+        ],
+        expertise: {
+            "Architectural Support": ['Conceptual Design', '3D Modeling', 'Construction Drawings', 'Site Documentation', 'Detail Development'],
+            "Learning Focus": ['Sustainable Design', 'Hospitality Architecture', 'Cultural Preservation', 'BIM Implementation']
+        },
+        selectedWorks: [
+            { title: 'Yongkola ECO-Lodge', location: 'Mongar', role: 'Architecture Intern', type: 'Hospitality', year: '2025' },
+            { title: 'Yangkhil Cafe', location: 'Trongsa', role: 'Architecture Intern', type: 'Commercial', year: '2025' },
+            { title: 'Resort Renovation', location: 'Trongsa', role: 'Architecture Intern', type: 'Hospitality', year: '2025' },
+            { title: 'Monastic Center', location: 'Dodena', role: 'Architecture Intern', type: 'Monastic', year: '2025' }
+        ]
     }
 };
