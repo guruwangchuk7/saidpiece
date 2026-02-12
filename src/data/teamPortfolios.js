@@ -54,18 +54,20 @@ export const teamPortfolios = {
         ]
     },
     'guru-wangchuk': {
-        aboutQuote: "Building scalable and user-focused web applications with a focus on clean code and intuitive UX.",
+        aboutQuote: "Modernizing architectural presence through scalable web architecture and intuitive user experiences.",
         detailedBio: [
-            "I am a passionate Full Stack Developer with experience in building modern web applications using React, Node.js, and various cloud technologies. I enjoy solving complex problems and creating seamless digital experiences that bridge the gap between business goals and user needs."
+            "I am Guru Wangchuk, a Full Stack Engineer pursuing my Bachelor's in Computer Application at Chandigarh University. As the Team Lead for the Saidpiece website development, I specialize in building responsive, user-centric web applications and modernizing digital presences through robust software engineering and UI/UX design.",
+            "My experience extends to international collaboration with Blockvocates in Dubai and innovative blockchain projects like secure certificate validation systems. I am a regular hackathon participant, passionate about leveraging technologies like React, Next.js, and Solidity to solve complex problems and deliver high-performance digital solutions."
         ],
         expertise: {
-            "Frontend": ['React', 'Next.js', 'Tailwind CSS', 'Vite', 'GSAP', 'Framer Motion'],
-            "Backend": ['Node.js', 'Express', 'Supabase', 'PostgreSQL', 'Firebase', 'REST APIs']
+            "Development": ['React', 'Next.js', 'Node.js', 'Solidity', 'Blockchain', 'REST APIs'],
+            "Engineering & Design": ['UI/UX Design', 'Software Engineering', 'System Architecture', 'Cyber Security', 'DevOps']
         },
         selectedWorks: [
-            { title: 'Saidpiece CMS', location: 'Internal', role: 'Lead Developer', type: 'Web App', year: '2024' },
-            { title: 'Civic Sense', location: 'Bhutan', role: 'Developer', type: 'Social Impact', year: '2023' },
-            { title: 'Blockchain Pharma', location: 'Regional', role: 'Full Stack', type: 'Enterprise', year: '2024' }
+            { title: 'Saidpiece Website', location: 'Bhutan', role: 'Team Lead', type: 'Web App', year: '2025' },
+            { title: 'Blockvocates UI', location: 'Dubai (Remote)', role: 'FrontEnd Engineer', type: 'Web App', year: '2025' },
+            { title: 'Cert. Validation System', location: 'Academic', role: 'Lead Developer', type: 'Blockchain', year: '2024' },
+            { title: 'Civic Sense', location: 'Bhutan', role: 'Full Stack', type: 'Social Impact', year: '2023' }
         ]
     },
     'ocean-rai': {

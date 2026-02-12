@@ -90,11 +90,11 @@ export const staticTeamMembers = [
         name: 'Guru Wangchuk',
         role: 'Full Stack Engineer',
         avatar: guru,
-        bio: 'Builds scalable and user-focused web applications across the full stack.',
+        bio: 'Focuses on building scalable, user-centric web applications and modernizing digital presences.',
         slug: 'guru-wangchuk',
         socials: {
             github: 'https://github.com/guruwangchuk7',
-            linkedin: 'https://www.linkedin.com/in/guru-wangchuk-51a083203/',
+            linkedin: 'https://www.linkedin.com/in/guru-wangchuk-51a083203/', // Keeping existing full link as it matches the profile
             email: 'guruwangchuk1234@gmail.com',
         },
     },
