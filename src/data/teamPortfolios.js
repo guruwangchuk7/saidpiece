@@ -2,9 +2,8 @@ export const teamPortfolios = {
     'thinley-dhendup': {
         aboutQuote: "Bridging international design standards with Bhutanese tradition to create functional, compliant, and culturally resonant spaces.",
         detailedBio: [
-            "I am Thinley Dhendup, a registered architect (BA-277) with the Construction Development Board of Bhutan and the Principal/Founder of Saidpiece Architects. With a Bachelor's in Architecture from Assumption University, Thailand, I bring a wealth of international and local experience, having held senior roles at SV Architects and Associates in Bangkok.",
-            "My portfolio spans complex aviation projects like Don Mueang Terminal 3, healthcare facilities, and bespoke hospitality projects in Bhutan. I am an active member of BCCI, ABTO, BCA, and AUSTCHAM, committed to delivering excellence in design, BIM, and project management across South East Asia and the Himalayas.",
-            "Throughout my career, I have led diverse and high-stakes projects, ranging from large-scale master planning and aviation infrastructure in Thailand to intimate heritage conservation and eco-friendly resorts in Bhutan. My tenure as a Senior Architect at SV Architects and Associates allowed me to hone my skills in full-scope design services, tender documentation, and construction supervision."
+            "I am Thinley Dhendup, a registered architect (BA-277) and Principal of Saidpiece Architects. With international experience from senior roles in Bangkok and a degree from Assumption University, I specialize in bridging global design standards with Bhutanese tradition.",
+            "My portfolio includes complex aviation projects like Don Mueang Terminal 3, healthcare facilities, and eco-friendly resorts. I am committed to delivering excellence in design and project management across South East Asia and the Himalayas."
         ],
         expertise: {
             "Design & Planning": ['Master Planning', 'Aviation Architecture', 'Healthcare Design', 'Hospitality Design', 'BIM / Revit', 'Interior Design'],
@@ -65,6 +64,41 @@ export const teamPortfolios = {
             { title: 'Civic Sense', location: 'Bhutan', role: 'Developer', type: 'Social Impact', year: '2023' },
             { title: 'Blockchain Pharma', location: 'Regional', role: 'Full Stack', type: 'Enterprise', year: '2024' }
         ]
+    },
+    'ocean-rai': {
+        aboutQuote: "Ensuring structural integrity and architectural precision through rigorous engineering and efficient construction management.",
+        detailedBio: [
+            "I am Ocean Rai, a registered Structural/Civil Engineer with a Master’s in Construction Management from the College of Science and Technology. My expertise spans structural analysis, cost estimation, and academic instruction, allowing me to bridge theoretical principles with practical site execution.",
+            "From overseeing major projects like the Bhutan National Bank Complex to managing infrastructure for Gyalsung Infra, I focus on delivering safe, cost-effective, and high-quality structures. at Saidpiece, I lead structural design and quantity surveying to ensure every project meets the highest engineering standards."
+        ],
+        expertise: {
+            "Structural Engineering": ['Structural Analysis', 'RCC Design', 'ETABS / STAAD Pro', 'Seismic Design', 'Foundation Design'],
+            "Construction Management": ['Quantity Surveying', 'Site Supervision', 'Cost Estimation', 'Project Scheduling', 'Quality Control']
+        },
+        selectedWorks: [
+            { title: 'BNB Office Complex', location: 'Paro/Phuentsholing', role: 'Structural Engineer', type: 'Commercial', year: '2025' },
+            { title: 'ERA Head Office', location: 'Thimphu', role: 'Structural Engineer', type: 'Institutional', year: '2025' },
+            { title: 'Yongkhola Eco-Resort', location: 'Mongar', role: 'Civil Engineer', type: 'Hospitality', year: '2025' },
+            { title: 'Gyalsung Infra Projects', location: 'Mongar', role: 'Project Engineer', type: 'Infrastructure', year: '2024' },
+            { title: 'Samthokha Sanctuary', location: 'Thimphu', role: 'Costing Lead', type: 'Hospitality', year: '2025' }
+        ]
+    },
+    'kinley-wangdi': {
+        aboutQuote: "Blending thoughtful architectural design with cultural awareness to create functional and enduring spaces.",
+        detailedBio: [
+            "I am Kinley Wangdi, a registered Architect (BA-445) with the Construction Development Board of Bhutan. I hold a Bachelor's in Architecture from the College of Science and Technology and have honed my skills through roles at RADArchitects and Saidpiece Architects, specializing in both conceptual design and construction supervision.",
+            "My portfolio ranges from significant hospitality projects like Yongkola ECO-Lodge and Semthoka Retreat Sanctuary to large-scale cultural developments such as the 21 Tara Retreat Centre. I am dedicated to delivering comprehensive architectural solutions, from initial concept to final execution."
+        ],
+        expertise: {
+            "Architectural Design": ['Conceptual Design', 'Space Planning', 'Construction Drawings', 'Interior Design', 'Revit / Rhino', 'Site Supervision'],
+            "Project Types": ['Hospitality', 'Cultural / Religious', 'Commercial', 'Institutional', 'Public Spaces']
+        },
+        selectedWorks: [
+            { title: 'Yongkola ECO-Lodge', location: 'Mongar', role: 'Architect', type: 'Hospitality', year: '2025' },
+            { title: 'Semthoka Retreat', location: 'Thimphu', role: 'Architect', type: 'Hospitality', year: '2025' },
+            { title: 'VTC Bumthang', location: 'Thimphu', role: 'Architect', type: 'Institutional', year: '2025' },
+            { title: 'BNBL Phuntsholing', location: 'Phuntsholing', role: 'Design Consultant', type: 'Commercial', year: '2025' },
+            { title: '21 Tara Centre', location: 'Gelephu', role: 'Conceptual Design', type: 'Cultural', year: '2024' }
+        ]
     }
-    // Add other members as needed...
 };
