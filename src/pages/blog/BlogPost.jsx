@@ -73,7 +73,7 @@ const BlogPost = () => {
             <div className="min-h-screen flex items-center justify-center bg-white text-zinc-900">
                 <div className="text-center">
                     <h2 className="text-2xl font-bold mb-4">Post not found</h2>
-                    <NavLink to="/blog" className="underline hover:text-zinc-600">Return to Blog</NavLink>
+                    <NavLink to="/blog" className="underline hover:text-zinc-600">Return to Insights</NavLink>
                 </div>
             </div>
         );
@@ -99,7 +99,7 @@ const BlogPost = () => {
                         {/* Back Button */}
                         <NavLink to="/blog" className="flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline mb-[3cm] w-fit cursor-pointer">
                             <img src={rightArrow} alt="back" className="w-4 h-4 rotate-180" />
-                            <span>Back to blog</span>
+                            <span>Back to insights</span>
                         </NavLink>
 
                         {/* Title Section */}
@@ -170,7 +170,7 @@ const BlogPost = () => {
                         <h3 className="text-lg uppercase font-medium tracking-wide text-zinc-500">On Saidpiece Media</h3>
                     </div>
                     <NavLink to="/blog" className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest hover:underline">
-                        All Media <span>→</span>
+                        All Insights <span>→</span>
                     </NavLink>
                 </div>
 

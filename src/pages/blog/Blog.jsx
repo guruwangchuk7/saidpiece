@@ -65,7 +65,7 @@ const Blog = () => {
                     {/* Header section */}
                     <div className="mb-10 sm:mb-10 lg:mb-10">
                         <h1 className="text-3xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-tight uppercase mb-4 sm:mb-6 -ml-0.5">
-                            Blog
+                            Insights
                         </h1>
                         <p className="text-sm sm:text-sm lg:text-base text-zinc-600 leading-relaxed max-w-2xl">
                             Insights, stories, and latest updates from Saidpiece Architects.

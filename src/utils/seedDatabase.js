@@ -145,7 +145,7 @@ export const importTeam = async () => {
 };
 
 /**
- * Imports static blog posts into the database.
+ * Imports static insights posts into the database.
  * checks for existing posts by title to avoid duplicates.
  */
 export const importBlogs = async () => {
@@ -200,12 +200,12 @@ export const importBlogs = async () => {
         }
 
         if (blogsToInsert.length === 0) {
-            return { success: true, count: 0, message: "All blog posts already exist in the database." };
+            return { success: true, count: 0, message: "All insights posts already exist in the database." };
         } else {
             const { error } = await supabase.from('blogs').insert(blogsToInsert);
             if (error) throw error;
 
-            return { success: true, count: blogsToInsert.length, message: `Successfully imported ${blogsToInsert.length} new blog posts.` };
+            return { success: true, count: blogsToInsert.length, message: `Successfully imported ${blogsToInsert.length} new insights posts.` };
         }
     } catch (error) {
         console.error("Blog import error:", error);

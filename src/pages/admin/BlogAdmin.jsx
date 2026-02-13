@@ -101,7 +101,7 @@ const BlogAdmin = () => {
             if (error) throw error;
             fetchBlogs();
             if (editingId === id) resetForm();
-            alert("Blog post deleted successfully");
+            alert("Insights post deleted successfully");
         } catch (error) {
             console.error("Error deleting blog:", error);
             alert("Error deleting blog");
@@ -145,11 +145,11 @@ const BlogAdmin = () => {
             if (editingId) {
                 const { error } = await supabase.from('blogs').update(blogData).eq('id', editingId);
                 if (error) throw error;
-                alert("Blog updated successfully!");
+                alert("Insights updated successfully!");
             } else {
                 const { error } = await supabase.from('blogs').insert([blogData]);
                 if (error) throw error;
-                alert("Blog published successfully!");
+                alert("Insights published successfully!");
             }
 
             resetForm();
@@ -165,13 +165,13 @@ const BlogAdmin = () => {
     return (
         <div className="max-w-6xl mx-auto">
             <div className="flex justify-between items-center mb-8">
-                <h1 className="text-2xl font-bold text-zinc-900">Blog Management</h1>
+                <h1 className="text-2xl font-bold text-zinc-900">Insights Management</h1>
                 {!isEditing && (
                     <button
                         onClick={() => setIsEditing(true)}
                         className="flex items-center gap-2 bg-black text-white px-4 py-2 rounded-lg hover:bg-zinc-800 transition-colors"
                     >
-                        <FaPlus size={12} /> New Blog Post
+                        <FaPlus size={12} /> New Insights Post
                     </button>
                 )}
             </div>

@@ -206,7 +206,7 @@ const AdminDashboard = () => {
                     link="/admin/team"
                 />
                 <StatCard
-                    title="Blog Posts"
+                    title="Insights"
                     count={stats.blogs}
                     icon={<FaBlog size={20} />}
                     color="bg-zinc-900"
@@ -226,7 +226,7 @@ const AdminDashboard = () => {
                 <h2 className="text-lg font-bold mb-6 uppercase tracking-wider text-zinc-900">Quick Actions</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                     <button className="p-5 bg-white border border-zinc-200 rounded-lg text-left hover:border-zinc-900 transition-all group" onClick={() => window.location.href = '/admin/blog'}>
-                        <span className="block font-bold text-zinc-900 mb-2 text-sm uppercase tracking-wide">+ New Blog Post</span>
+                        <span className="block font-bold text-zinc-900 mb-2 text-sm uppercase tracking-wide">+ New Insights Post</span>
                         <span className="text-xs text-zinc-500">Write an article</span>
                     </button>
                     <button className="p-5 bg-white border border-zinc-200 rounded-lg text-left hover:border-zinc-900 transition-all group" onClick={() => window.location.href = '/admin/projects'}>
@@ -294,7 +294,7 @@ const AdminDashboard = () => {
                 {/* Recent Blogs */}
                 <div className="bg-white rounded-lg border border-zinc-100 overflow-hidden">
                     <div className="px-6 py-4 border-b border-zinc-100 bg-zinc-50">
-                        <h3 className="font-bold text-zinc-900 text-sm uppercase tracking-wider">Recent Blogs</h3>
+                        <h3 className="font-bold text-zinc-900 text-sm uppercase tracking-wider">Recent Insights</h3>
                     </div>
                     <ul className="divide-y divide-zinc-100">
                         {recentData.blogs.map(b => (
@@ -378,15 +378,15 @@ const AdminDashboard = () => {
                         <div className="border border-zinc-100 rounded-lg p-6 bg-zinc-50 flex flex-col justify-between hover:border-zinc-900 transition-all">
                             <div>
                                 <h3 className="font-bold text-zinc-900 mb-2 flex items-center gap-2 uppercase tracking-wide text-sm">
-                                    <FaBlog className="text-zinc-900" /> Blogs
+                                    <FaBlog className="text-zinc-900" /> Insights
                                 </h3>
-                                <p className="text-xs text-zinc-500 mb-6">Import static blog posts.</p>
+                                <p className="text-xs text-zinc-500 mb-6">Import static insights posts.</p>
                             </div>
                             <button
                                 onClick={() => handleImportAction('blogs')}
                                 className="w-full py-3 px-4 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 bg-zinc-900 text-white hover:bg-zinc-800"
                             >
-                                <FaCloudUploadAlt /> Import Blogs
+                                <FaCloudUploadAlt /> Import Insights
                             </button>
                         </div>
                     </div>

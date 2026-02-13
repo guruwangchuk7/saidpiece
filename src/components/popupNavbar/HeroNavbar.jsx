@@ -26,7 +26,7 @@ const HeroNavbar = () => {
     { to: "/about", title: "ABOUT" },
     { to: "/portfolio", title: "PROJECTS" },
     { to: "/team", title: "TEAM" },
-    { to: "/blog", title: "BLOG" },
+    { to: "/blog", title: "INSIGHTS" },
     { to: "/contact", title: "CONTACT" },
   ];
 

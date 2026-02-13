@@ -51,7 +51,7 @@ const AdminLayout = () => {
         { path: '/admin/dashboard', label: 'Dashboard', icon: <FaTachometerAlt /> },
         { path: '/admin/projects', label: 'Projects', icon: <FaProjectDiagram /> },
         { path: '/admin/team', label: 'Team', icon: <FaUsers /> },
-        { path: '/admin/blog', label: 'Blog', icon: <FaBlog /> },
+        { path: '/admin/blog', label: 'Insights', icon: <FaBlog /> },
         { path: '/admin/messages', label: 'Messages', icon: <FaEnvelope /> },
     ];
 
