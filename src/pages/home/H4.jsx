@@ -130,78 +130,63 @@ function H4() {
         </div>
 
         {/* Mobile Portfolio Section */}
-        <div className="md:hidden w-full px-3 sm:px-5 lg:px-10 py-6 sm:py-8">
+        <div className="md:hidden w-full bg-[#f2f2f2] px-4 py-8 flex flex-col gap-6">
           {/* Mobile Portfolio Header */}
-          <motion.h1
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-2xl sm:text-3xl font-semibold mb-4 sm:mb-6 text-neutral-900"
-          >
-            PORTFOLIO
-          </motion.h1>
-
-          {/* Mobile Carousel Container */}
-          <div className="relative overflow-hidden rounded-lg">
-            <AnimatePresence initial={false} custom={direction}>
-              <motion.div
-                key={activeIndex}
-                custom={direction}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="w-full absolute inset-0"
-              >
-                <img
-                  src={portfolioData.image[activeIndex]}
-                  alt={portfolioData.name[activeIndex]}
-                  className="w-full h-[60vh] sm:h-[65vh] object-cover"
-                  loading="eager"
-                />
-              </motion.div>
-            </AnimatePresence>
-            <div className="w-full h-[60vh] sm:h-[65vh]"></div>
-
-            {/* Mobile Navigation Arrows */}
-            <button
-              onClick={prevSlide}
-              className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 bg-white/85 hover:bg-white rounded-full flex items-center justify-center transition-all z-10 shadow-md"
-              aria-label="Previous project"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            <button
-              onClick={nextSlide}
-              className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 bg-white/85 hover:bg-white rounded-full flex items-center justify-center transition-all z-10 shadow-md"
-              aria-label="Next project"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
+          <div className="w-full mb-8">
+            <h1 className="text-3xl font-normal tracking-wide text-zinc-900 uppercase">
+              PORTFOLIO
+            </h1>
           </div>
 
+          {/* Mobile Touch-Enabled Carousel Container */}
+          <div className="relative">
+            <div
+              className="flex overflow-x-auto snap-x snap-mandatory scrollbar-none gap-6"
+              onScroll={(e) => {
+                const scrollLeft = e.currentTarget.scrollLeft;
+                const width = e.currentTarget.clientWidth;
+                const newIndex = Math.round(scrollLeft / width);
+                if (newIndex !== activeIndex) {
+                  setActiveIndex(newIndex);
+                }
+              }}
+              style={{
+                scrollSnapType: 'x mandatory',
+                WebkitOverflowScrolling: 'touch'
+              }}
+            >
+              {portfolioData.image.map((img, idx) => (
+                <div
+                  key={idx}
+                  className="snap-center shrink-0 w-[85%] flex flex-col gap-5"
+                >
+                  {/* Image Frame */}
+                  <div className="w-full aspect-square bg-white shadow-sm overflow-hidden">
+                    <img
+                      src={img}
+                      alt={portfolioData.name[idx]}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
 
-
-          {/* Progress Indicators */}
-          <div className="flex gap-1.5 mt-3">
-            {portfolioData.name.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setActiveIndex(index)}
-                className={`h-1 transition-all duration-300 rounded-full ${activeIndex === index ? "bg-neutral-900 w-6" : "bg-neutral-300 w-2"
-                  }`}
-                aria-label={`Go to project ${index + 1}`}
-              />
-            ))}
+                  {/* Project Info Below Image */}
+                  <div className="w-full">
+                    <div className="flex justify-between items-center mb-4">
+                      <h3 className="text-base font-medium tracking-tight text-zinc-800 uppercase">
+                        {portfolioData.name[idx]}
+                      </h3>
+                      {/* Removed arrow-line div as requested */}
+                    </div>
+                    <div className="h-[1px] w-full bg-zinc-300"></div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* Mobile All Projects Button */}
-          <div className="mt-4 sm:mt-6">
+          {/* Mobile All Projects Link */}
+          <div className="-mt-4 w-[96%] mx-auto flex justify-start">
             <NavLink to="/portfolio">
               <BtnT1 title="ALL PROJECTS" />
             </NavLink>
