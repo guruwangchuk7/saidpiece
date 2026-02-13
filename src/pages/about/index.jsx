@@ -41,7 +41,7 @@ const pageData = {
     heading: "saidpiece architects",
   },
   intro: {
-    title: "Saidpiece Architects is a registered Bhutanese firm specializing in architectural and engineering solutions.",
+    title: "Saidpiece Architects is a registered\nBhutanese firm specializing in\narchitectural and engineering solutions.",
     description: "Located at Namgyal Plaza, Thimphu (CDB No. 312; Trade License No. 1052642), we provide full-spectrum professional services encompassing design, documentation, and project delivery, from concept to completion. Founded in 2023, Saidpiece was born from a vision to merge Bhutanese tradition with modern innovation. Our work is rooted in the belief that architecture is not merely the creation of buildings, but the crafting of environments that foster balance between human experience, culture, and nature.",
   },
   process: {
@@ -182,8 +182,8 @@ function About() {
 
       {/* === INTRO SECTION === */}
       <section ref={introRef} data-animate-section className="py-16 lg:py-32 px-3 sm:px-5 lg:px-10 text-center">
-        <div className="max-w-4xl mx-auto">
-          <h2 data-animate-child className="text-xl md:text-3xl lg:text-5xl font-light leading-tight mb-6">
+        <div className="max-w-6xl mx-auto">
+          <h2 data-animate-child className="text-lg md:text-2xl lg:text-4xl font-light leading-tight mb-6 whitespace-pre-line">
             {pageData.intro.title}
           </h2>
           <p data-animate-child className="text-sm lg:text-xl text-zinc-500 leading-relaxed">
@@ -197,7 +197,7 @@ function About() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-20">
             <h2 data-animate-child className="text-sm font-bold text-zinc-500 tracking-widest uppercase mb-4">{pageData.process.heading}</h2>
-            <p data-animate-child className="text-xl lg:text-4xl leading-snug">
+            <p data-animate-child className="text-lg md:text-2xl lg:text-4xl font-light leading-snug">
               {pageData.process.tagline}
             </p>
           </div>
@@ -218,7 +218,7 @@ function About() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-20">
             <h2 data-animate-child className="text-sm font-bold text-zinc-500 tracking-widest uppercase mb-4">{pageData.philosophy.heading}</h2>
-            <p data-animate-child className="text-xl lg:text-4xl leading-snug">
+            <p data-animate-child className="text-lg md:text-2xl lg:text-4xl font-light leading-snug">
               {pageData.philosophy.description}
             </p>
           </div>
