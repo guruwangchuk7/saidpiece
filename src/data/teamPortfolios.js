@@ -70,24 +70,6 @@ export const teamPortfolios = {
             { title: 'Civic Sense', location: 'Bhutan', role: 'Full Stack', type: 'Social Impact', year: '2023' }
         ]
     },
-    'ocean-rai': {
-        aboutQuote: "Ensuring structural integrity and architectural precision through rigorous engineering and efficient construction management.",
-        detailedBio: [
-            "I am Ocean Rai, a registered Structural/Civil Engineer with a Master’s in Construction Management from the College of Science and Technology. My expertise spans structural analysis, cost estimation, and academic instruction, allowing me to bridge theoretical principles with practical site execution.",
-            "From overseeing major projects like the Bhutan National Bank Complex to managing infrastructure for Gyalsung Infra, I focus on delivering safe, cost-effective, and high-quality structures. at Saidpiece, I lead structural design and quantity surveying to ensure every project meets the highest engineering standards."
-        ],
-        expertise: {
-            "Structural Engineering": ['Structural Analysis', 'RCC Design', 'ETABS / STAAD Pro', 'Seismic Design', 'Foundation Design'],
-            "Construction Management": ['Quantity Surveying', 'Site Supervision', 'Cost Estimation', 'Project Scheduling', 'Quality Control']
-        },
-        selectedWorks: [
-            { title: 'BNB Office Complex', location: 'Paro/Phuentsholing', role: 'Structural Engineer', type: 'Commercial', year: '2025' },
-            { title: 'ERA Head Office', location: 'Thimphu', role: 'Structural Engineer', type: 'Institutional', year: '2025' },
-            { title: 'Yongkhola Eco-Resort', location: 'Mongar', role: 'Civil Engineer', type: 'Hospitality', year: '2025' },
-            { title: 'Gyalsung Infra Projects', location: 'Mongar', role: 'Project Engineer', type: 'Infrastructure', year: '2024' },
-            { title: 'Samthokha Sanctuary', location: 'Thimphu', role: 'Costing Lead', type: 'Hospitality', year: '2025' }
-        ]
-    },
     'kinley-wangdi': {
         aboutQuote: "Blending thoughtful architectural design with cultural awareness to create functional and enduring spaces.",
         detailedBio: [

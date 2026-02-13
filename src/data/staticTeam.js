@@ -1,6 +1,5 @@
 import thinleyDhendup from '../assets/teamphoto/thinleydendupb.jpeg';
 import karma from '../assets/teamphoto/karm.jpeg';
-import ocean from '../assets/teamphoto/oceanb.jpeg';
 import kinley from '../assets/teamphoto/kinleyb.jpeg';
 import ash from '../assets/teamphoto/ashb.jpeg';
 import tashi from '../assets/teamphoto/tashib.jpeg';
@@ -31,19 +30,6 @@ export const staticTeamMembers = [
             github: null,
             linkedin: null,
             email: 'karmadichen506@gmail.com',
-        },
-    },
-    {
-        id: 3,
-        name: 'Ocean Rai',
-        role: 'Civil Engineer',
-        avatar: ocean,
-        bio: 'Delivers reliable structural and engineering solutions aligned with design goals.',
-        slug: 'ocean-rai',
-        socials: {
-            github: null,
-            linkedin: 'https://www.linkedin.com/in/ocean-rai1043/',
-            email: 'raiocean05@gmail.com',
         },
     },
     {

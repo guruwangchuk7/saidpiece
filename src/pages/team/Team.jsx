@@ -62,7 +62,6 @@ const Team = () => {
         const fixedOrder = [
           'thinley-dhendup',
           'karma',
-          'ocean-rai',
           'kinley-wangdi',
           'ash',
           'tashi-dendup',
