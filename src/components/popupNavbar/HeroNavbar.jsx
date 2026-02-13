@@ -80,9 +80,9 @@ const HeroNavbar = () => {
 
           <div className="flex flex-col lg:flex-row justify-between gap-10 lg:gap-20 w-full">
             <div className="p-2 w-full lg:w-auto">
-              <div className="logo font-bold text-xl sm:text-2xl md:text-4xl lg:text-5xl text-neutral-100" style={{ fontFamily: "century-gothic" }}>
+              <NavLink to="/" onClick={close} className="logo font-bold text-xl sm:text-2xl md:text-4xl lg:text-5xl text-neutral-100 cursor-pointer block" style={{ fontFamily: "century-gothic" }}>
                 <span style={{ color: "#a1a1aa" }} className="font-light">said</span><span style={{ opacity: 0.95 }}>piece</span>
-              </div>
+              </NavLink>
               <nav className="mt-10 flex flex-col gap-5">
                 {data.map((item, idx) => (
                   <NavLink
