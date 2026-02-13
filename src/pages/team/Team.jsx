@@ -103,7 +103,6 @@ const Team = () => {
     const customOrder = [
       'Principal Architect',
       'Admin',
-      'Civil Engineer',
       'Architect',
       'Architect Intern',
       'Full Stack Engineer'

@@ -33,7 +33,7 @@ export const staticTeamMembers = [
         },
     },
     {
-        id: 4,
+        id: 3,
         name: 'Kinley Wangdi',
         role: 'Architect',
         avatar: kinley,
@@ -46,7 +46,7 @@ export const staticTeamMembers = [
         },
     },
     {
-        id: 5,
+        id: 4,
         name: 'Karma Tshering',
         role: 'Architect',
         avatar: ash,
@@ -59,7 +59,7 @@ export const staticTeamMembers = [
         },
     },
     {
-        id: 6,
+        id: 5,
         name: 'Tashi Dendup',
         role: 'Architect Intern',
         avatar: tashi,
@@ -72,7 +72,7 @@ export const staticTeamMembers = [
         },
     },
     {
-        id: 7,
+        id: 6,
         name: 'Guru Wangchuk',
         role: 'Full Stack Engineer',
         avatar: guru,

@@ -207,7 +207,6 @@ const TeamAdmin = () => {
                                     <option value="">Select a Role</option>
                                     <option value="Principal Architect">Principal Architect</option>
                                     <option value="Admin">Admin</option>
-                                    <option value="Civil Engineer">Civil Engineer</option>
                                     <option value="Architect">Architect</option>
                                     <option value="Architect Intern">Architect Intern</option>
                                     <option value="Full Stack Engineer">Full Stack Engineer</option>
