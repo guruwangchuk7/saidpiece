@@ -130,7 +130,7 @@ function H4() {
         </div>
 
         {/* Mobile Portfolio Section */}
-        <div className="md:hidden w-full bg-[#f2f2f2] px-4 py-8 flex flex-col gap-6">
+        <div className="md:hidden w-full bg-white px-4 py-8 flex flex-col gap-6">
           {/* Mobile Portfolio Header */}
           <div className="w-full mb-8">
             <h1 className="text-3xl font-normal tracking-wide text-zinc-900 uppercase">
