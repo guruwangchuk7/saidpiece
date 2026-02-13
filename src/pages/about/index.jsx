@@ -86,7 +86,7 @@ function About() {
   const introRef = useRef(null);
 
   const handleScrollDown = () => {
-    introRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    introRef.current?.scrollIntoView({ behavior: "auto", block: "start" });
   };
 
   useEffect(() => {

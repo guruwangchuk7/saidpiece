@@ -86,7 +86,7 @@ const BlogAdmin = () => {
         setCurrentImageUrl(blog.image);
         setIsEditing(true); // Open form
 
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: 'auto' });
     };
 
     const handleDelete = async (id) => {

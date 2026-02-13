@@ -31,7 +31,7 @@ function H1() {
   }, []);
 
   const handleScrollDown = () => {
-    imageRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    imageRef.current?.scrollIntoView({ behavior: "auto", block: "center" });
   };
 
   return (

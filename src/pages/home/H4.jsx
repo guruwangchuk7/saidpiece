@@ -24,7 +24,7 @@ function H4() {
   const projectRefs = React.useRef([]);
 
   const handleScroll = (index) => {
-    projectRefs.current[index]?.scrollIntoView({ behavior: "smooth", block: "center" });
+    projectRefs.current[index]?.scrollIntoView({ behavior: "auto", block: "center" });
   };
 
   const slideVariants = {

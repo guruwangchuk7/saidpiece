@@ -239,7 +239,7 @@ const AdminDashboard = () => {
                     </button>
                     <button className="p-5 bg-white border border-zinc-200 rounded-lg text-left hover:border-zinc-900 transition-all group" onClick={() => {
                         const el = document.getElementById('data-management');
-                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                        if (el) el.scrollIntoView({ behavior: 'auto' });
                     }}>
                         <span className="block font-bold text-zinc-900 mb-2 text-sm uppercase tracking-wide"><FaDatabase className="inline mr-1" /> Import Data</span>
                         <span className="text-xs text-zinc-500">Manage static imports</span>
