@@ -79,7 +79,6 @@ function H4() {
           </div>
         </div>
 
-        {/* Desktop Right Column: Scrollable Gallery */}
         <div className="hidden md:flex w-full md:w-[60%] px-3 sm:px-5 lg:px-10 py-6 md:py-20 flex-col gap-12 sm:gap-16 md:gap-24 lg:gap-32">
           {portfolioData.image.map((item, index) => (
             <motion.div
@@ -87,31 +86,33 @@ function H4() {
               ref={(el) => (projectRefs.current[index] = el)}
               onViewportEnter={() => setActiveIndex(index)}
               viewport={{ amount: 0.5 }}
-              className="w-full"
+              className="w-full group" // Added group for nested hover trigger
             >
-              <motion.img
-                src={item}
-                alt={`Project ${index + 1}`}
-                className="w-full h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[85vh] object-cover shadow-zinc-900/5 transition-transform duration-700 ease-out hover:scale-[1.02]"
-                loading="eager"
-                animate={
-                  index === 0 && activeIndex === 0
-                    ? {
-                      objectPosition: ["center top", "center bottom"],
-                    }
-                    : { objectPosition: "center center" }
-                }
-                transition={
-                  index === 0 && activeIndex === 0
-                    ? {
-                      duration: 5,
-                      repeat: Infinity,
-                      repeatType: "mirror",
-                      ease: "linear",
-                    }
-                    : { duration: 0.5 }
-                }
-              />
+              <div className="overflow-hidden"> {/* Container to keep the frame fixed */}
+                <motion.img
+                  src={item}
+                  alt={`Project ${index + 1}`}
+                  className="w-full h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[85vh] object-cover shadow-zinc-900/5 transition-transform duration-1000 ease-out group-hover:scale-110" // Frame fixed, image zooms
+                  loading="eager"
+                  animate={
+                    index === 0 && activeIndex === 0
+                      ? {
+                        objectPosition: ["center top", "center bottom"],
+                      }
+                      : { objectPosition: "center center" }
+                  }
+                  transition={
+                    index === 0 && activeIndex === 0
+                      ? {
+                        duration: 5,
+                        repeat: Infinity,
+                        repeatType: "mirror",
+                        ease: "linear",
+                      }
+                      : { duration: 0.5 }
+                  }
+                />
+              </div>
               <div className="mt-3 sm:mt-4 text-center md:text-left">
                 <span className="text-sm sm:text-base font-medium block">{portfolioData.name[index]}</span>
               </div>
