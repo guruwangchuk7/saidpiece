@@ -1,11 +1,34 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import kinleyPhoto from "../../assets/homephoto/kinleylaptop.JPG";
 import rightArrow from "../../assets/icons/rightArrow.svg";
-import { motion, MotionConfig, useScroll } from "motion/react";
+import { motion, MotionConfig } from "motion/react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
 
 function H1() {
+  const imageRef = useRef(null);
 
-  const imageRef = React.useRef(null);
+  useEffect(() => {
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 1024px)", () => {
+      gsap.to(imageRef.current, {
+        scrollTrigger: {
+          trigger: imageRef.current,
+          start: "top bottom",
+          end: "top 10%",
+          scrub: 1,
+        },
+        marginInline: 0,
+        ease: "power2.out"
+      });
+    });
+
+    return () => mm.revert();
+  }, []);
 
   const handleScrollDown = () => {
     imageRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -43,7 +66,7 @@ function H1() {
       </div>
 
 
-      <div ref={imageRef} className="h-auto sm:h-[82vh] md:h-[92vh] mx-3 sm:mx-5 md:mx-10 lg:mx-20 mt-10 sm:mt-[28vh] lg:mt-[14vh] overflow-hidden flex justify-center items-center">
+      <div ref={imageRef} className="h-auto sm:h-[82vh] md:h-[92vh] mx-3 sm:mx-5 md:mx-10 lg:mx-[5cm] mt-10 sm:mt-[28vh] lg:mt-[14vh] overflow-hidden flex justify-center items-center">
         <img
           src={kinleyPhoto}
           alt="Kinley"
