@@ -201,8 +201,6 @@ const Portfolio = () => {
                       }
                     }}
                     className="group cursor-pointer flex flex-col gap-3 sm:gap-4 relative z-0"
-                    whileHover={{ y: -5 }}
-                    transition={{ duration: 0.2 }}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
@@ -212,7 +210,7 @@ const Portfolio = () => {
                         layoutId={`card-image-${p.id}`}
                         src={p.image}
                         alt={p.title}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
                         loading="eager"
                       />
                       {/* Hover overlay hint */}
