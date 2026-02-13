@@ -222,9 +222,11 @@ const Portfolio = () => {
                     </div>
 
                     <motion.div layoutId={`card-info-${p.id}`} className="border-t border-zinc-200 pt-3 sm:pt-4 bg-white">
-                      <h3 className="text-black uppercase font-semibold text-base sm:text-lg lg:text-xl tracking-tight">{p.title}</h3>
+                      <div className="flex justify-between items-start gap-4">
+                        <h3 className="text-black uppercase font-semibold text-base sm:text-lg lg:text-xl tracking-tight leading-tight">{p.title}</h3>
+                        <p className="text-zinc-400 text-[10px] lg:text-xs mt-1 uppercase tracking-widest shrink-0">{p.location}</p>
+                      </div>
                       <p className="text-zinc-500 text-xs sm:text-sm lg:text-base">{p.subtitle}</p>
-                      <p className="text-zinc-400 text-xs lg:text-sm mt-1">{p.location}</p>
                     </motion.div>
                   </motion.div>
                 ))
@@ -274,16 +276,18 @@ const Portfolio = () => {
               {/* Content Side */}
               <div className="w-full md:w-1/3 h-full overflow-y-auto bg-white p-4 sm:p-6 md:p-10 lg:p-12 pb-20 md:pb-12">
                 <motion.div layoutId={`card-info-${selectedId}`} className="mb-6 md:mb-10">
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tighter leading-none mb-2 sm:mb-3">
-                    {selectedItem.title}
-                  </h2>
+                  <div className="flex justify-between items-baseline gap-4 mb-2 sm:mb-3">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tighter leading-none">
+                      {selectedItem.title}
+                    </h2>
+                    <div className="flex items-center gap-2 text-zinc-400 text-[10px] sm:text-xs font-medium uppercase tracking-widest shrink-0">
+                      <span className="w-4 sm:w-8 h-[1px] bg-zinc-300"></span>
+                      {selectedItem.location}
+                    </div>
+                  </div>
                   <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-zinc-500 font-light">
                     {selectedItem.subtitle}
                   </p>
-                  <div className="flex items-center gap-2 mt-3 sm:mt-4 text-zinc-400 text-xs sm:text-sm font-medium uppercase tracking-widest">
-                    <span className="w-6 sm:w-8 h-[1px] bg-zinc-300"></span>
-                    {selectedItem.location}
-                  </div>
                   {selectedItem.collaboration && (
                     <p className="mt-2 text-zinc-500 text-sm sm:text-base font-medium">
                       {selectedItem.collaboration}

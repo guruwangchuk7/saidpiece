@@ -251,8 +251,10 @@ const Team = () => {
                               {member.avatar ? <img src={member.avatar} alt={`Portrait of ${member.name}`} className="w-full h-full object-cover" loading="eager" /> : <FallbackAvatar className="w-full h-full object-cover" />}
                             </div>
                             <div className="p-6">
-                              <h3 className="text-xl font-bold text-zinc-900">{member.name}</h3>
-                              <p className="text-zinc-600 font-semibold mt-1">{member.role}</p>
+                              <div className="flex justify-between items-baseline gap-2">
+                                <h3 className="text-xl font-bold text-zinc-900">{member.name}</h3>
+                                <p className="text-zinc-400 text-[10px] uppercase tracking-widest shrink-0">{member.role}</p>
+                              </div>
                               <p className="text-zinc-600 mt-3 text-sm h-20 line-clamp-3">{member.bio}</p>
                               <div className="mt-4 pt-4 border-t border-zinc-200">
                                 <span className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">

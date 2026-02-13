@@ -108,13 +108,17 @@ const TeamPortfolio = ({ slug: propSlug }) => {
                 {/* Header/Profile Section */}
                 <section className="flex flex-col lg:flex-row items-start justify-between gap-8 lg:gap-12 mb-20 lg:mb-32 fade-in">
                     <div className="flex-1 order-2 lg:order-1 w-full">
-                        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-none uppercase mb-4 sm:mb-6">
-                            {member.name}
-                        </h1>
-                        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-t border-zinc-200 pt-6">
-                            <p className="text-lg sm:text-xl lg:text-lg text-zinc-500 font-light max-w-xl">
+                        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 mb-4 sm:mb-6">
+                            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-none uppercase">
+                                {member.name}
+                            </h1>
+                            <p className="text-lg sm:text-xl lg:text-lg text-zinc-400 font-medium uppercase tracking-widest shrink-0">
                                 {member.role}
                             </p>
+                        </div>
+                        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-t border-zinc-200 pt-6">
+                            {/* Role was moved above */}
+                            <div className="flex-1"></div>
                             <div className="flex gap-6">
                                 {(member.socials?.linkedin || member.linkedin) && (
                                     <a href={member.socials?.linkedin || member.linkedin} target="_blank" rel="noopener noreferrer" className="text-zinc-800 hover:text-zinc-500 transition-colors">

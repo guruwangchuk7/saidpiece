@@ -77,19 +77,19 @@ const ProjectGallery = () => {
                         <span className="text-sm font-semibold tracking-widest uppercase">{project.subtitle}</span>
                     </motion.div>
 
-                    <motion.h1
-                        variants={fadeIn}
-                        className="text-5xl md:text-7xl lg:text-9xl font-bold leading-[0.9] tracking-tighter uppercase mb-8"
-                        style={{ fontFamily: "century-gothic, sans-serif" }}
-                    >
-                        {project.title}
-                    </motion.h1>
+                    <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-4 mb-8">
+                        <motion.h1
+                            variants={fadeIn}
+                            className="text-5xl md:text-7xl lg:text-9xl font-bold leading-[0.9] tracking-tighter uppercase"
+                            style={{ fontFamily: "century-gothic, sans-serif" }}
+                        >
+                            {project.title}
+                        </motion.h1>
 
-                    <motion.div variants={fadeIn} className="flex flex-col md:flex-row gap-8 md:items-end">
-                        <div className="text-sm font-medium tracking-wider uppercase text-zinc-500">
+                        <motion.div variants={fadeIn} className="shrink-0 text-sm font-medium tracking-wider uppercase text-zinc-500">
                             {project.location} — {project.year}
-                        </div>
-                    </motion.div>
+                        </motion.div>
+                    </div>
                     {project.collaboration && (
                         <motion.div variants={fadeIn} className="mt-2 text-base font-medium tracking-wider uppercase text-zinc-500">
                             {project.collaboration}
