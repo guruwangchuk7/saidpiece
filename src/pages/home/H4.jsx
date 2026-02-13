@@ -130,9 +130,9 @@ function H4() {
         </div>
 
         {/* Mobile Portfolio Section */}
-        <div className="md:hidden w-full bg-white px-4 py-8 flex flex-col gap-6">
+        <div className="md:hidden w-full bg-white px-4 py-8 flex flex-col gap-1">
           {/* Mobile Portfolio Header */}
-          <div className="w-full mb-8">
+          <div className="w-full mb-2">
             <h1 className="text-3xl font-normal tracking-wide text-zinc-900 uppercase">
               PORTFOLIO
             </h1>
@@ -141,7 +141,7 @@ function H4() {
           {/* Mobile Touch-Enabled Carousel Container */}
           <div className="relative">
             <div
-              className="flex overflow-x-auto snap-x snap-mandatory scrollbar-none gap-6"
+              className="flex overflow-x-auto snap-x snap-mandatory scrollbar-none gap-3"
               onScroll={(e) => {
                 const scrollLeft = e.currentTarget.scrollLeft;
                 const width = e.currentTarget.clientWidth;
@@ -158,7 +158,7 @@ function H4() {
               {portfolioData.image.map((img, idx) => (
                 <div
                   key={idx}
-                  className="snap-center shrink-0 w-[85%] flex flex-col gap-5"
+                  className="snap-center shrink-0 w-[85%] flex flex-col gap-2"
                 >
                   {/* Image Frame */}
                   <div className="w-full aspect-square bg-white shadow-sm overflow-hidden">
