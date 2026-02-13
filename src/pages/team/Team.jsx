@@ -1,21 +1,17 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { supabase } from '../../services/supabaseClient';
 import { useAuth } from '../../context/AuthContext';
 import { NavLink } from 'react-router-dom';
-import { FaGithub, FaLinkedin, FaEnvelope, FaThLarge, FaList, FaChevronDown } from 'react-icons/fa';
 import rightArrow from '../../assets/icons/rightArrow.svg';
-import ButtonType3 from '../../components/common/ButtonType3';
-import Footer from '../../components/layout/Footer';
 import { staticTeamMembers } from '../../data/staticTeam';
-import placeholder from '../../assets/teamphoto/placeholder.svg';
-import karma from '../../assets/teamphoto/karm.jpeg'; // Used for FallbackAvatar if needed, though FallbackAvatar usually uses something else
+import { motion, useScroll, useTransform, useSpring } from 'motion/react';
+import gsap from 'gsap';
 
+// --- Local Components ---
 
-// --- Fallback SVG Avatar ---
-// This component is used if a team member's `avatar` is null.
 const FallbackAvatar = ({ className }) => (
   <svg
-    className={`bg-zinc-100 text-zinc-300 ${className}`}
+    className={`bg-zinc-50 text-zinc-200 ${className}`}
     fill="currentColor"
     viewBox="0 0 24 24"
     aria-hidden="true"
@@ -24,16 +20,87 @@ const FallbackAvatar = ({ className }) => (
   </svg>
 );
 
-// --- Team Component ---
-const Team = () => {
-  const { user, setShowAuthModal } = useAuth();
-  const [activeFilter, setActiveFilter] = useState('All');
-  const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+const LocalMagneticCursor = () => {
+  const cursorRef = useRef(null);
+  const followerRef = useRef(null);
 
-  // DB State
+  useEffect(() => {
+    const cursor = cursorRef.current;
+    const follower = followerRef.current;
+    if (!cursor || !follower) return;
+
+    const onMouseMove = (e) => {
+      const { clientX, clientY } = e;
+      gsap.to(cursor, { x: clientX, y: clientY, duration: 0.1, ease: 'none' });
+      gsap.to(follower, { x: clientX, y: clientY, duration: 0.6, ease: 'power3.out' });
+    };
+
+    const onMouseEnter = () => gsap.to([cursor, follower], { opacity: 1, duration: 0.3 });
+    const onMouseLeave = () => gsap.to([cursor, follower], { opacity: 0, duration: 0.3 });
+
+    window.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseenter', onMouseEnter);
+    document.addEventListener('mouseleave', onMouseLeave);
+
+    const handleHover = (e) => {
+      const target = e.target.closest('[data-magnetic]');
+      if (target) {
+        const rect = target.getBoundingClientRect();
+        gsap.to(follower, {
+          width: rect.width + 20,
+          height: rect.height + 20,
+          borderRadius: '4px',
+          duration: 0.4,
+          ease: 'power3.out',
+          backgroundColor: 'rgba(0,0,0,0.03)',
+          borderColor: 'rgba(0,0,0,0.1)'
+        });
+        gsap.to(cursor, { scale: 0, duration: 0.3 });
+      }
+    };
+
+    const handleLeave = (e) => {
+      const target = e.target.closest('[data-magnetic]');
+      if (target) {
+        gsap.to(follower, {
+          width: 40,
+          height: 40,
+          borderRadius: '50%',
+          duration: 0.4,
+          ease: 'power3.out',
+          backgroundColor: 'transparent',
+          borderColor: 'rgba(0,0,0,0.2)'
+        });
+        gsap.to(cursor, { scale: 1, duration: 0.3 });
+      }
+    };
+
+    document.addEventListener('mouseover', handleHover);
+    document.addEventListener('mouseout', handleLeave);
+
+    return () => {
+      window.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseenter', onMouseEnter);
+      document.removeEventListener('mouseleave', onMouseLeave);
+      document.removeEventListener('mouseover', handleHover);
+      document.removeEventListener('mouseout', handleLeave);
+    };
+  }, []);
+
+  return (
+    <>
+      <div ref={cursorRef} className="fixed top-0 left-0 w-1.5 h-1.5 bg-black rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 opacity-0 hidden md:block" />
+      <div ref={followerRef} className="fixed top-0 left-0 w-10 h-10 border border-black/20 rounded-full pointer-events-none z-[9998] -translate-x-1/2 -translate-y-1/2 opacity-0 hidden md:block" />
+    </>
+  );
+};
+
+// --- Main Team Component ---
+
+const Team = () => {
+  const containerRef = useRef(null);
+  const [activeFilter, setActiveFilter] = useState('All');
   const [members, setMembers] = useState(staticTeamMembers);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchMembers();
@@ -45,264 +112,214 @@ const Team = () => {
         .from('team_members')
         .select('*')
         .order('created_at', { ascending: true });
-
-      if (error) {
-        console.warn('Error fetching team (using static):', error.message);
-        setMembers(staticTeamMembers);
-      } else if (data && data.length > 0) {
-        // Normalize roles to match static data
-        const normalizedData = data.map(member => ({
-          ...member,
-          role: member.role === 'Full Stack Developer' ? 'Full Stack Engineer' :
-            member.role === 'Architecture' ? 'Architect' :
-              member.role === 'Architecture Intern' ? 'Architect Intern' : member.role
-        }));
-
-        // Enforce fixed order for core team
-        const fixedOrder = [
-          'thinley-dhendup',
-          'karma',
-          'kinley-wangdi',
-          'ash',
-          'tashi-dendup',
-          'guru-wangchuk'
-        ];
-
-        const sortedData = normalizedData.sort((a, b) => {
-          const indexA = fixedOrder.indexOf(a.slug);
-          const indexB = fixedOrder.indexOf(b.slug);
-
-          // If both are in fixed list, sort by separate fixed order
-          if (indexA !== -1 && indexB !== -1) return indexA - indexB;
-
-          // If a is fixed, it comes first
-          if (indexA !== -1) return -1;
-
-          // If b is fixed, it comes first
-          if (indexB !== -1) return 1;
-
-          // If neither is fixed, maintain original date-based order (created_at)
-          return 0;
-        });
-
-        setMembers(sortedData);
+      if (!error && data && data.length > 0) {
+        setMembers(data);
       } else {
         setMembers(staticTeamMembers);
       }
-    } catch (err) {
-      console.error(err);
+    } catch {
       setMembers(staticTeamMembers);
-    } finally {
-      setLoading(false);
     }
   };
 
-  // Get unique roles from members and sort them
+  const roleOrder = [
+    'Principal Architect',
+    'Administration',
+    'BIM Architect',
+    'Architect',
+    'Architecture apprentice',
+    'Full Stack Engineer'
+  ];
+
+  const roleMapping = {
+    'Admin': 'Administration',
+    'Architect Intern': 'Architecture apprentice',
+    'Full Stack Developer': 'Full Stack Engineer'
+  };
+
+  const getNormalizedRole = (role) => {
+    const trimmed = role?.trim();
+    return roleMapping[trimmed] || trimmed;
+  };
+
+  // Normalize roles for filtering
   const filterRoles = useMemo(() => {
-    const roles = [...new Set(members.map(m => m.role))];
-    const customOrder = [
-      'Principal Architect',
-      'Admin',
-      'Architect',
-      'Architect Intern',
-      'Full Stack Engineer'
-    ];
-    return roles.sort((a, b) => {
-      const indexA = customOrder.indexOf(a);
-      const indexB = customOrder.indexOf(b);
-      // If both are in custom list, sort by index
-      if (indexA !== -1 && indexB !== -1) return indexA - indexB;
-      // If one is in list, prioritize it
-      if (indexA !== -1) return -1;
-      if (indexB !== -1) return 1;
-      // Otherwise alphabetical
+    const rawRoles = [...new Set(members.map(m => getNormalizedRole(m.role)))].filter(Boolean);
+
+    return rawRoles.sort((a, b) => {
+      const idxA = roleOrder.indexOf(a);
+      const idxB = roleOrder.indexOf(b);
+      if (idxA !== -1 && idxB !== -1) return idxA - idxB;
+      if (idxA !== -1) return -1;
+      if (idxB !== -1) return 1;
       return a.localeCompare(b);
     });
   }, [members]);
 
+  const filteredMembers = useMemo(() =>
+    activeFilter === 'All' ? members : members.filter(m => getNormalizedRole(m.role) === activeFilter)
+    , [activeFilter, members]);
 
-  const filteredMembers =
-    activeFilter === 'All'
-      ? members
-      : members.filter((member) => member.role === activeFilter);
+  // Reset scroll when filter changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [activeFilter]);
 
+  const totalSections = filteredMembers.length;
+
+  // 1. Core Mechanic: Sticky-Track
+  // Mapping vertical scroll to horizontal progress
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+  });
+
+  // Smooth out the progress for that "premium" feel
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  // 2. The Animation Logic: Mapping
+  // Transform 0-1 vertical progress to horizontal translate
+  const x = useTransform(smoothProgress, [0, 1], ["0%", `-${(totalSections - 1) * 100}%`]);
+
+  // Drive index for bottom counter based on progress
+  const rawIndex = useTransform(smoothProgress, [0, 1], [0, totalSections - 1]);
+  const [currentIdx, setCurrentIdx] = useState(0);
+
+  useEffect(() => {
+    return rawIndex.on("change", (v) => setCurrentIdx(Math.round(v)));
+  }, [rawIndex]);
 
   return (
-    <div>
-      <div className="min-h-screen relative bg-white px-3 sm:px-5 lg:px-10 py-10">
-        <NavLink to="/" className="absolute top-6 sm:top-10 left-3 sm:left-5 lg:left-10 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-20">
-          <img src={rightArrow} alt="back" className="w-4 h-4 rotate-180" />
-          <span>Back to home</span>
-        </NavLink>
+    <div className="bg-white selection:bg-black selection:text-white relative no-scrollbar">
+      <LocalMagneticCursor />
 
-        <div className="w-full py-20">
-          {/* Header section - similar to Portfolio page */}
-          <div className="mb-10 lg:mb-14">
-            <h1 className="text-3xl lg:text-7xl font-bold tracking-tight leading-tight uppercase mb-6 -ml-0.5">
-              Meet Our Creative Team
-            </h1>
-            <p className="text-zinc-600 text-sm lg:text-lg leading-relaxed max-w-2xl">
-              We are a collective of designers, developers, and strategists passionate about building exceptional digital experiences.
-            </p>
-            <div className="mt-8">
-              <ButtonType3 title="Contact Us" to="/contact" />
-            </div>
-          </div>
+      {/* Navigation */}
+      <NavLink to="/" className="absolute top-6 sm:top-10 left-3 sm:left-5 lg:left-10 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-50 text-black">
+        <img src={rightArrow} alt="back" className="w-4 h-4 rotate-180" />
+        <span>Back to home</span>
+      </NavLink>
 
-          {/* Filter and View Controls - Updated to match Portfolio style */}
-          <div className="mb-10 sm:mb-16">
-            {/* Mobile Dropdown */}
-            <div className="sm:hidden relative z-30">
-              <button
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="flex items-center justify-between w-full px-4 py-3 bg-white border border-zinc-200 rounded-full shadow-sm"
+      {/* 1. The Container (The Track) - Height controls the "slowness" */}
+      <div
+        ref={containerRef}
+        style={{ height: `${totalSections * 150}vh` }}
+        className="relative"
+      >
+        {/* The Sticky Element: Locks the view in place */}
+        <div className="sticky top-0 h-screen w-screen overflow-hidden">
+          <motion.div
+            style={{ x }}
+            className="flex h-full w-full"
+          >
+            {filteredMembers.map((member, index) => (
+              <section
+                key={member.id}
+                className="relative min-w-full h-full flex flex-none items-center justify-center px-6 md:px-20"
               >
-                <div className="flex items-center gap-2">
-                  <div className={`w-2 h-2 rounded-full bg-black`}></div>
-                  <span className="text-sm font-medium text-zinc-900">
-                    {activeFilter === 'All' ? 'All Categories' : activeFilter}
-                  </span>
-                </div>
-                <FaChevronDown className={`w-3 h-3 text-zinc-400 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
-              </button>
-
-              {isDropdownOpen && (
-                <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-zinc-200 rounded-xl shadow-xl overflow-hidden py-1 z-50">
-                  <button
-                    onClick={() => { setActiveFilter('All'); setIsDropdownOpen(false); }}
-                    className="flex items-center w-full px-4 py-3 hover:bg-zinc-50 border-b border-zinc-100 last:border-0 text-left"
-                  >
-                    <div className={`w-2 h-2 rounded-full mr-3 shrink-0 transition-colors ${activeFilter === 'All' ? 'bg-black' : 'bg-zinc-200'}`}></div>
-                    <span className={`text-sm ${activeFilter === 'All' ? 'text-black font-medium' : 'text-zinc-600'}`}>All Categories</span>
-                  </button>
-                  {filterRoles.map((role) => (
-                    <button
-                      key={role}
-                      onClick={() => { setActiveFilter(role); setIsDropdownOpen(false); }}
-                      className="flex items-center w-full px-4 py-3 hover:bg-zinc-50 border-b border-zinc-100 last:border-0 text-left"
+                <div className="grid grid-cols-1 md:grid-cols-3 w-full max-w-[1400px] items-center gap-6 lg:gap-14">
+                  {/* Left Column */}
+                  <div className="order-2 md:order-1 flex flex-col items-center justify-center">
+                    <motion.div
+                      initial={{ opacity: 0, x: -30 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                      className="text-center group cursor-default"
                     >
-                      <div className={`w-2 h-2 rounded-full mr-3 shrink-0 transition-colors ${activeFilter === role ? 'bg-black' : 'bg-zinc-200'}`}></div>
-                      <span className={`text-sm capitalize ${activeFilter === role ? 'text-black font-medium' : 'text-zinc-600'}`}>{role}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Desktop List */}
-            <div className="hidden sm:flex flex-nowrap overflow-x-auto gap-3 sm:gap-6 items-center pb-2 items-start justify-start w-full no-scrollbar">
-              <button
-                onClick={() => setActiveFilter('All')}
-                className="flex items-center gap-2 group cursor-pointer whitespace-nowrap shrink-0"
-              >
-                <div className={`w-2 h-2 rounded-full transition-all duration-300 ${activeFilter === 'All' ? 'bg-black' : 'bg-zinc-300 group-hover:bg-zinc-400'
-                  }`}></div>
-                <span className="text-xs sm:text-sm text-zinc-600 group-hover:text-black transition-colors">All</span>
-              </button>
-
-              {filterRoles.map((role) => (
-                <button
-                  key={role}
-                  onClick={() => setActiveFilter(role)}
-                  className="flex items-center gap-2 group cursor-pointer whitespace-nowrap shrink-0"
-                >
-                  <div className={`w-2 h-2 rounded-full transition-all duration-300 ${activeFilter === role ? 'bg-black' : 'bg-zinc-300 group-hover:bg-zinc-400'
-                    }`}></div>
-                  <span className="text-xs sm:text-sm text-zinc-600 group-hover:text-black transition-colors capitalize">
-                    {role}
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Team Members List/Grid */}
-          <section>
-            {loading ? (
-              <ul className={viewMode === 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12' : 'flex flex-col gap-6'}>
-                {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-                  <li key={i} className={`bg-white rounded-lg border border-zinc-100 shadow-sm animate-pulse overflow-hidden ${viewMode === 'list' ? 'flex flex-col sm:flex-row h-auto sm:h-48' : ''}`}>
-                    <div className={`${viewMode === 'list' ? 'w-full sm:w-48 h-48 sm:h-full' : 'w-full aspect-square'} bg-zinc-200 shrink-0`} />
-                    <div className="p-6 w-full flex flex-col justify-center">
-                      <div className="h-7 bg-zinc-200 rounded w-3/4 mb-3" />
-                      <div className="h-5 bg-zinc-200 rounded w-1/2 mb-4" />
-                      <div className="space-y-2 mb-6">
-                        <div className="h-3 bg-zinc-200 rounded w-full" />
-                        <div className="h-3 bg-zinc-200 rounded w-5/6" />
-                        <div className="h-3 bg-zinc-200 rounded w-4/6" />
+                      <div className="relative inline-block pb-2 mb-4">
+                        <h2 className="text-2xl md:text-3xl lg:text-4xl font-normal tracking-tighter uppercase whitespace-nowrap">
+                          {member.name}
+                        </h2>
+                        <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-black transition-all duration-700 ease-out group-hover:w-full" />
                       </div>
-                      <div className="h-4 bg-zinc-200 rounded w-1/3 mt-auto" />
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <ul className={viewMode === 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12' : 'flex flex-col gap-6'}>
-                {filteredMembers.map((member) => {
-                  return (
-                    <li key={member.id} className={`bg-white rounded-lg border border-zinc-200 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 cursor-pointer ${viewMode === 'list' ? 'flex flex-col sm:flex-row items-center overflow-hidden' : 'overflow-hidden'}`}>
-                      <NavLink
-                        to={`/team/${member.slug}`}
-                        className="block w-full h-full"
-                      >
-                        {viewMode === 'grid' ? (
-                          <> {/* Grid View Layout */}
-                            <div className="aspect-w-1 aspect-h-1">
-                              {member.avatar ? <img src={member.avatar} alt={`Portrait of ${member.name}`} className="w-full h-full object-cover" loading="eager" /> : <FallbackAvatar className="w-full h-full object-cover" />}
-                            </div>
-                            <div className="p-6">
-                              <div className="flex justify-between items-baseline gap-2">
-                                <h3 className="text-xl font-bold text-zinc-900">{member.name}</h3>
-                                <p className="text-zinc-400 text-[10px] uppercase tracking-widest shrink-0">{member.role}</p>
-                              </div>
-                              <p className="text-zinc-600 mt-3 text-sm h-20 line-clamp-3">{member.bio}</p>
-                              <div className="mt-4 pt-4 border-t border-zinc-200">
-                                <span className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">
-                                  View Portfolio →
-                                </span>
-                              </div>
-                            </div>
-                          </>
-                        ) : (
-                          <div className="flex flex-col sm:flex-row items-center w-full h-full">
-                            <div className="w-full sm:w-48 h-64 sm:h-full flex-shrink-0">
-                              {member.avatar ? <img src={member.avatar} alt={`Portrait of ${member.name}`} className="w-full h-full object-cover" loading="eager" /> : <FallbackAvatar className="w-full h-full" />}
-                            </div>
-                            <div className="p-6 flex-grow flex flex-col justify-center h-full">
-                              <h3 className="text-xl font-bold text-zinc-900">{member.name}</h3>
-                              <p className="text-zinc-600 font-semibold mt-1">{member.role}</p>
-                              <p className="text-zinc-600 mt-3 text-sm line-clamp-2">{member.bio}</p>
-                              <div className="mt-4 pt-4 border-t border-zinc-200">
-                                <span className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">
-                                  View Portfolio →
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                      </NavLink>
-                    </li>
-                  );
-                })}
-              </ul>
-            )}
-          </section>
+                      <p className="text-zinc-500 text-[10px] md:text-xs uppercase tracking-[0.2em] font-light">
+                        {member.role}
+                      </p>
+                    </motion.div>
+                  </div>
 
-          {/* CTA Section */}
-          <section className="text-center mt-24 py-12 bg-zinc-50 rounded-lg">
-            <h2 className="text-3xl font-bold tracking-tight text-zinc-900">Want to Join Our Team?</h2>
-            <p className="mt-3 max-w-md mx-auto text-base text-zinc-600">We're always looking for talented individuals. Check out our open positions or get in touch.</p>
-            <div className="mt-8 flex justify-center">
-              <div className="max-w-fit">
-                <ButtonType3 title="Contact Us" to="/contact" />
-              </div>
-            </div>
-          </section>
+                  {/* Center Column: Portrait (Refined Size) */}
+                  <div className="order-1 md:order-2 flex justify-center">
+                    <motion.div
+                      className="w-full aspect-[4/5] max-w-[360px] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] bg-zinc-50 border border-zinc-50"
+                      data-magnetic
+                    >
+                      {member.avatar ? (
+                        <img
+                          src={member.avatar}
+                          alt={member.name}
+                          className="w-full h-full object-cover scale-[1.01] hover:scale-100 transition-transform duration-1000 ease-out"
+                        />
+                      ) : (
+                        <FallbackAvatar className="w-full h-full" />
+                      )}
+                    </motion.div>
+                  </div>
+
+                  {/* Right Column: Next Member Hint */}
+                  <div className="hidden md:flex order-3 items-center justify-center">
+                    {filteredMembers[index + 1] && (
+                      <h3
+                        className="text-2xl md:text-3xl lg:text-4xl font-normal tracking-tighter uppercase whitespace-nowrap text-zinc-100 select-none"
+                      >
+                        {filteredMembers[index + 1].name}
+                      </h3>
+                    )}
+                  </div>
+                </div>
+              </section>
+            ))}
+          </motion.div>
         </div>
       </div>
-      <Footer />
-    </div>
 
+      {/* --- Bottom Navigation --- */}
+      <div className="fixed bottom-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md pt-6 pb-2 border-t border-zinc-100">
+        <div className="flex items-center justify-between px-6 md:px-10 mb-6">
+          <div className="flex flex-wrap gap-4 md:gap-8 items-center">
+            <button
+              onClick={() => setActiveFilter('All')}
+              className="flex items-center gap-2 group cursor-pointer"
+            >
+              <div className={`w-2 h-2 rounded-full transition-all duration-300 ${activeFilter === 'All' ? 'bg-black' : 'bg-zinc-300 group-hover:bg-zinc-400'}`} />
+              <span className={`text-xs sm:text-sm transition-colors ${activeFilter === 'All' ? 'text-black font-medium' : 'text-zinc-600 group-hover:text-black'}`}>All Categories</span>
+            </button>
+            {filterRoles.map(role => (
+              <button
+                key={role}
+                onClick={() => setActiveFilter(role)}
+                className="flex items-center gap-2 group cursor-pointer"
+              >
+                <div className={`w-2 h-2 rounded-full transition-all duration-300 ${activeFilter === role ? 'bg-black' : 'bg-zinc-300 group-hover:bg-zinc-400'}`} />
+                <span className={`text-xs sm:text-sm transition-colors capitalize ${activeFilter === role ? 'text-black font-medium' : 'text-zinc-600 group-hover:text-black'}`}>{role}</span>
+              </button>
+            ))}
+          </div>
+
+          <div className="text-xs sm:text-sm font-medium text-zinc-900 pr-2 pb-1">
+            ({currentIdx + 1} / {totalSections})
+          </div>
+        </div>
+
+        <div className="flex items-center gap-1 overflow-x-auto no-scrollbar px-1 bg-zinc-50 py-1">
+          {filteredMembers.map((m, i) => (
+            <div
+              key={m.id}
+              onClick={() => {
+                const totalHeight = containerRef.current.scrollHeight - window.innerHeight;
+                const target = (i / (totalSections - 1)) * totalHeight;
+                window.scrollTo({ top: Math.max(0, target), behavior: 'smooth' });
+              }}
+              className={`w-14 h-16 md:w-16 md:h-20 shrink-0 cursor-pointer overflow-hidden border transition-all duration-300 ${currentIdx === i ? 'border-black ring-2 ring-black/5 grayscale-0' : 'border-transparent grayscale opacity-40 hover:opacity-100'}`}
+            >
+              {m.avatar ? <img src={m.avatar} className="w-full h-full object-cover" alt="" /> : <div className="bg-zinc-200 w-full h-full" />}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 };
 

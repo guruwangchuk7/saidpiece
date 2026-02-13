@@ -22,7 +22,7 @@ export const staticTeamMembers = [
     {
         id: 2,
         name: 'Karma',
-        role: 'Admin',
+        role: 'Admini',
         avatar: karma,
         bio: 'Ensures smooth operations and administrative efficiency for the team.',
         slug: 'karma',
@@ -35,7 +35,7 @@ export const staticTeamMembers = [
     {
         id: 3,
         name: 'Kinley Wangdi',
-        role: 'Architect',
+        role: 'BIM Architect',
         avatar: kinley,
         bio: 'Contributes thoughtful design and detailed architectural solutions.',
         slug: 'kinley-wangdi',
