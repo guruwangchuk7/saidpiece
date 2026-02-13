@@ -53,30 +53,42 @@ function H4() {
     <div className="bg-white md:min-h-screen text-[#333333] font-sans selection:bg-zinc-800 selection:text-white">
       <div className="flex flex-col md:flex-row relative">
         {/* Desktop Left Column: Sticky Sidebar */}
-        <div className="hidden md:flex w-full md:w-[40%] px-3 sm:px-5 lg:px-10 py-10 md:h-screen md:sticky md:top-0 flex-col z-10">
-          <motion.h1
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl md:text-6xl font-light tracking-tighter mb-16 mt-10"
-          >
-            PORTFOLIO
-          </motion.h1>
-          <div className="w-full flex-1 flex flex-col gap-2">
-            {portfolioData.name.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ x: 10 }}
-                className="group cursor-pointer"
-                onClick={() => handleScroll(index)}
-              >
-                <Btn2 title={item} idx={index + 1} active={activeIndex === index} />
-              </motion.div>
-            ))}
+        <div className="hidden md:flex w-full md:w-[40%] px-3 sm:px-5 lg:px-10 pt-10 pb-20 md:h-screen md:sticky md:top-0 flex-col z-10 justify-between">
+          <div>
+            <motion.h1
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-4xl md:text-6xl font-light tracking-tighter mb-16 mt-10"
+            >
+              PORTFOLIO
+            </motion.h1>
+            <div className="w-full flex-1 flex flex-col gap-2">
+              {portfolioData.name.map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ x: 10 }}
+                  className="group cursor-pointer"
+                  onClick={() => handleScroll(index)}
+                >
+                  <Btn2 title={item} idx={index + 1} active={activeIndex === index} />
+                </motion.div>
+              ))}
+            </div>
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+          >
+            <NavLink to="/portfolio">
+              <BtnT1 title="ALL PROJECTS" />
+            </NavLink>
+          </motion.div>
         </div>
 
         <div className="hidden md:flex w-full md:w-[60%] px-3 sm:px-5 lg:px-10 py-6 md:py-20 flex-col gap-[0.5cm]">
