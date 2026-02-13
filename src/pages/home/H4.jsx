@@ -79,7 +79,7 @@ function H4() {
           </div>
         </div>
 
-        <div className="hidden md:flex w-full md:w-[60%] px-3 sm:px-5 lg:px-10 py-6 md:py-20 flex-col gap-12 sm:gap-16 md:gap-24 lg:gap-32">
+        <div className="hidden md:flex w-full md:w-[60%] px-3 sm:px-5 lg:px-10 py-6 md:py-20 flex-col gap-[0.5cm]">
           {portfolioData.image.map((item, index) => (
             <motion.div
               key={index}
@@ -92,7 +92,7 @@ function H4() {
                 <motion.img
                   src={item}
                   alt={`Project ${index + 1}`}
-                  className="w-full h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[85vh] object-cover shadow-zinc-900/5 transition-transform duration-1000 ease-out group-hover:scale-110" // Frame fixed, image zooms
+                  className="w-full h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[95vh] object-cover shadow-zinc-900/5 transition-transform duration-1000 ease-out group-hover:scale-110" // Frame fixed, image zooms
                   loading="eager"
                   animate={
                     index === 0 && activeIndex === 0
@@ -112,9 +112,6 @@ function H4() {
                       : { duration: 0.5 }
                   }
                 />
-              </div>
-              <div className="mt-3 sm:mt-4 text-center md:text-left">
-                <span className="text-sm sm:text-base font-medium block">{portfolioData.name[index]}</span>
               </div>
             </motion.div>
           ))}
@@ -176,13 +173,7 @@ function H4() {
             </button>
           </div>
 
-          {/* Mobile Project Info */}
-          <div className="mt-3 sm:mt-4 flex items-center justify-between">
-            <div>
-              <h3 className="text-sm sm:text-base font-semibold text-neutral-900">{portfolioData.name[activeIndex]}</h3>
-              <p className="text-xs text-neutral-500 mt-0.5">Project {activeIndex + 1} of {portfolioData.name.length}</p>
-            </div>
-          </div>
+
 
           {/* Progress Indicators */}
           <div className="flex gap-1.5 mt-3">
