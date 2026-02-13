@@ -7,6 +7,7 @@ import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import HeroNavbar from "./components/popupNavbar/HeroNavbar";
 import ToggleNavbarBtn from "./components/popupNavbar/ToggleNavbarBtn";
+import BackToTop from "./components/common/BackToTop";
 
 import AuthModal from "./components/features/auth/AuthModal";
 
@@ -25,6 +26,7 @@ function App() {
     <div className="relative min-h-screen flex flex-col">
       <AuthModal />
       <ScrollToTop />
+      <BackToTop />
       <div className="absolute top-0 z-30">
         <VisibilityProvider>
           <HeroNavbar></HeroNavbar>
