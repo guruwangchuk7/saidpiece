@@ -157,15 +157,21 @@ const Team = () => {
   ];
 
   const roleMapping = {
-    'Admin': 'Administration',
-    'Architect Intern': 'Architecture apprentice',
-    'Full Stack Developer': 'Full Stack Engineer',
-    'Bim Architect': 'BIM Architect'
+    'admin': 'Administration',
+    'administration': 'Administration',
+    'architect intern': 'Architecture apprentice',
+    'architecture apprentice': 'Architecture apprentice',
+    'full stack developer': 'Full Stack Engineer',
+    'full stack engineer': 'Full Stack Engineer',
+    'bim architect': 'BIM Architect',
+    'principal architect': 'Principal Architect',
+    'architect': 'Architect'
   };
 
   const getNormalizedRole = (role) => {
-    const trimmed = role?.trim();
-    return roleMapping[trimmed] || trimmed;
+    if (!role) return '';
+    const lowerRole = role.toLowerCase().trim();
+    return roleMapping[lowerRole] || role.trim();
   };
 
   // Normalize roles for filtering

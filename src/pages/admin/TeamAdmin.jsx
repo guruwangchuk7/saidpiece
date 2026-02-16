@@ -230,10 +230,10 @@ const TeamAdmin = () => {
                                 >
                                     <option value="">Select a Role</option>
                                     <option value="Principal Architect">Principal Architect</option>
-                                    <option value="Admin">Administration</option>
+                                    <option value="Administration">Administration</option>
                                     <option value="BIM Architect">BIM Architect</option>
                                     <option value="Architect">Architect</option>
-                                    <option value="Architect Intern">Architecture apprentice</option>
+                                    <option value="Architecture apprentice">Architecture apprentice</option>
                                     <option value="Full Stack Engineer">Full Stack Engineer</option>
                                 </select>
                             </div>
