@@ -27,7 +27,7 @@ function Home() {
           <H4 />
         </div>
       </div>
-      <div className="w-full z-0 h-auto md:h-screen bg-white flex flex-col justify-between">
+      <div className="w-full z-0 h-auto md:h-screen bg-white flex flex-col justify-between relative md:fixed md:bottom-0 md:left-0">
         {/* Dimming Overlay for Reveal Effect */}
         <motion.div
           style={{ opacity: overlayOpacity }}
