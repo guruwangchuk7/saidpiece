@@ -382,9 +382,9 @@ const Team = () => {
                   </motion.div>
                 </div>
 
-                <div className="order-1 md:order-2 flex justify-center">
+                <div className="order-1 md:order-2 flex justify-center items-center w-full">
                   <motion.div
-                    className="w-full aspect-[4/5] max-w-[360px] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] bg-zinc-50 border border-zinc-50"
+                    className="w-full aspect-[4/5] max-w-[360px] mx-auto overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] bg-zinc-50 border border-zinc-50"
                     data-magnetic
                   >
                     {member.avatar ? (
