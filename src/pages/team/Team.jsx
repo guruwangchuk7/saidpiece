@@ -159,7 +159,8 @@ const Team = () => {
   const roleMapping = {
     'Admin': 'Administration',
     'Architect Intern': 'Architecture apprentice',
-    'Full Stack Developer': 'Full Stack Engineer'
+    'Full Stack Developer': 'Full Stack Engineer',
+    'Bim Architect': 'BIM Architect'
   };
 
   const getNormalizedRole = (role) => {
