@@ -287,8 +287,9 @@ const Team = () => {
               key={key}
               className="relative min-w-full h-full flex flex-none items-center justify-center px-6 md:px-20 snap-start pb-32 md:pb-24"
             >
-              <div className="grid grid-cols-1 md:grid-cols-3 w-full max-w-[1400px] items-center gap-4 md:gap-14 md:-translate-y-8">
-                <div className="order-2 md:order-1 flex flex-col items-center justify-center">
+              <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-[1600px] gap-10 md:gap-20 lg:gap-32 md:-translate-y-8 px-4 md:px-0">
+                {/* Current Member Info Container */}
+                <div className="order-2 md:order-1 flex-1 flex flex-col items-center justify-center md:-translate-x-8 lg:-translate-x-12">
                   <motion.div
                     initial={{ opacity: 0, x: -30 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -296,20 +297,21 @@ const Team = () => {
                     className="text-center group cursor-default"
                   >
                     <div className="relative inline-block pb-2 mb-2 md:mb-4">
-                      <h2 className="text-xl md:text-3xl lg:text-4xl font-normal tracking-tighter uppercase whitespace-nowrap">
+                      <h2 className="text-lg md:text-2xl lg:text-3xl font-normal tracking-tighter uppercase whitespace-nowrap">
                         {member.name}
                       </h2>
                       <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-black transition-all duration-700 ease-out group-hover:w-full" />
                     </div>
-                    <p className="text-zinc-500 text-[9px] md:text-xs uppercase tracking-[0.2em] font-light">
+                    <p className="text-zinc-500 text-[8px] md:text-[10px] uppercase tracking-[0.2em] font-light text-center">
                       {member.role}
                     </p>
                   </motion.div>
                 </div>
 
-                <div className="order-1 md:order-2 flex justify-center items-center w-full">
+                {/* Main Photo Container */}
+                <div className="order-1 md:order-2 flex-none flex justify-center items-center">
                   <motion.div
-                    className="w-full aspect-[4/5] max-w-[350px] md:max-w-[480px] mx-auto overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] bg-zinc-50 border border-zinc-50"
+                    className="w-full aspect-[4/5] min-w-[300px] max-w-[350px] md:min-w-[400px] md:max-w-[480px] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] bg-zinc-50 border border-zinc-50"
                     data-magnetic
                   >
                     {member.avatar ? (
@@ -324,25 +326,23 @@ const Team = () => {
                   </motion.div>
                 </div>
 
-                <div className="hidden md:flex order-3 items-center justify-center">
-                  {/* Show Next Member Name */}
-                  {/* If we are at index i, show name of i+1. */}
-                  {/* In infinite loop array, i+1 is valid unless at very end.
-                        But our logic goes up to Length-1, so i+1 might be undefined if at absolute last index.
-                        However, scroll logic wraps before we stay at absolute last index.
-                    */}
+                {/* Next Member Hint Container */}
+                <div className="hidden md:flex order-3 flex-1 flex flex-col items-center justify-center md:translate-x-8 lg:translate-x-12">
                   {extendedMembers[index + 1] ? (
-                    <h3 className="text-2xl md:text-3xl lg:text-4xl font-normal tracking-tighter uppercase whitespace-nowrap text-zinc-100 select-none">
-                      {extendedMembers[index + 1].name}
-                    </h3>
-                  ) : (
-                    // If somehow at the very end clone, the "Next" is basically the Real Second Item (since Clone End is First Item).
-                    // Or effectively, show nothing or first item?
-                    // Actually, if we are at Clone End (displayMembers[0]), the "next" physically would be nothing in lists,
-                    // but logic-wise it's the start again.
-                    // Let's just leave empty if not found, transition is fast.
-                    null
-                  )}
+                    <motion.div
+                      initial={{ opacity: 0, x: 30 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                      className="text-center select-none opacity-20"
+                    >
+                      <h3 className="text-lg md:text-2xl lg:text-3xl font-normal tracking-tighter uppercase whitespace-nowrap text-zinc-400">
+                        {extendedMembers[index + 1].name}
+                      </h3>
+                      <p className="text-[8px] md:text-[10px] uppercase tracking-[0.2em] font-light text-zinc-300 text-center">
+                        {extendedMembers[index + 1].role}
+                      </p>
+                    </motion.div>
+                  ) : null}
                 </div>
               </div>
             </section>
