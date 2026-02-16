@@ -149,11 +149,11 @@ const Team = () => {
 
   const roleOrder = [
     'Principal Architect',
-    'Administration',
     'BIM Architect',
     'Architect',
     'Architecture apprentice',
-    'Full Stack Engineer'
+    'Full Stack Engineer',
+    'Administration'
   ];
 
   const roleMapping = {
