@@ -22,6 +22,16 @@ const TeamAdmin = () => {
         email: ''
     });
     const [imageFile, setImageFile] = useState(null);
+    const [isCustomRole, setIsCustomRole] = useState(false);
+
+    const predefinedRoles = [
+        "Principal Architect",
+        "Administration",
+        "BIM Architect",
+        "Architect",
+        "Architecture apprentice",
+        "Full Stack Engineer"
+    ];
 
     useEffect(() => {
         fetchTeam();
@@ -70,7 +80,16 @@ const TeamAdmin = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+        if (name === 'role') {
+            if (!isCustomRole && value === 'CUSTOM_ROLE_OPTION') {
+                setIsCustomRole(true);
+                setFormData(prev => ({ ...prev, role: '' }));
+            } else {
+                setFormData(prev => ({ ...prev, role: value }));
+            }
+        } else {
+            setFormData(prev => ({ ...prev, [name]: value }));
+        }
     };
 
     const handleImageChange = (e) => {
@@ -93,9 +112,11 @@ const TeamAdmin = () => {
         setImageFile(null);
         setEditId(null);
         setIsEditing(false);
+        setIsCustomRole(false);
     };
 
     const handleEdit = (member) => {
+        const isCustom = !predefinedRoles.includes(member.role);
         setFormData({
             name: member.name,
             role: member.role,
@@ -108,6 +129,7 @@ const TeamAdmin = () => {
         });
         setEditId(member.id);
         setIsEditing(true);
+        setIsCustomRole(isCustom);
     };
 
     const handleDelete = async (id) => {
@@ -213,6 +235,12 @@ const TeamAdmin = () => {
                         </button>
                     </div>
 
+                    <div className="mb-6 bg-zinc-50 p-4 rounded-lg border border-zinc-100">
+                        <p className="text-sm text-zinc-600">
+                            <strong>Dynamic Roles:</strong> Any new roles you type in will automatically appear in the website's filter categories once saved.
+                        </p>
+                    </div>
+
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
@@ -221,21 +249,44 @@ const TeamAdmin = () => {
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-zinc-700 mb-1">Role</label>
-                                <select
-                                    name="role"
-                                    value={formData.role}
-                                    onChange={handleInputChange}
-                                    required
-                                    className="w-full px-3 py-2 border border-zinc-300 rounded-md focus:ring-black focus:border-black bg-white"
-                                >
-                                    <option value="">Select a Role</option>
-                                    <option value="Principal Architect">Principal Architect</option>
-                                    <option value="Administration">Administration</option>
-                                    <option value="BIM Architect">BIM Architect</option>
-                                    <option value="Architect">Architect</option>
-                                    <option value="Architecture apprentice">Architecture apprentice</option>
-                                    <option value="Full Stack Engineer">Full Stack Engineer</option>
-                                </select>
+                                {!isCustomRole ? (
+                                    <select
+                                        name="role"
+                                        value={formData.role}
+                                        onChange={handleInputChange}
+                                        required
+                                        className="w-full px-3 py-2 border border-zinc-300 rounded-md focus:ring-black focus:border-black bg-white"
+                                    >
+                                        <option value="">Select a Role</option>
+                                        {[...new Set([...predefinedRoles, ...team.map(m => m.role)])].filter(Boolean).sort().map(role => (
+                                            <option key={role} value={role}>{role}</option>
+                                        ))}
+                                        <option value="CUSTOM_ROLE_OPTION">+ Add New Role...</option>
+                                    </select>
+                                ) : (
+                                    <div className="flex gap-2">
+                                        <input
+                                            type="text"
+                                            name="role"
+                                            value={formData.role}
+                                            onChange={handleInputChange}
+                                            placeholder="Enter new role name"
+                                            required
+                                            autoFocus
+                                            className="w-full px-3 py-2 border border-zinc-300 rounded-md focus:ring-black focus:border-black"
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                setIsCustomRole(false);
+                                                setFormData(prev => ({ ...prev, role: '' }));
+                                            }}
+                                            className="px-3 py-2 text-xs bg-zinc-100 text-zinc-600 rounded-md hover:bg-zinc-200"
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
+                                )}
                             </div>
                             <div className="md:col-span-2">
                                 <label className="block text-sm font-medium text-zinc-700 mb-1">Bio</label>
