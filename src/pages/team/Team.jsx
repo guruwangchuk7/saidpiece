@@ -108,6 +108,7 @@ const Team = () => {
   // Cycle count for footer tracking (0 to 5)
   const [cycleCount, setCycleCount] = useState(0);
   const isScrolling = useRef(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const fetchMembers = async () => {
     try {
@@ -426,8 +427,57 @@ const Team = () => {
 
       {/* --- Bottom Navigation --- */}
       <div className="fixed bottom-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md pt-6 pb-2 border-t border-zinc-100">
-        <div className="flex items-center justify-between px-6 md:px-10 mb-6">
-          <div className="flex flex-wrap gap-4 md:gap-8 items-center">
+        <div className="flex flex-col md:flex-row md:items-center justify-between px-6 md:px-10 mb-4 md:mb-6 gap-4">
+
+
+          {/* Mobile Dropdown */}
+          <div className="md:hidden relative z-50 w-full">
+            <button
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              className="flex items-center justify-between w-full px-4 py-3 bg-white border border-zinc-200 rounded-full shadow-sm"
+            >
+              <div className="flex items-center gap-2">
+                <div className={`w-2 h-2 rounded-full bg-black`}></div>
+                <span className="text-sm font-medium text-zinc-900 capitalize">
+                  {activeFilter}
+                </span>
+              </div>
+              {/* Chevron Icon */}
+              <svg
+                className={`w-3 h-3 text-zinc-400 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            {isDropdownOpen && (
+              <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-zinc-200 rounded-xl shadow-xl overflow-hidden py-1 mb-4 z-50 max-h-[60vh] overflow-y-auto">
+                <button
+                  onClick={() => { handleCategoryClick('All'); setIsDropdownOpen(false); }}
+                  className="flex items-center w-full px-4 py-3 hover:bg-zinc-50 border-b border-zinc-100 last:border-0 text-left"
+                >
+                  <div className={`w-2 h-2 rounded-full mr-3 shrink-0 transition-colors ${activeFilter === 'All' ? 'bg-black' : 'bg-zinc-200'}`}></div>
+                  <span className={`text-sm ${activeFilter === 'All' ? 'text-black font-medium' : 'text-zinc-600'}`}>All Categories</span>
+                </button>
+                {filterRoles.map((role) => (
+                  <button
+                    key={role}
+                    onClick={() => { handleCategoryClick(role); setIsDropdownOpen(false); }}
+                    className="flex items-center w-full px-4 py-3 hover:bg-zinc-50 border-b border-zinc-100 last:border-0 text-left"
+                  >
+                    <div className={`w-2 h-2 rounded-full mr-3 shrink-0 transition-colors ${activeFilter === role ? 'bg-black' : 'bg-zinc-200'}`}></div>
+                    <span className={`text-sm capitalize ${activeFilter === role ? 'text-black font-medium' : 'text-zinc-600'}`}>{role}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="hidden md:flex flex-wrap gap-4 md:gap-8 items-center">
             <button
               onClick={() => handleCategoryClick('All')}
               className="flex items-center gap-2 group cursor-pointer"
@@ -447,7 +497,7 @@ const Team = () => {
             ))}
           </div>
 
-          <div className="text-xs sm:text-sm font-medium text-zinc-900 pr-2 pb-1">
+          <div className="hidden md:block text-xs sm:text-sm font-medium text-zinc-900 pr-2 pb-1">
             {/* Use getRealIndex to show nice 1/N counting */}
             ({currentRealIdx + 1} / {totalRealSections})
           </div>
