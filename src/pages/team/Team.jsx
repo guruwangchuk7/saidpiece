@@ -289,16 +289,19 @@ const Team = () => {
               key={key}
               className="relative min-w-full h-full flex flex-none items-center justify-center px-6 md:px-20 snap-start pb-32 md:pb-24"
             >
-              <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-[1600px] gap-10 md:gap-20 lg:gap-32 md:-translate-y-8 px-4 md:px-0">
+              <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-[1600px] h-full md:h-auto gap-4 md:gap-20 lg:gap-32 md:-translate-y-8 px-4 md:px-0">
+                {/* Mobile Top Spacer to balance the vertical layout and keep photo in center */}
+                <div className="md:hidden flex-1" />
+
                 {/* Current Member Info Container */}
-                <div className="order-2 md:order-1 flex-1 flex flex-col items-center justify-center md:-translate-x-8 lg:-translate-x-12">
+                <div className="order-2 md:order-1 flex-1 flex flex-col items-center justify-start md:justify-center md:-translate-x-8 lg:-translate-x-12">
                   <motion.div
                     initial={{ opacity: 0, x: -30 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                    className="text-center group cursor-default"
+                    className="text-center group cursor-default pt-4 md:pt-0"
                   >
-                    <div className="relative inline-block pb-2 mb-2 md:mb-4">
+                    <div className="relative inline-block pb-1 mb-1 md:mb-4">
                       <h2 className="text-lg md:text-2xl lg:text-3xl font-normal tracking-tighter uppercase whitespace-nowrap">
                         {member.name}
                       </h2>
@@ -313,7 +316,7 @@ const Team = () => {
                 {/* Main Photo Container */}
                 <div className="order-1 md:order-2 flex-none flex justify-center items-center">
                   <motion.div
-                    className="w-full aspect-[4/5] min-w-[300px] max-w-[350px] md:min-w-[400px] md:max-w-[480px] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] bg-zinc-50 border border-zinc-50"
+                    className="w-full aspect-[4/5] min-w-[280px] max-w-[320px] md:min-w-[400px] md:max-w-[480px] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] bg-zinc-50 border border-zinc-50"
                     data-magnetic
                   >
                     {member.avatar ? (
