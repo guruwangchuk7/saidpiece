@@ -8,6 +8,7 @@ import Footer from "./components/layout/Footer";
 import HeroNavbar from "./components/popupNavbar/HeroNavbar";
 import ToggleNavbarBtn from "./components/popupNavbar/ToggleNavbarBtn";
 import BackToTop from "./components/common/BackToTop";
+import MagneticCursor from "./components/common/MagneticCursor";
 
 import AuthModal from "./components/features/auth/AuthModal";
 
@@ -22,9 +23,13 @@ function App() {
     };
   }, [location.pathname]);
 
+  // Check if current path is an admin or dashboard page
+  const isAdminOrDashboard = location.pathname.startsWith('/admin') || location.pathname.startsWith('/dashboard');
+
   return (
     <div className="relative min-h-screen flex flex-col">
       <AuthModal />
+      {!isAdminOrDashboard && <MagneticCursor />}
       <ScrollToTop />
       <BackToTop />
       <div className="absolute top-0 z-30">
