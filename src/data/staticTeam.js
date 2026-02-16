@@ -1,16 +1,9 @@
-import thinleyDhendup from '../assets/teamphoto/thinleydendupb.png';
-import karma from '../assets/teamphoto/karm.jpeg';
-import kinley from '../assets/teamphoto/kinleyb.jpeg';
-import ash from '../assets/teamphoto/ashb.jpeg';
-import tashi from '../assets/teamphoto/tashib.jpeg';
-import guru from '../assets/teamphoto/gurub.jpeg';
-
 export const staticTeamMembers = [
     {
-        id: 1,
+        id: "a8681dce-1437-4631-824f-ee28d35fc76e",
         name: 'Thinley Dhendup',
         role: 'Principal Architect',
-        avatar: thinleyDhendup,
+        avatar: "https://ckxqgtfgghanvtvytjuz.supabase.co/storage/v1/object/public/blog-images/team_thinley-dhendup_1771213398812.png",
         bio: 'Leads architectural design with a strong focus on innovation, sustainability, and project excellence.',
         slug: 'thinley-dhendup',
         socials: {
@@ -20,10 +13,10 @@ export const staticTeamMembers = [
         },
     },
     {
-        id: 2,
+        id: "3d5f538b-4bae-4451-b08d-bf4f7e752ac5",
         name: 'Kinley Wangdi',
         role: 'BIM Architect',
-        avatar: kinley,
+        avatar: "https://ckxqgtfgghanvtvytjuz.supabase.co/storage/v1/object/public/blog-images/team_kinley-wangdi_1771213400349.jpeg",
         bio: 'Contributes thoughtful design and detailed architectural solutions.',
         slug: 'kinley-wangdi',
         socials: {
@@ -33,10 +26,10 @@ export const staticTeamMembers = [
         },
     },
     {
-        id: 3,
+        id: "b04c403b-311a-443f-898a-0fe48989fc15",
         name: 'Karma Tshering',
         role: 'Architect',
-        avatar: ash,
+        avatar: "https://ckxqgtfgghanvtvytjuz.supabase.co/storage/v1/object/public/blog-images/team_ash_1771213402438.jpeg",
         bio: 'Focused on creating sustainable and responsive spaces that honor cultural and environmental context.',
         slug: 'ash',
         socials: {
@@ -46,42 +39,55 @@ export const staticTeamMembers = [
         },
     },
     {
-        id: 4,
+        id: "63b3213b-e4d0-4b12-90c2-7a0a4937ac2e",
         name: 'Tashi Dendup',
-        role: 'Architect Intern',
-        avatar: tashi,
+        role: 'Architecture apprentice',
+        avatar: "https://ckxqgtfgghanvtvytjuz.supabase.co/storage/v1/object/public/blog-images/team_tashi-dendup_1771213403587.jpeg",
         bio: 'Assists design teams while gaining practical architectural experience.',
         slug: 'tashi-dendup',
         socials: {
-            github: null,
+            github: "",
             linkedin: 'https://www.linkedin.com/in/tashi-dendup-915333328/',
-            email: null,
+            email: "",
         },
     },
     {
-        id: 5,
+        id: "b94dc2fc-b0c5-42ad-a4d1-331e042c84c5",
         name: 'Guru Wangchuk',
         role: 'Full Stack Engineer',
-        avatar: guru,
+        avatar: "https://ckxqgtfgghanvtvytjuz.supabase.co/storage/v1/object/public/blog-images/team_guru-wangchuk_1771213404559.jpeg",
         bio: 'Focuses on building scalable, user-centric web applications and modernizing digital presences.',
         slug: 'guru-wangchuk',
         socials: {
             github: 'https://github.com/guruwangchuk7',
-            linkedin: 'https://www.linkedin.com/in/guru-wangchuk-51a083203/', // Keeping existing full link as it matches the profile
+            linkedin: 'https://www.linkedin.com/in/guru-wangchuk-51a083203/',
             email: 'guruwangchuk1234@gmail.com',
         },
     },
     {
-        id: 6,
+        id: "b223d5a1-ca2a-4187-892c-30b9da67c5ef",
         name: 'Karma',
-        role: 'Admin',
-        avatar: karma,
+        role: 'Administration',
+        avatar: "https://ckxqgtfgghanvtvytjuz.supabase.co/storage/v1/object/public/blog-images/team_karma_1771213405483.jpeg",
         bio: 'Ensures smooth operations and administrative efficiency for the team.',
         slug: 'karma',
         socials: {
-            github: null,
-            linkedin: null,
+            github: "",
+            linkedin: "",
             email: 'karmadichen506@gmail.com',
+        },
+    },
+    {
+        id: "198cfb04-8b1b-47a0-93cc-395ea674accc",
+        name: 'Tshering Wangchuk',
+        role: 'Travel Guide',
+        avatar: "https://ckxqgtfgghanvtvytjuz.supabase.co/storage/v1/object/public/blog-images/team_1771243427107.png",
+        bio: '',
+        slug: 'tshering-wangchuk',
+        socials: {
+            github: "",
+            linkedin: "",
+            email: "",
         },
     },
 ];

@@ -104,5 +104,16 @@ export const teamPortfolios = {
             { title: 'Resort Renovation', location: 'Trongsa', role: 'Architecture Intern', type: 'Hospitality', year: '2025' },
             { title: 'Monastic Center', location: 'Dodena', role: 'Architecture Intern', type: 'Monastic', year: '2025' }
         ]
+    },
+    'tshering-wangchuk': {
+        aboutQuote: "Expert guide dedicated to showcasing the cultural and natural beauty of the region.",
+        detailedBio: [
+            "Tshering Wangchuk is an experienced Travel Guide with a deep knowledge of the local landscape and culture.",
+            "He ensures that every journey is not just a trip, but an immersive experience into the heart of the community."
+        ],
+        expertise: {
+            "Travel & Culture": ['Cultural Tours', 'Local Knowledge', 'Logistics', 'Customer Service'],
+        },
+        selectedWorks: []
     }
 };

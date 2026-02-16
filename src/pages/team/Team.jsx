@@ -49,7 +49,8 @@ const Team = () => {
           'ash',
           'tashi-dendup',
           'guru-wangchuk',
-          'karma'
+          'karma',
+          'tshering-wangchuk'
         ];
 
         const sortedData = [...data].sort((a, b) => {
@@ -80,7 +81,8 @@ const Team = () => {
     'Architect',
     'Architecture apprentice',
     'Full Stack Engineer',
-    'Administration'
+    'Administration',
+    'Travel Guide'
   ];
 
   const roleMapping = {
