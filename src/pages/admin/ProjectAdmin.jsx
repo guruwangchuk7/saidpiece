@@ -32,11 +32,35 @@ const ProjectAdmin = () => {
         try {
             const { data, error } = await supabase
                 .from('projects')
-                .select('*')
-                .order('created_at', { ascending: false });
+                .select('*');
 
             if (error) throw error;
-            setProjects(data || []);
+
+            if (data && data.length > 0) {
+                const projectOrder = [
+                    'Clock Tower Redevelopment',
+                    'Electricity Regulatory Authority',
+                    'Bhutan National Bank',
+                    'Yangkhil Café',
+                    'Pangbesa Farmhouse',
+                    'Bhutanese Boulangerie'
+                ];
+
+                const sortedData = [...data].sort((a, b) => {
+                    const indexA = projectOrder.indexOf(a.title);
+                    const indexB = projectOrder.indexOf(b.title);
+
+                    if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+                    if (indexA !== -1) return -1;
+                    if (indexB !== -1) return 1;
+
+                    return new Date(b.created_at) - new Date(a.created_at);
+                });
+
+                setProjects(sortedData);
+            } else {
+                setProjects([]);
+            }
         } catch (error) {
             console.error('Error fetching projects:', error);
         } finally {

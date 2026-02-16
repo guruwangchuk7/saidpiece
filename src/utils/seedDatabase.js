@@ -9,28 +9,26 @@ import { staticTeamMembers } from '../data/staticTeam';
  */
 export const importProjects = async () => {
     try {
-        // Check for existing projects by title to avoid duplicates
         const { data: existing, error: fetchError } = await supabase
             .from('projects')
-            .select('title');
+            .select('id, title, image');
 
         if (fetchError) throw fetchError;
 
-        const existingTitles = new Set(existing?.map(p => p.title) || []);
-        const projectsToInsert = [];
+        const existingProjectsMap = new Map(existing?.map(p => [p.title, p]) || []);
+        let importedCount = 0;
+        let updatedCount = 0;
 
         for (const item of portfolioItems) {
-            // Skip if already exists
-            if (existingTitles.has(item.title)) continue;
-
+            const existingProject = existingProjectsMap.get(item.title);
             let imageUrl = item.image;
-            // Upload image if it exists
+
             if (item.image) {
                 try {
                     const response = await fetch(item.image);
                     const blob = await response.blob();
                     const fileExt = blob.type.split('/')[1] || 'jpg';
-                    const fileName = `project_import_${Date.now()}_${Math.random().toString(36).substr(2, 9)}.${fileExt}`;
+                    const fileName = `project_${Date.now()}_${Math.random().toString(36).substr(2, 5)}.${fileExt}`;
 
                     const { error: uploadError } = await supabase.storage
                         .from('blog-images')
@@ -45,10 +43,11 @@ export const importProjects = async () => {
                     imageUrl = publicUrl;
                 } catch (err) {
                     console.error(`Failed to upload image for ${item.title}:`, err);
+                    if (existingProject) imageUrl = existingProject.image;
                 }
             }
 
-            projectsToInsert.push({
+            const projectData = {
                 title: item.title,
                 subtitle: item.subtitle,
                 domain: item.domain,
@@ -59,17 +58,23 @@ export const importProjects = async () => {
                 size: item.size,
                 client: item.client,
                 collaboration: item.collaboration
-            });
+            };
+
+            if (existingProject) {
+                const { error: updateError } = await supabase
+                    .from('projects')
+                    .update(projectData)
+                    .eq('id', existingProject.id);
+                if (updateError) throw updateError;
+                updatedCount++;
+            } else {
+                const { error: insertError } = await supabase.from('projects').insert([projectData]);
+                if (insertError) throw insertError;
+                importedCount++;
+            }
         }
 
-        if (projectsToInsert.length === 0) {
-            return { success: true, count: 0, message: "All projects already exist in the database." };
-        } else {
-            const { error } = await supabase.from('projects').insert(projectsToInsert);
-            if (error) throw error;
-
-            return { success: true, count: projectsToInsert.length, message: `Successfully imported ${projectsToInsert.length} new projects.` };
-        }
+        return { success: true, count: importedCount + updatedCount, message: `Processed ${importedCount + updatedCount} projects (${importedCount} new, ${updatedCount} updated).` };
     } catch (error) {
         console.error("Project import error:", error);
         throw error;
@@ -82,27 +87,29 @@ export const importProjects = async () => {
  */
 export const importTeam = async () => {
     try {
-        // Check for existing members by name/slug to avoid duplicates
+        // Fetch existing members to know what to update vs insert
         const { data: existing, error: fetchError } = await supabase
             .from('team_members')
-            .select('slug, name');
+            .select('id, slug, name, avatar');
 
         if (fetchError) throw fetchError;
 
-        const existingSlugs = new Set(existing?.map(m => m.slug) || []);
-        const existingNames = new Set(existing?.map(m => m.name) || []);
-        const teamToInsert = [];
+        const existingMembersMap = new Map(existing?.map(m => [m.slug, m]) || []);
+        let importedCount = 0;
+        let updatedCount = 0;
 
         for (const item of staticTeamMembers) {
-            if (existingSlugs.has(item.slug) || existingNames.has(item.name)) continue;
-
+            const existingMember = existingMembersMap.get(item.slug);
             let avatarUrl = item.avatar;
+
+            // Upload image if it's a local import (starts with blob or data) or if we want to refresh it
+            // For static imports, item.avatar is usually a processed path from Vite
             if (item.avatar) {
                 try {
                     const response = await fetch(item.avatar);
                     const blob = await response.blob();
                     const fileExt = blob.type.split('/')[1] || 'jpg';
-                    const fileName = `team_import_${Date.now()}_${Math.random().toString(36).substr(2, 9)}.${fileExt}`;
+                    const fileName = `team_${item.slug}_${Date.now()}.${fileExt}`;
 
                     const { error: uploadError } = await supabase.storage
                         .from('blog-images')
@@ -117,27 +124,43 @@ export const importTeam = async () => {
                     avatarUrl = publicUrl;
                 } catch (err) {
                     console.error(`Failed to upload avatar for ${item.name}:`, err);
+                    // Keep existing avatar if upload fails and we have one
+                    if (existingMember) avatarUrl = existingMember.avatar;
                 }
             }
 
-            teamToInsert.push({
+            const memberData = {
                 name: item.name,
                 role: item.role,
                 bio: item.bio,
                 avatar: avatarUrl,
                 slug: item.slug,
                 socials: item.socials
-            });
+            };
+
+            if (existingMember) {
+                const { error: updateError } = await supabase
+                    .from('team_members')
+                    .update(memberData)
+                    .eq('id', existingMember.id);
+
+                if (updateError) throw updateError;
+                updatedCount++;
+            } else {
+                const { error: insertError } = await supabase
+                    .from('team_members')
+                    .insert([memberData]);
+
+                if (insertError) throw insertError;
+                importedCount++;
+            }
         }
 
-        if (teamToInsert.length === 0) {
-            return { success: true, count: 0, message: "All team members already exist in the database." };
-        } else {
-            const { error } = await supabase.from('team_members').insert(teamToInsert);
-            if (error) throw error;
-
-            return { success: true, count: teamToInsert.length, message: `Successfully imported ${teamToInsert.length} new team members.` };
-        }
+        return {
+            success: true,
+            count: importedCount + updatedCount,
+            message: `Successfully processed ${importedCount + updatedCount} team members (${importedCount} new, ${updatedCount} updated).`
+        };
     } catch (error) {
         console.error("Team import error:", error);
         throw error;

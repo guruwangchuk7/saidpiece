@@ -31,11 +31,35 @@ const TeamAdmin = () => {
         try {
             const { data, error } = await supabase
                 .from('team_members')
-                .select('*')
-                .order('created_at', { ascending: true });
+                .select('*');
 
             if (error) throw error;
-            setTeam(data || []);
+
+            if (data && data.length > 0) {
+                const teamOrder = [
+                    'thinley-dhendup',
+                    'kinley-wangdi',
+                    'ash',
+                    'tashi-dendup',
+                    'guru-wangchuk',
+                    'karma'
+                ];
+
+                const sortedData = [...data].sort((a, b) => {
+                    const indexA = teamOrder.indexOf(a.slug);
+                    const indexB = teamOrder.indexOf(b.slug);
+
+                    if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+                    if (indexA !== -1) return -1;
+                    if (indexB !== -1) return 1;
+
+                    return new Date(a.created_at) - new Date(b.created_at);
+                });
+
+                setTeam(sortedData);
+            } else {
+                setTeam([]);
+            }
         } catch (error) {
             console.error('Error fetching team:', error);
             setError(error.message);

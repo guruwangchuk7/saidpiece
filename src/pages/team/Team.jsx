@@ -110,10 +110,35 @@ const Team = () => {
     try {
       const { data, error } = await supabase
         .from('team_members')
-        .select('*')
-        .order('created_at', { ascending: true });
+        .select('*');
+
       if (!error && data && data.length > 0) {
-        setMembers(data);
+        // Explicit order for core team members
+        const teamOrder = [
+          'thinley-dhendup',
+          'kinley-wangdi',
+          'ash',
+          'tashi-dendup',
+          'guru-wangchuk',
+          'karma'
+        ];
+
+        const sortedData = [...data].sort((a, b) => {
+          const indexA = teamOrder.indexOf(a.slug);
+          const indexB = teamOrder.indexOf(b.slug);
+
+          // If both are in the defined order, sort by that order
+          if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+
+          // If only one is in the defined order, it comes first
+          if (indexA !== -1) return -1;
+          if (indexB !== -1) return 1;
+
+          // For new members (not in the list), sort by original database order (created_at or id)
+          return new Date(a.created_at) - new Date(b.created_at);
+        });
+
+        setMembers(sortedData);
       } else {
         setMembers(staticTeamMembers);
       }

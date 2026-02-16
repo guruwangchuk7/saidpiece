@@ -1,4 +1,4 @@
-import thinleyDhendup from '../assets/teamphoto/thinleydendupb.jpeg';
+import thinleyDhendup from '../assets/teamphoto/thinleydendupb.png';
 import karma from '../assets/teamphoto/karm.jpeg';
 import kinley from '../assets/teamphoto/kinleyb.jpeg';
 import ash from '../assets/teamphoto/ashb.jpeg';
@@ -21,19 +21,6 @@ export const staticTeamMembers = [
     },
     {
         id: 2,
-        name: 'Karma',
-        role: 'Admini',
-        avatar: karma,
-        bio: 'Ensures smooth operations and administrative efficiency for the team.',
-        slug: 'karma',
-        socials: {
-            github: null,
-            linkedin: null,
-            email: 'karmadichen506@gmail.com',
-        },
-    },
-    {
-        id: 3,
         name: 'Kinley Wangdi',
         role: 'BIM Architect',
         avatar: kinley,
@@ -46,7 +33,7 @@ export const staticTeamMembers = [
         },
     },
     {
-        id: 4,
+        id: 3,
         name: 'Karma Tshering',
         role: 'Architect',
         avatar: ash,
@@ -59,7 +46,7 @@ export const staticTeamMembers = [
         },
     },
     {
-        id: 5,
+        id: 4,
         name: 'Tashi Dendup',
         role: 'Architect Intern',
         avatar: tashi,
@@ -72,7 +59,7 @@ export const staticTeamMembers = [
         },
     },
     {
-        id: 6,
+        id: 5,
         name: 'Guru Wangchuk',
         role: 'Full Stack Engineer',
         avatar: guru,
@@ -82,6 +69,19 @@ export const staticTeamMembers = [
             github: 'https://github.com/guruwangchuk7',
             linkedin: 'https://www.linkedin.com/in/guru-wangchuk-51a083203/', // Keeping existing full link as it matches the profile
             email: 'guruwangchuk1234@gmail.com',
+        },
+    },
+    {
+        id: 6,
+        name: 'Karma',
+        role: 'Admin',
+        avatar: karma,
+        bio: 'Ensures smooth operations and administrative efficiency for the team.',
+        slug: 'karma',
+        socials: {
+            github: null,
+            linkedin: null,
+            email: 'karmadichen506@gmail.com',
         },
     },
 ];
