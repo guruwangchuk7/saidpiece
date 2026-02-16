@@ -4,7 +4,7 @@ import { useAuth } from '../../context/AuthContext';
 import { NavLink } from 'react-router-dom';
 import rightArrow from '../../assets/icons/rightArrow.svg';
 import { staticTeamMembers } from '../../data/staticTeam';
-import { motion, useScroll, useTransform, useSpring } from 'motion/react';
+import { motion } from 'motion/react';
 import gsap from 'gsap';
 
 // --- Local Components ---
@@ -98,9 +98,11 @@ const LocalMagneticCursor = () => {
 // --- Main Team Component ---
 
 const Team = () => {
-  const containerRef = useRef(null);
+  const scrollContainerRef = useRef(null);
   const [activeFilter, setActiveFilter] = useState('All');
   const [members, setMembers] = useState(staticTeamMembers);
+  const [currentIdx, setCurrentIdx] = useState(0);
+  const isScrolling = useRef(false);
 
   useEffect(() => {
     fetchMembers();
@@ -113,7 +115,6 @@ const Team = () => {
         .select('*');
 
       if (!error && data && data.length > 0) {
-        // Explicit order for core team members
         const teamOrder = [
           'thinley-dhendup',
           'kinley-wangdi',
@@ -126,15 +127,9 @@ const Team = () => {
         const sortedData = [...data].sort((a, b) => {
           const indexA = teamOrder.indexOf(a.slug);
           const indexB = teamOrder.indexOf(b.slug);
-
-          // If both are in the defined order, sort by that order
           if (indexA !== -1 && indexB !== -1) return indexA - indexB;
-
-          // If only one is in the defined order, it comes first
           if (indexA !== -1) return -1;
           if (indexB !== -1) return 1;
-
-          // For new members (not in the list), sort by original database order (created_at or id)
           return new Date(a.created_at) - new Date(b.created_at);
         });
 
@@ -144,6 +139,60 @@ const Team = () => {
       }
     } catch {
       setMembers(staticTeamMembers);
+    }
+  };
+
+  const filteredMembers = useMemo(() =>
+    activeFilter === 'All' ? members : members.filter(m => {
+      const lowerRole = m.role?.toLowerCase().trim();
+      return (roleMapping[lowerRole] || m.role?.trim()) === activeFilter;
+    })
+    , [activeFilter, members]);
+
+  const totalSections = filteredMembers.length;
+
+  // --- Wheel Event Listener for Snapped Horizontal Scroll ---
+  useEffect(() => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+
+    const onWheel = (e) => {
+      if (e.deltaY !== 0) {
+        e.preventDefault();
+        if (isScrolling.current) return;
+
+        const clientWidth = el.clientWidth;
+
+        if (e.deltaY > 0) {
+          // Scroll Down -> Go Next
+          if (currentIdx < totalSections - 1) {
+            isScrolling.current = true;
+            el.scrollTo({ left: (currentIdx + 1) * clientWidth, behavior: 'smooth' });
+            setTimeout(() => { isScrolling.current = false; }, 600);
+          }
+        } else {
+          // Scroll Up -> Go Previous
+          if (currentIdx > 0) {
+            isScrolling.current = true;
+            el.scrollTo({ left: (currentIdx - 1) * clientWidth, behavior: 'smooth' });
+            setTimeout(() => { isScrolling.current = false; }, 600);
+          }
+        }
+      }
+    };
+
+    el.addEventListener('wheel', onWheel, { passive: false });
+    return () => el.removeEventListener('wheel', onWheel);
+  }, [currentIdx, totalSections]);
+
+  const handleScroll = () => {
+    if (!scrollContainerRef.current) return;
+    const { scrollLeft, clientWidth } = scrollContainerRef.current;
+    if (clientWidth > 0) {
+      const index = Math.round(scrollLeft / clientWidth);
+      if (index !== currentIdx) {
+        setCurrentIdx(index);
+      }
     }
   };
 
@@ -174,10 +223,8 @@ const Team = () => {
     return roleMapping[lowerRole] || role.trim();
   };
 
-  // Normalize roles for filtering
   const filterRoles = useMemo(() => {
     const rawRoles = [...new Set(members.map(m => getNormalizedRole(m.role)))].filter(Boolean);
-
     return rawRoles.sort((a, b) => {
       const idxA = roleOrder.indexOf(a);
       const idxB = roleOrder.indexOf(b);
@@ -188,126 +235,82 @@ const Team = () => {
     });
   }, [members]);
 
-  const filteredMembers = useMemo(() =>
-    activeFilter === 'All' ? members : members.filter(m => getNormalizedRole(m.role) === activeFilter)
-    , [activeFilter, members]);
-
-  // Reset scroll when filter changes
   useEffect(() => {
-    window.scrollTo(0, 0);
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollLeft = 0;
+      setCurrentIdx(0);
+    }
   }, [activeFilter]);
 
-  const totalSections = filteredMembers.length;
-
-  // 1. Core Mechanic: Sticky-Track
-  // Mapping vertical scroll to horizontal progress
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-  });
-
-  // Smooth out the progress for that "premium" feel
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
-
-  // 2. The Animation Logic: Mapping
-  // Transform 0-1 vertical progress to horizontal translate
-  const x = useTransform(smoothProgress, [0, 1], ["0%", `-${(totalSections - 1) * 100}%`]);
-
-  // Drive index for bottom counter based on progress
-  const rawIndex = useTransform(smoothProgress, [0, 1], [0, totalSections - 1]);
-  const [currentIdx, setCurrentIdx] = useState(0);
-
-  useEffect(() => {
-    return rawIndex.on("change", (v) => setCurrentIdx(Math.round(v)));
-  }, [rawIndex]);
-
   return (
-    <div className="bg-white selection:bg-black selection:text-white relative no-scrollbar">
+    <div className="bg-white selection:bg-black selection:text-white relative h-screen w-screen overflow-hidden">
       <LocalMagneticCursor />
 
-      {/* Navigation */}
-      <NavLink to="/" className="absolute top-6 sm:top-10 left-3 sm:left-5 lg:left-10 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-50 text-black">
+      <NavLink to="/" className="absolute top-6 sm:top-10 left-3 sm:left-5 lg:left-10 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-20">
         <img src={rightArrow} alt="back" className="w-4 h-4 rotate-180" />
         <span>Back to home</span>
       </NavLink>
 
-      {/* 1. The Container (The Track) - Height controls the "slowness" */}
       <div
-        ref={containerRef}
-        style={{ height: `${totalSections * 150}vh` }}
-        className="relative"
+        ref={scrollContainerRef}
+        onScroll={handleScroll}
+        className="flex h-full w-full overflow-x-auto snap-x snap-mandatory no-scrollbar bg-white"
+        style={{ scrollBehavior: 'smooth' }}
       >
-        {/* The Sticky Element: Locks the view in place */}
-        <div className="sticky top-0 h-screen w-screen overflow-hidden">
-          <motion.div
-            style={{ x }}
-            className="flex h-full w-full"
+        {filteredMembers.map((member, index) => (
+          <section
+            key={member.slug}
+            className="relative min-w-full h-full flex flex-none items-center justify-center px-6 md:px-20 snap-start pb-24"
           >
-            {filteredMembers.map((member, index) => (
-              <section
-                key={member.slug}
-                className="relative min-w-full h-full flex flex-none items-center justify-center px-6 md:px-20"
-              >
-                <div className="grid grid-cols-1 md:grid-cols-3 w-full max-w-[1400px] items-center gap-6 lg:gap-14">
-                  {/* Left Column */}
-                  <div className="order-2 md:order-1 flex flex-col items-center justify-center">
-                    <motion.div
-                      initial={{ opacity: 0, x: -30 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                      className="text-center group cursor-default"
-                    >
-                      <div className="relative inline-block pb-2 mb-4">
-                        <h2 className="text-2xl md:text-3xl lg:text-4xl font-normal tracking-tighter uppercase whitespace-nowrap">
-                          {member.name}
-                        </h2>
-                        <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-black transition-all duration-700 ease-out group-hover:w-full" />
-                      </div>
-                      <p className="text-zinc-500 text-[10px] md:text-xs uppercase tracking-[0.2em] font-light">
-                        {member.role}
-                      </p>
-                    </motion.div>
+            <div className="grid grid-cols-1 md:grid-cols-3 w-full max-w-[1400px] items-center gap-6 lg:gap-14">
+              <div className="order-2 md:order-1 flex flex-col items-center justify-center">
+                <motion.div
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                  className="text-center group cursor-default"
+                >
+                  <div className="relative inline-block pb-2 mb-4">
+                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-normal tracking-tighter uppercase whitespace-nowrap">
+                      {member.name}
+                    </h2>
+                    <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-black transition-all duration-700 ease-out group-hover:w-full" />
                   </div>
+                  <p className="text-zinc-500 text-[10px] md:text-xs uppercase tracking-[0.2em] font-light">
+                    {member.role}
+                  </p>
+                </motion.div>
+              </div>
 
-                  {/* Center Column: Portrait (Refined Size) */}
-                  <div className="order-1 md:order-2 flex justify-center">
-                    <motion.div
-                      className="w-full aspect-[4/5] max-w-[360px] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] bg-zinc-50 border border-zinc-50"
-                      data-magnetic
-                    >
-                      {member.avatar ? (
-                        <img
-                          src={member.avatar}
-                          alt={member.name}
-                          className="w-full h-full object-cover scale-[1.01] hover:scale-100 transition-transform duration-1000 ease-out"
-                        />
-                      ) : (
-                        <FallbackAvatar className="w-full h-full" />
-                      )}
-                    </motion.div>
-                  </div>
+              <div className="order-1 md:order-2 flex justify-center">
+                <motion.div
+                  className="w-full aspect-[4/5] max-w-[360px] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] bg-zinc-50 border border-zinc-50"
+                  data-magnetic
+                >
+                  {member.avatar ? (
+                    <img
+                      src={member.avatar}
+                      alt={member.name}
+                      className="w-full h-full object-cover scale-[1.01] hover:scale-100 transition-transform duration-1000 ease-out"
+                    />
+                  ) : (
+                    <FallbackAvatar className="w-full h-full" />
+                  )}
+                </motion.div>
+              </div>
 
-                  {/* Right Column: Next Member Hint */}
-                  <div className="hidden md:flex order-3 items-center justify-center">
-                    {filteredMembers[index + 1] && (
-                      <h3
-                        className="text-2xl md:text-3xl lg:text-4xl font-normal tracking-tighter uppercase whitespace-nowrap text-zinc-100 select-none"
-                      >
-                        {filteredMembers[index + 1].name}
-                      </h3>
-                    )}
-                  </div>
-                </div>
-              </section>
-            ))}
-          </motion.div>
-        </div>
+              <div className="hidden md:flex order-3 items-center justify-center">
+                {filteredMembers[index + 1] && (
+                  <h3 className="text-2xl md:text-3xl lg:text-4xl font-normal tracking-tighter uppercase whitespace-nowrap text-zinc-100 select-none">
+                    {filteredMembers[index + 1].name}
+                  </h3>
+                )}
+              </div>
+            </div>
+          </section>
+        ))}
       </div>
 
-      {/* --- Bottom Navigation --- */}
       <div className="fixed bottom-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md pt-6 pb-2 border-t border-zinc-100">
         <div className="flex items-center justify-between px-6 md:px-10 mb-6">
           <div className="flex flex-wrap gap-4 md:gap-8 items-center">
@@ -340,9 +343,8 @@ const Team = () => {
             <div
               key={m.slug}
               onClick={() => {
-                const totalHeight = containerRef.current.scrollHeight - window.innerHeight;
-                const target = (i / (totalSections - 1)) * totalHeight;
-                window.scrollTo({ top: Math.max(0, target), behavior: 'smooth' });
+                const clientWidth = scrollContainerRef.current.clientWidth;
+                scrollContainerRef.current.scrollTo({ left: i * clientWidth, behavior: 'smooth' });
               }}
               className={`w-14 h-16 md:w-16 md:h-20 shrink-0 cursor-pointer overflow-hidden border transition-all duration-300 ${currentIdx === i ? 'border-black ring-2 ring-black/5 grayscale-0' : 'border-transparent grayscale opacity-40 hover:opacity-100'}`}
             >
