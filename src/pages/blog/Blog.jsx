@@ -166,8 +166,8 @@ const Blog = () => {
                         <AnimatePresence mode="popLayout">
                             {filteredItems.map((p) => (
                                 <motion.div
-                                    key={p.id}
-                                    layoutId={`blog-card-${p.id}`}
+                                    key={p.title}
+                                    layoutId={`blog-card-${p.title}`}
                                     onClick={() => navigate(`/blog/${p.id}`)}
                                     className="group cursor-pointer flex flex-col gap-3 sm:gap-4 relative z-0"
                                     initial={{ opacity: 0 }}
@@ -176,7 +176,7 @@ const Blog = () => {
                                 >
                                     <div className="relative overflow-hidden w-full h-[300px] sm:h-[350px] lg:h-[450px]">
                                         <motion.img
-                                            layoutId={`blog-image-${p.id}`}
+                                            layoutId={`blog-image-${p.title}`}
                                             src={p.image}
                                             alt={p.title}
                                             className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
@@ -190,7 +190,7 @@ const Blog = () => {
                                         </div>
                                     </div>
 
-                                    <motion.div layoutId={`blog-info-${p.id}`} className="border-t border-zinc-200 pt-3 sm:pt-4 bg-white">
+                                    <motion.div layoutId={`blog-info-${p.title}`} className="border-t border-zinc-200 pt-3 sm:pt-4 bg-white">
                                         <div className="flex justify-between items-start gap-4">
                                             <h3 className="text-black uppercase font-semibold text-base sm:text-lg lg:text-xl tracking-tight leading-tight group-hover:text-zinc-600 transition-colors">
                                                 {p.title}

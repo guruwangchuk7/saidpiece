@@ -248,7 +248,7 @@ const Team = () => {
           >
             {filteredMembers.map((member, index) => (
               <section
-                key={member.id}
+                key={member.slug}
                 className="relative min-w-full h-full flex flex-none items-center justify-center px-6 md:px-20"
               >
                 <div className="grid grid-cols-1 md:grid-cols-3 w-full max-w-[1400px] items-center gap-6 lg:gap-14">
@@ -338,7 +338,7 @@ const Team = () => {
         <div className="flex items-center gap-1 overflow-x-auto no-scrollbar px-1 bg-zinc-50 py-1">
           {filteredMembers.map((m, i) => (
             <div
-              key={m.id}
+              key={m.slug}
               onClick={() => {
                 const totalHeight = containerRef.current.scrollHeight - window.innerHeight;
                 const target = (i / (totalSections - 1)) * totalHeight;

@@ -207,13 +207,13 @@ const Portfolio = () => {
               ) : (
                 filteredItems.map((p) => (
                   <motion.div
-                    key={p.id}
-                    layoutId={`card-container-${p.id}`}
+                    key={p.title}
+                    layoutId={`card-container-${p.title}`}
                     onClick={() => {
                       if (!user) {
                         setShowAuthModal(true);
                       } else {
-                        setSelectedId(p.id);
+                        setSelectedId(p.title);
                       }
                     }}
                     className="group cursor-pointer flex flex-col gap-3 sm:gap-4 relative z-0"
@@ -223,7 +223,7 @@ const Portfolio = () => {
                   >
                     <div className="relative overflow-hidden w-full h-[300px] sm:h-[350px] lg:h-[450px]">
                       <motion.img
-                        layoutId={`card-image-${p.id}`}
+                        layoutId={`card-image-${p.title}`}
                         src={p.image}
                         alt={p.title}
                         className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
@@ -237,7 +237,7 @@ const Portfolio = () => {
                       </div>
                     </div>
 
-                    <motion.div layoutId={`card-info-${p.id}`} className="border-t border-zinc-200 pt-3 sm:pt-4 bg-white">
+                    <motion.div layoutId={`card-info-${p.title}`} className="border-t border-zinc-200 pt-3 sm:pt-4 bg-white">
                       <div className="flex justify-between items-start gap-4">
                         <h3 className="text-black uppercase font-semibold text-base sm:text-lg lg:text-xl tracking-tight leading-tight">{p.title}</h3>
                         <p className="text-zinc-400 text-[10px] lg:text-xs mt-1 uppercase tracking-widest shrink-0">{p.location}</p>
@@ -254,7 +254,7 @@ const Portfolio = () => {
 
       {/* Expanded Overlay */}
       <AnimatePresence>
-        {selectedId && selectedItem && (
+        {selectedId && projects.find(p => p.title === selectedId) && (
           <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center p-0 pointer-events-none">
             {/* Backdrop */}
             <motion.div
@@ -284,7 +284,7 @@ const Portfolio = () => {
               <div className="w-full md:w-2/3 h-[35vh] sm:h-[40vh] md:h-full relative bg-zinc-100">
                 <motion.img
                   layoutId={`card-image-${selectedId}`}
-                  src={selectedItem.image}
+                  src={projects.find(p => p.title === selectedId).image}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -294,19 +294,19 @@ const Portfolio = () => {
                 <motion.div layoutId={`card-info-${selectedId}`} className="mb-6 md:mb-10">
                   <div className="flex justify-between items-baseline gap-4 mb-2 sm:mb-3">
                     <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tighter leading-none">
-                      {selectedItem.title}
+                      {projects.find(p => p.title === selectedId).title}
                     </h2>
                     <div className="flex items-center gap-2 text-zinc-400 text-[10px] sm:text-xs font-medium uppercase tracking-widest shrink-0">
                       <span className="w-4 sm:w-8 h-[1px] bg-zinc-300"></span>
-                      {selectedItem.location}
+                      {projects.find(p => p.title === selectedId).location}
                     </div>
                   </div>
                   <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-zinc-500 font-light">
-                    {selectedItem.subtitle}
+                    {projects.find(p => p.title === selectedId).subtitle}
                   </p>
-                  {selectedItem.collaboration && (
+                  {projects.find(p => p.title === selectedId).collaboration && (
                     <p className="mt-2 text-zinc-500 text-sm sm:text-base font-medium">
-                      {selectedItem.collaboration}
+                      {projects.find(p => p.title === selectedId).collaboration}
                     </p>
                   )}
                 </motion.div>
@@ -317,21 +317,21 @@ const Portfolio = () => {
                   transition={{ delay: 0.2, duration: 0.4 }}
                 >
                   <p className="text-zinc-600 leading-relaxed text-sm sm:text-base md:text-lg mb-8 md:mb-10">
-                    {selectedItem.description}
+                    {projects.find(p => p.title === selectedId).description}
                   </p>
 
                   <div className="grid grid-cols-2 gap-y-6 sm:gap-y-8 gap-x-3 sm:gap-x-4 border-t border-zinc-100 pt-6 sm:pt-8">
                     <div>
                       <span className="block text-xs uppercase text-zinc-400 tracking-wider mb-1">Completion</span>
-                      <span className="text-sm sm:text-base font-medium text-black">{selectedItem.year}</span>
+                      <span className="text-sm sm:text-base font-medium text-black">{projects.find(p => p.title === selectedId).year}</span>
                     </div>
                     <div>
                       <span className="block text-xs uppercase text-zinc-400 tracking-wider mb-1">Area</span>
-                      <span className="text-sm sm:text-base font-medium text-black">{selectedItem.size}</span>
+                      <span className="text-sm sm:text-base font-medium text-black">{projects.find(p => p.title === selectedId).size}</span>
                     </div>
                     <div className="col-span-2">
                       <span className="block text-xs uppercase text-zinc-400 tracking-wider mb-1">Client</span>
-                      <span className="text-sm sm:text-base font-medium text-black">{selectedItem.client}</span>
+                      <span className="text-sm sm:text-base font-medium text-black">{projects.find(p => p.title === selectedId).client}</span>
                     </div>
                   </div>
                 </motion.div>
