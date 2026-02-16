@@ -285,9 +285,9 @@ const Team = () => {
           return (
             <section
               key={key}
-              className="relative min-w-full h-full flex flex-none items-center justify-center px-6 md:px-20 snap-start pb-24"
+              className="relative min-w-full h-full flex flex-none items-center justify-center px-6 md:px-20 snap-start pb-32 md:pb-24"
             >
-              <div className="grid grid-cols-1 md:grid-cols-3 w-full max-w-[1400px] items-center gap-6 lg:gap-14">
+              <div className="grid grid-cols-1 md:grid-cols-3 w-full max-w-[1400px] items-center gap-4 md:gap-14 md:-translate-y-8">
                 <div className="order-2 md:order-1 flex flex-col items-center justify-center">
                   <motion.div
                     initial={{ opacity: 0, x: -30 }}
@@ -295,13 +295,13 @@ const Team = () => {
                     transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                     className="text-center group cursor-default"
                   >
-                    <div className="relative inline-block pb-2 mb-4">
-                      <h2 className="text-2xl md:text-3xl lg:text-4xl font-normal tracking-tighter uppercase whitespace-nowrap">
+                    <div className="relative inline-block pb-2 mb-2 md:mb-4">
+                      <h2 className="text-xl md:text-3xl lg:text-4xl font-normal tracking-tighter uppercase whitespace-nowrap">
                         {member.name}
                       </h2>
                       <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-black transition-all duration-700 ease-out group-hover:w-full" />
                     </div>
-                    <p className="text-zinc-500 text-[10px] md:text-xs uppercase tracking-[0.2em] font-light">
+                    <p className="text-zinc-500 text-[9px] md:text-xs uppercase tracking-[0.2em] font-light">
                       {member.role}
                     </p>
                   </motion.div>
@@ -309,7 +309,7 @@ const Team = () => {
 
                 <div className="order-1 md:order-2 flex justify-center items-center w-full">
                   <motion.div
-                    className="w-full aspect-[4/5] max-w-[360px] mx-auto overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] bg-zinc-50 border border-zinc-50"
+                    className="w-full aspect-[4/5] max-w-[350px] md:max-w-[480px] mx-auto overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] bg-zinc-50 border border-zinc-50"
                     data-magnetic
                   >
                     {member.avatar ? (
