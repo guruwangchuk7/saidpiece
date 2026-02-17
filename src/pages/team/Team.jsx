@@ -337,9 +337,9 @@ const Team = () => {
                   {extendedMembers[index + 1] ? (
                     <motion.div
                       initial={{ opacity: 0, x: 30 }}
-                      whileInView={{ opacity: 1, x: 0 }}
+                      whileInView={{ opacity: 0.5, x: 0 }}
                       transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                      className="text-center select-none opacity-20"
+                      className="text-center select-none"
                     >
                       <h3 className="text-lg md:text-2xl lg:text-3xl font-normal tracking-tighter uppercase whitespace-nowrap text-zinc-400">
                         {extendedMembers[index + 1].name}
