@@ -211,7 +211,7 @@ function About() {
             <img
               src={aboutDzong}
               alt="Saidpiece Architecture"
-              className="w-full h-full object-cover rounded-sm grayscale hover:grayscale-0 transition-all duration-700"
+              className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
             />
           </div>
 
@@ -232,7 +232,7 @@ function About() {
                   <img
                     src={aboutDzong}
                     alt="Saidpiece Architecture"
-                    className="w-full h-[75vh] object-cover rounded-sm grayscale"
+                    className="w-full h-[75vh] object-cover grayscale"
                   />
                 </div>
 
@@ -362,7 +362,7 @@ function About() {
             <img
               src={teamGuruImg}
               alt="SaidPiece Team"
-              className="w-full h-[70vh] object-cover rounded-sm grayscale hover:grayscale-0 transition-all duration-700"
+              className="w-full h-[70vh] object-cover grayscale hover:grayscale-0 transition-all duration-700"
               loading="eager"
             />
           </div>
@@ -372,7 +372,7 @@ function About() {
             <img
               src={teamGuruImg}
               alt="SaidPiece Team"
-              className="w-full h-[52vh] object-cover rounded-sm grayscale"
+              className="w-full h-[52vh] object-cover grayscale"
             />
           </div>
         </div>
