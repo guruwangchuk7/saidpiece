@@ -15,6 +15,7 @@ import aboutUsImg from '../../assets/aboutusphoto/aboutus.webp';
 // import philosophyImg from '../../assets/homephoto/mainbg.svg'; // Unused and heavy (12MB)
 import teamImg from '../../assets/homephoto/page3Bg.jpg';
 import teamGuruImg from '../../assets/aboutusphoto/teamguru.png';
+import aboutDzong from '../../assets/aboutusphoto/aboutdzong.JPG';
 
 
 // --- SVG Icons ---
@@ -55,7 +56,7 @@ const pageData = {
       { number: "05", title: "Structural and MEP Engineering", description: "Integrated engineering solutions for robust structures." },
       { number: "06", title: "Feasibility Studies and Quantity Surveying", description: "Comprehensive analysis for informed decision making." },
       { number: "07", title: "Construction Management & Supervision", description: "Ensuring quality and excellence in execution." },
-      { number: "08", title: "Cost & Contract Consultanting ", description: "Strategic cost and contract advisory services supporting sustainable, value driven project delivery." },
+      { number: "08", title: "Cost & Contract Consultanting", description: "Strategic cost and contract advisory services supporting sustainable, value driven project delivery." },
     ]
   },
   philosophy: {
@@ -73,7 +74,8 @@ const pageData = {
     description: "Every design begins with context, the landscape, the community, and the story it must tell evolving through a mindful process of collaboration and precision."
   },
   team: {
-    heading: "Who We Are",
+    heading: "Saidpiece Team",
+    subheading: "Who We Are",
     quote: "Saidpiece Architects is a Bhutan-based multi-disciplinary and construction firm specializing in innovative sustainable designs.",
     description: "Offering full turn key services from concept development to project completion, we focus on creating functional, aesthetic and mindful spaces with an emphasis on innovation and sustainability.",
     image: teamImg
@@ -180,36 +182,58 @@ function About() {
         </motion.div>
       </header>
 
-      {/* === INTRO SECTION === */}
-      <section ref={introRef} data-animate-section className="py-16 lg:py-32 px-3 sm:px-5 lg:px-10 text-center">
-        <div className="max-w-6xl mx-auto">
-          <h2 data-animate-child className="text-lg md:text-2xl lg:text-4xl font-light leading-tight mb-6 whitespace-pre-line">
-            {pageData.intro.title}
-          </h2>
-          <p data-animate-child className="text-sm lg:text-xl text-zinc-500 leading-relaxed">
-            {pageData.intro.description}
-          </p>
-        </div>
-      </section>
+      {/* === INTRO & EXPERTISE SECTION === */}
+      <section ref={introRef} data-animate-section className="py-16 lg:py-32 px-3 sm:px-5 lg:px-10">
+        <div className="w-full flex flex-col lg:flex-row gap-[19px]"> {/* 0.5cm approx 19px */}
+          {/* Vertical Image on the left - increased width and aligned to left padding */}
+          <div data-animate-child className="hidden lg:block w-[42%] shrink-0">
+            <img
+              src={aboutDzong}
+              alt="Saidpiece Architecture"
+              className="w-full h-full object-cover rounded-sm grayscale hover:grayscale-0 transition-all duration-700"
+            />
+          </div>
 
-      {/* === OUR PROCESS SECTION (NEW) === */}
-      <section data-animate-section className="py-16 lg:py-32 px-3 sm:px-5 lg:px-10 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-20">
-            <h2 data-animate-child className="text-sm font-bold text-zinc-500 tracking-widest uppercase mb-4">{pageData.process.heading}</h2>
-            <p data-animate-child className="text-lg md:text-2xl lg:text-4xl font-light leading-snug">
-              {pageData.process.tagline}
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 border-t border-zinc-200 pt-16">
-            {pageData.process.steps.map((step) => (
-              <div data-animate-child key={step.number}>
-                <span className="text-zinc-400 font-mono text-lg">{step.number}</span>
-                <h3 className="text-2xl font-semibold text-zinc-900 mt-4 mb-3">{step.title}</h3>
-                <p className="text-zinc-600 leading-relaxed">{step.description}</p>
+          {/* Text Content */}
+          <div className="flex-1">
+            {/* Intro Part */}
+            <div className="mb-20">
+              <h2 data-animate-child className="text-lg md:text-2xl lg:text-4xl font-light leading-tight mb-6 whitespace-pre-line text-left">
+                {pageData.intro.title}
+              </h2>
+              <p data-animate-child className="text-sm lg:text-xl text-zinc-500 leading-relaxed text-left">
+                {pageData.intro.description}
+              </p>
+            </div>
+
+            {/* Expertise Part */}
+            <div className="border-t border-zinc-200 pt-16">
+              <div className="mb-12">
+                <h2 data-animate-child className="text-sm font-bold text-zinc-500 tracking-widest uppercase mb-4">{pageData.process.heading}</h2>
+                <p data-animate-child className="text-lg md:text-xl lg:text-2xl font-light leading-snug">
+                  {pageData.process.tagline}
+                </p>
               </div>
-            ))}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+                {pageData.process.steps.map((step) => (
+                  <div data-animate-child key={step.number}>
+                    <span className="text-zinc-300 font-mono text-lg">{step.number}</span>
+                    <h3 className="text-lg font-semibold text-zinc-900 mt-2 mb-2">{step.title}</h3>
+                    <p className="text-sm text-zinc-600 leading-relaxed">{step.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
+        </div>
+
+        {/* Mobile-only Image (optional but good for UX) */}
+        <div className="lg:hidden mt-10 px-3">
+          <img
+            src={aboutDzong}
+            alt="Saidpiece Architecture"
+            className="w-full h-64 object-cover rounded-sm"
+          />
         </div>
       </section>
 
@@ -258,7 +282,8 @@ function About() {
           <div data-animate-child className="relative">
             <span className="absolute -top-12 left-0 lg:-left-8 text-[120px] font-serif text-zinc-200 leading-none z-0">“</span>
             <div className="relative z-10">
-              <h2 className="text-sm font-bold text-zinc-500 tracking-widest uppercase mb-6 ml-4 lg:ml-0">{pageData.team.heading}</h2>
+              <h2 className="text-sm font-bold text-zinc-500 tracking-widest uppercase mb-2 ml-4 lg:ml-0">{pageData.team.heading}</h2>
+              <p className="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-6 ml-4 lg:ml-0">{pageData.team.subheading}</p>
               <blockquote className="text-xl lg:text-4xl font-light leading-snug mb-8">
                 {pageData.team.quote}
               </blockquote>
