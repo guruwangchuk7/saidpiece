@@ -350,11 +350,8 @@ function About() {
 
               <div className="border-t border-zinc-100 pt-16">
                 <h2 className="text-[11px] font-bold text-zinc-400 tracking-[0.2em] uppercase mb-8">{pageData.inspiration.heading}</h2>
-                <h3 className="text-2xl md:text-3xl lg:text-[40px] font-light leading-[1.1] mb-10 text-zinc-900 max-w-3xl">
-                  Every design begins with context, the landscape, the community and the story it must tell
-                </h3>
                 <p className="text-sm lg:text-lg text-zinc-500 leading-relaxed max-w-xl">
-                  evolving through a mindful process of collaboration and precision.
+                  {pageData.inspiration.description}
                 </p>
               </div>
             </div>
