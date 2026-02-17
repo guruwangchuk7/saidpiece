@@ -16,6 +16,7 @@ import aboutUsImg from '../../assets/aboutusphoto/aboutus.webp';
 import teamImg from '../../assets/homephoto/page3Bg.jpg';
 import teamGuruImg from '../../assets/aboutusphoto/teamguru.png';
 import aboutDzong from '../../assets/aboutusphoto/aboutdzong.JPG';
+import ctaImg from '../../assets/calltoaction/keyboard.jpg';
 
 
 // --- SVG Icons ---
@@ -86,6 +87,8 @@ const pageData = {
 function About() {
   const mainRef = useRef(null);
   const introRef = useRef(null);
+  const heroRef = useRef(null);
+  const heroImageRef = useRef(null);
 
   const handleScrollDown = () => {
     introRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -109,6 +112,18 @@ function About() {
         duration: 1.5,
         ease: 'power3.out',
         delay: 0.3,
+      });
+
+      // Hero Image Zoom Animation
+      gsap.to(heroImageRef.current, {
+        scale: 1.3,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1, // Added 1s smoothing/lag for a more premium feel
+        },
       });
 
       // Animate each section as it scrolls into view
@@ -157,11 +172,16 @@ function About() {
 
       {/* === HERO SECTION === */}
       <header
-        className="relative w-full h-screen flex flex-col justify-center items-center text-white text-center"
-        style={{ backgroundImage: `url(${aboutUsImg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+        ref={heroRef}
+        className="relative w-full h-screen overflow-hidden flex flex-col justify-center items-center text-white text-center"
       >
-        <div className="absolute inset-0 bg-black/40" />
-        <div data-animate="hero-title" className="relative z-10 px-5 -mt-40">
+        <div
+          ref={heroImageRef}
+          className="absolute inset-0 w-full h-full bg-cover bg-center"
+          style={{ backgroundImage: `url(${aboutUsImg})` }}
+        />
+        <div className="absolute inset-0 bg-black/40 z-10" />
+        <div data-animate="hero-title" className="relative z-20 px-5 -mt-40">
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-normal max-w-4xl mx-auto leading-tight tracking-wide">
             {pageData.hero.heading}
           </h1>
@@ -214,7 +234,7 @@ function About() {
                   {pageData.process.tagline}
                 </p>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12 mb-20">
                 {pageData.process.steps.map((step) => (
                   <div data-animate-child key={step.number}>
                     <span className="text-zinc-300 font-mono text-lg">{step.number}</span>
@@ -222,6 +242,32 @@ function About() {
                     <p className="text-sm text-zinc-600 leading-relaxed">{step.description}</p>
                   </div>
                 ))}
+              </div>
+
+              {/* Philosophy & Vision (Moved to right side) */}
+              <div className="border-t border-zinc-200 pt-16 mt-16">
+                <div className="mb-16">
+                  <h2 data-animate-child className="text-sm font-bold text-zinc-500 tracking-widest uppercase mb-6">{pageData.philosophy.heading}</h2>
+                  <p data-animate-child className="text-lg md:text-xl lg:text-2xl font-light leading-snug mb-10">
+                    {pageData.philosophy.description}
+                  </p>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {pageData.philosophy.principles.map((p, index) => (
+                      <div data-animate-child key={index} className="flex flex-col items-start text-left">
+                        <div className="mb-4 opacity-70 scale-75 origin-left">{p.icon}</div>
+                        <h3 className="text-base font-semibold text-zinc-900 mb-2">{p.title}</h3>
+                        <p className="text-sm text-zinc-600 leading-relaxed">{p.text}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="border-t border-zinc-100 pt-16">
+                  <h2 data-animate-child className="text-sm font-bold text-zinc-500 tracking-widest uppercase mb-6">{pageData.inspiration.heading}</h2>
+                  <p data-animate-child className="text-lg md:text-xl lg:text-2xl font-light text-zinc-800 leading-relaxed">
+                    {pageData.inspiration.description}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -237,36 +283,44 @@ function About() {
         </div>
       </section>
 
-      {/* === PHILOSOPHY SECTION === */}
-      <section data-animate-section className="py-16 lg:py-32 px-3 sm:px-5 lg:px-10 bg-zinc-50">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-20">
-            <h2 data-animate-child className="text-sm font-bold text-zinc-500 tracking-widest uppercase mb-4">{pageData.philosophy.heading}</h2>
-            <p data-animate-child className="text-lg md:text-2xl lg:text-4xl font-light leading-snug">
-              {pageData.philosophy.description}
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {pageData.philosophy.principles.map((p, index) => (
-              <div data-animate-child key={index} className="text-center p-8">
-                <div className="flex justify-center mb-6">{p.icon}</div>
-                <h3 className="text-xl font-semibold text-zinc-900 mb-3">{p.title}</h3>
-                <p className="text-zinc-600 leading-relaxed">{p.text}</p>
-              </div>
-            ))}
-          </div>
+      {/* === CTA SECTION === */}
+      <section data-animate-section className="group/cta relative w-full px-6 sm:px-10 lg:px-20 py-14 sm:py-20 h-[40vh] sm:h-[50vh] overflow-hidden flex flex-col justify-between border-t border-zinc-100">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <img
+            src={ctaImg}
+            alt="saidpiece media"
+            className="w-full h-full object-cover opacity-90 transition-transform duration-1000 ease-out group-hover/cta:scale-105"
+          />
+          <div className="absolute inset-0 bg-black/40"></div>
+        </div>
+
+        {/* Top Text */}
+        <div className="relative z-10 w-full text-white" data-animate-child>
+          <h2
+            className="text-xl sm:text-2xl md:text-3xl tracking-tight leading-tight drop-shadow-md"
+            style={{ fontFamily: 'century-gothic' }}
+          >
+            <span className="font-light" style={{ color: "#aaaaaa" }}>said</span>
+            <span style={{ opacity: 0.95 }}>piece</span>
+          </h2>
+        </div>
+
+        {/* Bottom Button */}
+        <div className="relative z-10 text-white" data-animate-child>
+          <NavLink
+            to="/contact"
+            className="group flex items-center gap-6 text-xs sm:text-sm font-light uppercase tracking-widest border-b border-white pb-3 hover:border-white/70 transition-all w-fit drop-shadow-md text-white"
+          >
+            <span>Contact Us</span>
+            <svg width="40" height="12" viewBox="0 0 40 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-300 group-hover:translate-x-2">
+              <path d="M0 6H39M39 6L34 1M39 6L34 11" stroke="white" strokeWidth="1" />
+            </svg>
+          </NavLink>
         </div>
       </section>
 
-      {/* === INSPIRED BY BHUTAN SECTION (NEW) === */}
-      <section data-animate-section className="py-16 lg:py-32 px-3 sm:px-5 lg:px-10 bg-white text-center">
-        <div className="max-w-4xl mx-auto">
-          <h2 data-animate-child className="text-sm font-bold text-zinc-500 tracking-widest uppercase mb-4">{pageData.inspiration.heading}</h2>
-          <p data-animate-child className="text-lg lg:text-3xl font-light text-zinc-800 leading-relaxed">
-            {pageData.inspiration.description}
-          </p>
-        </div>
-      </section>
+
 
       {/* === TEAM SECTION === */}
       <section data-animate-section className="py-16 lg:py-32 px-3 sm:px-5 lg:px-10 bg-zinc-100">
