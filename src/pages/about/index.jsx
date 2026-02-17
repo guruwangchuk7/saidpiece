@@ -289,13 +289,6 @@ function About() {
                     ))}
                   </div>
                 </div>
-
-                <div className="border-t border-zinc-100 pt-16">
-                  <h2 data-animate-child className="text-sm font-bold text-zinc-500 tracking-widest uppercase mb-6">{pageData.inspiration.heading}</h2>
-                  <p data-animate-child className="text-lg md:text-xl lg:text-2xl font-light text-zinc-800 leading-relaxed">
-                    {pageData.inspiration.description}
-                  </p>
-                </div>
               </div>
             </div>
           </div>
@@ -351,9 +344,16 @@ function About() {
                 {pageData.team.quote}
               </blockquote>
 
-              <p className="text-sm lg:text-xl text-zinc-500 leading-relaxed max-w-2xl">
+              <p className="text-sm lg:text-xl text-zinc-500 leading-relaxed max-w-2xl mb-12">
                 {pageData.team.description}
               </p>
+
+              <div className="border-t border-zinc-100 pt-12">
+                <h2 className="text-sm font-bold text-zinc-500 tracking-widest uppercase mb-6">{pageData.inspiration.heading}</h2>
+                <p className="text-lg md:text-xl lg:text-2xl font-light text-zinc-800 leading-relaxed">
+                  {pageData.inspiration.description}
+                </p>
+              </div>
             </div>
           </div>
 
@@ -382,7 +382,7 @@ function About() {
       <H5 />
 
       <Footer />
-    </main >
+    </main>
   );
 }
 
