@@ -23,12 +23,16 @@ const FallbackAvatar = ({ className }) => (
 
 // --- Main Team Component ---
 
+import TeamDrawer from './components/TeamDrawer';
+
 const Team = () => {
 
   const scrollContainerRef = useRef(null);
   const footerRef = useRef(null);
   const [activeFilter, setActiveFilter] = useState('All');
   const [members, setMembers] = useState(staticTeamMembers);
+  const [selectedMember, setSelectedMember] = useState(null); // State for drawer
+
   // currentIdx tracks the VISIBLE index in the extended list.
   const [currentIdx, setCurrentIdx] = useState(1);
   // Cycle count for footer tracking (0 to 5)
@@ -317,8 +321,10 @@ const Team = () => {
                 {/* Main Photo Container */}
                 <div className="order-1 md:order-2 flex-none flex justify-center items-center">
                   <motion.div
-                    className="w-full aspect-[4/5] min-w-[280px] max-w-[320px] md:min-w-[400px] md:max-w-[480px] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] bg-zinc-50 border border-zinc-50"
+                    className="w-full aspect-[4/5] min-w-[280px] max-w-[320px] md:min-w-[400px] md:max-w-[480px] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] bg-zinc-50 border border-zinc-50 cursor-pointer"
                     data-magnetic
+                    onClick={() => setSelectedMember(member)}
+
                   >
                     {member.avatar ? (
                       <img
@@ -462,6 +468,13 @@ const Team = () => {
           })}
         </div>
       </div>
+
+      {/* Team Details Drawer */}
+      <TeamDrawer
+        isOpen={!!selectedMember}
+        onClose={() => setSelectedMember(null)}
+        member={selectedMember}
+      />
     </div>
   );
 };
