@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom'
 
 function H2() {
   const data = {
-    heading: "STUDIO OF ARCHITECTURE AND DESIGN",
+    heading: "STUDIO OF ARCHITECTURE AND ENGINEERING",
     about:
       "Saidpiece Architects has completed projects across Bhutan and abroad, specializing in architectural design, urban planning, interior design, engineering, and construction consultancy. Guided by the principles of Gross National Happiness, we merge sustainability, creativity, and precision to deliver innovative, culturally authentic design solutions.",
     publication:
