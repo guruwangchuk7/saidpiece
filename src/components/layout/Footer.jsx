@@ -36,7 +36,7 @@ function Footer() {
             <p>T:</p>
             <div className='mt-2 sm:mt-5'>
               <p> <a href="tel:+97517899794" className='underline underline-offset-4'>+975 17899794</a> (BHT) </p>
-              <p> <a href="tel:+66931205085" className='underline underline-offset-4'>+66 931205085</a> (TH) </p>
+              <p> <a href="https://wa.me/66931205085" target="_blank" rel="noopener noreferrer" className='underline underline-offset-4 transition duration-300 hover:scale-105 inline-block'>+66 931205085</a> (TH) </p>
             </div>
           </div>
           <div>

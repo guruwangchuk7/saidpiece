@@ -218,7 +218,7 @@ const ContactInfo = () => (
       <ContactItem label="P:">
         <div className="text-zinc-600">
           <div>+975 17899794 (BHT)</div>
-          <div>+66 931205085 (TH)</div>
+          <div><a href="https://wa.me/66931205085" target="_blank" rel="noopener noreferrer" className="hover:underline">+66 931205085</a> (TH)</div>
         </div>
       </ContactItem>
 

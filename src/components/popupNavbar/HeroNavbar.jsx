@@ -120,9 +120,9 @@ const HeroNavbar = () => {
                     <span className="w-fit">
                       +975 17899794 (BHT)
                     </span>
-                    <span className="w-fit">
+                    <a href="https://wa.me/66931205085" target="_blank" rel="noreferrer" className="w-fit hover:text-white transition-all duration-300">
                       +66 931205085 (TH)
-                    </span>
+                    </a>
                   </div>
                 </div>
 
