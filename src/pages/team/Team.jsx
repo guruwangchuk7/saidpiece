@@ -58,7 +58,8 @@ const Team = () => {
           const indexB = teamOrder.indexOf(b.slug);
           if (indexA !== -1 && indexB !== -1) return indexA - indexB;
           if (indexA !== -1) return -1;
-          if (indexB !== -1) return 1;
+          if (indexB)
+            if (indexB !== -1) return 1;
           return new Date(a.created_at) - new Date(b.created_at);
         });
 
@@ -247,7 +248,7 @@ const Team = () => {
         setCurrentIdx(1);
         setCycleCount(0); // Reset cycle count when filtering to 'All'
       }
-      setActiveFilter('All');
+      setActiveFilter('all');
       return;
     }
 
@@ -287,9 +288,9 @@ const Team = () => {
           return (
             <section
               key={key}
-              className="relative min-w-full h-full flex flex-none items-center justify-center px-6 md:px-20 snap-start pb-32 md:pb-24"
+              className="relative min-w-full h-full flex flex-none items-center justify-center px-6 md:px-20 snap-start pb-40 md:pb-24"
             >
-              <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-[1600px] h-full md:h-auto gap-4 md:gap-20 lg:gap-32 md:-translate-y-8 px-4 md:px-0">
+              <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-[1600px] h-full md:h-auto gap-4 md:gap-20 lg:gap-32 -translate-y-12 md:-translate-y-8 px-4 md:px-0">
                 {/* Mobile Top Spacer to balance the vertical layout and keep photo in center */}
                 <div className="md:hidden flex-1" />
 
@@ -356,7 +357,7 @@ const Team = () => {
       </div>
 
       {/* --- Bottom Navigation --- */}
-      <div className="fixed bottom-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md pt-6 pb-2 border-t border-zinc-100">
+      <div className="fixed bottom-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md pt-6 pb-6 md:pb-2 border-t border-zinc-100">
         <div className="flex flex-col md:flex-row md:items-center justify-between px-6 md:px-10 mb-4 md:mb-6 gap-4">
 
 
