@@ -222,16 +222,23 @@ function About() {
               <h2 data-animate-child className="text-lg md:text-2xl lg:text-4xl font-light leading-tight mb-6 whitespace-pre-line text-left">
                 {pageData.intro.title}
               </h2>
-              <p data-animate-child className="text-sm lg:text-xl text-zinc-500 leading-relaxed text-left">
-                {pageData.intro.description}
-              </p>
-              {/* Vertical Image for Mobile only - placed under the description as requested */}
-              <div data-animate-child className="lg:hidden mt-10">
-                <img
-                  src={aboutDzong}
-                  alt="Saidpiece Architecture"
-                  className="w-full h-[70vh] object-cover rounded-sm grayscale"
-                />
+              <div data-animate-child className="text-sm lg:text-xl text-zinc-500 leading-relaxed text-left">
+                <p>
+                  {pageData.intro.description.split("completion.")[0]}completion.
+                </p>
+
+                {/* Vertical Image for Mobile only - integrated into the text flow for better context */}
+                <div className="lg:hidden my-10">
+                  <img
+                    src={aboutDzong}
+                    alt="Saidpiece Architecture"
+                    className="w-full h-[75vh] object-cover rounded-sm grayscale"
+                  />
+                </div>
+
+                <p className="mt-4 lg:mt-0">
+                  {pageData.intro.description.split("completion.")[1]}
+                </p>
               </div>
             </div>
 
