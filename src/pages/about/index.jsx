@@ -339,16 +339,16 @@ function About() {
         <div className="w-full flex flex-col lg:flex-row gap-[19px]">
           {/* Text block on the left */}
           <div className="flex-1">
-            <div data-animate-child className="mb-14">
+            <div data-animate-child>
               <h2 className="text-2xl md:text-3xl lg:text-[40px] font-light leading-[1.1] mb-10 text-zinc-900 max-w-3xl">
                 {pageData.team.quote}
               </h2>
 
-              <p className="text-sm lg:text-lg text-zinc-500 leading-relaxed max-w-xl mb-20">
+              <p className="text-sm lg:text-lg text-zinc-500 leading-relaxed max-w-xl mb-12">
                 {pageData.team.description}
               </p>
 
-              <div className="border-t border-zinc-100 pt-16">
+              <div className="border-t border-zinc-100 pt-10">
                 <h2 className="text-[11px] font-bold text-zinc-400 tracking-[0.2em] uppercase mb-8">{pageData.inspiration.heading}</h2>
                 <p className="text-sm lg:text-lg text-zinc-500 leading-relaxed max-w-xl">
                   {pageData.inspiration.description}
@@ -358,7 +358,7 @@ function About() {
           </div>
 
           {/* Image on the right */}
-          <div data-animate-child className="hidden lg:block w-[42%] shrink-0">
+          <div data-animate-child className="hidden lg:block w-[55%] shrink-0">
             <img
               src={teamGuruImg}
               alt="SaidPiece Team"
