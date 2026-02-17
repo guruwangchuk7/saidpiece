@@ -224,6 +224,14 @@ function About() {
               <p data-animate-child className="text-sm lg:text-xl text-zinc-500 leading-relaxed text-left">
                 {pageData.intro.description}
               </p>
+              {/* Vertical Image for Mobile only - placed under the description as requested */}
+              <div data-animate-child className="lg:hidden mt-10">
+                <img
+                  src={aboutDzong}
+                  alt="Saidpiece Architecture"
+                  className="w-full h-[70vh] object-cover rounded-sm grayscale"
+                />
+              </div>
             </div>
 
             {/* Expertise Part */}
@@ -234,12 +242,24 @@ function About() {
                   {pageData.process.tagline}
                 </p>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12 mb-20">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10 sm:gap-y-12 mb-20">
                 {pageData.process.steps.map((step) => (
-                  <div data-animate-child key={step.number}>
-                    <span className="text-zinc-300 font-mono text-lg">{step.number}</span>
-                    <h3 className="text-lg font-semibold text-zinc-900 mt-2 mb-2">{step.title}</h3>
-                    <p className="text-sm text-zinc-600 leading-relaxed">{step.description}</p>
+                  <div
+                    data-animate-child
+                    key={step.number}
+                    className="group border-b border-zinc-100 pb-8 md:border-0 md:pb-0 last:border-0"
+                  >
+                    <div className="flex md:block gap-5 items-start">
+                      <span className="text-zinc-300 font-mono text-sm md:text-lg shrink-0 mt-1 md:mt-0">{step.number}</span>
+                      <div>
+                        <h3 className="text-base md:text-lg font-semibold text-zinc-900 md:mt-2 mb-2 uppercase md:normal-case tracking-tight md:tracking-normal">
+                          {step.title}
+                        </h3>
+                        <p className="text-sm text-zinc-600 leading-relaxed max-w-sm">
+                          {step.description}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -271,15 +291,6 @@ function About() {
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Mobile-only Image (optional but good for UX) */}
-        <div className="lg:hidden mt-10 px-3">
-          <img
-            src={aboutDzong}
-            alt="Saidpiece Architecture"
-            className="w-full h-64 object-cover rounded-sm"
-          />
         </div>
       </section>
 
@@ -353,7 +364,7 @@ function About() {
       <H5 />
 
       <Footer />
-    </main>
+    </main >
   );
 }
 
