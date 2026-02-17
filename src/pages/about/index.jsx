@@ -69,6 +69,7 @@ const pageData = {
       { icon: <IconHuman />, title: "Purpose", text: "Celebrating Bhutan’s cultural identity within a forward-looking framework." },
     ],
     // image: philosophyImg,
+
   },
   inspiration: {
     heading: "Vision",
@@ -334,28 +335,38 @@ function About() {
 
 
       {/* === TEAM SECTION === */}
-      <section data-animate-section className="py-16 lg:py-32 px-3 sm:px-5 lg:px-10 bg-zinc-100">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div data-animate-child className="lg:order-last">
-            <img
-              src={teamGuruImg}
-              alt="SaidPiece Team"
-              className="rounded-lg shadow-2xl object-cover w-full h-full max-h-[850px]"
-              loading="eager"
-            />
-          </div>
-          <div data-animate-child className="relative">
-            <span className="absolute -top-12 left-0 lg:-left-8 text-[120px] font-serif text-zinc-200 leading-none z-0">“</span>
-            <div className="relative z-10">
-              <h2 className="text-sm font-bold text-zinc-500 tracking-widest uppercase mb-2 ml-4 lg:ml-0">{pageData.team.heading}</h2>
-              <p className="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-6 ml-4 lg:ml-0">{pageData.team.subheading}</p>
-              <blockquote className="text-xl lg:text-4xl font-light leading-snug mb-8">
+      <section data-animate-section className="pt-8 lg:pt-16 pb-16 lg:pb-32 px-3 sm:px-5 lg:px-10 border-t border-zinc-100">
+        <div className="w-full flex flex-col lg:flex-row gap-[19px]">
+          {/* Text block on the left */}
+          <div className="flex-1">
+            <div data-animate-child className="mb-12">
+              <blockquote className="text-lg md:text-2xl lg:text-4xl font-light leading-tight mb-8 text-zinc-900">
                 {pageData.team.quote}
               </blockquote>
-              <p className="text-sm lg:text-lg text-zinc-600 leading-relaxed">
+
+              <p className="text-sm lg:text-xl text-zinc-500 leading-relaxed max-w-2xl">
                 {pageData.team.description}
               </p>
             </div>
+          </div>
+
+          {/* Image on the right */}
+          <div data-animate-child className="hidden lg:block w-[42%] shrink-0">
+            <img
+              src={teamGuruImg}
+              alt="SaidPiece Team"
+              className="w-full h-full object-cover rounded-sm grayscale hover:grayscale-0 transition-all duration-700"
+              loading="eager"
+            />
+          </div>
+
+          {/* Mobile Image */}
+          <div data-animate-child className="lg:hidden mt-8">
+            <img
+              src={teamGuruImg}
+              alt="SaidPiece Team"
+              className="w-full h-[60vh] object-cover rounded-sm grayscale"
+            />
           </div>
         </div>
       </section>
