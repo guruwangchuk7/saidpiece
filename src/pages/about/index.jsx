@@ -362,7 +362,7 @@ function About() {
             <img
               src={teamGuruImg}
               alt="SaidPiece Team"
-              className="w-full h-[62vh] object-cover rounded-sm grayscale hover:grayscale-0 transition-all duration-700"
+              className="w-full h-[75vh] object-cover rounded-sm grayscale hover:grayscale-0 transition-all duration-700"
               loading="eager"
             />
           </div>
@@ -372,7 +372,7 @@ function About() {
             <img
               src={teamGuruImg}
               alt="SaidPiece Team"
-              className="w-full h-[45vh] object-cover rounded-sm grayscale"
+              className="w-full h-[60vh] object-cover rounded-sm grayscale"
             />
           </div>
         </div>
