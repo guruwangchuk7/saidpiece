@@ -335,21 +335,21 @@ function About() {
 
 
       {/* === TEAM SECTION === */}
-      <section data-animate-section className="pt-8 lg:pt-16 pb-16 lg:pb-32 px-3 sm:px-5 lg:px-10 border-t border-zinc-100">
+      <section data-animate-section className="pt-24 lg:pt-16 pb-16 lg:pb-32 px-3 sm:px-5 lg:px-10 border-t border-zinc-100">
         <div className="w-full flex flex-col lg:flex-row gap-[19px]">
           {/* Text block on the left */}
           <div className="flex-1">
             <div data-animate-child>
-              <h2 className="text-2xl md:text-3xl lg:text-[40px] font-light leading-[1.1] mb-10 text-zinc-900 max-w-3xl">
+              <h2 className="text-2xl md:text-3xl lg:text-[40px] font-light leading-[1.1] mb-8 text-zinc-900 max-w-3xl">
                 {pageData.team.quote}
               </h2>
 
-              <p className="text-sm lg:text-lg text-zinc-500 leading-relaxed max-w-xl mb-12">
+              <p className="text-sm lg:text-lg text-zinc-500 leading-relaxed max-w-xl mb-8">
                 {pageData.team.description}
               </p>
 
-              <div className="border-t border-zinc-100 pt-10">
-                <h2 className="text-[11px] font-bold text-zinc-400 tracking-[0.2em] uppercase mb-8">{pageData.inspiration.heading}</h2>
+              <div className="border-t border-zinc-100 pt-8">
+                <h2 className="text-[11px] font-bold text-zinc-400 tracking-[0.2em] uppercase mb-6">{pageData.inspiration.heading}</h2>
                 <p className="text-sm lg:text-lg text-zinc-500 leading-relaxed max-w-xl">
                   {pageData.inspiration.description}
                 </p>
@@ -372,11 +372,11 @@ function About() {
             <img
               src={teamGuruImg}
               alt="SaidPiece Team"
-              className="w-full h-[60vh] object-cover rounded-sm grayscale"
+              className="w-full h-[45vh] object-cover rounded-sm grayscale"
             />
           </div>
         </div>
-      </section>
+      </section >
 
       {/* === H5 SECTION === */}
       <H5 />
