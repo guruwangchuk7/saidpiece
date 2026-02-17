@@ -6,6 +6,7 @@ import ReactMarkdown from 'react-markdown';
 import { supabase } from '../../services/supabaseClient';
 import rightArrow from '../../assets/icons/rightArrow.svg';
 import Footer from '../../components/layout/Footer';
+import ctaImg from '../../assets/calltoaction/keyboard.jpg';
 
 
 const BlogPost = () => {
@@ -131,43 +132,53 @@ const BlogPost = () => {
                 </div>
             </div>
 
-            {/* "Discuss a Joint Project" Scroll Section */}
-            <div className="relative w-full px-6 sm:px-10 lg:px-20 py-20 mt-[2cm] overflow-hidden flex items-end min-h-[50vh]">
-                {/* Background Image */}
-                <div className="absolute inset-0 z-0">
+            {/* === CTA SECTION === */}
+            <section className="group/cta relative w-full px-6 sm:px-10 lg:px-20 py-14 sm:py-20 h-[40vh] sm:h-[50vh] overflow-hidden flex flex-col justify-between border-t border-zinc-100 mt-[2cm] lg:order-last">
+                <div className="absolute inset-0 z-0 overflow-hidden">
                     <img
-                        src={selectedItem.image}
+                        src={ctaImg}
                         alt=""
-                        className="w-full h-full object-cover opacity-90"
+                        className="w-full h-full object-cover opacity-90 transition-transform duration-1000 ease-out group-hover/cta:scale-105"
                     />
-                    <div className="absolute inset-0 bg-black/20"></div>
+                    <div className="absolute inset-0 bg-black/40"></div>
                 </div>
 
-                <div className="relative z-10 w-full text-white shadow-black/20">
-                    <p className="text-xs uppercase tracking-widest mb-6 font-medium text-white/90 drop-shadow-md">Saidpiece Media</p>
-
-                    <h2 className="text-2xl sm:text-3xl font-medium uppercase tracking-tight leading-tight mb-8 drop-shadow-md">
-                        Discuss <br /> A Joint Project
+                {/* Top Text */}
+                <div className="relative z-10 w-full text-white">
+                    <h2
+                        className="text-xl sm:text-2xl md:text-3xl tracking-tight leading-tight drop-shadow-md"
+                        style={{ fontFamily: 'century-gothic' }}
+                    >
+                        <span className="font-light" style={{ color: "#aaaaaa" }}>said</span>
+                        <span style={{ opacity: 0.95 }}>piece</span>
                     </h2>
+                </div>
 
+                {/* Bottom Button */}
+                <div className="relative z-10 text-white">
                     <NavLink
                         to="/contact"
-                        className="group flex items-center gap-6 text-xs sm:text-sm font-medium uppercase tracking-widest border-b border-white pb-3 hover:border-white/70 transition-all w-fit drop-shadow-md"
+                        className="group flex items-center gap-6 text-xs sm:text-sm font-light uppercase tracking-widest border-b border-white pb-3 hover:border-white/70 transition-all w-fit drop-shadow-md text-white"
                     >
-                        <span>Leave a Request</span>
-                        <svg width="40" height="12" viewBox="0 0 40 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-300 group-hover:translate-x-2 drop-shadow-md">
-                            <path d="M0 6H39M39 6L34 1M39 6L34 11" stroke="currentColor" strokeWidth="1" />
+                        <span>Contact Us</span>
+                        <svg width="40" height="12" viewBox="0 0 40 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-300 group-hover:translate-x-2">
+                            <path d="M0 6H39M39 6L34 1M39 6L34 11" stroke="white" strokeWidth="1" />
                         </svg>
                     </NavLink>
                 </div>
-            </div>
+            </section>
 
             {/* "Further On..." Section */}
             <div className="bg-white py-20 px-6 sm:px-10 lg:px-20 border-t border-zinc-200">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 border-b border-zinc-400 pb-6 gap-6">
                     <div>
                         <h3 className="text-lg uppercase font-medium tracking-wide">Further</h3>
-                        <h3 className="text-lg uppercase font-medium tracking-wide text-zinc-500">On Saidpiece Media</h3>
+                        <h3
+                            className="text-lg uppercase font-medium tracking-wide text-zinc-500"
+                            style={{ fontFamily: 'century-gothic' }}
+                        >
+                            On <span className="font-light" style={{ color: "#555555" }}>said</span><span className="text-zinc-900" style={{ opacity: 0.95 }}>piece</span> Media
+                        </h3>
                     </div>
                     <NavLink to="/blog" className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest hover:underline">
                         All Insights <span>→</span>
