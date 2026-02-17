@@ -362,7 +362,7 @@ function About() {
             <img
               src={teamGuruImg}
               alt="SaidPiece Team"
-              className="w-full h-full object-cover rounded-sm grayscale hover:grayscale-0 transition-all duration-700"
+              className="w-full h-[55vh] object-cover rounded-sm grayscale hover:grayscale-0 transition-all duration-700"
               loading="eager"
             />
           </div>
