@@ -290,22 +290,19 @@ const Portfolio = () => {
               </div>
 
               {/* Content Side */}
-              <div className="w-full md:w-1/3 h-full overflow-y-auto bg-white p-4 sm:p-6 md:p-10 lg:p-12 pb-20 md:pb-12">
-                <motion.div layoutId={`card-info-${selectedId}`} className="mb-6 md:mb-10">
-                  <div className="flex justify-between items-baseline gap-4 mb-2 sm:mb-3">
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tighter leading-none">
-                      {projects.find(p => p.title === selectedId).title}
-                    </h2>
-                    <div className="flex items-center gap-2 text-zinc-400 text-[10px] sm:text-xs font-medium uppercase tracking-widest shrink-0">
-                      <span className="w-4 sm:w-8 h-[1px] bg-zinc-300"></span>
-                      {projects.find(p => p.title === selectedId).location}
-                    </div>
-                  </div>
+              <div className="w-full md:w-1/3 h-full overflow-y-auto bg-white p-4 sm:p-6 md:p-10 lg:p-12 pb-20 md:pb-12 text-black">
+                <motion.div layoutId={`card-info-${selectedId}`} className="mb-6 md:mb-10 flex flex-col gap-1">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter leading-none mb-1">
+                    {projects.find(p => p.title === selectedId).title}
+                  </h2>
                   <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-zinc-500 font-light">
                     {projects.find(p => p.title === selectedId).subtitle}
                   </p>
+                  <div className="text-zinc-400 text-xs sm:text-sm font-medium lowercase tracking-wide mb-4">
+                    {projects.find(p => p.title === selectedId).location}
+                  </div>
                   {projects.find(p => p.title === selectedId).collaboration && (
-                    <p className="mt-2 text-zinc-500 text-sm sm:text-base font-medium">
+                    <p className="text-zinc-600 text-sm sm:text-base font-medium mt-2">
                       {projects.find(p => p.title === selectedId).collaboration}
                     </p>
                   )}
@@ -320,18 +317,14 @@ const Portfolio = () => {
                     {projects.find(p => p.title === selectedId).description}
                   </p>
 
-                  <div className="grid grid-cols-2 gap-y-6 sm:gap-y-8 gap-x-3 sm:gap-x-4 border-t border-zinc-100 pt-6 sm:pt-8">
+                  <div className="flex flex-col gap-y-6 sm:gap-y-8 border-t border-zinc-100 pt-6 sm:pt-8">
                     <div>
-                      <span className="block text-xs uppercase text-zinc-400 tracking-wider mb-1">Completion</span>
+                      <span className="block text-xs text-zinc-400 tracking-wider mb-1">Completion</span>
                       <span className="text-sm sm:text-base font-medium text-black">{projects.find(p => p.title === selectedId).year}</span>
                     </div>
                     <div>
-                      <span className="block text-xs uppercase text-zinc-400 tracking-wider mb-1">Area</span>
+                      <span className="block text-xs text-zinc-400 tracking-wider mb-1">Area</span>
                       <span className="text-sm sm:text-base font-medium text-black">{projects.find(p => p.title === selectedId).size}</span>
-                    </div>
-                    <div className="col-span-2">
-                      <span className="block text-xs uppercase text-zinc-400 tracking-wider mb-1">Client</span>
-                      <span className="text-sm sm:text-base font-medium text-black">{projects.find(p => p.title === selectedId).client}</span>
                     </div>
                   </div>
                 </motion.div>
