@@ -292,13 +292,13 @@ const Portfolio = () => {
               {/* Content Side */}
               <div className="w-full md:w-1/3 h-full overflow-y-auto bg-white p-4 sm:p-6 md:p-10 lg:p-12 pb-20 md:pb-12 text-black">
                 <motion.div layoutId={`card-info-${selectedId}`} className="mb-6 md:mb-10 flex flex-col gap-1">
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter leading-none mb-1">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tighter leading-none mb-1">
                     {projects.find(p => p.title === selectedId).title}
                   </h2>
                   <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-zinc-500 font-light">
                     {projects.find(p => p.title === selectedId).subtitle}
                   </p>
-                  <div className="text-zinc-400 text-xs sm:text-sm font-medium lowercase tracking-wide mb-4">
+                  <div className="text-zinc-400 text-xs sm:text-sm font-medium uppercase tracking-wide mb-4">
                     {projects.find(p => p.title === selectedId).location}
                   </div>
                   {projects.find(p => p.title === selectedId).collaboration && (
@@ -319,11 +319,11 @@ const Portfolio = () => {
 
                   <div className="flex flex-col gap-y-6 sm:gap-y-8 border-t border-zinc-100 pt-6 sm:pt-8">
                     <div>
-                      <span className="block text-xs text-zinc-400 tracking-wider mb-1">Completion</span>
+                      <span className="block text-xs uppercase text-zinc-400 tracking-wider mb-1">Completion</span>
                       <span className="text-sm sm:text-base font-medium text-black">{projects.find(p => p.title === selectedId).year}</span>
                     </div>
                     <div>
-                      <span className="block text-xs text-zinc-400 tracking-wider mb-1">Area</span>
+                      <span className="block text-xs uppercase text-zinc-400 tracking-wider mb-1">Area</span>
                       <span className="text-sm sm:text-base font-medium text-black">{projects.find(p => p.title === selectedId).size}</span>
                     </div>
                   </div>
