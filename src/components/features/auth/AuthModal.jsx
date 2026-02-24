@@ -145,7 +145,7 @@ const AuthModal = () => {
                     </div>
                 ) : (
                     <div className="space-y-4 sm:space-y-6">
-                        {/* Google Button */}
+                        {/* Google Button - Disabled to prevent redirect to real site during dev
                         <button
                             type="button"
                             onClick={handleGoogleLogin}
@@ -180,6 +180,7 @@ const AuthModal = () => {
                                 <span className="bg-white px-6 text-gray-900">Or continue with email</span>
                             </div>
                         </div>
+                        */}
 
                         <form className="space-y-4 sm:space-y-6" onSubmit={handleSubmit}>
                             <div>
