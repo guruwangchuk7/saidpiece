@@ -63,7 +63,7 @@ const ParallaxImage = ({ item }) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className={`group cursor-pointer relative overflow-hidden flex flex-col w-full h-[55vh] sm:h-[65vh] md:h-[85vh] bg-zinc-100`}
+                className={`group cursor-pointer relative overflow-hidden flex flex-col w-full h-[45vh] sm:h-[65vh] md:h-[85vh] bg-zinc-100 active:opacity-90 transition-opacity duration-300 shadow-sm`}
             >
                 {/* Make the image slightly larger so it can animate y cleanly */}
                 <motion.div style={{ y, scale: 1.15 }} className="absolute inset-0 w-full h-full">
@@ -77,7 +77,7 @@ const ParallaxImage = ({ item }) => {
 
                 {/* Text always visible, Top Left, Underlined. Reference: "ALL PRODUCTS" */}
                 <div className="absolute top-6 left-6 z-10 pointer-events-none">
-                    <h3 className="text-white text-[10px] sm:text-xs tracking-widest uppercase font-light border-b border-white/50 pb-1">
+                    <h3 className="text-white text-sm sm:text-xs tracking-[0.15em] uppercase font-medium border-b border-white pb-1">
                         {item.title}
                     </h3>
                 </div>
@@ -106,14 +106,14 @@ const Store = () => {
 
                     {/* Header */}
                     <div className="px-3 sm:px-5 lg:px-10 mb-10 sm:mb-16 lg:mb-20">
-                        <h1 className="logo font-bold text-2xl sm:text-3xl md:text-5xl lg:text-7xl text-neutral-800 tracking-tight leading-tight -ml-0.5" style={{ fontFamily: "century-gothic" }}>
+                        <h1 className="logo font-bold text-3xl sm:text-3xl md:text-5xl lg:text-7xl text-neutral-800 tracking-tight leading-tight -ml-0.5" style={{ fontFamily: "century-gothic" }}>
                             <span style={{ color: "#555555" }} className="font-light">{navData.titlePart1}</span><span style={{ opacity: 0.95 }}>{navData.titlePart2}</span> <span className="font-light">store</span>
                         </h1>
                     </div>
 
                     {/* Strictly 2-column grid layout with 3 rows */}
-                    <div className="w-full px-0 sm:px-5 lg:px-10">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="w-full px-4 sm:px-5 lg:px-10">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-4">
                             {storeItems.map(item => (
                                 <ParallaxImage key={item.id} item={item} />
                             ))}

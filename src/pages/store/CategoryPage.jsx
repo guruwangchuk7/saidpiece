@@ -190,7 +190,7 @@ const CategoryPage = () => {
                                         <div className="border-t border-zinc-200 pt-3 sm:pt-4 bg-white">
                                             <div className="flex justify-between items-start gap-4">
                                                 <h3 className="text-black uppercase font-semibold text-base sm:text-lg lg:text-xl tracking-tight leading-tight">{p.title}</h3>
-                                                <p className="text-zinc-600 text-sm font-medium shrink-0">{p.price}</p>
+                                                <p className="text-zinc-400 text-[10px] lg:text-xs mt-1 uppercase tracking-widest shrink-0">{p.price}</p>
                                             </div>
                                             <p className="text-zinc-500 text-xs sm:text-sm lg:text-base capitalize">{p.category.replace('-', ' ')}</p>
                                         </div>
