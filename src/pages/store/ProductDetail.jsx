@@ -232,7 +232,7 @@ const ProductDetail = () => {
                                     <button
                                         key={idx}
                                         onClick={() => handleImageChange(idx)}
-                                        className={`flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 bg-zinc-100 overflow-hidden transition-all duration-300 ${activeImageIdx === idx ? 'opacity-100 ring-1 ring-zinc-900 ring-offset-2' : 'opacity-40 hover:opacity-70'}`}
+                                        className={`flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 bg-white transition-all duration-300 p-1 border ${activeImageIdx === idx ? 'border-black opacity-100' : 'border-transparent opacity-40 hover:opacity-100'}`}
                                     >
                                         <img src={img} alt={`${product.title} ${idx + 1}`} className="w-full h-full object-cover" />
                                     </button>
