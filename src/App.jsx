@@ -11,6 +11,7 @@ import BackToTop from "./components/common/BackToTop";
 import MagneticCursor from "./components/common/MagneticCursor";
 
 import AuthModal from "./components/features/auth/AuthModal";
+import CartDrawer from "./pages/store/components/CartDrawer";
 
 function App() {
   const location = useLocation();
@@ -29,6 +30,7 @@ function App() {
   return (
     <div className="relative min-h-screen flex flex-col">
       <AuthModal />
+      <CartDrawer />
       {!isAdminOrDashboard && <MagneticCursor />}
       <ScrollToTop />
       <BackToTop />

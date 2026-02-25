@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaChevronDown, FaPlus, FaMinus } from 'react-icons/fa';
+import { useCart } from '../../context/CartContext';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import rightArrow from '../../assets/icons/rightArrow.svg';
@@ -85,8 +86,11 @@ const ProductDetail = () => {
     const [activeImageIdx, setActiveImageIdx] = useState(0);
     const [direction, setDirection] = useState(0);
     const [selectedColor, setSelectedColor] = useState(product.colors[0].id);
+    const [selectedSize, setSelectedSize] = useState(product.sizes[0]);
     const [quantity, setQuantity] = useState(1);
     const [openAccordion, setOpenAccordion] = useState(null);
+
+    const { addToCart } = useCart();
 
     const slideVariants = {
         enter: (direction) => ({
@@ -285,7 +289,11 @@ const ProductDetail = () => {
                                     <div className="flex items-center py-6 border-b border-zinc-200">
                                         <span className="w-24 text-black">SIZE</span>
                                         <div className="flex-1 flex justify-between items-center group cursor-pointer text-black">
-                                            <select className="appearance-none bg-transparent w-full focus:outline-none cursor-pointer">
+                                            <select
+                                                value={selectedSize}
+                                                onChange={(e) => setSelectedSize(e.target.value)}
+                                                className="appearance-none bg-transparent w-full focus:outline-none cursor-pointer"
+                                            >
                                                 {product.sizes.map(size => (
                                                     <option key={size} value={size}>{size}</option>
                                                 ))}
@@ -313,7 +321,10 @@ const ProductDetail = () => {
                                         </div>
 
                                         {/* ADD TO CART - INTEGRATED */}
-                                        <button className="flex-1 ml-4 bg-[#2C2C2C] text-white flex justify-between items-center px-6 py-6 group transition-all hover:bg-black">
+                                        <button
+                                            onClick={() => addToCart(product, { size: selectedSize, color: selectedColor, quantity })}
+                                            className="flex-1 ml-4 bg-[#2C2C2C] text-white flex justify-between items-center px-6 py-6 group transition-all hover:bg-black"
+                                        >
                                             <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Add to Cart</span>
                                             <img
                                                 src={rightArrow}

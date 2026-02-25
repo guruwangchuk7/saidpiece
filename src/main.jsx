@@ -6,6 +6,7 @@ import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } 
 import { HelmetProvider } from 'react-helmet-async';
 import { AuthProvider } from './context/AuthContext.jsx'
 import { SiteContentProvider } from './context/SiteContentContext.jsx'
+import { CartProvider } from './context/CartContext.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import { Toaster } from 'react-hot-toast';
 
@@ -96,8 +97,10 @@ createRoot(document.getElementById('root')).render(
     <HelmetProvider>
       <AuthProvider>
         <SiteContentProvider>
-          <Toaster position="top-right" />
-          <RouterProvider router={router} />
+          <CartProvider>
+            <Toaster position="top-right" />
+            <RouterProvider router={router} />
+          </CartProvider>
         </SiteContentProvider>
       </AuthProvider>
     </HelmetProvider>
