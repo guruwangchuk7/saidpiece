@@ -23,6 +23,7 @@ import Legal from './pages/legal/index.jsx';
 import TeamPortfolio from './pages/team/portfolios/TeamPortfolio.jsx';
 import Store from './pages/store/index.jsx';
 import CategoryPage from './pages/store/CategoryPage.jsx';
+import ProductDetail from './pages/store/ProductDetail.jsx';
 const Dashboard = lazy(() => import('./pages/dashboard/index.jsx'));
 
 // Lazy Load Admin Components
@@ -59,6 +60,7 @@ const router = createBrowserRouter(
 
         <Route path='store' element={<Store />}></Route>
         <Route path='store/:slug' element={<CategoryPage />}></Route>
+        <Route path='store/product/:id' element={<ProductDetail />}></Route>
         <Route path='legal' element={<Legal />}></Route>
         <Route path='portfolio/:id' element={<ProjectGallery />}></Route>
 

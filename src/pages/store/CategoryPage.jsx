@@ -168,30 +168,34 @@ const CategoryPage = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-12">
                         <AnimatePresence mode="popLayout">
                             {filteredItems.map((p) => (
-                                <motion.div
+                                <NavLink
                                     key={p.id}
+                                    to={`/store/product/${p.title.toLowerCase().replace(/ /g, '-')}`}
                                     className="group flex flex-col gap-3 sm:gap-4 relative z-0"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
                                 >
-                                    <div className="relative overflow-hidden w-full h-[300px] sm:h-[350px] lg:h-[450px]">
-                                        <img
-                                            src={p.image}
-                                            alt={p.title}
-                                            className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
-                                            loading="eager"
-                                        />
-                                    </div>
-
-                                    <div className="border-t border-zinc-200 pt-3 sm:pt-4 bg-white">
-                                        <div className="flex justify-between items-start gap-4">
-                                            <h3 className="text-black uppercase font-semibold text-base sm:text-lg lg:text-xl tracking-tight leading-tight">{p.title}</h3>
-                                            <p className="text-zinc-600 text-sm font-medium shrink-0">{p.price}</p>
+                                    <motion.div
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                    >
+                                        <div className="relative overflow-hidden w-full h-[300px] sm:h-[350px] lg:h-[450px]">
+                                            <img
+                                                src={p.image}
+                                                alt={p.title}
+                                                className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
+                                                loading="eager"
+                                            />
                                         </div>
-                                        <p className="text-zinc-500 text-xs sm:text-sm lg:text-base capitalize">{p.category.replace('-', ' ')}</p>
-                                    </div>
-                                </motion.div>
+
+                                        <div className="border-t border-zinc-200 pt-3 sm:pt-4 bg-white">
+                                            <div className="flex justify-between items-start gap-4">
+                                                <h3 className="text-black uppercase font-semibold text-base sm:text-lg lg:text-xl tracking-tight leading-tight">{p.title}</h3>
+                                                <p className="text-zinc-600 text-sm font-medium shrink-0">{p.price}</p>
+                                            </div>
+                                            <p className="text-zinc-500 text-xs sm:text-sm lg:text-base capitalize">{p.category.replace('-', ' ')}</p>
+                                        </div>
+                                    </motion.div>
+                                </NavLink>
                             ))}
                         </AnimatePresence>
                     </div>
