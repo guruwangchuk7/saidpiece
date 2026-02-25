@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useSiteContent } from '../../context/SiteContentContext';
 import rightArrow from '../../assets/icons/rightArrow.svg';
-import Footer from '../../components/layout/Footer';
 
 const storeItems = [
     {
@@ -117,7 +116,6 @@ const Store = () => {
 
                 </div>
             </div>
-            <Footer />
         </div>
     );
 };
