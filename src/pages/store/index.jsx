@@ -63,12 +63,10 @@ const ParallaxImage = ({ item }) => {
                 <img
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-1000 ease-out grayscale-[20%] group-hover:grayscale-0 group-hover:scale-100"
+                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                 />
             </motion.div>
 
-            {/* Subtle Overlay to make text legible */}
-            <div className="absolute inset-0 bg-black/10 transition-opacity duration-500 pointer-events-none group-hover:bg-black/0" />
 
             {/* Text always visible, Top Left, Underlined. Reference: "ALL PRODUCTS" */}
             <div className="absolute top-6 left-6 z-10 pointer-events-none">
