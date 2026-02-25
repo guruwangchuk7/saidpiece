@@ -51,7 +51,6 @@ const CategoryPage = () => {
 
     const info = categoryInfo[slug] || categoryInfo['all-products'];
 
-    const [selectedId, setSelectedId] = useState(null);
     const [selectedFilter, setSelectedFilter] = useState('all');
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -75,20 +74,6 @@ const CategoryPage = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [slug]);
-
-    // Disable body scroll when modal is open
-    useEffect(() => {
-        if (selectedId) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'unset';
-        }
-        return () => { document.body.style.overflow = 'unset'; };
-    }, [selectedId]);
-
-    const selectedProduct = useMemo(() => {
-        return allProducts.find(p => p.id === selectedId);
-    }, [selectedId]);
 
     return (
         <div>
@@ -180,121 +165,38 @@ const CategoryPage = () => {
                     )}
 
                     {/* Product grid - matched to Portfolio.jsx grid */}
-                    <motion.div
-                        layout
-                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-12"
-                    >
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-12">
                         <AnimatePresence mode="popLayout">
                             {filteredItems.map((p) => (
                                 <motion.div
                                     key={p.id}
-                                    layoutId={`store-card-${p.id}`}
-                                    onClick={() => setSelectedId(p.id)}
-                                    className="group cursor-pointer flex flex-col gap-3 sm:gap-4 relative z-0"
+                                    className="group flex flex-col gap-3 sm:gap-4 relative z-0"
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
                                 >
                                     <div className="relative overflow-hidden w-full h-[300px] sm:h-[350px] lg:h-[450px]">
-                                        <motion.img
-                                            layoutId={`store-image-${p.id}`}
+                                        <img
                                             src={p.image}
                                             alt={p.title}
                                             className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
                                             loading="eager"
                                         />
-                                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                                            <span className="bg-white/90 text-black px-3 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-medium transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                                                View Details
-                                            </span>
-                                        </div>
                                     </div>
 
-                                    <motion.div layoutId={`store-info-${p.id}`} className="border-t border-zinc-200 pt-3 sm:pt-4 bg-white">
+                                    <div className="border-t border-zinc-200 pt-3 sm:pt-4 bg-white">
                                         <div className="flex justify-between items-start gap-4">
                                             <h3 className="text-black uppercase font-semibold text-base sm:text-lg lg:text-xl tracking-tight leading-tight">{p.title}</h3>
                                             <p className="text-zinc-600 text-sm font-medium shrink-0">{p.price}</p>
                                         </div>
                                         <p className="text-zinc-500 text-xs sm:text-sm lg:text-base capitalize">{p.category.replace('-', ' ')}</p>
-                                    </motion.div>
+                                    </div>
                                 </motion.div>
                             ))}
                         </AnimatePresence>
-                    </motion.div>
+                    </div>
                 </div>
             </div>
-
-            {/* Expanded Overlay - mimicking Portfolio.jsx */}
-            <AnimatePresence>
-                {selectedId && selectedProduct && (
-                    <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center p-0 pointer-events-none">
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            onClick={() => setSelectedId(null)}
-                            className="absolute inset-0 bg-black/40 backdrop-blur-md pointer-events-auto"
-                        />
-
-                        <motion.div
-                            layoutId={`store-card-${selectedId}`}
-                            className="w-full h-full md:h-[90vh] md:max-w-[90vw] bg-white md:rounded-lg shadow-2xl overflow-hidden relative z-10 pointer-events-auto flex flex-col md:flex-row rounded-none"
-                        >
-                            <button
-                                onClick={() => setSelectedId(null)}
-                                className="absolute top-3 sm:top-4 right-3 sm:right-4 md:top-6 md:right-6 z-30 p-2 bg-white/50 hover:bg-white backdrop-blur-sm rounded-full transition-colors"
-                            >
-                                <svg className="w-5 sm:w-6 h-5 sm:h-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            </button>
-
-                            <div className="w-full md:w-2/3 h-[35vh] sm:h-[40vh] md:h-full relative bg-zinc-100">
-                                <motion.img
-                                    layoutId={`store-image-${selectedId}`}
-                                    src={selectedProduct.image}
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
-
-                            <div className="w-full md:w-1/3 h-full overflow-y-auto bg-white p-4 sm:p-6 md:p-10 lg:p-12 pb-20 md:pb-12 text-black">
-                                <motion.div layoutId={`store-info-${selectedId}`} className="mb-6 md:mb-10 flex flex-col gap-1">
-                                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tighter leading-none mb-1">
-                                        {selectedProduct.title}
-                                    </h2>
-                                    <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-zinc-500 font-light">
-                                        {selectedProduct.price}
-                                    </p>
-                                    <div className="text-zinc-400 text-xs sm:text-sm font-medium uppercase tracking-wide mb-4">
-                                        Collection 2024
-                                    </div>
-                                </motion.div>
-
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.2, duration: 0.4 }}
-                                >
-                                    <p className="text-zinc-600 leading-relaxed text-sm sm:text-base md:text-lg mb-8 md:mb-10">
-                                        Handcrafted with architectural precision. This piece from the Saidpiece collection represents our dedication to materiality and minimalist form.
-                                    </p>
-
-                                    <div className="flex flex-col gap-y-6 sm:gap-y-8 border-t border-zinc-100 pt-6 sm:pt-8">
-                                        <div>
-                                            <span className="block text-xs uppercase text-zinc-400 tracking-wider mb-1">Category</span>
-                                            <span className="text-sm sm:text-base font-medium text-black capitalize">{selectedProduct.category.replace('-', ' ')}</span>
-                                        </div>
-                                        <div>
-                                            <span className="block text-xs uppercase text-zinc-400 tracking-wider mb-1">Availability</span>
-                                            <span className="text-sm sm:text-base font-medium text-black">In Stock / Custom Order</span>
-                                        </div>
-                                    </div>
-                                </motion.div>
-                            </div>
-                        </motion.div>
-                    </div>
-                )}
-            </AnimatePresence>
         </div>
     );
 };
