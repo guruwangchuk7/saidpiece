@@ -98,11 +98,11 @@ const CartDrawer = () => {
                         className="fixed right-0 top-0 h-full w-full md:w-[60%] lg:w-[45%] xl:w-[35%] bg-white text-black shadow-2xl z-[101] flex flex-col"
                     >
                         {/* Header */}
-                        <div className="pt-12 px-8 pb-6 flex justify-between items-center border-b border-zinc-100 relative">
+                        <div className="pt-12 px-5 sm:px-8 pb-6 flex justify-between items-center border-b border-zinc-100 relative">
                             {step === 'details' && (
                                 <button
                                     onClick={() => setStep('cart')}
-                                    className="absolute left-8 top-12 p-2 hover:bg-black/5 rounded-full transition-colors"
+                                    className="absolute left-5 sm:left-8 top-12 p-2 hover:bg-black/5 rounded-full transition-colors"
                                 >
                                     <FaChevronLeft className="text-xs" />
                                 </button>
@@ -124,7 +124,7 @@ const CartDrawer = () => {
                         </div>
 
                         {/* Content Area */}
-                        <div className="flex-1 overflow-y-auto no-scrollbar px-8 py-8">
+                        <div className="flex-1 overflow-y-auto no-scrollbar px-5 sm:px-8 py-8">
                             {step === 'cart' ? (
                                 <div className="space-y-10">
                                     {cart.length === 0 ? (
@@ -198,7 +198,7 @@ const CartDrawer = () => {
                         </div>
 
                         {/* Summary Footer */}
-                        <div className="bg-zinc-50 p-8 space-y-8">
+                        <div className="bg-zinc-50 p-5 sm:p-8 space-y-8">
                             <div className="space-y-4 text-xs uppercase tracking-widest font-medium">
                                 <div className="flex justify-between text-black">
                                     <span>Amount</span>
@@ -219,7 +219,7 @@ const CartDrawer = () => {
                                     <button
                                         disabled={cart.length === 0}
                                         onClick={() => setStep('details')}
-                                        className="w-full bg-black text-white py-5 flex justify-between items-center px-8 group overflow-hidden disabled:opacity-20 disabled:cursor-not-allowed"
+                                        className="w-full bg-black text-white py-5 flex justify-between items-center px-6 sm:px-8 group overflow-hidden disabled:opacity-20 disabled:cursor-not-allowed"
                                     >
                                         <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Checkout</span>
                                         <img src={rightArrow} alt="arrow" className="w-5 invert transition-transform duration-500 group-hover:translate-x-1" />
