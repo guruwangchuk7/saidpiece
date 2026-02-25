@@ -7,15 +7,7 @@ import { useSiteContent } from '../../context/SiteContentContext';
 import Footer from '../../components/layout/Footer';
 import ButtonType3 from '../../components/common/ButtonType3';
 
-// Mock product data for each category
-const allProducts = [
-    { id: 1, title: 'Bespoke Oak Table', price: '$2,400', category: 'furniture', image: 'https://images.unsplash.com/photo-1533090161767-e6ffed986c88?q=80&w=1200&auto=format&fit=crop' },
-    { id: 2, title: 'Textured Wall Panel', price: '$450', category: 'interior-finishes', image: 'https://images.unsplash.com/photo-1516455590571-18256e5bb9ff?q=80&w=1200&auto=format&fit=crop' },
-    { id: 3, title: 'Sculptural Floor Lamp', price: '$890', category: 'lighting-electrical', image: 'https://images.unsplash.com/photo-1534073828943-f801091bb18c?q=80&w=1200&auto=format&fit=crop' },
-    { id: 4, title: 'Machined Brass Handle', price: '$120', category: 'hardware-accessories', image: 'https://images.unsplash.com/photo-1510127034890-ba27508e9f1c?q=80&w=1200&auto=format&fit=crop' },
-    { id: 5, title: 'Ceramic Vessel 01', price: '$320', category: 'decor-art', image: 'https://images.unsplash.com/photo-1578500494198-246f612d3b3d?q=80&w=1200&auto=format&fit=crop' },
-    { id: 6, title: 'Minimalist Lounge Chair', price: '$1,200', category: 'furniture', image: 'https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=1200&auto=format&fit=crop' },
-];
+import { products as allProducts } from '../../data/products';
 
 const categoryInfo = {
     'all-products': {
@@ -170,7 +162,7 @@ const CategoryPage = () => {
                             {filteredItems.map((p) => (
                                 <NavLink
                                     key={p.id}
-                                    to={`/store/product/${p.title.toLowerCase().replace(/ /g, '-')}`}
+                                    to={`/store/product/${p.slug}`}
                                     className="group flex flex-col gap-3 sm:gap-4 relative z-0"
                                 >
                                     <motion.div
@@ -180,7 +172,7 @@ const CategoryPage = () => {
                                     >
                                         <div className="relative overflow-hidden w-full h-[300px] sm:h-[350px] lg:h-[450px]">
                                             <img
-                                                src={p.image}
+                                                src={p.images?.[0] || p.image}
                                                 alt={p.title}
                                                 className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
                                                 loading="eager"

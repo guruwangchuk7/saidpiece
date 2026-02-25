@@ -65,8 +65,14 @@ const ParallaxImage = ({ item }) => {
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 className={`group cursor-pointer relative overflow-hidden flex flex-col w-full h-[45vh] sm:h-[65vh] md:h-[85vh] bg-zinc-100 active:opacity-90 transition-opacity duration-300 shadow-sm`}
             >
-                {/* Make the image slightly larger so it can animate y cleanly */}
-                <motion.div style={{ y, scale: 1.15 }} className="absolute inset-0 w-full h-full">
+                {/* Make the image slightly larger so it can animate y cleanly - disabled on mobile */}
+                <motion.div
+                    style={{
+                        y: typeof window !== 'undefined' && window.innerWidth < 1024 ? 0 : y,
+                        scale: 1.15
+                    }}
+                    className="absolute inset-0 w-full h-full"
+                >
                     <img
                         src={item.image}
                         alt={item.title}

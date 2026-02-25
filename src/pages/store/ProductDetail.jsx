@@ -11,59 +11,9 @@ import storeBanner from '../../assets/store/banner/storebanner.jpg';
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
-const productData = {
-    'bespoke-oak-table': {
-        id: 1,
-        title: 'Bespoke Oak Table',
-        price: '$2,400',
-        category: 'furniture',
-        images: [
-            'https://images.unsplash.com/photo-1533090161767-e6ffed986c88?q=80&w=1200&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1563298723-dcfebaa392e3?q=80&w=1200&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1517705008128-361805f42e86?q=80&w=1200&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1495433324511-bf8e92934d90?q=80&w=1200&auto=format&fit=crop'
-        ],
-        colors: [
-            { id: 'natural', name: 'Natural Oak', hex: '#DAA520' },
-            { id: 'dark', name: 'Dark Stained', hex: '#3B2F2F' },
-            { id: 'white', name: 'White Wash', hex: '#F5F5F5' }
-        ],
-        sizes: ['Small (120x80cm)', 'Medium (160x90cm)', 'Large (200x100cm)', 'Bespoke Size'],
-        information: [
-            {
-                title: 'Material',
-                content: 'Sourced from sustainably managed European forests. Our solid oak is selected for its distinct grain patterns and structural integrity.'
-            },
-            {
-                title: 'Craftsmanship',
-                content: 'Each table is handcrafted using traditional joinery techniques. The surface is finished with multiple layers of natural oil for a durable and sensory experience.'
-            },
-            {
-                title: 'Lead Time',
-                content: 'As each piece is made to order, please allow 8-12 weeks for production and delivery.'
-            }
-        ]
-    }
-};
+import { products } from '../../data/products';
 
-const relatedProducts = [
-    {
-        id: 6,
-        title: 'Minimalist Lounge Chair',
-        price: '$1,200',
-        category: 'furniture',
-        image: 'https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=1200&auto=format&fit=crop',
-        slug: 'minimalist-lounge-chair'
-    },
-    {
-        id: 3,
-        title: 'Sculptural Floor Lamp',
-        price: '$890',
-        category: 'lighting-electrical',
-        image: 'https://images.unsplash.com/photo-1534073828943-f801091bb18c?q=80&w=1200&auto=format&fit=crop',
-        slug: 'sculptural-floor-lamp'
-    }
-];
+// We'll calculate related products within the component based on Category
 
 const Accordion = ({ title, children, isOpen, onToggle }) => {
     return (
@@ -122,11 +72,17 @@ const ParallaxBanner = () => {
 
 const ProductDetail = () => {
     const { id } = useParams();
-    const product = productData[id] || productData['bespoke-oak-table'];
+    const product = products.find(p => p.slug === id) || products[0];
+
+    // Find related products (same category, excluding current product)
+    const related = products
+        .filter(p => p.category === product.category && p.slug !== product.slug)
+        .slice(0, 2); // Show up to 2 related items
+
     const [activeImageIdx, setActiveImageIdx] = useState(0);
     const [direction, setDirection] = useState(0);
-    const [selectedColor, setSelectedColor] = useState(product.colors[0].id);
-    const [selectedSize, setSelectedSize] = useState(product.sizes[0]);
+    const [selectedColor, setSelectedColor] = useState(product.colors?.[0]?.id || 'default');
+    const [selectedSize, setSelectedSize] = useState(product.sizes?.[0] || 'Standard');
     const [quantity, setQuantity] = useState(1);
     const [openAccordion, setOpenAccordion] = useState(null);
 
@@ -419,11 +375,11 @@ const ProductDetail = () => {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
-                        {relatedProducts.map(item => (
+                        {related.map(item => (
                             <NavLink key={item.id} to={`/store/product/${item.slug}`} className="group block cursor-pointer">
                                 <div className="relative overflow-hidden aspect-[4/3] mb-4 bg-zinc-50">
                                     <img
-                                        src={item.image}
+                                        src={item.images?.[0] || item.image}
                                         alt={item.title}
                                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                     />
