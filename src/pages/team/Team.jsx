@@ -3,6 +3,7 @@ import { supabase } from '../../services/supabaseClient';
 import { NavLink } from 'react-router-dom';
 import rightArrow from '../../assets/icons/rightArrow.svg';
 import { staticTeamMembers } from '../../data/staticTeam';
+import { motion } from 'framer-motion';
 
 // --- Local Components ---
 
