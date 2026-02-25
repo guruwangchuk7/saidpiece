@@ -1,7 +1,8 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'motion/react';
+// eslint-disable-next-line no-unused-vars
+import { motion, AnimatePresence } from 'framer-motion';
 import { FaChevronDown } from 'react-icons/fa';
 import rightArrow from '../../assets/icons/rightArrow.svg';
 import Footer from '../../components/layout/Footer';

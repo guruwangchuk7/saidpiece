@@ -237,6 +237,10 @@ const AdminDashboard = () => {
                         <span className="block font-bold text-zinc-900 mb-2 text-sm uppercase tracking-wide">+ Add Team Member</span>
                         <span className="text-xs text-zinc-500">Grow your team</span>
                     </button>
+                    <button className="p-5 bg-white border border-zinc-200 rounded-lg text-left hover:border-zinc-900 transition-all group" onClick={() => window.location.href = '/admin/site-content'}>
+                        <span className="block font-bold text-zinc-900 mb-2 text-sm uppercase tracking-wide">⚙️ Site Settings</span>
+                        <span className="text-xs text-zinc-500">Manage site text & media</span>
+                    </button>
                     <button className="p-5 bg-white border border-zinc-200 rounded-lg text-left hover:border-zinc-900 transition-all group" onClick={() => {
                         const el = document.getElementById('data-management');
                         if (el) el.scrollIntoView({ behavior: 'auto' });

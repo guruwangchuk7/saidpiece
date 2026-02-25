@@ -1,4 +1,5 @@
-import { motion, AnimatePresence } from "motion/react";
+// eslint-disable-next-line no-unused-vars
+import { motion, AnimatePresence } from "framer-motion";
 import React, { useState } from "react";
 import { NavLink } from 'react-router-dom';
 import Btn2 from "../../components/common/ButtonType2";

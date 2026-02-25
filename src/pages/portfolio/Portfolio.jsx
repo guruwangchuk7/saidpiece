@@ -1,7 +1,8 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { NavLink } from 'react-router-dom';
-import { motion, AnimatePresence } from 'motion/react';
+// eslint-disable-next-line no-unused-vars
+import { motion, AnimatePresence } from 'framer-motion';
 import { FaChevronDown } from 'react-icons/fa';
 import rightArrow from '../../assets/icons/rightArrow.svg';
 import { supabase } from '../../services/supabaseClient';

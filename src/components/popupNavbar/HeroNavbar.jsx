@@ -1,15 +1,21 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { NavLink } from "react-router-dom";
-import { motion, AnimatePresence, easeInOut } from "motion/react";
+// eslint-disable-next-line no-unused-vars
+import { motion, AnimatePresence, easeInOut } from "framer-motion";
 import { useNav } from "./VisiblityContext";
 import rightArrowWhite from "../../assets/icons/rightArrowWhite.svg";
 import { useAuth } from "../../context/AuthContext";
+import { useSiteContent } from "../../context/SiteContentContext";
 import Footer from "../layout/Footer";
 
 const HeroNavbar = () => {
   const { open, close } = useNav();
   const { user, setShowAuthModal, signOut } = useAuth();
+  const { content } = useSiteContent();
+  const navData = content?.nav || { titlePart1: 'said', titlePart2: 'piece' };
+  const contactData = content?.contact_page || {};
+
   const [mounted, setMounted] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   useEffect(() => setMounted(true), []);
@@ -81,7 +87,7 @@ const HeroNavbar = () => {
           <div className="flex flex-col lg:flex-row justify-between gap-10 lg:gap-20 w-full">
             <div className="p-2 w-full lg:w-auto">
               <NavLink to="/" onClick={close} className="logo font-bold text-xl sm:text-2xl md:text-4xl lg:text-5xl text-neutral-100 cursor-pointer block" style={{ fontFamily: "century-gothic" }}>
-                <span style={{ color: "#a1a1aa" }} className="font-light">said</span><span style={{ opacity: 0.95 }}>piece</span>
+                <span style={{ color: "#a1a1aa" }} className="font-light">{navData.titlePart1}</span><span style={{ opacity: 0.95 }}>{navData.titlePart2}</span>
               </NavLink>
               <nav className="mt-10 flex flex-col gap-5">
                 {data.map((item, idx) => (
@@ -108,8 +114,8 @@ const HeroNavbar = () => {
                 {/* Email Section */}
                 <div className="flex flex-col gap-2">
                   <span>E:</span>
-                  <a href="mailto:thinley@saidpiece.com" className="w-fit border-b border-gray-500 hover:border-white hover:text-white transition-all duration-300">
-                    thinley@saidpiece.com
+                  <a href={`mailto:${contactData.email || 'thinley@saidpiece.com'}`} className="w-fit border-b border-gray-500 hover:border-white hover:text-white transition-all duration-300">
+                    {contactData.email || 'thinley@saidpiece.com'}
                   </a>
                 </div>
 
@@ -118,10 +124,10 @@ const HeroNavbar = () => {
                   <span>P:</span>
                   <div className="flex flex-col">
                     <span className="w-fit">
-                      +975 17899794 (BHT)
+                      {contactData.phoneBht || '+975 17899794 (BHT)'}
                     </span>
-                    <a href="https://wa.me/66931205085" target="_blank" rel="noreferrer" className="w-fit hover:text-white transition-all duration-300">
-                      +66 931205085 (TH)
+                    <a href={`https://wa.me/${(contactData.phoneTh || '+66 931205085 (TH)').replace(/[^0-9]/g, '')}`} target="_blank" rel="noreferrer" className="w-fit hover:text-white transition-all duration-300">
+                      {contactData.phoneTh || '+66 931205085 (TH)'}
                     </a>
                   </div>
                 </div>
@@ -130,9 +136,9 @@ const HeroNavbar = () => {
                 <div className="flex flex-col gap-2">
                   <span className="w-fit">S.M:</span>
                   <div className="flex flex-wrap gap-x-1 max-w-[250px]">
-                    <a href="https://www.instagram.com/saidpiece_architects?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noreferrer" className="hover:text-white transition-all duration-300">Instagram,</a>
-                    <a href="https://www.facebook.com/saidpiece.architects" target="_blank" rel="noreferrer" className="hover:text-white transition-all duration-300">Facebook,</a>
-                    <a href="https://www.linkedin.com/company/saidpiece/" target="_blank" rel="noreferrer" className="hover:text-white transition-all duration-300">LinkedIn</a>
+                    <a href={contactData.instagram || "https://www.instagram.com/saidpiece_architects"} target="_blank" rel="noreferrer" className="hover:text-white transition-all duration-300">Instagram,</a>
+                    <a href={contactData.facebook || "https://www.facebook.com/saidpiece.architects"} target="_blank" rel="noreferrer" className="hover:text-white transition-all duration-300">Facebook,</a>
+                    <a href={contactData.linkedin || "https://www.linkedin.com/company/saidpiece/"} target="_blank" rel="noreferrer" className="hover:text-white transition-all duration-300">LinkedIn</a>
                   </div>
                 </div>
 

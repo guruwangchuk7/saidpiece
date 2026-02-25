@@ -4,7 +4,6 @@ import { FaEdit, FaTrash, FaPlus, FaTimes, FaImage } from 'react-icons/fa';
 
 const ProjectAdmin = () => {
     const [projects, setProjects] = useState([]);
-    const [loading, setLoading] = useState(true);
     const [uploading, setUploading] = useState(false);
 
     // Form State
@@ -63,8 +62,6 @@ const ProjectAdmin = () => {
             }
         } catch (error) {
             console.error('Error fetching projects:', error);
-        } finally {
-            setLoading(false);
         }
     };
 

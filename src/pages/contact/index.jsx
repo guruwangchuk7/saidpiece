@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'motion/react'
+import React, { useState } from 'react'
+import { AnimatePresence } from 'motion/react'
 import { NavLink } from 'react-router-dom'
 import rightArrow from '../../assets/icons/rightArrow.svg'
 import officeImage from '../../assets/contact/saidpieceofficeimage.jpg'
 import { supabase } from '../../services/supabaseClient'
 import emailjs from '@emailjs/browser'
+import { useSiteContent } from '../../context/SiteContentContext'
 
 // Initialize EmailJS
 emailjs.init('XkNzaXXHW5Z1e0x48');
@@ -154,7 +155,7 @@ const ContactForm = () => {
   )
 }
 
-const ContactHeader = () => {
+const ContactHeader = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -165,7 +166,7 @@ const ContactHeader = () => {
         onClick={() => setIsOpen(!isOpen)}
       >
         <h1 className="text-3xl lg:text-7xl font-bold tracking-tight leading-tight uppercase transition-colors duration-300 group-hover:text-zinc-700 -ml-0.5">
-          LET'S TALK?
+          {data?.heading || "LET'S TALK?"}
         </h1>
         {/* Underline effect to hint interactivity */}
         <span className={`absolute left-0 bottom-0 h-1 bg-zinc-800 transition-all duration-300 ${isOpen ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
@@ -204,42 +205,42 @@ const ContactItem = ({ label, children }) => (
   </div>
 )
 
-const ContactInfo = () => (
+const ContactInfo = ({ data }) => (
   <div className="flex-1 w-full lg:max-w-sm border-t border-zinc-200 pt-4 lg:pt-2 pr-0 lg:pr-10">
     <h2 className="text-sm text-zinc-600 mb-4 lg:mb-2">General contacts</h2>
 
     <div className="space-y-6 lg:space-y-3 text-zinc-700">
       <ContactItem label="E:">
-        <a href="mailto:thinley@saidpiece.com" className="text-zinc-600 hover:underline break-all">
-          thinley@saidpiece.com
+        <a href={`mailto:${data?.email || "thinley@saidpiece.com"}`} className="text-zinc-600 hover:underline break-all">
+          {data?.email || "thinley@saidpiece.com"}
         </a>
       </ContactItem>
 
       <ContactItem label="P:">
         <div className="text-zinc-600">
-          <div>+975 17899794 (BHT)</div>
-          <div><a href="https://wa.me/66931205085" target="_blank" rel="noopener noreferrer" className="hover:underline">+66 931205085</a> (TH)</div>
+          <div>{data?.phoneBht || "+975 17899794 (BHT)"}</div>
+          <div><a href={`https://wa.me/${(data?.phoneTh || "+66 931205085 (TH)").replace(/[^0-9]/g, '')}`} target="_blank" rel="noopener noreferrer" className="hover:underline">{data?.phoneTh || "+66 931205085 (TH)"}</a></div>
         </div>
       </ContactItem>
 
       <ContactItem label="S.L:">
         <div className="flex flex-wrap gap-3 text-zinc-600">
-          <a href="https://www.instagram.com/saidpiece_architects?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="transition duration-300 hover:scale-105 origin-left">Instagram</a>
-          <a href="https://www.facebook.com/saidpiece.architects" target="_blank" rel="noopener noreferrer" className="transition duration-300 hover:scale-105 origin-left">Facebook</a>
-          <a href="https://www.linkedin.com/company/saidpiece/" target="_blank" rel="noopener noreferrer" className="transition duration-300 hover:scale-105 origin-left">LinkedIn</a>
+          <a href={data?.instagram || "https://www.instagram.com/saidpiece_architects?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="} target="_blank" rel="noopener noreferrer" className="transition duration-300 hover:scale-105 origin-left">Instagram</a>
+          <a href={data?.facebook || "https://www.facebook.com/saidpiece.architects"} target="_blank" rel="noopener noreferrer" className="transition duration-300 hover:scale-105 origin-left">Facebook</a>
+          <a href={data?.linkedin || "https://www.linkedin.com/company/saidpiece/"} target="_blank" rel="noopener noreferrer" className="transition duration-300 hover:scale-105 origin-left">LinkedIn</a>
         </div>
       </ContactItem>
     </div>
   </div>
 )
 
-const ContactContentSection = () => (
+const ContactContentSection = ({ data }) => (
   <div className="flex flex-col-reverse lg:flex-row items-start gap-10 lg:gap-8">
-    <ContactInfo />
+    <ContactInfo data={data} />
 
     <div className="w-full h-auto lg:w-110 lg:max-h-[60vh] self-start shrink-0">
       <img
-        src={officeImage}
+        src={data?.image_url || officeImage}
         alt="Saidpiece office"
         className="w-full h-auto lg:h-full lg:max-h-[60vh] object-cover rounded-sm"
         loading="eager"
@@ -251,6 +252,9 @@ const ContactContentSection = () => (
 // -- Main Component --
 
 function Contact() {
+  const { content } = useSiteContent();
+  const contactData = content?.contact_page || {};
+
   return (
     <div className="relative flex flex-col bg-white px-3 sm:px-5 lg:px-10 py-4 lg:py-8 pb-32 lg:pb-12">
       <BackButton />
@@ -259,10 +263,10 @@ function Contact() {
       <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start w-full mt-10 sm:mt-16 lg:mt-24 gap-6 lg:gap-0">
 
         {/* Left Side (Desktop) / Top (Mobile) */}
-        <ContactHeader />
+        <ContactHeader data={contactData} />
 
         {/* Right Side (Desktop) / Bottom (Mobile) */}
-        <ContactContentSection />
+        <ContactContentSection data={contactData} />
 
       </div>
     </div>

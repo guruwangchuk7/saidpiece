@@ -2,9 +2,11 @@ import React from "react";
 import homemain from "../../assets/homephoto/homemain.jpg";
 import BtnT1 from "../../components/common/ButtonType1";
 import { NavLink } from 'react-router-dom'
+import { useSiteContent } from "../../context/SiteContentContext";
 
 function H2() {
-  const data = {
+  const { content } = useSiteContent();
+  const defaultData = {
     heading: "STUDIO OF ARCHITECTURE AND ENGINEERING",
     about:
       "Saidpiece Architects has completed projects across Bhutan and abroad, specializing in architectural design, urban planning, interior design, engineering, and construction consultancy. Guided by the principles of Gross National Happiness, we merge sustainability, creativity, and precision to deliver innovative, culturally authentic design solutions.",
@@ -12,6 +14,9 @@ function H2() {
       "Our work aspires to contribute to leading global and regional design platforms and journals, sharing Bhutan’s unique architectural vision with the world.",
     imgData: [homemain],
   };
+
+  const data = content?.home_about || defaultData;
+  const imageToUse = data.image_url ? [data.image_url] : defaultData.imgData;
 
   return (
     <div className="flex mt-10 sm:mt-16 md:mt-20 flex-wrap items-start">
@@ -33,7 +38,7 @@ function H2() {
           <BtnT1 title={"MORE ABOUT THE STUDIO"} />
         </NavLink>
       </div>
-      {data.imgData.map((img, index) => (
+      {imageToUse.map((img, index) => (
         <div
           key={index}
           className="w-full lg:w-[70%] mt-8 sm:mt-10 lg:mt-0 px-0 lg:pl-10 overflow-hidden"

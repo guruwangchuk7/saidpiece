@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+// eslint-disable-next-line no-unused-vars
+import { motion, AnimatePresence } from 'framer-motion';
 import { teamPortfolios } from '../../../data/teamPortfolios';
 import { Link } from 'react-router-dom';
 
@@ -19,7 +20,7 @@ const TeamDrawer = ({ isOpen, onClose, member }) => {
     if (!member) return null;
 
     const details = teamPortfolios[member.slug] || {};
-    const { detailedBio = [], aboutQuote = "", expertise = {}, selectedWorks = [] } = details;
+    const { detailedBio = [], aboutQuote = "" } = details;
 
     // Helper to get initials
     const getInitials = (name) => {

@@ -11,18 +11,18 @@ const AdminManager = () => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        const checkAccess = async () => {
+            // Double check if user is super_admin
+            const { data } = await supabase.from('admins').select('role').eq('email', user.email).single();
+            if (data?.role !== 'super_admin' && user.email !== 'guruwangchuk1234@gmail.com') {
+                alert("Restricted Access");
+                window.location.href = '/admin/dashboard';
+            }
+        };
+
         checkAccess();
         fetchAdmins();
-    }, []);
-
-    const checkAccess = async () => {
-        // Double check if user is super_admin
-        const { data } = await supabase.from('admins').select('role').eq('email', user.email).single();
-        if (data?.role !== 'super_admin' && user.email !== 'guruwangchuk1234@gmail.com') {
-            alert("Restricted Access");
-            window.location.href = '/admin/dashboard';
-        }
-    };
+    }, [user.email]);
 
     const fetchAdmins = async () => {
         const { data, error } = await supabase

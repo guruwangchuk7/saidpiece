@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams, NavLink, useNavigate } from 'react-router-dom';
-import { portfolioItems as staticPortfolioItems } from '../../data/portfolioItems';
 import rightArrow from '../../assets/icons/rightArrow.svg';
-import { motion } from "motion/react";
-import { supabase } from '../../services/supabaseClient';
+// eslint-disable-next-line no-unused-vars
+import { motion } from "framer-motion";
 import { useProjectData } from '../../hooks/useProjectData';
 import { Helmet } from 'react-helmet-async';
 

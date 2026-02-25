@@ -9,7 +9,6 @@ const BlogAdmin = () => {
     // Blog Form State
     const [editingId, setEditingId] = useState(null);
     const [title, setTitle] = useState('');
-    const [subtitle, setSubtitle] = useState('News');
     const [domain, setDomain] = useState('News');
     const [author, setAuthor] = useState('');
 
@@ -72,7 +71,6 @@ const BlogAdmin = () => {
     const resetForm = () => {
         setEditingId(null);
         setTitle('');
-        setSubtitle('News');
         setDomain('News');
         setAuthor('');
         setHeadingLine('');
@@ -89,7 +87,6 @@ const BlogAdmin = () => {
     const handleEdit = (blog) => {
         setEditingId(blog.id);
         setTitle(blog.title);
-        setSubtitle(blog.subtitle || blog.domain);
         setDomain(blog.domain);
         setAuthor(blog.author);
 
@@ -229,7 +226,6 @@ const BlogAdmin = () => {
                                     value={domain}
                                     onChange={(e) => {
                                         setDomain(e.target.value);
-                                        setSubtitle(e.target.value);
                                     }}
                                     className="w-full px-3 py-2 border border-zinc-300 rounded focus:ring-black focus:border-black text-sm bg-white"
                                 >

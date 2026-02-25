@@ -1,19 +1,19 @@
-import { motion } from "motion/react";
+// eslint-disable-next-line no-unused-vars
+import { motion } from 'framer-motion';
 import React, { useEffect, useRef } from 'react';
-
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { NavLink } from 'react-router-dom';
 import rightArrow from '../../assets/icons/rightArrow.svg';
 import H5 from '../home/H5';
 import Footer from '../../components/layout/Footer';
+import { useSiteContent } from '../../context/SiteContentContext';
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
 // --- Asset Imports ---
 import aboutUsImg from '../../assets/aboutusphoto/aboutus.webp';
 // import philosophyImg from '../../assets/homephoto/mainbg.svg'; // Unused and heavy (12MB)
-import teamImg from '../../assets/homephoto/page3Bg.jpg';
 import teamGuruImg from '../../assets/aboutusphoto/teamguru.png';
 import aboutDzong from '../../assets/aboutusphoto/aboutdzong.JPG';
 import ctaImg from '../../assets/calltoaction/keyboard.jpg';
@@ -37,14 +37,16 @@ const IconHuman = () => (
 );
 
 
-// --- Page Content (Expanded with more information) ---
-const pageData = {
+// --- Default Page Content ---
+const defaultPageData = {
   hero: {
     heading: "saidpiece architects",
+    image: aboutUsImg
   },
   intro: {
     title: "Saidpiece Architects is a registered\nBhutanese firm specializing in\narchitectural and engineering solutions.",
     description: "Located at Namgyal Plaza, Thimphu (CDB No. 312; Trade License No. 1052642), we provide full-spectrum professional services encompassing design, documentation, and project delivery, from concept to completion. Founded in 2023, Saidpiece was born from a vision to merge Bhutanese tradition with modern innovation. Our work is rooted in the belief that architecture is not merely the creation of buildings, but the crafting of environments that foster balance between human experience, culture, and nature.",
+    image: aboutDzong
   },
   process: {
     heading: "Our Expertise",
@@ -68,8 +70,6 @@ const pageData = {
       { icon: <IconInnovation />, title: "Responsibility", text: "Protecting the environment and building with care." },
       { icon: <IconHuman />, title: "Purpose", text: "Celebrating Bhutan’s cultural identity within a forward-looking framework." },
     ],
-    // image: philosophyImg,
-
   },
   inspiration: {
     heading: "Vision",
@@ -80,12 +80,23 @@ const pageData = {
     subheading: "Who We Are",
     quote: "Saidpiece Architects is a Bhutan-based multi-disciplinary and construction firm specializing in innovative sustainable designs.",
     description: "Offering full turn key services from concept development to project completion, we focus on creating functional, aesthetic and mindful spaces with an emphasis on innovation and sustainability.",
-    image: teamImg
+    image: teamGuruImg
   }
 };
 
 
 function About() {
+  const { content } = useSiteContent();
+  const dbData = content?.about_page || {};
+
+  // Merge default data with db data
+  const pageData = {
+    ...defaultPageData,
+    hero: { ...defaultPageData.hero, heading: dbData.heroHeading || defaultPageData.hero.heading, image: dbData.heroImage_url || defaultPageData.hero.image },
+    intro: { ...defaultPageData.intro, title: dbData.introTitle || defaultPageData.intro.title, description: dbData.introDescription || defaultPageData.intro.description, image: dbData.introImage_url || defaultPageData.intro.image },
+    process: { ...defaultPageData.process, heading: dbData.expertiseHeading || defaultPageData.process.heading, tagline: dbData.expertiseTagline || defaultPageData.process.tagline },
+    team: { ...defaultPageData.team, quote: dbData.visionQuote || defaultPageData.team.quote, description: dbData.visionDescription || defaultPageData.team.description, image: dbData.visionImage_url || defaultPageData.team.image }
+  };
   const mainRef = useRef(null);
   const introRef = useRef(null);
   const heroRef = useRef(null);
@@ -179,7 +190,7 @@ function About() {
         <div
           ref={heroImageRef}
           className="absolute inset-0 w-full h-full bg-cover bg-center"
-          style={{ backgroundImage: `url(${aboutUsImg})` }}
+          style={{ backgroundImage: `url(${pageData.hero.image})` }}
         />
         <div className="absolute inset-0 bg-black/40 z-10" />
         <div data-animate="hero-title" className="relative z-20 px-5 -mt-40">
@@ -209,7 +220,7 @@ function About() {
           {/* Vertical Image on the left - increased width and aligned to left padding */}
           <div data-animate-child className="hidden lg:block w-[42%] shrink-0">
             <img
-              src={aboutDzong}
+              src={pageData.intro.image}
               alt="Saidpiece Architecture"
               className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
             />
@@ -230,7 +241,7 @@ function About() {
                 {/* Vertical Image for Mobile only - integrated into the text flow for better context */}
                 <div className="lg:hidden my-10">
                   <img
-                    src={aboutDzong}
+                    src={pageData.intro.image}
                     alt="Saidpiece Architecture"
                     className="w-full h-[75vh] object-cover grayscale"
                   />
@@ -360,7 +371,7 @@ function About() {
           {/* Image on the right */}
           <div data-animate-child className="hidden lg:block w-[55%] shrink-0">
             <img
-              src={teamGuruImg}
+              src={pageData.team.image}
               alt="SaidPiece Team"
               className="w-full h-[66vh] object-cover grayscale hover:grayscale-0 transition-all duration-700"
               loading="eager"
@@ -370,7 +381,7 @@ function About() {
           {/* Mobile Image */}
           <div data-animate-child className="lg:hidden mt-8">
             <img
-              src={teamGuruImg}
+              src={pageData.team.image}
               alt="SaidPiece Team"
               className="w-full h-[48vh] object-cover grayscale"
             />

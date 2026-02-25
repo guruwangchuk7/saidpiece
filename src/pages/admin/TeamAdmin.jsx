@@ -4,9 +4,7 @@ import { FaEdit, FaTrash, FaPlus, FaTimes, FaGlobe, FaLinkedin, FaGithub, FaEnve
 
 const TeamAdmin = () => {
     const [team, setTeam] = useState([]);
-    const [loading, setLoading] = useState(true);
     const [uploading, setUploading] = useState(false);
-    const [error, setError] = useState(null);
 
     // Form State
     const [isEditing, setIsEditing] = useState(false);
@@ -72,9 +70,6 @@ const TeamAdmin = () => {
             }
         } catch (error) {
             console.error('Error fetching team:', error);
-            setError(error.message);
-        } finally {
-            setLoading(false);
         }
     };
 

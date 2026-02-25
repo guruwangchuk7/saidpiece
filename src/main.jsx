@@ -5,6 +5,7 @@ import App from './App.jsx'
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async';
 import { AuthProvider } from './context/AuthContext.jsx'
+import { SiteContentProvider } from './context/SiteContentContext.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import { Toaster } from 'react-hot-toast';
 
@@ -30,6 +31,7 @@ const TeamAdmin = lazy(() => import('./pages/admin/TeamAdmin.jsx'));
 const BlogAdmin = lazy(() => import('./pages/admin/BlogAdmin.jsx'));
 const AdminManager = lazy(() => import('./pages/admin/AdminManager.jsx'));
 const MessagesAdmin = lazy(() => import('./pages/admin/MessagesAdmin.jsx'));
+const SiteContentAdmin = lazy(() => import('./pages/admin/SiteContentAdmin.jsx'));
 
 // Loading Fallback Component
 const PageLoader = () => (
@@ -76,6 +78,7 @@ const router = createBrowserRouter(
         <Route path="team" element={<Suspense fallback={<PageLoader />}><TeamAdmin /></Suspense>} />
         <Route path="blog" element={<Suspense fallback={<PageLoader />}><BlogAdmin /></Suspense>} />
         <Route path="messages" element={<Suspense fallback={<PageLoader />}><MessagesAdmin /></Suspense>} />
+        <Route path="site-content" element={<Suspense fallback={<PageLoader />}><SiteContentAdmin /></Suspense>} />
         <Route path="users" element={<Suspense fallback={<PageLoader />}><AdminManager /></Suspense>} />
       </Route>
     </>
@@ -86,8 +89,10 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <HelmetProvider>
       <AuthProvider>
-        <Toaster position="top-right" />
-        <RouterProvider router={router} />
+        <SiteContentProvider>
+          <Toaster position="top-right" />
+          <RouterProvider router={router} />
+        </SiteContentProvider>
       </AuthProvider>
     </HelmetProvider>
   </StrictMode>

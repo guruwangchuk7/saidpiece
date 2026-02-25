@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Outlet, NavLink, useNavigate, useLocation } from 'react-router-dom';
+import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { supabase } from '../../services/supabaseClient';
 import { FaTachometerAlt, FaProjectDiagram, FaUsers, FaBlog, FaEnvelope, FaUserShield, FaSignOutAlt, FaBars, FaTimes } from 'react-icons/fa';
@@ -8,7 +8,6 @@ import { toast } from 'react-hot-toast';
 const AdminLayout = () => {
     const { user, signOut, signInWithGoogle } = useAuth();
     const navigate = useNavigate();
-    const location = useLocation();
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [adminRole, setAdminRole] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -53,6 +52,7 @@ const AdminLayout = () => {
         { path: '/admin/team', label: 'Team', icon: <FaUsers /> },
         { path: '/admin/blog', label: 'Insights', icon: <FaBlog /> },
         { path: '/admin/messages', label: 'Messages', icon: <FaEnvelope /> },
+        { path: '/admin/site-content', label: 'Site Settings', icon: <FaTachometerAlt /> },
     ];
 
     if (adminRole === 'super_admin') {

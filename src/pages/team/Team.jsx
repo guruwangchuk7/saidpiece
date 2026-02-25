@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { supabase } from '../../services/supabaseClient';
-import { useAuth } from '../../context/AuthContext';
 import { NavLink } from 'react-router-dom';
 import rightArrow from '../../assets/icons/rightArrow.svg';
 import { staticTeamMembers } from '../../data/staticTeam';
-import { motion } from 'motion/react';
 
 // --- Local Components ---
 
@@ -80,7 +78,7 @@ const Team = () => {
     fetchMembers();
   }, []);
 
-  const roleOrder = [
+  const roleOrder = useMemo(() => [
     'Principal Architect',
     'BIM Architect',
     'Architect',
@@ -88,9 +86,9 @@ const Team = () => {
     'Full Stack Engineer',
     'Administration',
     'Travel Guide'
-  ];
+  ], []);
 
-  const roleMapping = {
+  const roleMapping = useMemo(() => ({
     'admin': 'Administration',
     'administration': 'Administration',
     'architect intern': 'Architecture apprentice',
@@ -100,13 +98,13 @@ const Team = () => {
     'bim architect': 'BIM Architect',
     'principal architect': 'Principal Architect',
     'architect': 'Architect'
-  };
+  }), []);
 
-  const getNormalizedRole = (role) => {
+  const getNormalizedRole = React.useCallback((role) => {
     if (!role) return '';
     const lowerRole = role.toLowerCase().trim();
     return roleMapping[lowerRole] || role.trim();
-  };
+  }, [roleMapping]);
 
   // Original list for reference
   const displayMembers = members;
@@ -235,7 +233,7 @@ const Team = () => {
       if (idxB !== -1) return 1;
       return a.localeCompare(b);
     });
-  }, [members]);
+  }, [members, getNormalizedRole, roleOrder]);
 
 
 

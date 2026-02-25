@@ -1,15 +1,24 @@
 import React, { useEffect, useRef } from "react";
 import kinleyPhoto from "../../assets/homephoto/kinleylaptop.JPG";
 import rightArrow from "../../assets/icons/rightArrow.svg";
-import { motion, MotionConfig } from "motion/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useSiteContent } from "../../context/SiteContentContext";
+// eslint-disable-next-line no-unused-vars
+import { motion, MotionConfig } from "framer-motion";
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
 function H1() {
   const imageRef = useRef(null);
+  const { content } = useSiteContent();
+  const heroData = content?.home_hero || {
+    titlePart1: 'said',
+    titlePart2: 'piece',
+    titlePart3: 'architects',
+    image_url: ''
+  };
 
   useEffect(() => {
     const mm = gsap.matchMedia();
@@ -45,7 +54,7 @@ function H1() {
             style={{ fontFamily: "century-gothic" }}
           >
             <div className="logo font-bold text-2xl sm:text-3xl md:text-5xl text-neutral-800 lg:text-7xl" style={{ fontFamily: "century-gothic" }}>
-              <span style={{ color: "#555555" }} className="font-light">said</span><span style={{ opacity: 0.95 }}>piece</span> <span className="font-light">architects</span>
+              <span style={{ color: "#555555" }} className="font-light">{heroData.titlePart1}</span><span style={{ opacity: 0.95 }}>{heroData.titlePart2}</span> <span className="font-light">{heroData.titlePart3}</span>
             </div>
           </motion.div>
         </MotionConfig>
@@ -68,8 +77,8 @@ function H1() {
 
       <div ref={imageRef} className="h-auto sm:h-[82vh] md:h-[92vh] mx-3 sm:mx-5 md:mx-10 lg:mx-[5cm] mt-10 sm:mt-[28vh] lg:mt-[14vh] overflow-hidden flex justify-center items-center">
         <img
-          src={kinleyPhoto}
-          alt="Kinley"
+          src={heroData.image_url || kinleyPhoto}
+          alt="Saidpiece Hero"
           className="w-full h-auto sm:h-full object-contain sm:object-cover object-center"
           loading="eager"
         />

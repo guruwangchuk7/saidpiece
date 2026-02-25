@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { motion, AnimatePresence } from 'motion/react';
+// eslint-disable-next-line no-unused-vars
+import { motion, AnimatePresence } from 'framer-motion';
 import { FaTimes, FaExclamationTriangle } from 'react-icons/fa';
 
 /**
