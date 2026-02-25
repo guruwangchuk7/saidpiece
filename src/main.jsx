@@ -21,6 +21,7 @@ import BlogPost from './pages/blog/BlogPost.jsx';
 import ProjectGallery from './pages/portfolio/ProjectGallery.jsx';
 import Legal from './pages/legal/index.jsx';
 import TeamPortfolio from './pages/team/portfolios/TeamPortfolio.jsx';
+import Store from './pages/store/index.jsx';
 const Dashboard = lazy(() => import('./pages/dashboard/index.jsx'));
 
 // Lazy Load Admin Components
@@ -55,6 +56,7 @@ const router = createBrowserRouter(
         {/* Team member profiles - All public */}
         <Route path='team/:slug' element={<TeamPortfolio />}></Route>
 
+        <Route path='store' element={<Store />}></Route>
         <Route path='legal' element={<Legal />}></Route>
         <Route path='portfolio/:id' element={<ProjectGallery />}></Route>
 
