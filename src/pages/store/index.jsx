@@ -7,33 +7,33 @@ import rightArrow from '../../assets/icons/rightArrow.svg';
 const storeItems = [
     {
         id: 1,
-        title: 'Minimalist Vase',
-        image: 'https://images.unsplash.com/photo-1578500494198-246f612d3b3d?q=80&w=1200&auto=format&fit=crop',
+        title: 'All Products',
+        image: 'https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=1200&auto=format&fit=crop&sat=-100',
     },
     {
         id: 2,
-        title: 'Sculptural Chair',
-        image: 'https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=1200&auto=format&fit=crop',
+        title: 'Furniture',
+        image: 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?q=80&w=1200&auto=format&fit=crop&sat=-100',
     },
     {
         id: 3,
-        title: 'Ceramic Bowl',
-        image: 'https://images.unsplash.com/photo-1610701596007-11502861dcfa?q=80&w=1200&auto=format&fit=crop',
+        title: 'Interior Finishes',
+        image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=1200&auto=format&fit=crop&sat=-100',
     },
     {
         id: 4,
-        title: 'Woven Basket',
-        image: 'https://images.unsplash.com/photo-1601662528567-526cd06f6582?q=80&w=1200&auto=format&fit=crop',
+        title: 'Lighting & Electrical',
+        image: 'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?q=80&w=1200&auto=format&fit=crop&sat=-100',
     },
     {
         id: 5,
-        title: 'Artisan Lamp',
-        image: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=1200&auto=format&fit=crop',
+        title: 'Hardware & Accessories',
+        image: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?q=80&w=1200&auto=format&fit=crop&sat=-100',
     },
     {
         id: 6,
-        title: 'Linen Throw',
-        image: 'https://images.unsplash.com/photo-1584346133934-a3afd2a33c4c?q=80&w=1200&auto=format&fit=crop',
+        title: 'Decor & Art',
+        image: 'https://images.unsplash.com/photo-1615529182904-14819c35db37?q=80&w=1200&auto=format&fit=crop&sat=-100',
     }
 ];
 
