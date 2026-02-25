@@ -388,7 +388,7 @@ const ProductDetail = () => {
                                             {product.information.map((item, idx) => (
                                                 <div key={idx} className="space-y-4">
                                                     <p className="text-[10px] font-bold uppercase tracking-widest text-black">{item.title}</p>
-                                                    <p className="text-sm lg:text-xl text-black font-light leading-relaxed text-justify">{item.content}</p>
+                                                    <p className="text-xs lg:text-base text-black font-light leading-relaxed text-justify">{item.content}</p>
                                                 </div>
                                             ))}
                                         </div>
