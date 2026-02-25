@@ -12,7 +12,6 @@ const AuthModal = () => {
         setAuthMode,
         signIn,
         signUp,
-        signInWithGoogle,
         user
     } = useAuth();
 
@@ -58,15 +57,7 @@ const AuthModal = () => {
 
     if (!showAuthModal) return null;
 
-    const handleGoogleLogin = async () => {
-        try {
-            setError(null);
-            const { error } = await signInWithGoogle();
-            if (error) throw error;
-        } catch (error) {
-            setError(error.message);
-        }
-    };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();

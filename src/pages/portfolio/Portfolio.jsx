@@ -87,8 +87,6 @@ const Portfolio = () => {
     return () => { document.body.style.overflow = 'unset'; };
   }, [selectedId]);
 
-  const selectedItem = projects.find(p => p.id === selectedId);
-
 
 
   return (

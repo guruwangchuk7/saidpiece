@@ -120,9 +120,9 @@ const BlogPost = () => {
                         <div className="prose prose-zinc max-w-none text-zinc-800 leading-relaxed text-sm sm:text-base">
                             <ReactMarkdown
                                 components={{
-                                    h3: ({ node, ...props }) => <h3 className="uppercase text-sm font-bold tracking-widest mb-4 text-zinc-500 mt-8" {...props} />,
-                                    p: ({ node, ...props }) => <p className="mb-6" {...props} />,
-                                    blockquote: ({ node, ...props }) => <blockquote className="border-l-2 border-zinc-900 pl-6 italic my-10 text-xl md:text-2xl text-zinc-900 font-serif" {...props} />,
+                                    h3: ({ node: _node, ...props }) => <h3 className="uppercase text-sm font-bold tracking-widest mb-4 text-zinc-500 mt-8" {...props} />,
+                                    p: ({ node: _node, ...props }) => <p className="mb-6" {...props} />,
+                                    blockquote: ({ node: _node, ...props }) => <blockquote className="border-l-2 border-zinc-900 pl-6 italic my-10 text-xl md:text-2xl text-zinc-900 font-serif" {...props} />,
                                 }}
                             >
                                 {selectedItem.description}

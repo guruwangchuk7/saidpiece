@@ -99,7 +99,7 @@ const BlogAdmin = () => {
             if (parts.length >= 3) setParagraph1(parts[2]);
             if (parts.length >= 4) setQuote(parts[3].replace('> ', '').replace(/"/g, ''));
             if (parts.length >= 5) setParagraph2(parts.slice(4).join('\n\n'));
-        } catch (e) {
+        } catch {
             setParagraph1(desc);
         }
 

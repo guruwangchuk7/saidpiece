@@ -21,34 +21,13 @@ const portfolioData = {
 
 function H4() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [direction, setDirection] = useState(0);
+
   const projectRefs = React.useRef([]);
 
   const handleScroll = (index) => {
     projectRefs.current[index]?.scrollIntoView({ behavior: "auto", block: "center" });
   };
 
-  const slideVariants = {
-    enter: (direction) => ({
-      x: direction > 0 ? "100%" : "-100%",
-    }),
-    center: {
-      x: 0,
-    },
-    exit: (direction) => ({
-      x: direction < 0 ? "100%" : "-100%",
-    }),
-  };
-
-  const nextSlide = () => {
-    setDirection(1);
-    setActiveIndex((prev) => (prev + 1) % portfolioData.image.length);
-  };
-
-  const prevSlide = () => {
-    setDirection(-1);
-    setActiveIndex((prev) => (prev - 1 + portfolioData.image.length) % portfolioData.image.length);
-  };
 
   return (
     <div className="bg-white md:min-h-screen text-[#333333] font-sans selection:bg-zinc-800 selection:text-white">

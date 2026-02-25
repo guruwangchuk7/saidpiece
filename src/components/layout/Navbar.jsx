@@ -1,42 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { useSiteContent } from '../../context/SiteContentContext'
-import ham from '../../assets/icons/ham.svg'
-import close from '../../assets/icons/close.svg'
-import { useAuth } from '../../context/AuthContext'
 
 function Navbar() {
-
-  const [isOpen, setIsOpen] = useState(true);
-  const [showDropdown, setShowDropdown] = useState(false);
-  const { user, setShowAuthModal, signOut } = useAuth();
   const { content } = useSiteContent();
 
   const navData = content?.nav || { titlePart1: 'said', titlePart2: 'piece', tagline: 'STORE | ART FOUNDATION' };
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  }
 
-  // Get user's first name from metadata or email
-  const getUserName = () => {
-    if (!user) return '';
-    const full_name = user.user_metadata?.full_name || user.user_metadata?.name || user.email?.split('@')[0] || 'User';
-    return full_name.split(' ')[0];
-  };
-
-  // Get user's avatar URL
-  const getAvatarUrl = () => {
-    if (!user) return null;
-    return user.user_metadata?.avatar_url ||
-      user.user_metadata?.picture ||
-      null;
-  };
-
-  const handleLogout = async () => {
-    await signOut();
-    setShowDropdown(false);
-  };
 
   return (
     <div className={`font-semibold flex justify-between items-center px-3 sm:px-5 lg:px-10 py-2 relative`}>

@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Signup = () => {
     const { signUp } = useAuth();
@@ -11,7 +11,7 @@ const Signup = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
-    const navigate = useNavigate();
+
 
     const handleSignup = async (e) => {
         e.preventDefault();
@@ -23,7 +23,7 @@ const Signup = () => {
         setLoading(true);
         setError(null);
         try {
-            const { data, error } = await signUp(email, password);
+            const { error } = await signUp(email, password);
             if (error) throw error;
             setSuccess(true);
         } catch (err) {

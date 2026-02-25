@@ -1,4 +1,4 @@
-import { div } from 'motion/react-client'
+
 import React from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import ButtonType2 from '../common/ButtonType2'

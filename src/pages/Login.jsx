@@ -16,7 +16,7 @@ const Login = () => {
         setLoading(true);
         setError(null);
         try {
-            const { data, error } = await signIn(email, password);
+            const { error } = await signIn(email, password);
             if (error) throw error;
             navigate('/team'); // Redirect to team page or wherever
         } catch (err) {
