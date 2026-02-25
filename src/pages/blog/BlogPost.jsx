@@ -81,7 +81,7 @@ const BlogPost = () => {
     }
 
     return (
-        <div className="min-h-screen bg-white text-zinc-900">
+        <div className="min-h-screen bg-white text-black">
             {/* Split Layout Container */}
             <div className="flex flex-col lg:flex-row relative">
 
@@ -133,7 +133,7 @@ const BlogPost = () => {
             </div>
 
             {/* === CTA SECTION === */}
-            <section className="group/cta relative w-full px-6 sm:px-10 lg:px-20 py-14 sm:py-20 h-[40vh] sm:h-[50vh] overflow-hidden flex flex-col justify-between border-t border-zinc-100 mt-[2cm] lg:order-last">
+            <section className="group/cta relative w-full px-3 sm:px-5 lg:px-10 py-14 sm:py-20 h-[40vh] sm:h-[50vh] overflow-hidden flex flex-col justify-between border-t border-zinc-100 mt-[2cm] lg:order-last">
                 <div className="absolute inset-0 z-0 overflow-hidden">
                     <img
                         src={ctaImg}
@@ -146,7 +146,7 @@ const BlogPost = () => {
                 {/* Top Text */}
                 <div className="relative z-10 w-full text-white">
                     <h2
-                        className="text-xl sm:text-2xl md:text-3xl tracking-tight leading-tight drop-shadow-md"
+                        className="text-xl sm:text-2xl md:text-3xl tracking-tight leading-tight drop-shadow-md font-bold"
                         style={{ fontFamily: 'century-gothic' }}
                     >
                         <span className="font-light" style={{ color: "#aaaaaa" }}>said</span>
@@ -169,42 +169,43 @@ const BlogPost = () => {
             </section>
 
             {/* "Further On..." Section */}
-            <div className="bg-white py-20 px-6 sm:px-10 lg:px-20 border-t border-zinc-200">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 border-b border-zinc-400 pb-6 gap-6">
-                    <div>
-                        <h3 className="text-lg uppercase font-medium tracking-wide">Further</h3>
-                        <h3
-                            className="text-lg uppercase font-medium tracking-wide text-zinc-500"
-                            style={{ fontFamily: 'century-gothic' }}
-                        >
-                            On <span className="font-light" style={{ color: "#555555" }}>said</span><span className="text-zinc-900" style={{ opacity: 0.95 }}>piece</span> Media
-                        </h3>
-                    </div>
-                    <NavLink to="/blog" className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest hover:underline">
-                        All Insights <span>→</span>
-                    </NavLink>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
-                    {relatedPosts.map(item => (
-                        <NavLink key={item.id} to={`/blog/${item.id}`} className="group block cursor-pointer">
-                            <div className="relative overflow-hidden aspect-[4/3] mb-4">
-                                <img
-                                    src={item.image}
-                                    alt={item.title}
-                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                                />
-                            </div>
-                            <h4 className="text-black uppercase font-semibold text-base sm:text-lg tracking-tight leading-tight mb-2 group-hover:text-zinc-600 transition-colors">
-                                {item.title}
-                            </h4>
-                            <div className="flex items-center gap-3 text-xs uppercase tracking-widest text-zinc-500">
-                                <span>{item.domain}</span>
-                                <span>•</span>
-                                <span>{item.date}</span>
-                            </div>
+            <div className="bg-white py-20 px-3 sm:px-5 lg:px-10 border-t border-zinc-200">
+                <div className="w-full mx-auto">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 border-b border-zinc-400 pb-6 gap-6">
+                        <div>
+                            <h3 className="text-lg uppercase font-medium tracking-wide text-black">Further</h3>
+                            <h3
+                                className="text-lg uppercase font-medium tracking-wide text-black"
+                            >
+                                On <span style={{ fontFamily: "century-gothic" }} className="font-bold"><span style={{ color: "#555555" }} className="font-light">said</span><span style={{ opacity: 0.95 }}>piece</span></span> Media
+                            </h3>
+                        </div>
+                        <NavLink to="/blog" className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest hover:underline">
+                            All Insights <span>→</span>
                         </NavLink>
-                    ))}
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
+                        {relatedPosts.map(item => (
+                            <NavLink key={item.id} to={`/blog/${item.id}`} className="group block cursor-pointer">
+                                <div className="relative overflow-hidden aspect-[4/3] mb-4">
+                                    <img
+                                        src={item.image}
+                                        alt={item.title}
+                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                    />
+                                </div>
+                                <h4 className="text-black uppercase font-semibold text-base sm:text-lg tracking-tight leading-tight mb-2 group-hover:text-zinc-600 transition-colors">
+                                    {item.title}
+                                </h4>
+                                <div className="flex items-center gap-3 text-xs uppercase tracking-widest text-zinc-500">
+                                    <span>{item.domain}</span>
+                                    <span>•</span>
+                                    <span>{item.date}</span>
+                                </div>
+                            </NavLink>
+                        ))}
+                    </div>
                 </div>
             </div>
             <Footer />

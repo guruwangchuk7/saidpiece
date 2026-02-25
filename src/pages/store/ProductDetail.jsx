@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { FaChevronDown, FaPlus, FaMinus } from 'react-icons/fa';
 import { useCart } from '../../context/CartContext';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import rightArrow from '../../assets/icons/rightArrow.svg';
+import storeBanner from '../../assets/store/banner/storebanner.jpg';
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
@@ -45,6 +46,25 @@ const productData = {
     }
 };
 
+const relatedProducts = [
+    {
+        id: 6,
+        title: 'Minimalist Lounge Chair',
+        price: '$1,200',
+        category: 'furniture',
+        image: 'https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=1200&auto=format&fit=crop',
+        slug: 'minimalist-lounge-chair'
+    },
+    {
+        id: 3,
+        title: 'Sculptural Floor Lamp',
+        price: '$890',
+        category: 'lighting-electrical',
+        image: 'https://images.unsplash.com/photo-1534073828943-f801091bb18c?q=80&w=1200&auto=format&fit=crop',
+        slug: 'sculptural-floor-lamp'
+    }
+];
+
 const Accordion = ({ title, children, isOpen, onToggle }) => {
     return (
         <div className="border-b border-zinc-200">
@@ -76,6 +96,26 @@ const Accordion = ({ title, children, isOpen, onToggle }) => {
                     </motion.div>
                 )}
             </AnimatePresence>
+        </div>
+    );
+};
+
+const ParallaxBanner = () => {
+    const ref = useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: ref,
+        offset: ["start end", "end start"]
+    });
+    const y = useTransform(scrollYProgress, [0, 1], ["-25%", "25%"]);
+
+    return (
+        <div ref={ref} className="relative h-[23cm] w-full overflow-hidden bg-white">
+            <motion.img
+                style={{ y }}
+                src={storeBanner}
+                alt="Atmospheric Scale"
+                className="absolute inset-0 w-full h-[150%] object-cover"
+            />
         </div>
     );
 };
@@ -212,7 +252,6 @@ const ProductDetail = () => {
                     initial={{ opacity: 0, y: -10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: 1, duration: 1 }}
-                    style={{ fontFamily: "century-gothic" }}
                     onClick={handleScrollDown}
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
@@ -270,9 +309,9 @@ const ProductDetail = () => {
                         {/* Configuration Panel - Architecture Grid Style */}
                         <div data-animate-child className="lg:sticky lg:top-32 lg:h-fit w-full lg:w-[450px] mt-12 lg:mt-0">
                             <div className="space-y-4">
-                                <div className="space-y-2 border-b border-zinc-200 pb-4">
+                                <div className="flex justify-between items-start gap-4 border-b border-zinc-200 pb-4">
                                     <h2 className="text-xl md:text-2xl lg:text-3xl font-light leading-tight text-black uppercase tracking-tight">{product.title}</h2>
-                                    <p className="text-lg md:text-xl text-black font-light tracking-tight">{product.price}</p>
+                                    <p className="text-lg md:text-xl text-black font-light tracking-tight shrink-0">{product.price}</p>
                                 </div>
 
                                 {/* Row Based Options */}
@@ -356,6 +395,48 @@ const ProductDetail = () => {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <ParallaxBanner />
+
+            {/* Related Products Section */}
+            <section className="bg-white py-20 px-3 sm:px-5 lg:px-10 border-t border-zinc-200">
+                <div className="w-full mx-auto">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 border-b border-zinc-400 pb-6 gap-6">
+                        <div>
+                            <h3 className="text-lg uppercase font-medium tracking-wide text-black">Related</h3>
+                            <h3 className="text-lg uppercase font-medium tracking-wide text-black">
+                                On <span style={{ fontFamily: "century-gothic" }} className="font-bold"><span style={{ color: "#555555" }} className="font-light">said</span><span style={{ opacity: 0.95 }}>piece</span></span> Products
+                            </h3>
+                        </div>
+                        <NavLink to="/store/all-products" className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest hover:underline text-black">
+                            All Products <span>→</span>
+                        </NavLink>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
+                        {relatedProducts.map(item => (
+                            <NavLink key={item.id} to={`/store/product/${item.slug}`} className="group block cursor-pointer">
+                                <div className="relative overflow-hidden aspect-[4/3] mb-4 bg-zinc-50">
+                                    <img
+                                        src={item.image}
+                                        alt={item.title}
+                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                    />
+                                </div>
+                                <div className="border-t border-zinc-200 pt-3 sm:pt-4">
+                                    <div className="flex justify-between items-start gap-4">
+                                        <h4 className="text-black uppercase font-semibold text-base sm:text-lg tracking-tight leading-tight group-hover:text-zinc-600 transition-colors">
+                                            {item.title}
+                                        </h4>
+                                        <span className="text-zinc-400 text-[10px] lg:text-xs mt-1 uppercase tracking-widest shrink-0">{item.price}</span>
+                                    </div>
+                                    <p className="text-zinc-500 text-xs sm:text-sm lg:text-base capitalize">{item.category.replace('-', ' ')}</p>
+                                </div>
+                            </NavLink>
+                        ))}
                     </div>
                 </div>
             </section>
