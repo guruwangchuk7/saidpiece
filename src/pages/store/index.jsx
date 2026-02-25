@@ -8,31 +8,37 @@ const storeItems = [
     {
         id: 1,
         title: 'All Products',
+        slug: 'all-products',
         image: 'https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=1200&auto=format&fit=crop&sat=-100',
     },
     {
         id: 2,
         title: 'Furniture',
+        slug: 'furniture',
         image: 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?q=80&w=1200&auto=format&fit=crop&sat=-100',
     },
     {
         id: 3,
         title: 'Interior Finishes',
+        slug: 'interior-finishes',
         image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=1200&auto=format&fit=crop&sat=-100',
     },
     {
         id: 4,
         title: 'Lighting & Electrical',
+        slug: 'lighting-electrical',
         image: 'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?q=80&w=1200&auto=format&fit=crop&sat=-100',
     },
     {
         id: 5,
         title: 'Hardware & Accessories',
+        slug: 'hardware-accessories',
         image: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?q=80&w=1200&auto=format&fit=crop&sat=-100',
     },
     {
         id: 6,
         title: 'Decor & Art',
+        slug: 'decor-art',
         image: 'https://images.unsplash.com/photo-1615529182904-14819c35db37?q=80&w=1200&auto=format&fit=crop&sat=-100',
     }
 ];
@@ -50,31 +56,33 @@ const ParallaxImage = ({ item }) => {
     const y = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
 
     return (
-        <motion.div
-            ref={containerRef}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className={`group cursor-pointer relative overflow-hidden flex flex-col w-full h-[55vh] sm:h-[65vh] md:h-[85vh] bg-zinc-100`}
-        >
-            {/* Make the image slightly larger so it can animate y cleanly */}
-            <motion.div style={{ y, scale: 1.15 }} className="absolute inset-0 w-full h-full">
-                <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                />
+        <NavLink to={`/store/${item.slug}`}>
+            <motion.div
+                ref={containerRef}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className={`group cursor-pointer relative overflow-hidden flex flex-col w-full h-[55vh] sm:h-[65vh] md:h-[85vh] bg-zinc-100`}
+            >
+                {/* Make the image slightly larger so it can animate y cleanly */}
+                <motion.div style={{ y, scale: 1.15 }} className="absolute inset-0 w-full h-full">
+                    <img
+                        src={item.image}
+                        alt={item.title}
+                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                    />
+                </motion.div>
+
+
+                {/* Text always visible, Top Left, Underlined. Reference: "ALL PRODUCTS" */}
+                <div className="absolute top-6 left-6 z-10 pointer-events-none">
+                    <h3 className="text-white text-[10px] sm:text-xs tracking-widest uppercase font-light border-b border-white/50 pb-1">
+                        {item.title}
+                    </h3>
+                </div>
             </motion.div>
-
-
-            {/* Text always visible, Top Left, Underlined. Reference: "ALL PRODUCTS" */}
-            <div className="absolute top-6 left-6 z-10 pointer-events-none">
-                <h3 className="text-white text-[10px] sm:text-xs tracking-widest uppercase font-light border-b border-white/50 pb-1">
-                    {item.title}
-                </h3>
-            </div>
-        </motion.div>
+        </NavLink>
     );
 };
 
