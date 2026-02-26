@@ -45,7 +45,11 @@ function H1() {
 
   return (
     <div>
+<<<<<<< HEAD
       <div className="relative h-[100vh] sm:h-[60vh] lg:h-[90vh] flex justify-center items-center text-neutral-900 px-4">
+=======
+      <div className="h-[50vh] sm:h-[60vh] lg:h-[85vh] flex justify-center items-center text-neutral-900 px-4">
+>>>>>>> 7d32d522936473d1e88d3abc1282a9d61340ee05
         <MotionConfig transition={{ duration: 3, type: "spring" }}>
           <motion.div
             className="head text-center w-fit mx-auto -mt-44 md:-mt-20"
@@ -53,8 +57,16 @@ function H1() {
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
             style={{ fontFamily: "century-gothic" }}
           >
+<<<<<<< HEAD
             <div className="logo font-bold text-2xl sm:text-3xl md:text-5xl text-neutral-800 lg:text-7xl" style={{ fontFamily: "century-gothic" }}>
               <span style={{ color: "#555555" }} className="font-light">{heroData.titlePart1}</span><span style={{ opacity: 0.95 }}>{heroData.titlePart2}</span> <span className="font-light">{heroData.titlePart3}</span>
+=======
+            <div className="logo font-bold text-2xl sm:text-3xl md:text-4xl lg:text-6xl xl:text-7xl text-neutral-800">
+              SAIDPIECE <span className="font-light">STUDIO</span>
+            </div>
+            <div className="text-sm sm:text-base md:text-lg lg:text-xl mt-2 sm:mt-3 lg:mt-4 px-4 sm:px-6 md:px-8 lg:px-0 font-medium text-zinc-600">
+              We Art the World powered by traditions, nature and innovations
+>>>>>>> 7d32d522936473d1e88d3abc1282a9d61340ee05
             </div>
           </motion.div>
         </MotionConfig>
@@ -74,6 +86,7 @@ function H1() {
         </motion.div>
       </div>
 
+<<<<<<< HEAD
 
       <div ref={imageRef} className="h-auto sm:h-[82vh] md:h-[92vh] mx-3 sm:mx-5 md:mx-10 lg:mx-[5cm] mt-10 sm:mt-[28vh] lg:mt-[14vh] overflow-hidden flex justify-center items-center">
         <img
@@ -83,6 +96,17 @@ function H1() {
           loading="eager"
         />
       </div>
+=======
+      <div
+        className="h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[75vh] xl:h-[80vh] border mx-3 sm:mx-6 md:mx-10 lg:mx-16 xl:mx-20 mt-8 sm:mt-12 lg:mt-0"
+        style={{
+          background: `url(${mainBg})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
+>>>>>>> 7d32d522936473d1e88d3abc1282a9d61340ee05
     </div>
   );
 }

@@ -30,6 +30,7 @@ function H4() {
 
 
   return (
+<<<<<<< HEAD
     <div className="bg-white md:min-h-screen text-[#333333] font-sans selection:bg-zinc-800 selection:text-white">
       <div className="flex flex-col md:flex-row relative">
         {/* Desktop Left Column: Sticky Sidebar */}
@@ -58,6 +59,18 @@ function H4() {
                 </motion.div>
               ))}
             </div>
+=======
+    <div className="px-4 sm:px-6 md:px-8 lg:px-10 mt-12 sm:mt-16 lg:mt-20">
+      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 lg:gap-6 xl:gap-10">
+        <div className="w-full lg:w-auto">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl">PORTFOLIO</h1>
+          <div className="w-full lg:w-fit mt-6 sm:mt-8 lg:mt-10">
+            {portfolioData.name.map((item, index) => (
+              <div key={index}>
+                <Btn2 title={item} idx={index + 1}></Btn2>
+              </div>
+            ))}
+>>>>>>> 7d32d522936473d1e88d3abc1282a9d61340ee05
           </div>
 
           <motion.div
@@ -71,6 +84,7 @@ function H4() {
           </motion.div>
         </div>
 
+<<<<<<< HEAD
         <div className="hidden md:flex w-full md:w-[60%] px-3 sm:px-5 lg:px-10 py-6 md:py-20 flex-col gap-[0.5cm]">
           {portfolioData.image.map((item, index) => (
             <motion.div
@@ -106,6 +120,11 @@ function H4() {
                 />
               </div>
             </motion.div>
+=======
+        <div className="w-full lg:w-[45%] xl:w-[50%] h-[50vh] sm:h-[55vh] md:h-[60vh] lg:h-[70vh] xl:h-[75vh] overflow-y-scroll">
+          {portfolioData.image.map((item, index) => (
+            <img key={index} src={item} alt="" className="w-full h-auto object-cover mt-4 sm:mt-5" />
+>>>>>>> 7d32d522936473d1e88d3abc1282a9d61340ee05
           ))}
         </div>
 
