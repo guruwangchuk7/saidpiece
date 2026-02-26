@@ -3,14 +3,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '../../../context/CartContext';
 import { FaPlus, FaMinus, FaChevronLeft } from 'react-icons/fa';
 import rightArrow from '../../../assets/icons/rightArrow.svg';
+import { supabase } from '../../../services/supabaseClient';
 
 const CartDrawer = () => {
-    const { isCartOpen, setIsCartOpen, cart, removeFromCart, updateQuantity, cartTotal } = useCart();
+    const { isCartOpen, setIsCartOpen, cart, removeFromCart, updateQuantity, cartTotal, clearCart } = useCart();
 
-    // Step state: 'cart' or 'details'
+    const [loading, setLoading] = useState(false);
     const [step, setStep] = useState('cart');
-
-    // User details state
     const [formData, setFormData] = useState({
         name: '',
         phone: '',
@@ -50,30 +49,56 @@ const CartDrawer = () => {
         }).format(amount);
     };
 
-    const handleWhatsAppCheckout = () => {
-        // Replace with your actual business WhatsApp number
-        const businessPhone = "66931205085";
+    const handleWhatsAppCheckout = async () => {
+        setLoading(true);
+        try {
+            // 1. Prepare WhatsApp message
+            const businessPhone = "66931205085";
+            let message = `*NEW ORDER FROM SAIDPIECE*\n`;
+            message += `--------------------------\n`;
+            message += `*Customer:* ${formData.name}\n`;
+            message += `*Phone:* ${formData.phone}\n`;
+            message += `*Location:* ${formData.location}\n`;
+            message += `--------------------------\n`;
+            message += `*Items:*\n`;
 
-        let message = `*NEW ORDER FROM SAIDPIECE*\n`;
-        message += `--------------------------\n`;
-        message += `*Customer:* ${formData.name}\n`;
-        message += `*Phone:* ${formData.phone}\n`;
-        message += `*Location:* ${formData.location}\n`;
-        message += `--------------------------\n`;
-        message += `*Items:*\n`;
+            cart.forEach(item => {
+                message += `• ${item.quantity}x ${item.title} (${item.size}) - ${item.price}\n`;
+            });
 
-        cart.forEach(item => {
-            message += `• ${item.quantity}x ${item.title} (${item.size}) - ${item.price}\n`;
-        });
+            message += `--------------------------\n`;
+            message += `*Total: ${formatCurrency(total)}*\n\n`;
+            message += `Please confirm my order. Thank you!`;
 
-        message += `--------------------------\n`;
-        message += `*Total: ${formatCurrency(total)}*\n\n`;
-        message += `Please confirm my order. Thank you!`;
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${businessPhone}?text=${encodedMessage}`;
 
-        const encodedMessage = encodeURIComponent(message);
-        const whatsappUrl = `https://wa.me/${businessPhone}?text=${encodedMessage}`;
+            // 2. Log Order to Supabase (Phase 2)
+            const { error } = await supabase
+                .from('orders')
+                .insert([{
+                    customer_name: formData.name,
+                    customer_phone: formData.phone,
+                    delivery_location: formData.location,
+                    items: cart,
+                    total_amount: total,
+                    whatsapp_link: whatsappUrl,
+                    status: 'pending_verification'
+                }]);
 
-        window.open(whatsappUrl, '_blank');
+            if (error) throw error;
+
+            // 3. Open WhatsApp and Clear UI
+            window.open(whatsappUrl, '_blank');
+            clearCart();
+            setIsCartOpen(false);
+
+        } catch (err) {
+            console.error("Order processing failed:", err);
+            alert("Something went wrong, but you can still message us on WhatsApp.");
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -167,7 +192,8 @@ const CartDrawer = () => {
                                             value={formData.name}
                                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                             placeholder="Enter your name"
-                                            className="w-full bg-zinc-50 border-none p-4 text-sm tracking-wider text-black focus:ring-1 focus:ring-black outline-none transition-all placeholder:text-black/30"
+                                            disabled={loading}
+                                            className="w-full bg-zinc-50 border-none p-4 text-sm tracking-wider text-black focus:ring-1 focus:ring-black outline-none transition-all placeholder:text-black/30 disabled:opacity-50"
                                         />
                                     </div>
                                     <div className="space-y-2">
@@ -177,7 +203,8 @@ const CartDrawer = () => {
                                             value={formData.phone}
                                             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                                             placeholder="+975 ..."
-                                            className="w-full bg-zinc-50 border-none p-4 text-sm tracking-wider text-black focus:ring-1 focus:ring-black outline-none transition-all placeholder:text-black/30"
+                                            disabled={loading}
+                                            className="w-full bg-zinc-50 border-none p-4 text-sm tracking-wider text-black focus:ring-1 focus:ring-black outline-none transition-all placeholder:text-black/30 disabled:opacity-50"
                                         />
                                     </div>
                                     <div className="space-y-2">
@@ -187,11 +214,12 @@ const CartDrawer = () => {
                                             value={formData.location}
                                             onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                                             placeholder="Thimphu, Babesa..."
-                                            className="w-full bg-zinc-50 border-none p-4 text-sm tracking-wider text-black focus:ring-1 focus:ring-black outline-none transition-all resize-none placeholder:text-black/30"
+                                            disabled={loading}
+                                            className="w-full bg-zinc-50 border-none p-4 text-sm tracking-wider text-black focus:ring-1 focus:ring-black outline-none transition-all resize-none placeholder:text-black/30 disabled:opacity-50"
                                         />
                                     </div>
                                     <div className="p-4 bg-zinc-50 border border-zinc-100 text-xs leading-relaxed text-black font-medium">
-                                        * By clicking "Confirm Order", you will be redirected to WhatsApp to share these details and finalize payment via mBOB or BNB.
+                                        {loading ? "Logging your order..." : "* By clicking \"Confirm Order\", you will be redirected to WhatsApp to share these details and finalize payment via mBOB or BNB."}
                                     </div>
                                 </div>
                             )}
@@ -226,11 +254,13 @@ const CartDrawer = () => {
                                     </button>
                                 ) : (
                                     <button
-                                        disabled={!formData.name || !formData.phone || !formData.location}
+                                        disabled={!formData.name || !formData.phone || !formData.location || loading}
                                         onClick={handleWhatsAppCheckout}
                                         className="w-full bg-[#25D366] text-white py-5 flex justify-between items-center px-8 group overflow-hidden disabled:opacity-30 disabled:cursor-not-allowed"
                                     >
-                                        <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Confirm via WhatsApp</span>
+                                        <span className="text-[10px] font-bold uppercase tracking-[0.2em]">
+                                            {loading ? 'Processing...' : 'Confirm via WhatsApp'}
+                                        </span>
                                         <img src={rightArrow} alt="arrow" className="w-5 invert transition-transform duration-500 group-hover:translate-x-1" />
                                     </button>
                                 )}

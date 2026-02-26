@@ -1,7 +1,8 @@
-import React, { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useSiteContent } from '../../context/SiteContentContext';
+import { supabase } from '../../services/supabaseClient';
 import rightArrow from '../../assets/icons/rightArrow.svg';
 
 const storeItems = [
@@ -95,11 +96,27 @@ const ParallaxImage = ({ item }) => {
 const Store = () => {
     const { content } = useSiteContent();
     const navData = content?.nav || { titlePart1: 'said', titlePart2: 'piece' };
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchStoreData = async () => {
+            const { data, error } = await supabase
+                .from('products')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (!error) setProducts(data);
+            setLoading(false);
+        };
+        fetchStoreData();
+    }, []);
+
+    if (loading) return <div className="min-h-screen bg-white flex items-center justify-center text-xs uppercase tracking-widest">Loading Store...</div>;
 
     return (
         <div>
             <div className="min-h-screen relative bg-white py-6 sm:py-10">
-
                 {/* Back Link */}
                 <div className="absolute top-6 sm:top-10 left-3 sm:left-5 lg:left-10 z-20">
                     <NavLink to="/" className="flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline text-black">
@@ -109,7 +126,6 @@ const Store = () => {
                 </div>
 
                 <div className="w-full py-12 sm:py-20 lg:py-24 pt-20 sm:pt-24 lg:pt-32">
-
                     {/* Header */}
                     <div className="px-3 sm:px-5 lg:px-10 mb-10 sm:mb-16 lg:mb-20">
                         <h1 className="logo font-bold text-3xl sm:text-3xl md:text-5xl lg:text-7xl text-neutral-800 tracking-tight leading-tight -ml-0.5" style={{ fontFamily: "century-gothic" }}>
@@ -117,15 +133,14 @@ const Store = () => {
                         </h1>
                     </div>
 
-                    {/* Strictly 2-column grid layout with 3 rows */}
+                    {/* Display Featured or Latest Products */}
                     <div className="w-full px-4 sm:px-5 lg:px-10">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-4">
-                            {storeItems.map(item => (
-                                <ParallaxImage key={item.id} item={item} />
+                            {products.map(item => (
+                                <ParallaxImage key={item.id} item={{ ...item, image: item.images[0] }} />
                             ))}
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

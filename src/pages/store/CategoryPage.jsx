@@ -7,7 +7,7 @@ import { useSiteContent } from '../../context/SiteContentContext';
 import Footer from '../../components/layout/Footer';
 import ButtonType3 from '../../components/common/ButtonType3';
 
-import { products as allProducts } from '../../data/products';
+import { supabase } from '../../services/supabaseClient';
 
 const categoryInfo = {
     'all-products': {
@@ -43,29 +43,59 @@ const CategoryPage = () => {
 
     const info = categoryInfo[slug] || categoryInfo['all-products'];
 
+    const [allProducts, setAllProducts] = useState([]);
+    const [filteredItems, setFilteredItems] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [selectedFilter, setSelectedFilter] = useState('all');
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [subCategories, setSubCategories] = useState([]);
 
-    // If it's the "all-products" page, we can show sub-filters. 
-    // If it's a specific category, we just show that category's items.
-    const products = useMemo(() => {
-        if (slug === 'all-products') return allProducts;
-        return allProducts.filter(p => p.category === slug);
+    useEffect(() => {
+        window.scrollTo(0, 0);
+
+        const fetchProducts = async () => {
+            setLoading(true);
+            try {
+                let query = supabase.from('products').select('*');
+
+                if (slug !== 'all-products') {
+                    query = query.eq('category', slug);
+                }
+
+                const { data, error } = await query.order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                setAllProducts(data);
+                setFilteredItems(data);
+
+                if (slug === 'all-products') {
+                    const cats = [...new Set(data.map(p => p.category))];
+                    setSubCategories(cats);
+                }
+            } catch (err) {
+                console.error("Error fetching category products:", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProducts();
     }, [slug]);
 
-    const filteredItems = useMemo(() => {
-        if (selectedFilter === 'all') return products;
-        return products.filter(item => item.category === selectedFilter);
-    }, [selectedFilter, products]);
-
-    const subCategories = useMemo(() => {
-        if (slug !== 'all-products') return [];
-        return [...new Set(allProducts.map(p => p.category))];
-    }, [slug]);
+    useEffect(() => {
+        if (selectedFilter === 'all') {
+            setFilteredItems(allProducts);
+        } else {
+            setFilteredItems(allProducts.filter(item => item.category === selectedFilter));
+        }
+    }, [selectedFilter, allProducts]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [slug]);
+
+    if (loading) return <div className="min-h-screen bg-white flex items-center justify-center text-xs uppercase tracking-widest font-light">Loading Category...</div>;
 
     return (
         <div>

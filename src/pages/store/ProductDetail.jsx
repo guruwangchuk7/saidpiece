@@ -11,7 +11,8 @@ import storeBanner from '../../assets/store/banner/storebanner.jpg';
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
-import { products } from '../../data/products';
+import { supabase } from '../../services/supabaseClient';
+// Removed: import { products } from '../../data/products';
 
 // We'll calculate related products within the component based on Category
 
@@ -72,21 +73,65 @@ const ParallaxBanner = () => {
 
 const ProductDetail = () => {
     const { id } = useParams();
-    const product = products.find(p => p.slug === id) || products[0];
-
-    // Find related products (same category, excluding current product)
-    const related = products
-        .filter(p => p.category === product.category && p.slug !== product.slug)
-        .slice(0, 2); // Show up to 2 related items
-
+    const [product, setProduct] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [related, setRelated] = useState([]);
     const [activeImageIdx, setActiveImageIdx] = useState(0);
     const [direction, setDirection] = useState(0);
-    const [selectedColor, setSelectedColor] = useState(product.colors?.[0]?.id || 'default');
-    const [selectedSize, setSelectedSize] = useState(product.sizes?.[0] || 'Standard');
+    const [selectedColor, setSelectedColor] = useState('default');
+    const [selectedSize, setSelectedSize] = useState('Standard');
     const [quantity, setQuantity] = useState(1);
     const [openAccordion, setOpenAccordion] = useState(null);
 
     const { addToCart } = useCart();
+
+    useEffect(() => {
+        const fetchProductData = async () => {
+            setLoading(true);
+            try {
+                // Fetch main product
+                const { data: mainProduct, error: prodError } = await supabase
+                    .from('products')
+                    .select('*')
+                    .eq('slug', id)
+                    .single();
+
+                if (prodError) throw prodError;
+                if (!mainProduct) {
+                    setProduct(null);
+                    setLoading(false);
+                    return;
+                }
+
+                setProduct(mainProduct);
+
+                // Safe initialization of selections
+                const initialColor = (mainProduct.colors && mainProduct.colors.length > 0)
+                    ? (typeof mainProduct.colors[0] === 'string' ? mainProduct.colors[0] : mainProduct.colors[0].id)
+                    : 'default';
+
+                setSelectedColor(initialColor);
+                setSelectedSize(mainProduct.sizes?.[0] || 'Standard');
+
+                // Fetch related products
+                const { data: relatedData, error: relError } = await supabase
+                    .from('products')
+                    .select('*')
+                    .eq('category', mainProduct.category)
+                    .neq('slug', mainProduct.slug)
+                    .limit(2);
+
+                if (!relError) setRelated(relatedData);
+
+            } catch (err) {
+                console.error("Error fetching product:", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProductData();
+    }, [id]);
 
     const slideVariants = {
         enter: (direction) => ({
@@ -179,6 +224,9 @@ const ProductDetail = () => {
         return () => context.revert();
     }, [id]);
 
+    if (loading) return <div className="h-screen flex items-center justify-center bg-white text-black font-light tracking-widest uppercase text-xs">Loading...</div>;
+    if (!product) return <div className="h-screen flex items-center justify-center bg-white text-black font-light tracking-widest uppercase text-xs">Product not found</div>;
+
     return (
         <main ref={mainRef} className="w-full flex flex-col bg-white antialiased text-black relative">
             <NavLink
@@ -197,7 +245,7 @@ const ProductDetail = () => {
                 <div
                     ref={heroImageRef}
                     className="absolute inset-0 w-full h-full bg-cover bg-center grayscale brightness-75"
-                    style={{ backgroundImage: `url(${product.images[0]})` }}
+                    style={{ backgroundImage: `url(${product.images?.[0] || ''})` }}
                 />
                 <div className="absolute inset-0 bg-black/20 z-10" />
                 <div data-animate="hero-title" className="relative z-20 px-5 -mt-40">
@@ -230,7 +278,7 @@ const ProductDetail = () => {
 
                             {/* Thumbnails (Mobile: Row below image, Desktop: Absolute left of image) */}
                             <div className="lg:absolute lg:top-0 lg:right-[calc(100%+1.5rem)] flex flex-row lg:flex-col justify-center lg:justify-start gap-3 sm:gap-4 overflow-x-auto lg:overflow-y-auto lg:max-h-[80vh] no-scrollbar mt-6 lg:mt-0 order-2 lg:order-1 px-1 py-1 lg:px-0 w-full lg:w-auto">
-                                {product.images.map((img, idx) => (
+                                {(product.images || []).map((img, idx) => (
                                     <button
                                         key={idx}
                                         onClick={() => handleImageChange(idx)}
@@ -247,7 +295,7 @@ const ProductDetail = () => {
                                     <AnimatePresence initial={false} custom={direction}>
                                         <motion.img
                                             key={activeImageIdx}
-                                            src={product.images[activeImageIdx]}
+                                            src={product.images?.[activeImageIdx] || ''}
                                             custom={direction}
                                             variants={slideVariants}
                                             initial="enter"
@@ -292,7 +340,7 @@ const ProductDetail = () => {
                                                 onChange={(e) => setSelectedSize(e.target.value)}
                                                 className="appearance-none bg-transparent w-full focus:outline-none cursor-pointer text-[10px] sm:text-xs"
                                             >
-                                                {product.sizes.map(size => (
+                                                {(product.sizes || ['Standard']).map(size => (
                                                     <option key={size} value={size}>{size}</option>
                                                 ))}
                                             </select>
