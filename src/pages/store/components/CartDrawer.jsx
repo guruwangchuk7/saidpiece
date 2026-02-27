@@ -52,9 +52,28 @@ const CartDrawer = () => {
     const handleWhatsAppCheckout = async () => {
         setLoading(true);
         try {
-            // 1. Prepare WhatsApp message
+            // 1. Log Order to Supabase First to get Order Ref
+            const { data: orderData, error } = await supabase
+                .from('orders')
+                .insert([{
+                    customer_name: formData.name,
+                    customer_phone: formData.phone,
+                    delivery_location: formData.location,
+                    items: cart,
+                    total_amount: total,
+                    status: 'pending_verification'
+                }])
+                .select()
+                .single();
+
+            if (error) throw error;
+
+            const orderRef = orderData.id.split('-')[0];
+
+            // 2. Prepare WhatsApp message with Order Ref
             const businessPhone = "66931205085";
             let message = `*NEW ORDER FROM SAIDPIECE*\n`;
+            message += `*Order Ref:* #${orderRef}\n`;
             message += `--------------------------\n`;
             message += `*Customer:* ${formData.name}\n`;
             message += `*Phone:* ${formData.phone}\n`;
@@ -73,20 +92,8 @@ const CartDrawer = () => {
             const encodedMessage = encodeURIComponent(message);
             const whatsappUrl = `https://wa.me/${businessPhone}?text=${encodedMessage}`;
 
-            // 2. Log Order to Supabase (Phase 2)
-            const { error } = await supabase
-                .from('orders')
-                .insert([{
-                    customer_name: formData.name,
-                    customer_phone: formData.phone,
-                    delivery_location: formData.location,
-                    items: cart,
-                    total_amount: total,
-                    whatsapp_link: whatsappUrl,
-                    status: 'pending_verification'
-                }]);
-
-            if (error) throw error;
+            // Optional: Update the order with the whatsapp link
+            await supabase.from('orders').update({ whatsapp_link: whatsappUrl }).eq('id', orderData.id);
 
             // 3. Open WhatsApp and Clear UI
             window.open(whatsappUrl, '_blank');

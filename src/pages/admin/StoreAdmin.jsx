@@ -421,6 +421,7 @@ const StoreAdmin = () => {
                                 <tr>
                                     <th className="px-6 py-4 text-xs font-bold uppercase text-zinc-500">Order Ref</th>
                                     <th className="px-6 py-4 text-xs font-bold uppercase text-zinc-500">Customer</th>
+                                    <th className="px-6 py-4 text-xs font-bold uppercase text-zinc-500">Items & Location</th>
                                     <th className="px-6 py-4 text-xs font-bold uppercase text-zinc-500">Amount</th>
                                     <th className="px-6 py-4 text-xs font-bold uppercase text-zinc-500">Status</th>
                                     <th className="px-6 py-4 text-xs font-bold uppercase text-zinc-500">Date</th>
@@ -429,11 +430,11 @@ const StoreAdmin = () => {
                             <tbody className="divide-y divide-zinc-100">
                                 {loading ? (
                                     <tr>
-                                        <td colSpan="5" className="px-6 py-8 text-center text-zinc-500">Loading orders...</td>
+                                        <td colSpan="6" className="px-6 py-8 text-center text-zinc-500">Loading orders...</td>
                                     </tr>
                                 ) : orders.length === 0 ? (
                                     <tr>
-                                        <td colSpan="5" className="px-6 py-8 text-center text-zinc-500">No orders placed yet.</td>
+                                        <td colSpan="6" className="px-6 py-8 text-center text-zinc-500">No orders placed yet.</td>
                                     </tr>
                                 ) : (
                                     orders.map((order) => (
@@ -445,7 +446,27 @@ const StoreAdmin = () => {
                                             </td>
                                             <td className="px-6 py-4">
                                                 <p className="font-medium text-sm text-zinc-900">{order.customer_name}</p>
-                                                <p className="text-xs text-zinc-500">{order.customer_phone}</p>
+                                                <a
+                                                    href={`https://wa.me/${order.customer_phone.replace(/\D/g, '')}`}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="text-xs text-blue-600 hover:text-blue-800 hover:underline"
+                                                    title="Message on WhatsApp"
+                                                >
+                                                    {order.customer_phone}
+                                                </a>
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                <div className="text-xs text-zinc-700 max-w-[200px] truncate mb-1" title={order.delivery_location}>
+                                                    <span className="font-semibold">Loc:</span> {order.delivery_location}
+                                                </div>
+                                                <div className="text-xs text-zinc-500 space-y-0.5">
+                                                    {order.items?.map((item, idx) => (
+                                                        <div key={idx} className="truncate tracking-wide w-full max-w-[200px]" title={`${item.quantity}x ${item.title} (${item.size})`}>
+                                                            • {item.quantity}x {item.title} <span className="opacity-70">({item.size})</span>
+                                                        </div>
+                                                    ))}
+                                                </div>
                                             </td>
                                             <td className="px-6 py-4 text-sm font-medium text-zinc-900">
                                                 Nu. {Number(order.total_amount).toLocaleString()}
