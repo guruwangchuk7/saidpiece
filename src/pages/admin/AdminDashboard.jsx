@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../../services/supabaseClient';
 import { FaProjectDiagram, FaUsers, FaBlog, FaArrowRight, FaDatabase, FaCheckCircle, FaExclamationCircle, FaSpinner, FaCloudUploadAlt, FaEnvelope } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import { importProjects, importTeam, importBlogs } from '../../utils/seedDatabase';
+import { importProjects, importTeam, importBlogs, importStore } from '../../utils/seedDatabase';
 import ConfirmModal from '../../components/common/ConfirmModal';
 import { toast } from 'react-hot-toast';
 
@@ -118,6 +118,11 @@ const AdminDashboard = () => {
                 title = 'Import Blog Posts';
                 message = 'Are you sure you want to import static blog posts into the database? This will populate the blog section.';
                 importFn = importBlogs;
+                break;
+            case 'store':
+                title = 'Import Store Products';
+                message = 'Are you sure you want to import static store products into the database? This will clear existing products to ensure clean insertion.';
+                importFn = importStore;
                 break;
             default:
                 return;
@@ -391,6 +396,22 @@ const AdminDashboard = () => {
                                 className="w-full py-3 px-4 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 bg-zinc-900 text-white hover:bg-zinc-800"
                             >
                                 <FaCloudUploadAlt /> Import Insights
+                            </button>
+                        </div>
+
+                        {/* Store Import Card */}
+                        <div className="border border-zinc-100 rounded-lg p-6 bg-zinc-50 flex flex-col justify-between hover:border-zinc-900 transition-all">
+                            <div>
+                                <h3 className="font-bold text-zinc-900 mb-2 flex items-center gap-2 uppercase tracking-wide text-sm">
+                                    <FaBlog className="text-zinc-900" /> Store
+                                </h3>
+                                <p className="text-xs text-zinc-500 mb-6">Import static store products.</p>
+                            </div>
+                            <button
+                                onClick={() => handleImportAction('store')}
+                                className="w-full py-3 px-4 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 bg-zinc-900 text-white hover:bg-zinc-800"
+                            >
+                                <FaCloudUploadAlt /> Import Store Products
                             </button>
                         </div>
                     </div>

@@ -2,7 +2,7 @@ import { supabase } from '../services/supabaseClient';
 import { portfolioItems } from '../data/portfolioItems';
 import { blogItems } from '../data/blogItems';
 import { staticTeamMembers } from '../data/staticTeam';
-
+import { products } from '../data/products';
 /**
  * Imports static portfolio projects into the database.
  * checks for existing projects by title to avoid duplicates.
@@ -232,6 +232,74 @@ export const importBlogs = async () => {
         }
     } catch (error) {
         console.error("Blog import error:", error);
+        throw error;
+    }
+};
+
+/**
+ * Imports static store products into the database.
+ * Completely replaces existing products to ensure clean state.
+ */
+export const importStore = async () => {
+    try {
+        // Clear existing to avoid duplicates when testing
+        await supabase.from('products').delete().neq('title', 'XYZ__NEVER__MATCH');
+
+        let importedCount = 0;
+        const productsToInsert = [];
+
+        for (const item of products) {
+            let imageUrls = [];
+            for (const imgUrl of item.images) {
+                if (imgUrl) {
+                    try {
+                        const response = await fetch(imgUrl);
+                        const blob = await response.blob();
+                        const fileExt = blob.type.split('/')[1] || 'jpg';
+                        const fileName = `store_${item.slug}_${Date.now()}_${Math.random().toString(36).substr(2, 5)}.${fileExt}`;
+
+                        const { error: uploadError } = await supabase.storage
+                            .from('blog-images')
+                            .upload(fileName, blob);
+
+                        if (uploadError) throw uploadError;
+
+                        const { data: { publicUrl } } = supabase.storage
+                            .from('blog-images')
+                            .getPublicUrl(fileName);
+
+                        imageUrls.push(publicUrl);
+                    } catch (err) {
+                        console.error(`Failed to upload store image for ${item.title}:`, err);
+                        imageUrls.push(imgUrl);
+                    }
+                }
+            }
+
+            productsToInsert.push({
+                title: item.title,
+                slug: item.slug,
+                price: item.price,
+                category: item.category,
+                images: imageUrls,
+                colors: item.colors,
+                sizes: item.sizes,
+                information: item.information,
+                stock_quantity: 10,
+                is_active: true,
+                is_featured: false
+            });
+        }
+
+        if (productsToInsert.length > 0) {
+            const { error } = await supabase.from('products').insert(productsToInsert);
+            if (error) throw error;
+            importedCount = productsToInsert.length;
+        }
+
+        return { success: true, count: importedCount, message: `Successfully imported ${importedCount} store products.` };
+    } catch (error) {
+        console.error("Store import error:", error);
         throw error;
     }
 };

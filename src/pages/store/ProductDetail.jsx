@@ -12,8 +12,6 @@ import storeBanner from '../../assets/store/banner/storebanner.jpg';
 gsap.registerPlugin(ScrollTrigger);
 
 import { supabase } from '../../services/supabaseClient';
-// Removed: import { products } from '../../data/products';
-
 // We'll calculate related products within the component based on Category
 
 const Accordion = ({ title, children, isOpen, onToggle }) => {
@@ -326,10 +324,7 @@ const ProductDetail = () => {
 
 
 
-                                    <div className="flex items-center py-4 sm:py-6 border-b border-zinc-200">
-                                        <span className="w-24 text-[10px] sm:text-xs text-black">MATERIAL</span>
-                                        <span className="text-[10px] sm:text-xs text-black">SOLID EUROPEAN OAK</span>
-                                    </div>
+
 
                                     {/* SIZE ROW */}
                                     <div className="flex items-center py-4 sm:py-6 border-b border-zinc-200">

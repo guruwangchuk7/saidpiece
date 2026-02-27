@@ -1,46 +1,50 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useSiteContent } from '../../context/SiteContentContext';
-import { supabase } from '../../services/supabaseClient';
 import rightArrow from '../../assets/icons/rightArrow.svg';
+
+import img1 from '../../assets/store/storeiteams/Wardrobe_accessories_b2.0_series_atmosphere_2_header-1920x901.jpg';
+import img2 from '../../assets/store/storeiteams/chair.jpg';
+import img3 from '../../assets/store/storeiteams/interiordesing.jpg';
+import img4 from '../../assets/store/storeiteams/pexels-pixabay-271795.jpg';
 
 const storeItems = [
     {
         id: 1,
         title: 'All Products',
         slug: 'all-products',
-        image: 'https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=1200&auto=format&fit=crop&sat=-100',
+        image: img4,
     },
     {
         id: 2,
         title: 'Furniture',
         slug: 'furniture',
-        image: 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?q=80&w=1200&auto=format&fit=crop&sat=-100',
+        image: img2,
     },
     {
         id: 3,
         title: 'Interior Finishes',
         slug: 'interior-finishes',
-        image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=1200&auto=format&fit=crop&sat=-100',
+        image: img3,
     },
     {
         id: 4,
         title: 'Lighting & Electrical',
         slug: 'lighting-electrical',
-        image: 'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?q=80&w=1200&auto=format&fit=crop&sat=-100',
+        image: img1,
     },
     {
         id: 5,
         title: 'Hardware & Accessories',
         slug: 'hardware-accessories',
-        image: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?q=80&w=1200&auto=format&fit=crop&sat=-100',
+        image: img4,
     },
     {
         id: 6,
         title: 'Decor & Art',
         slug: 'decor-art',
-        image: 'https://images.unsplash.com/photo-1615529182904-14819c35db37?q=80&w=1200&auto=format&fit=crop&sat=-100',
+        image: img3,
     }
 ];
 
@@ -96,23 +100,6 @@ const ParallaxImage = ({ item }) => {
 const Store = () => {
     const { content } = useSiteContent();
     const navData = content?.nav || { titlePart1: 'said', titlePart2: 'piece' };
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchStoreData = async () => {
-            const { data, error } = await supabase
-                .from('products')
-                .select('*')
-                .order('created_at', { ascending: false });
-
-            if (!error) setProducts(data);
-            setLoading(false);
-        };
-        fetchStoreData();
-    }, []);
-
-    if (loading) return <div className="min-h-screen bg-white flex items-center justify-center text-xs uppercase tracking-widest">Loading Store...</div>;
 
     return (
         <div>
@@ -133,11 +120,11 @@ const Store = () => {
                         </h1>
                     </div>
 
-                    {/* Display Featured or Latest Products */}
+                    {/* Display Categories */}
                     <div className="w-full px-4 sm:px-5 lg:px-10">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-4">
-                            {products.map(item => (
-                                <ParallaxImage key={item.id} item={{ ...item, image: item.images[0] }} />
+                            {storeItems.map(item => (
+                                <ParallaxImage key={item.id} item={item} />
                             ))}
                         </div>
                     </div>
