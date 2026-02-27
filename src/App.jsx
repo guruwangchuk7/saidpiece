@@ -47,7 +47,7 @@ function App() {
         <div className="flex-1">
           <Outlet></Outlet>
         </div>
-        {!['/', '/about', '/team', '/portfolio', '/blog'].includes(location.pathname) && !/^\/blog\/[^/]+$/.test(location.pathname) && <Footer></Footer>}
+        {!['/', '/about', '/team', '/portfolio', '/blog', '/foundation'].includes(location.pathname) && !/^\/blog\/[^/]+$/.test(location.pathname) && <Footer></Footer>}
       </div>
     </div>
   );
