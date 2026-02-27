@@ -1,6 +1,5 @@
 import React, { useRef } from 'react'
-// eslint-disable-next-line no-unused-vars
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'motion/react'
 import H1 from './H1.jsx'
 import H2 from './H2.jsx'
 import H3 from './H3.jsx'
