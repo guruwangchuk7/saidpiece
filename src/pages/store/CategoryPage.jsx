@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { FaChevronDown } from 'react-icons/fa';
 import rightArrow from '../../assets/icons/rightArrow.svg';
 import { useSiteContent } from '../../context/SiteContentContext';
@@ -38,8 +38,7 @@ const categoryInfo = {
 
 const CategoryPage = () => {
     const { slug } = useParams();
-    const { content } = useSiteContent();
-    const navData = content?.nav || { titlePart1: 'said', titlePart2: 'piece' };
+    // Navigation data (currently unused, kept for consistency with layout)
 
     const info = categoryInfo[slug] || categoryInfo['all-products'];
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { supabase } from '../../services/supabaseClient';
-import { FaTachometerAlt, FaProjectDiagram, FaUsers, FaBlog, FaEnvelope, FaUserShield, FaSignOutAlt, FaBars, FaTimes } from 'react-icons/fa';
+import { FaTachometerAlt, FaProjectDiagram, FaUsers, FaBlog, FaEnvelope, FaUserShield, FaSignOutAlt, FaBars, FaTimes, FaStore } from 'react-icons/fa';
 import { toast } from 'react-hot-toast';
 
 const AdminLayout = () => {
@@ -58,6 +58,7 @@ const AdminLayout = () => {
     const navItems = [
         { path: '/admin/dashboard', label: 'Dashboard', icon: <FaTachometerAlt /> },
         { path: '/admin/projects', label: 'Projects', icon: <FaProjectDiagram /> },
+        { path: '/admin/store', label: 'Store', icon: <FaStore /> },
         { path: '/admin/team', label: 'Team', icon: <FaUsers /> },
         { path: '/admin/blog', label: 'Insights', icon: <FaBlog /> },
         { path: '/admin/messages', label: 'Messages', icon: <FaEnvelope /> },

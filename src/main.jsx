@@ -31,6 +31,7 @@ const Dashboard = lazy(() => import('./pages/dashboard/index.jsx'));
 const AdminLayout = lazy(() => import('./pages/admin/AdminLayout.jsx'));
 const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard.jsx'));
 const ProjectAdmin = lazy(() => import('./pages/admin/ProjectAdmin.jsx'));
+const StoreAdmin = lazy(() => import('./pages/admin/StoreAdmin.jsx'));
 const TeamAdmin = lazy(() => import('./pages/admin/TeamAdmin.jsx'));
 const BlogAdmin = lazy(() => import('./pages/admin/BlogAdmin.jsx'));
 const AdminManager = lazy(() => import('./pages/admin/AdminManager.jsx'));
@@ -82,6 +83,7 @@ const router = createBrowserRouter(
         <Route index element={<Suspense fallback={<PageLoader />}><AdminDashboard /></Suspense>} />
         <Route path="dashboard" element={<Suspense fallback={<PageLoader />}><AdminDashboard /></Suspense>} />
         <Route path="projects" element={<Suspense fallback={<PageLoader />}><ProjectAdmin /></Suspense>} />
+        <Route path="store" element={<Suspense fallback={<PageLoader />}><StoreAdmin /></Suspense>} />
         <Route path="team" element={<Suspense fallback={<PageLoader />}><TeamAdmin /></Suspense>} />
         <Route path="blog" element={<Suspense fallback={<PageLoader />}><BlogAdmin /></Suspense>} />
         <Route path="messages" element={<Suspense fallback={<PageLoader />}><MessagesAdmin /></Suspense>} />
