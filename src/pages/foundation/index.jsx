@@ -113,7 +113,7 @@ function Foundation() {
     }, []);
 
     return (
-        <main ref={mainRef} className="relative w-full flex flex-col bg-white antialiased text-zinc-900">
+        <main ref={mainRef} className="relative w-full flex flex-col bg-white antialiased text-zinc-900" style={{ fontFamily: "century-gothic" }}>
             {/* Back Link */}
             <div className="absolute top-6 sm:top-10 left-3 sm:left-5 lg:left-10 z-20">
                 <NavLink to="/" className="flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline text-white">
@@ -133,9 +133,9 @@ function Foundation() {
                 />
                 <div className="absolute inset-0 bg-black/40 z-10" />
                 <div data-animate="hero-title" className="relative z-20 px-5 -mt-40">
-                    <h1 className="text-3xl md:text-5xl lg:text-7xl font-normal max-w-4xl mx-auto leading-tight tracking-[0.2em] uppercase" style={{ fontFamily: "century-gothic" }}>
-                        {pageData.hero.title}
-                    </h1>
+                    <div className="logo font-bold text-2xl sm:text-3xl md:text-5xl lg:text-7xl" style={{ fontFamily: "century-gothic" }}>
+                        <span style={{ color: "#ffffff", opacity: 0.8 }} className="font-light">said</span><span style={{ color: "#ffffff", opacity: 0.95 }}>piece</span> <span className="font-light ml-4" style={{ color: "#ffffff", opacity: 0.8 }}>foundation</span>
+                    </div>
                 </div>
 
                 <motion.div
@@ -194,7 +194,7 @@ function Foundation() {
                     <div className="md:col-span-8 lg:col-span-9">
                         <div className="mb-20">
                             <h3 data-animate className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-6">{pageData.mission.title}</h3>
-                            <h2 data-animate className="text-xl md:text-2xl lg:text-3xl leading-tight font-light text-zinc-900 mb-10 max-w-4xl">
+                            <h2 data-animate className="text-lg md:text-xl lg:text-2xl leading-tight font-light text-zinc-900 mb-10 max-w-4xl">
                                 {pageData.mission.description}
                             </h2>
                         </div>
