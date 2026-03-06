@@ -12,7 +12,7 @@ const ProjectAdmin = () => {
     const [formData, setFormData] = useState({
         title: '',
         subtitle: '',
-        domain: 'landscape',
+        domain: 'Residential Architecture',
         location: '',
         description: '',
         year: '',
@@ -80,7 +80,7 @@ const ProjectAdmin = () => {
         setFormData({
             title: '',
             subtitle: '',
-            domain: 'landscape',
+            domain: 'Residential Architecture',
             location: '',
             description: '',
             year: '',
@@ -215,14 +215,14 @@ const ProjectAdmin = () => {
                                     onChange={handleInputChange}
                                     className="w-full px-3 py-2 border border-zinc-300 rounded-md focus:ring-black focus:border-black bg-white"
                                 >
-                                    <option value="landscape">Landscape</option>
-                                    <option value="office">Office</option>
-                                    <option value="bank">Bank</option>
-                                    <option value="residential">Residential</option>
-                                    <option value="commercial">Commercial</option>
-                                    <option value="cafe">Cafe</option>
-                                    <option value="hospitality">Hospitality</option>
-                                    <option value="institutional">Institutional</option>
+                                    <option value="Residential Architecture">Residential Architecture</option>
+                                    <option value="Hospitality Architecture">Hospitality Architecture</option>
+                                    <option value="Interior Design">Interior Design</option>
+                                    <option value="Cultural Architecture">Cultural Architecture</option>
+                                    <option value="Public Architecture">Public Architecture</option>
+                                    <option value="Landscape & Urbanism">Landscape & Urbanism</option>
+                                    <option value="Commercial & Offices">Commercial & Offices</option>
+                                    <option value="Educational Architecture">Educational Architecture</option>
                                 </select>
                             </div>
                             <div>

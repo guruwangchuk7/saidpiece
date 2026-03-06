@@ -65,11 +65,17 @@ const Portfolio = () => {
     }
   };
 
-  // Get unique domains
-  const domains = useMemo(() => {
-    const uniqueDomains = [...new Set(projects.map(item => item.domain))];
-    return uniqueDomains;
-  }, [projects]);
+  // New fixed list of categories
+  const categoryList = [
+    'Residential Architecture',
+    'Hospitality Architecture',
+    'Interior Design',
+    'Cultural Architecture',
+    'Public Architecture',
+    'Landscape & Urbanism',
+    'Commercial & Offices',
+    'Educational Architecture'
+  ];
 
   // Filter items based on selected domain
   const filteredItems = useMemo(() => {
@@ -124,7 +130,7 @@ const Portfolio = () => {
                 <div className="flex items-center gap-2">
                   <div className={`w-2 h-2 rounded-full bg-black`}></div>
                   <span className="text-sm font-medium text-zinc-900">
-                    {selectedFilter === 'all' ? 'All Categories' : selectedFilter.charAt(0).toUpperCase() + selectedFilter.slice(1)}
+                    {selectedFilter === 'all' ? 'All Categories' : selectedFilter}
                   </span>
                 </div>
                 <FaChevronDown className={`w-3 h-3 text-zinc-400 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
@@ -139,14 +145,14 @@ const Portfolio = () => {
                     <div className={`w-2 h-2 rounded-full mr-3 shrink-0 transition-colors ${selectedFilter === 'all' ? 'bg-black' : 'bg-zinc-200'}`}></div>
                     <span className={`text-sm ${selectedFilter === 'all' ? 'text-black font-medium' : 'text-zinc-600'}`}>All Categories</span>
                   </button>
-                  {domains.map((domain) => (
+                  {categoryList.map((category) => (
                     <button
-                      key={domain}
-                      onClick={() => { setSelectedFilter(domain); setIsDropdownOpen(false); }}
+                      key={category}
+                      onClick={() => { setSelectedFilter(category); setIsDropdownOpen(false); }}
                       className="flex items-center w-full px-4 py-3 hover:bg-zinc-50 border-b border-zinc-100 last:border-0 text-left"
                     >
-                      <div className={`w-2 h-2 rounded-full mr-3 shrink-0 transition-colors ${selectedFilter === domain ? 'bg-black' : 'bg-zinc-200'}`}></div>
-                      <span className={`text-sm capitalize ${selectedFilter === domain ? 'text-black font-medium' : 'text-zinc-600'}`}>{domain}</span>
+                      <div className={`w-2 h-2 rounded-full mr-3 shrink-0 transition-colors ${selectedFilter === category ? 'bg-black' : 'bg-zinc-200'}`}></div>
+                      <span className={`text-sm ${selectedFilter === category ? 'text-black font-medium' : 'text-zinc-600'}`}>{category}</span>
                     </button>
                   ))}
                 </div>
@@ -164,16 +170,16 @@ const Portfolio = () => {
                 <span className="text-xs sm:text-sm text-zinc-600 group-hover:text-black transition-colors">All Categories</span>
               </button>
 
-              {domains.map(domain => (
+              {categoryList.map(category => (
                 <button
-                  key={domain}
-                  onClick={() => setSelectedFilter(domain)}
+                  key={category}
+                  onClick={() => setSelectedFilter(category)}
                   className="flex items-center gap-2 group cursor-pointer"
                 >
-                  <div className={`w-2 h-2 rounded-full transition-all duration-300 ${selectedFilter === domain ? 'bg-black' : 'bg-zinc-300 group-hover:bg-zinc-400'
+                  <div className={`w-2 h-2 rounded-full transition-all duration-300 ${selectedFilter === category ? 'bg-black' : 'bg-zinc-300 group-hover:bg-zinc-400'
                     }`}></div>
-                  <span className="text-xs sm:text-sm text-zinc-600 group-hover:text-black transition-colors capitalize">
-                    {domain.charAt(0).toUpperCase() + domain.slice(1)}
+                  <span className="text-xs sm:text-sm text-zinc-600 group-hover:text-black transition-colors">
+                    {category}
                   </span>
                 </button>
               ))}
