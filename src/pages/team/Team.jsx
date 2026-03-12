@@ -293,7 +293,7 @@ const Team = () => {
               key={key}
               className="relative min-w-full h-full flex flex-none items-center justify-center px-6 md:px-20 snap-start pb-40 md:pb-24"
             >
-              <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-[1600px] h-full md:h-auto gap-4 md:gap-20 lg:gap-32 -translate-y-12 md:-translate-y-8 px-4 md:px-0">
+              <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-400 h-full md:h-auto gap-4 md:gap-20 lg:gap-32 -translate-y-12 md:-translate-y-8 px-4 md:px-0">
                 {/* Mobile Top Spacer to balance the vertical layout and keep photo in center */}
                 <div className="md:hidden flex-1" />
 
@@ -309,7 +309,7 @@ const Team = () => {
                       <h2 className="text-lg md:text-2xl lg:text-3xl font-normal tracking-tighter uppercase whitespace-nowrap">
                         {member.name}
                       </h2>
-                      <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-black transition-all duration-700 ease-out group-hover:w-full" />
+                      <div className="absolute bottom-0 left-0 w-0 h-px bg-black transition-all duration-700 ease-out group-hover:w-full" />
                     </div>
                     <p className="text-zinc-500 text-[8px] md:text-[10px] uppercase tracking-[0.2em] font-light text-center">
                       {member.role}
@@ -320,7 +320,7 @@ const Team = () => {
                 {/* Main Photo Container */}
                 <div className="order-1 md:order-2 flex-none flex justify-center items-center">
                   <motion.div
-                    className="w-full aspect-[4/5] min-w-[280px] max-w-[320px] md:min-w-[400px] md:max-w-[480px] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] bg-zinc-50 border border-zinc-50 cursor-pointer"
+                    className="w-full aspect-4/5 min-w-70 max-w-80 md:min-w-100 md:max-w-120 overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] bg-zinc-50 border border-zinc-50 cursor-pointer"
                     data-magnetic
                     onClick={() => setSelectedMember(member)}
 
@@ -338,7 +338,7 @@ const Team = () => {
                 </div>
 
                 {/* Next Member Hint Container */}
-                <div className="hidden md:flex order-3 flex-1 flex flex-col items-center justify-center md:translate-x-8 lg:translate-x-12">
+                <div className="hidden md:flex order-3 flex-1 flex-col items-center justify-center md:translate-x-8 lg:translate-x-12">
                   {extendedMembers[index + 1] ? (
                     <motion.div
                       initial={{ opacity: 0, x: 30 }}
@@ -413,10 +413,10 @@ const Team = () => {
             )}
           </div>
 
-          <div className="hidden md:flex flex-wrap gap-4 md:gap-8 items-center">
+          <div className="hidden md:flex flex-nowrap gap-4 md:gap-8 items-center overflow-x-auto no-scrollbar">
             <button
               onClick={() => handleCategoryClick('All')}
-              className="flex items-center gap-2 group cursor-pointer"
+              className="flex items-center gap-2 group cursor-pointer shrink-0"
             >
               <div className={`w-2 h-2 rounded-full transition-all duration-300 ${activeFilter === 'All' ? 'bg-black' : 'bg-zinc-300 group-hover:bg-zinc-400'}`} />
               <span className={`text-xs sm:text-sm transition-colors ${activeFilter === 'All' ? 'text-black font-medium' : 'text-zinc-600 group-hover:text-black'}`}>All Categories</span>
@@ -425,7 +425,7 @@ const Team = () => {
               <button
                 key={role}
                 onClick={() => handleCategoryClick(role)}
-                className="flex items-center gap-2 group cursor-pointer"
+                className="flex items-center gap-2 group cursor-pointer shrink-0"
               >
                 <div className={`w-2 h-2 rounded-full transition-all duration-300 ${activeFilter === role ? 'bg-black' : 'bg-zinc-300 group-hover:bg-zinc-400'}`} />
                 <span className={`text-xs sm:text-sm transition-colors capitalize ${activeFilter === role ? 'text-black font-medium' : 'text-zinc-600 group-hover:text-black'}`}>{role}</span>
