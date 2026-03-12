@@ -6,6 +6,7 @@ import officeImage from '../../assets/contact/saidpieceofficeimage.jpg'
 import { supabase } from '../../services/supabaseClient'
 import emailjs from '@emailjs/browser'
 import { useSiteContent } from '../../context/SiteContentContext'
+import SEO from '../../components/common/SEO'
 
 // Initialize EmailJS
 emailjs.init('XkNzaXXHW5Z1e0x48');
@@ -257,6 +258,11 @@ function Contact() {
 
   return (
     <div className="relative flex flex-col bg-white px-3 sm:px-5 lg:px-10 py-4 lg:py-8 pb-32 lg:pb-12">
+      <SEO 
+        title="Contact"
+        description="Get in touch with Saidpiece Architects for your architectural and engineering needs. Located in Thimphu, Bhutan."
+        canonical="/contact"
+      />
       <BackButton />
 
       {/* Main Layout: Stack on Mobile, Row on Desktop */}

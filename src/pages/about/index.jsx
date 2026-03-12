@@ -8,6 +8,7 @@ import rightArrow from '../../assets/icons/rightArrow.svg';
 import H5 from '../home/H5';
 import Footer from '../../components/layout/Footer';
 import { useSiteContent } from '../../context/SiteContentContext';
+import SEO from '../../components/common/SEO';
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
@@ -173,6 +174,11 @@ function About() {
 
   return (
     <main ref={mainRef} className="w-full flex flex-col bg-white antialiased text-zinc-800 relative">
+      <SEO 
+        title="About Us"
+        description="Saidpiece Architects specializes in architectural and engineering solutions, merging Bhutanese tradition with modern innovation."
+        canonical="/about"
+      />
       <NavLink
         to="/"
         className="absolute top-6 sm:top-10 left-3 sm:left-5 lg:left-10 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-20 text-white"

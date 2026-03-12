@@ -2,26 +2,47 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.saidpiece.com/</loc>
+    <lastmod>2025-03-22</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.saidpiece.com/about</loc>
+    <lastmod>2025-03-22</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.saidpiece.com/portfolio</loc>
+    <lastmod>2025-03-22</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.saidpiece.com/team</loc>
+    <lastmod>2025-03-22</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.saidpiece.com/blog</loc>
+    <lastmod>2025-03-22</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.saidpiece.com/contact</loc>
+    <lastmod>2025-03-22</lastmod>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.saidpiece.com/store</loc>
+    <lastmod>2025-03-22</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.saidpiece.com/foundation</loc>
+    <lastmod>2025-03-22</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.saidpiece.com/legal</loc>
+    <lastmod>2025-03-22</lastmod>
+    <priority>0.5</priority>
   </url>
 </urlset>

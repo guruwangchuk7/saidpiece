@@ -7,6 +7,7 @@ import { supabase } from '../../services/supabaseClient';
 import rightArrow from '../../assets/icons/rightArrow.svg';
 import Footer from '../../components/layout/Footer';
 import ctaImg from '../../assets/calltoaction/keyboard.jpg';
+import SEO from '../../components/common/SEO';
 
 
 const BlogPost = () => {
@@ -72,6 +73,7 @@ const BlogPost = () => {
     if (!selectedItem) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-white text-zinc-900">
+                <SEO title="Post Not Found" noindex={true} />
                 <div className="text-center">
                     <h2 className="text-2xl font-bold mb-4">Post not found</h2>
                     <NavLink to="/blog" className="underline hover:text-zinc-600">Return to Insights</NavLink>
@@ -82,6 +84,11 @@ const BlogPost = () => {
 
     return (
         <div className="min-h-screen bg-white text-black">
+            <SEO 
+                title={selectedItem.title}
+                description={selectedItem.description.substring(0, 160).replace(/[#*]/g, '')}
+                canonical={`/blog/${id}`}
+            />
             {/* Split Layout Container */}
             <div className="flex flex-col lg:flex-row relative">
 

@@ -11,6 +11,7 @@ import { portfolioItems as staticPortfolioItems } from '../../data/portfolioItem
 
 import ButtonType3 from '../../components/common/ButtonType3';
 import Footer from '../../components/layout/Footer';
+import SEO from '../../components/common/SEO';
 
 const Portfolio = () => {
   const { user, setShowAuthModal } = useAuth();
@@ -97,6 +98,11 @@ const Portfolio = () => {
 
   return (
     <div>
+      <SEO 
+        title="Portfolio"
+        description="Explore Saidpiece Architects' portfolio of projects including residential, hospitality, and cultural architecture in Bhutan."
+        canonical="/portfolio"
+      />
       <div className="min-h-screen relative bg-white px-3 sm:px-5 lg:px-10 py-6 sm:py-10">
         <NavLink to="/" className="absolute top-6 sm:top-10 left-3 sm:left-5 lg:left-10 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-20">
           <img src={rightArrow} alt="back" className="w-4 h-4 rotate-180" />

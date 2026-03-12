@@ -6,6 +6,7 @@ import H3 from './H3.jsx'
 import H4 from './H4.jsx'
 import H5 from './H5.jsx'
 import Footer from '../../components/layout/Footer'
+import SEO from '../../components/common/SEO'
 
 function Home() {
   const contentRef = useRef(null)
@@ -19,6 +20,11 @@ function Home() {
 
   return (
     <div className="w-full">
+      <SEO 
+        title="Architecture & Engineering Solutions"
+        description="Saidpiece Architects - Merging tradition with modern innovation in Bhutan. Specialized in architectural and engineering solutions from concept to completion."
+        canonical="/"
+      />
       <div className="relative z-10 bg-white shadow-none md:shadow-2xl mb-0 md:mb-[100vh]">
         <div ref={contentRef} className="bg-white">
           <H1 />

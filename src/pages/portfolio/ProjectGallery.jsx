@@ -4,7 +4,7 @@ import rightArrow from '../../assets/icons/rightArrow.svg';
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import { useProjectData } from '../../hooks/useProjectData';
-import { Helmet } from 'react-helmet-async';
+import SEO from '../../components/common/SEO';
 
 const ProjectGallery = () => {
     const { id } = useParams();
@@ -21,7 +21,15 @@ const ProjectGallery = () => {
         </div>
     );
 
-    if (!project) return <div className="min-h-screen flex items-center justify-center">Project not found</div>;
+    if (!project) return (
+        <div className="min-h-screen flex items-center justify-center bg-white text-zinc-900">
+            <SEO title="Project Not Found" noindex={true} />
+            <div className="text-center">
+                <h2 className="text-2xl font-bold mb-4">Project not found</h2>
+                <NavLink to="/portfolio" className="underline hover:text-zinc-600">Return to Portfolio</NavLink>
+            </div>
+        </div>
+    );
 
     // Animation variants
     const fadeIn = {
@@ -36,22 +44,12 @@ const ProjectGallery = () => {
 
     return (
         <div className="min-h-screen bg-white text-zinc-900 selection:bg-zinc-900 selection:text-white pb-20">
-            <Helmet>
-                <title>{project.title} | Saidpiece</title>
-                <meta name="description" content={project.description?.substring(0, 160) || "Project by Saidpiece Architects"} />
-
-                {/* Open Graph / Facebook */}
-                <meta property="og:type" content="article" />
-                <meta property="og:title" content={`${project.title} | Saidpiece`} />
-                <meta property="og:description" content={project.subtitle || project.description?.substring(0, 160)} />
-                <meta property="og:image" content={project.image} />
-
-                {/* Twitter */}
-                <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content={`${project.title} | Saidpiece`} />
-                <meta name="twitter:description" content={project.subtitle || project.description?.substring(0, 160)} />
-                <meta name="twitter:image" content={project.image} />
-            </Helmet>
+            <SEO 
+                title={project.title}
+                description={project.subtitle || project.description?.substring(0, 160)}
+                canonical={`/portfolio/${id}`}
+                ogImage={project.image}
+            />
             {/* Top Navigation */}
             <div className="fixed top-0 left-0 w-full p-6 z-50 mix-blend-difference text-white flex justify-between items-center pointer-events-none">
                 <NavLink to="/portfolio" className="flex items-center gap-3 group pointer-events-auto">
