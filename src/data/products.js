@@ -1,13 +1,13 @@
-import img1 from '../assets/store/storeiteams/Wardrobe_accessories_b2.0_series_atmosphere_2_header-1920x901.jpg';
-import img2 from '../assets/store/storeiteams/chair.jpg';
-import img3 from '../assets/store/storeiteams/interiordesing.jpg';
-import img4 from '../assets/store/storeiteams/pexels-pixabay-271795.jpg';
-import img5 from '../assets/project-photo/clocktower.jpg';
-import img6 from '../assets/store/storeiteams/WhatsApp-Image-2025-07-24-at-12.40.28-1.jpeg';
-import img7 from '../assets/store/storeiteams/pexels-artbovich-6585598.jpg';
-import img8 from '../assets/store/storeiteams/3mpRanT6SxUwnXmCHMyEXV.jpg';
-import img9 from '../assets/store/storeiteams/pexels-pixabay-279719.jpg';
-import img10 from '../assets/store/storeiteams/pexels-vika-glitter-392079-1648771.jpg';
+import img1 from '../assets/store/storeiteams/Wardrobe_accessories_b2.0_series_atmosphere_2_header-1920x901.webp';
+import img2 from '../assets/store/storeiteams/chair.webp';
+import img3 from '../assets/store/storeiteams/interiordesing.webp';
+import img4 from '../assets/store/storeiteams/pexels-pixabay-271795.webp';
+import img5 from '../assets/project-photo/clocktower.webp';
+import img6 from '../assets/store/storeiteams/WhatsApp-Image-2025-07-24-at-12.40.28-1.webp';
+import img7 from '../assets/store/storeiteams/pexels-artbovich-6585598.webp';
+import img8 from '../assets/store/storeiteams/3mpRanT6SxUwnXmCHMyEXV.webp';
+import img9 from '../assets/store/storeiteams/pexels-pixabay-279719.webp';
+import img10 from '../assets/store/storeiteams/pexels-vika-glitter-392079-1648771.webp';
 
 
 export const products = [

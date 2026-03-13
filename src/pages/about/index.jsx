@@ -15,9 +15,9 @@ gsap.registerPlugin(ScrollTrigger);
 // --- Asset Imports ---
 import aboutUsImg from '../../assets/aboutusphoto/aboutus.webp';
 // import philosophyImg from '../../assets/homephoto/mainbg.svg'; // Unused and heavy (12MB)
-import teamGuruImg from '../../assets/aboutusphoto/teamguru.png';
-import aboutDzong from '../../assets/aboutusphoto/aboutdzong.JPG';
-import ctaImg from '../../assets/calltoaction/keyboard.jpg';
+import teamGuruImg from '../../assets/aboutusphoto/teamguru.webp';
+import aboutDzong from '../../assets/aboutusphoto/aboutdzong.webp';
+import ctaImg from '../../assets/calltoaction/keyboard.webp';
 
 
 // --- SVG Icons ---

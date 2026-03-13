@@ -4,10 +4,10 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useSiteContent } from '../../context/SiteContentContext';
 import rightArrow from '../../assets/icons/rightArrow.svg';
 
-import img1 from '../../assets/store/storeiteams/Wardrobe_accessories_b2.0_series_atmosphere_2_header-1920x901.jpg';
-import img2 from '../../assets/store/storeiteams/chair.jpg';
-import img3 from '../../assets/store/storeiteams/interiordesing.jpg';
-import img4 from '../../assets/store/storeiteams/pexels-pixabay-271795.jpg';
+import img1 from '../../assets/store/storeiteams/Wardrobe_accessories_b2.0_series_atmosphere_2_header-1920x901.webp';
+import img2 from '../../assets/store/storeiteams/chair.webp';
+import img3 from '../../assets/store/storeiteams/interiordesing.webp';
+import img4 from '../../assets/store/storeiteams/pexels-pixabay-271795.webp';
 
 const storeItems = [
     {

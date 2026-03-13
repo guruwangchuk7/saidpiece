@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import { NavLink } from 'react-router-dom';
 import Btn2 from "../../components/common/ButtonType2";
 import BtnT1 from "../../components/common/ButtonType1";
-import img1 from "../../assets/project-photo/clocktower.jpg";
-import img2 from "../../assets/project-photo/electricity.jpg";
-import img3 from "../../assets/project-photo/bhutanbank.jpg";
-import img4 from "../../assets/project-photo/YangkhilProjectDocumentation.jpg";
+import img1 from "../../assets/project-photo/clocktower.webp";
+import img2 from "../../assets/project-photo/electricity.webp";
+import img3 from "../../assets/project-photo/bhutanbank.webp";
+import img4 from "../../assets/project-photo/YangkhilProjectDocumentation.webp";
 
 const portfolioData = {
   name: [

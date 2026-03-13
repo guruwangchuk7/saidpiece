@@ -9,9 +9,9 @@ import Footer from '../../components/layout/Footer';
 
 gsap.registerPlugin(ScrollTrigger);
 
-import aboutDzong from '../../assets/aboutusphoto/aboutdzong.JPG';
-import bkfHero from '../../assets/bhutankidneyfoundation/bhutanphoto.jpg';
-import bkfLogo from '../../assets/bhutankidneyfoundation/logo-web.jpg';
+import aboutDzong from '../../assets/aboutusphoto/aboutdzong.webp';
+import bkfHero from '../../assets/bhutankidneyfoundation/bhutanphoto.webp';
+import bkfLogo from '../../assets/bhutankidneyfoundation/logo-web.webp';
 import bkfCta from '../../assets/bhutankidneyfoundation/Page-banner-02.webp';
 import ButtonType1 from '../../components/common/ButtonType1';
 

@@ -1,10 +1,10 @@
 
-import photo1 from '../assets/project-photo/clocktower.jpg';
-import photo2 from '../assets/project-photo/electricity.jpg';
-import photo3 from '../assets/project-photo/bhutanbank.jpg';
-import photo4 from '../assets/project-photo/YangkhilProjectDocumentation.jpg';
-import photo5 from '../assets/project-photo/Pangbisafarmhouse-1.png';
-import photo6 from '../assets/project-photo/bolangerycafe.JPG';
+import photo1 from '../assets/project-photo/clocktower.webp';
+import photo2 from '../assets/project-photo/electricity.webp';
+import photo3 from '../assets/project-photo/bhutanbank.webp';
+import photo4 from '../assets/project-photo/YangkhilProjectDocumentation.webp';
+import photo5 from '../assets/project-photo/Pangbisafarmhouse-1.webp';
+import photo6 from '../assets/project-photo/bolangerycafe.webp';
 
 export const portfolioItems = [
     {

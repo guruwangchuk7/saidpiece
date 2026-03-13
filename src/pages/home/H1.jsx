@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import kinleyPhoto from "../../assets/homephoto/kinleylaptop.JPG";
+import kinleyPhoto from "../../assets/homephoto/kinleylaptop.webp";
 import rightArrow from "../../assets/icons/rightArrow.svg";
 import { motion, MotionConfig } from "motion/react";
 import { gsap } from "gsap";

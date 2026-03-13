@@ -6,7 +6,7 @@ import ReactMarkdown from 'react-markdown';
 import { supabase } from '../../services/supabaseClient';
 import rightArrow from '../../assets/icons/rightArrow.svg';
 import Footer from '../../components/layout/Footer';
-import ctaImg from '../../assets/calltoaction/keyboard.jpg';
+import ctaImg from '../../assets/calltoaction/keyboard.webp';
 import SEO from '../../components/common/SEO';
 
 
@@ -84,7 +84,7 @@ const BlogPost = () => {
 
     return (
         <div className="min-h-screen bg-white text-black">
-            <SEO 
+            <SEO
                 title={selectedItem.title}
                 description={selectedItem.description.substring(0, 160).replace(/[#*]/g, '')}
                 canonical={`/blog/${id}`}

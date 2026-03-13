@@ -1,5 +1,5 @@
 import React from "react";
-import homemain from "../../assets/homephoto/homemain.jpg";
+import homemain from "../../assets/homephoto/homemain.webp";
 import BtnT1 from "../../components/common/ButtonType1";
 import { NavLink } from 'react-router-dom'
 

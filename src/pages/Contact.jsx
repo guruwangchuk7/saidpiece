@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import rightArrow from '../assets/icons/rightArrow.svg'
-import p1 from '../assets/atsara.jpg'
+import p1 from '../assets/contact/saidpieceofficeimage.webp'
 
 function Contact() {
   return (
