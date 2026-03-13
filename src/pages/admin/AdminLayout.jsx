@@ -104,7 +104,7 @@ const AdminLayout = () => {
         <div className="flex h-screen bg-gray-100 font-sans">
             {/* Sidebar */}
             <aside
-                className={`bg-zinc-900 text-white w-64 flex-shrink-0 fixed inset-y-0 left-0 z-50 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col`}
+                className={`bg-zinc-900 text-white w-64 shrink-0 fixed inset-y-0 left-0 z-50 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col`}
             >
                 <div className="p-6 border-b border-zinc-800 flex justify-between items-center">
                     <h1 className="text-xl font-bold uppercase tracking-wider">Saidpiece Admin</h1>
