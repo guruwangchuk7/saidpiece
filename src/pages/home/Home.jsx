@@ -20,7 +20,7 @@ function Home() {
 
   return (
     <div className="w-full">
-      <SEO 
+      <SEO
         title="Architecture & Engineering Solutions"
         description="Saidpiece Architects - Merging tradition with modern innovation in Bhutan. Specialized in architectural and engineering solutions from concept to completion."
         canonical="/"

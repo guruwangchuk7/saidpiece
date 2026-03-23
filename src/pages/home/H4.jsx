@@ -53,7 +53,7 @@ function H4() {
     <div className="bg-white md:min-h-screen text-[#333333] font-sans selection:bg-zinc-800 selection:text-white">
       <div className="flex flex-col md:flex-row relative">
         {/* Desktop Left Column: Sticky Sidebar */}
-        <div className="hidden md:flex w-full md:w-[40%] px-3 sm:px-5 lg:px-10 pt-10 pb-20 md:h-screen md:sticky md:top-0 flex-col z-10 justify-between">
+        <div className="hidden md:flex w-full md:w-[40%] px-3 sm:px-5 lg:px-10 pt-10 pb-20 md:h-screen md:sticky md:top-0 flex-col z-10 justify-between overflow-y-auto no-scrollbar">
           <div>
             <motion.h1
               initial={{ opacity: 0, x: -20 }}
@@ -91,7 +91,7 @@ function H4() {
           </motion.div>
         </div>
 
-        <div className="hidden md:flex w-full md:w-[60%] px-3 sm:px-5 lg:px-10 py-6 md:py-20 flex-col gap-[0.5cm]">
+        <div className="hidden md:flex w-full md:w-[60%] px-3 sm:px-5 lg:px-10 py-6 md:py-20 flex-col gap-8">
           {portfolioData.image.map((item, index) => (
             <motion.div
               key={index}

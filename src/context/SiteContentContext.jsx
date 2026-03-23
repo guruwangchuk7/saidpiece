@@ -17,7 +17,7 @@ export function SiteContentProvider({ children }) {
 
     const fetchContent = async () => {
         try {
-             // Incase we add caching here later, we can check localStorage
+            // Incase we add caching here later, we can check localStorage
             const { data, error } = await supabase.from('site_content').select('*');
             if (error) {
                 console.error("Error fetching site content:", error);

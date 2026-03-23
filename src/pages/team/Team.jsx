@@ -37,7 +37,7 @@ const Team = () => {
   // Cycle count for footer tracking (0 to 5)
   const [cycleCount, setCycleCount] = useState(0);
   const isScrolling = useRef(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
 
   const fetchMembers = async () => {
     try {
@@ -270,7 +270,7 @@ const Team = () => {
   };
 
   return (
-    <div className="bg-white selection:bg-black selection:text-white relative h-screen w-screen overflow-hidden">
+    <div className="bg-white selection:bg-black selection:text-white relative min-h-screen w-screen overflow-x-hidden">
 
       <NavLink to="/" className="absolute top-6 sm:top-10 left-3 sm:left-5 lg:left-10 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-20">
         <img src={rightArrow} alt="back" className="w-4 h-4 rotate-180" />
@@ -291,7 +291,7 @@ const Team = () => {
           return (
             <section
               key={key}
-              className="relative min-w-full h-full flex flex-none items-center justify-center px-6 md:px-20 snap-start pb-40 md:pb-24"
+              className="relative min-w-full min-h-screen flex flex-none items-center justify-center px-6 md:px-20 snap-start pb-48 md:pb-52 lg:pb-60"
             >
               <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-400 h-full md:h-auto gap-4 md:gap-20 lg:gap-32 -translate-y-12 md:-translate-y-8 px-4 md:px-0">
                 {/* Mobile Top Spacer to balance the vertical layout and keep photo in center */}
@@ -320,7 +320,7 @@ const Team = () => {
                 {/* Main Photo Container */}
                 <div className="order-1 md:order-2 flex-none flex justify-center items-center">
                   <motion.div
-                    className="w-full aspect-4/5 min-w-70 max-w-80 md:min-w-100 md:max-w-120 overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] bg-zinc-50 border border-zinc-50 cursor-pointer"
+                    className="w-full aspect-4/5 min-w-70 max-w-80 md:min-w-100 md:max-w-120 max-h-[50vh] md:max-h-[60vh] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] bg-zinc-50 border border-zinc-50 cursor-pointer"
                     data-magnetic
                     onClick={() => setSelectedMember(member)}
 
@@ -366,52 +366,8 @@ const Team = () => {
         <div className="flex flex-col md:flex-row md:items-center justify-between px-6 md:px-10 mb-4 md:mb-6 gap-4">
 
 
-          {/* Mobile Dropdown */}
-          <div className="md:hidden relative z-50 w-full">
-            <button
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="flex items-center justify-between w-full px-4 py-3 bg-white border border-zinc-200 rounded-full shadow-sm"
-            >
-              <div className="flex items-center gap-2">
-                <div className={`w-2 h-2 rounded-full bg-black`}></div>
-                <span className="text-sm font-medium text-zinc-900 capitalize">
-                  {activeFilter}
-                </span>
-              </div>
-              {/* Chevron Icon */}
-              <svg
-                className={`w-3 h-3 text-zinc-400 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
+          {/* Mobile Categories Removed as per request */}
 
-            {isDropdownOpen && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-zinc-200 rounded-xl shadow-xl overflow-hidden py-1 mb-4 z-50 max-h-[60vh] overflow-y-auto">
-                <button
-                  onClick={() => { handleCategoryClick('All'); setIsDropdownOpen(false); }}
-                  className="flex items-center w-full px-4 py-3 hover:bg-zinc-50 border-b border-zinc-100 last:border-0 text-left"
-                >
-                  <div className={`w-2 h-2 rounded-full mr-3 shrink-0 transition-colors ${activeFilter === 'All' ? 'bg-black' : 'bg-zinc-200'}`}></div>
-                  <span className={`text-sm ${activeFilter === 'All' ? 'text-black font-medium' : 'text-zinc-600'}`}>All Categories</span>
-                </button>
-                {filterRoles.map((role) => (
-                  <button
-                    key={role}
-                    onClick={() => { handleCategoryClick(role); setIsDropdownOpen(false); }}
-                    className="flex items-center w-full px-4 py-3 hover:bg-zinc-50 border-b border-zinc-100 last:border-0 text-left"
-                  >
-                    <div className={`w-2 h-2 rounded-full mr-3 shrink-0 transition-colors ${activeFilter === role ? 'bg-black' : 'bg-zinc-200'}`}></div>
-                    <span className={`text-sm capitalize ${activeFilter === role ? 'text-black font-medium' : 'text-zinc-600'}`}>{role}</span>
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
 
           <div className="hidden md:flex flex-nowrap gap-4 md:gap-8 items-center overflow-x-auto no-scrollbar">
             <button
@@ -459,7 +415,7 @@ const Team = () => {
                   setCurrentIdx(targetExtendedIdx);
                   setCycleCount(clickCycle);
                 }}
-                className={`w-14 h-16 md:w-16 md:h-20 shrink-0 cursor-pointer overflow-hidden border transition-all duration-300 ${isMatch ? 'border-black ring-2 ring-black/5 grayscale-0' : 'border-transparent grayscale opacity-40 hover:opacity-100'}`}
+                className={`w-18 h-24 md:w-20 md:h-28 shrink-0 cursor-pointer overflow-hidden border transition-all duration-300 ${isMatch ? 'border-black ring-2 ring-black/5 grayscale-0' : 'border-transparent grayscale opacity-40 hover:opacity-100'}`}
               >
                 {m.avatar ? <img src={m.avatar} className="w-full h-full object-cover" alt="" /> : <div className="bg-zinc-200 w-full h-full" />}
               </div>

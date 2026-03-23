@@ -70,7 +70,7 @@ const HeroNavbar = () => {
     <AnimatePresence>
       {open && (
         <motion.div
-          className="fixed inset-0 z-[100] h-screen w-screen bg-zinc-900 p-10 text-slate-100"
+          className="fixed inset-0 z-[100] h-screen w-screen bg-zinc-900 p-10 text-slate-100 overflow-y-auto no-scrollbar"
           variants={variants}
           initial={{ y: -1000, opacity: 0, scale: 1 }}
           animate={{ y: 0, opacity: 1, scale: 1 }}
@@ -145,13 +145,13 @@ const HeroNavbar = () => {
               </div>
 
               {/* Contact Us Button - Styled like Footer/Navbar List */}
-              <NavLink to="/contact" onClick={close} className="btn3 mt-10 md:mt-6 -translate-y-[2cm] md:translate-y-0 flex items-center gap-10 py-4 w-fit">
+              <NavLink to="/contact" onClick={close} className="btn3 mt-10 md:mt-8 flex items-center gap-10 py-4 w-fit">
                 <span className="txt text-base tracking-widest">CONTACT US</span>
                 <img src={rightArrowWhite} alt="" className="image w-6" />
               </NavLink>
 
               {/* Login/User Profile Section */}
-              <div className="mt-6 md:mt-2 -translate-y-[2cm] md:translate-y-0">
+              <div className="mt-6 md:mt-4">
                 {user ? (
                   <div className="relative">
                     <button

@@ -15,7 +15,7 @@ function H2() {
 
   return (
     <div className="flex mt-10 sm:mt-16 md:mt-20 flex-wrap items-start">
-      <div className="w-full lg:w-[30%] px-3 sm:px-5 lg:px-10 lg:h-[80vh] flex flex-col justify-between">
+      <div className="w-full lg:w-[30%] px-3 sm:px-5 lg:px-10 lg:min-h-[70vh] flex flex-col justify-between">
         <div>
           <h1 className="text-2xl sm:text-4xl md:text-5xl font-semibold">{data.heading}</h1>
           <div className="px-3 sm:px-4 md:px-5 border-l-2 border-zinc-400 ">
