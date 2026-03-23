@@ -362,14 +362,14 @@ const Team = () => {
       </div>
 
       {/* --- Bottom Navigation --- */}
-      <div className="fixed bottom-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md pt-6 pb-6 md:pb-2 border-t border-zinc-100">
+      <div className="fixed bottom-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md pt-6 pb-3 md:pb-2 border-t border-zinc-100">
         <div className="flex flex-col md:flex-row md:items-center justify-between px-6 md:px-10 mb-4 md:mb-6 gap-4">
 
 
           {/* Mobile Categories Removed as per request */}
 
 
-          <div className="hidden md:flex flex-nowrap gap-4 md:gap-8 items-center overflow-x-auto no-scrollbar">
+          <div className="hidden md:flex flex-nowrap gap-4 md:gap-8 items-center overflow-x-auto overflow-y-hidden no-scrollbar">
             <button
               onClick={() => handleCategoryClick('All')}
               className="flex items-center gap-2 group cursor-pointer shrink-0"
@@ -395,7 +395,7 @@ const Team = () => {
           </div>
         </div>
 
-        <div ref={footerRef} className="flex items-center gap-1 overflow-x-auto no-scrollbar px-1 bg-zinc-50 py-1">
+        <div ref={footerRef} className="flex items-center gap-1 overflow-x-auto overflow-y-hidden no-scrollbar px-1 bg-zinc-50 py-1">
           {/* Repeat the members list multiple times to fill the width (visual loop) */}
           {Array(6).fill(displayMembers).flat().map((m, i) => {
             const originalIndex = i % displayMembers.length;

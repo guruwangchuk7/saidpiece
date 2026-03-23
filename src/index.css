@@ -103,10 +103,12 @@
       scrollbar-color: #e5e7eb transparent;
 }
 
-.scrollbar-none::-webkit-scrollbar {
+.scrollbar-none::-webkit-scrollbar,
+.no-scrollbar::-webkit-scrollbar {
       display: none;
 }
 
+.no-scrollbar,
 .scrollbar-none {
       -ms-overflow-style: none;
       /* IE and Edge */
