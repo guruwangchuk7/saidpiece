@@ -293,7 +293,7 @@ const Team = () => {
               key={key}
               className="relative min-w-full min-h-screen flex flex-none items-center justify-center px-6 md:px-20 snap-start pb-48 md:pb-52 lg:pb-60"
             >
-              <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-400 h-full md:h-auto gap-4 md:gap-20 lg:gap-32 -translate-y-12 md:-translate-y-8 px-4 md:px-0">
+              <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-400 h-full md:h-auto gap-4 md:gap-20 lg:gap-32 translate-y-4 md:translate-y-8 px-4 md:px-0">
                 {/* Mobile Top Spacer to balance the vertical layout and keep photo in center */}
                 <div className="md:hidden flex-1" />
 
@@ -415,7 +415,7 @@ const Team = () => {
                   setCurrentIdx(targetExtendedIdx);
                   setCycleCount(clickCycle);
                 }}
-                className={`w-18 h-24 md:w-20 md:h-28 shrink-0 cursor-pointer overflow-hidden border transition-all duration-300 ${isMatch ? 'border-black ring-2 ring-black/5 grayscale-0' : 'border-transparent grayscale opacity-40 hover:opacity-100'}`}
+                className={`w-18 h-24 md:w-14 md:h-20 shrink-0 cursor-pointer overflow-hidden border transition-all duration-300 ${isMatch ? 'border-black ring-2 ring-black/5 grayscale-0' : 'border-transparent grayscale opacity-40 hover:opacity-100'}`}
               >
                 {m.avatar ? <img src={m.avatar} className="w-full h-full object-cover" alt="" /> : <div className="bg-zinc-200 w-full h-full" />}
               </div>
