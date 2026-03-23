@@ -389,7 +389,7 @@ const Team = () => {
             ))}
           </div>
 
-          <div className="hidden md:block text-xs sm:text-sm font-medium text-zinc-900 pr-2 pb-1">
+          <div className="hidden md:block text-xs sm:text-sm font-medium text-zinc-900 pr-2 pb-1 whitespace-nowrap">
             {/* Use getRealIndex to show nice 1/N counting */}
             ({currentRealIdx + 1} / {totalRealSections})
           </div>
