@@ -101,7 +101,7 @@ const AdminLayout = () => {
     }
 
     return (
-        <div className="flex h-screen bg-gray-100 font-sans">
+        <div className="flex h-screen bg-gray-100 font-sans overflow-hidden">
             {/* Sidebar */}
             <aside
                 className={`bg-zinc-900 text-white w-64 shrink-0 fixed inset-y-0 left-0 z-50 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col`}
@@ -113,7 +113,7 @@ const AdminLayout = () => {
                     </button>
                 </div>
 
-                <nav className="flex-1 overflow-y-auto py-6 px-4 space-y-2">
+                <nav className="flex-1 overflow-y-auto py-6 px-4 space-y-2 scrollbar-none">
                     {navItems.map((item) => (
                         <NavLink
                             key={item.path}
@@ -161,7 +161,7 @@ const AdminLayout = () => {
                 </header>
 
                 {/* Content Area */}
-                <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 p-6">
+                <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 p-6 scrollbar-none">
                     <Outlet />
                 </main>
             </div>
