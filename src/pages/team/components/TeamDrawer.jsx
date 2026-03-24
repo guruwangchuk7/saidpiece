@@ -50,12 +50,12 @@ const TeamDrawer = ({ isOpen, onClose, member }) => {
                         animate={{ x: 0 }}
                         exit={{ x: '100%' }}
                         transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                        className="fixed right-0 top-0 h-full w-full md:w-[60%] lg:w-[45%] xl:w-[35%] bg-white shadow-2xl z-50 overflow-y-auto"
+                        className="fixed right-0 top-0 h-dvh w-full md:w-[60%] lg:w-[45%] xl:w-[35%] bg-white shadow-2xl z-50 overflow-y-auto"
                     >
                         {/* Close Button */}
                         <button
                             onClick={onClose}
-                            className="absolute top-6 right-6 p-2 rounded-full hover:bg-black/5 transition-colors z-10"
+                            className="absolute top-[calc(1.5rem+env(safe-area-inset-top))] right-6 p-2 rounded-full hover:bg-black/5 transition-colors z-10"
                             aria-label="Close details"
                         >
                             <svg
@@ -73,7 +73,7 @@ const TeamDrawer = ({ isOpen, onClose, member }) => {
 
                         <div className="flex flex-col h-full">
                             {/* Scrollable Container with Unified Padding */}
-                            <div className="flex-1 overflow-y-auto p-8 md:p-16 pt-24 md:pt-28">
+                            <div className="flex-1 overflow-y-auto p-8 md:p-16 pt-[calc(6rem+env(safe-area-inset-top))] pb-[calc(2rem+env(safe-area-inset-bottom))] md:pt-28">
 
                                 {/* Image Section - Full width of padding container for alignment */}
                                 <div className="w-full aspect-[4/5] bg-zinc-100 shadow-md mb-12 grayscale">

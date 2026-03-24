@@ -270,9 +270,9 @@ const Team = () => {
   };
 
   return (
-    <div className="bg-white selection:bg-black selection:text-white relative min-h-screen w-screen overflow-x-hidden">
+    <div className="bg-white selection:bg-black selection:text-white relative min-h-dvh w-screen overflow-x-hidden">
 
-      <NavLink to="/" className="absolute top-6 sm:top-10 left-3 sm:left-5 lg:left-10 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-20">
+      <NavLink to="/" className="fixed top-[calc(1.5rem+env(safe-area-inset-top))] sm:top-10 left-3 sm:left-5 lg:left-10 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-20">
         <img src={rightArrow} alt="back" className="w-4 h-4 rotate-180" />
         <span>Back to home</span>
       </NavLink>
@@ -280,7 +280,7 @@ const Team = () => {
       <div
         ref={scrollContainerRef}
         onScroll={handleScroll}
-        className="flex h-full w-full overflow-x-auto snap-x snap-mandatory no-scrollbar bg-white"
+        className="flex h-dvh w-full overflow-x-auto snap-x snap-mandatory no-scrollbar bg-white"
       >
         {extendedMembers.map((member, index) => {
           // Unique keys for clones
@@ -291,7 +291,7 @@ const Team = () => {
           return (
             <section
               key={key}
-              className="relative min-w-full min-h-screen flex flex-none items-center justify-center px-6 md:px-20 snap-start pb-52 sm:pb-48 md:pb-52 lg:pb-60 pt-4 md:pt-0"
+              className="relative min-w-full min-h-dvh flex flex-none items-center justify-center px-6 md:px-20 snap-start pb-[calc(180px+env(safe-area-inset-bottom))] sm:pb-48 md:pb-52 lg:pb-60 pt-[calc(1rem+env(safe-area-inset-top))] md:pt-0"
             >
               <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-5xl h-auto gap-4 md:gap-20 lg:gap-32 translate-y-0 md:translate-y-8 px-4 md:px-0">
 
@@ -319,7 +319,7 @@ const Team = () => {
                 {/* Main Photo Container */}
                 <div className="order-1 md:order-2 flex-none flex justify-center items-center">
                   <motion.div
-                    className="w-full aspect-4/5 min-w-70 max-w-72 md:min-w-100 md:max-w-120 max-h-[45vh] md:max-h-[60vh] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] bg-zinc-50 border border-zinc-50 cursor-pointer"
+                    className="w-full aspect-[4/5] min-w-70 max-w-72 md:min-w-100 md:max-w-120 max-h-[40dvh] md:max-h-[60vh] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] bg-zinc-50 border border-zinc-50 cursor-pointer"
                     data-magnetic
                     onClick={() => setSelectedMember(member)}
 
