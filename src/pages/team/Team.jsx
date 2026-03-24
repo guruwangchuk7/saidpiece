@@ -291,14 +291,13 @@ const Team = () => {
           return (
             <section
               key={key}
-              className="relative min-w-full min-h-screen flex flex-none items-center justify-center px-6 md:px-20 snap-start pb-48 md:pb-52 lg:pb-60"
+              className="relative min-w-full min-h-screen flex flex-none items-center justify-center px-6 md:px-20 snap-start pb-52 sm:pb-48 md:pb-52 lg:pb-60 pt-4 md:pt-0"
             >
-              <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-400 h-full md:h-auto gap-4 md:gap-20 lg:gap-32 translate-y-4 md:translate-y-8 px-4 md:px-0">
-                {/* Mobile Top Spacer to balance the vertical layout and keep photo in center */}
-                <div className="md:hidden flex-1" />
+              <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-5xl h-auto gap-4 md:gap-20 lg:gap-32 translate-y-0 md:translate-y-8 px-4 md:px-0">
+
 
                 {/* Current Member Info Container */}
-                <div className="order-2 md:order-1 flex-1 flex flex-col items-center justify-start md:justify-center md:-translate-x-8 lg:-translate-x-12">
+                <div className="order-2 md:order-1 flex-none md:flex-1 flex flex-col items-center justify-center md:-translate-x-8 lg:-translate-x-12 mt-3 md:mt-0">
                   <motion.div
                     initial={{ opacity: 0, x: -30 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -320,7 +319,7 @@ const Team = () => {
                 {/* Main Photo Container */}
                 <div className="order-1 md:order-2 flex-none flex justify-center items-center">
                   <motion.div
-                    className="w-full aspect-4/5 min-w-70 max-w-80 md:min-w-100 md:max-w-120 max-h-[50vh] md:max-h-[60vh] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] bg-zinc-50 border border-zinc-50 cursor-pointer"
+                    className="w-full aspect-4/5 min-w-70 max-w-72 md:min-w-100 md:max-w-120 max-h-[45vh] md:max-h-[60vh] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] bg-zinc-50 border border-zinc-50 cursor-pointer"
                     data-magnetic
                     onClick={() => setSelectedMember(member)}
 
@@ -329,7 +328,7 @@ const Team = () => {
                       <img
                         src={member.avatar}
                         alt={member.name}
-                        className="w-full h-full object-cover scale-[1.01] hover:scale-100 transition-transform duration-1000 ease-out"
+                        className="w-full h-full object-contain scale-[1.01] hover:scale-100 transition-transform duration-1000 ease-out"
                       />
                     ) : (
                       <FallbackAvatar className="w-full h-full" />
@@ -362,7 +361,7 @@ const Team = () => {
       </div>
 
       {/* --- Bottom Navigation --- */}
-      <div className="fixed bottom-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md pt-6 pb-3 md:pb-2 border-t border-zinc-100">
+      <div className="fixed bottom-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md pt-6 pb-3 md:pb-2 border-t border-zinc-100 px-safe-bottom" style={{ paddingBottom: 'calc(12px + env(safe-area-inset-bottom))' }}>
         <div className="flex flex-col md:flex-row md:items-center justify-between px-6 md:px-10 mb-4 md:mb-6 gap-4">
 
 
