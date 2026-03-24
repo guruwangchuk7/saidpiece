@@ -98,7 +98,7 @@ const Portfolio = () => {
 
   return (
     <div>
-      <SEO 
+      <SEO
         title="Portfolio"
         description="Explore Saidpiece Architects' portfolio of projects including residential, hospitality, and cultural architecture in Bhutan."
         canonical="/portfolio"

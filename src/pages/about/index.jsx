@@ -174,7 +174,7 @@ function About() {
 
   return (
     <main ref={mainRef} className="w-full flex flex-col bg-white antialiased text-zinc-800 relative">
-      <SEO 
+      <SEO
         title="About Us"
         description="Saidpiece Architects specializes in architectural and engineering solutions, merging Bhutanese tradition with modern innovation."
         canonical="/about"

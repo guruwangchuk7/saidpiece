@@ -258,7 +258,7 @@ function Contact() {
 
   return (
     <div className="relative flex flex-col bg-white px-3 sm:px-5 lg:px-10 py-4 lg:py-8 pb-32 lg:pb-12">
-      <SEO 
+      <SEO
         title="Contact"
         description="Get in touch with Saidpiece Architects for your architectural and engineering needs. Located in Thimphu, Bhutan."
         canonical="/contact"
