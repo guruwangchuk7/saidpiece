@@ -130,6 +130,7 @@ const BlogPost = () => {
                                     h3: ({ node: _node, ...props }) => <h3 className="uppercase text-sm font-bold tracking-widest mb-4 text-zinc-500 mt-8" {...props} />,
                                     p: ({ node: _node, ...props }) => <p className="mb-6" {...props} />,
                                     blockquote: ({ node: _node, ...props }) => <blockquote className="border-l-2 border-zinc-900 pl-6 italic my-10 text-xl md:text-2xl text-zinc-900 font-serif" {...props} />,
+                                    img: ({ node: _node, ...props }) => <img className="w-full rounded-lg my-12 shadow-md border border-zinc-100" {...props} />,
                                 }}
                             >
                                 {selectedItem.description}

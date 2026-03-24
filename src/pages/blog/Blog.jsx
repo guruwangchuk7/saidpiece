@@ -20,33 +20,13 @@ const Blog = () => {
         const fetchBlogs = async () => {
             const { data, error } = await supabase
                 .from('blogs')
-                .select('*');
+                .select('*')
+                .order('created_at', { ascending: false });
 
             if (error) {
                 console.error('Error fetching blogs:', error);
             } else if (data) {
-                // Explicit order for core blogs
-                const blogOrder = [
-                    'Architectural Digest: Future of Urban Design',
-                    'Sustainable Materials in Modern Construction',
-                    'Heritage Conservation Quarterly',
-                    'Urban Heat Islands: A Case Study',
-                    'Annual Design Symposium 2025',
-                    'Integrating Nature into Modern Workspaces'
-                ];
-
-                const sortedData = [...data].sort((a, b) => {
-                    const indexA = blogOrder.indexOf(a.title);
-                    const indexB = blogOrder.indexOf(b.title);
-
-                    if (indexA !== -1 && indexB !== -1) return indexA - indexB;
-                    if (indexA !== -1) return -1;
-                    if (indexB !== -1) return 1;
-
-                    return new Date(b.created_at) - new Date(a.created_at);
-                });
-
-                const formattedData = sortedData.map(item => ({
+                const formattedData = data.map(item => ({
                     ...item,
                     subtitle: item.subtitle || item.domain,
                 }));

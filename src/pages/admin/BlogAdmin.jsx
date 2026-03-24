@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../../services/supabaseClient';
-import { FaEdit, FaTrash, FaPlus, FaTimes } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaPlus, FaTimes, FaChevronUp, FaChevronDown, FaImage, FaQuoteRight, FaHeading, FaAlignLeft } from 'react-icons/fa';
 
 const BlogAdmin = () => {
     // Blog List State
@@ -12,12 +12,14 @@ const BlogAdmin = () => {
     const [domain, setDomain] = useState('News');
     const [author, setAuthor] = useState('');
 
-    // Structured Content State
-    const [headingLine, setHeadingLine] = useState('');
-    const [oneSentenceDesc, setOneSentenceDesc] = useState('');
-    const [paragraph1, setParagraph1] = useState('');
-    const [quote, setQuote] = useState('');
-    const [paragraph2, setParagraph2] = useState('');
+    // Structured Content State (Block-based)
+    const [blocks, setBlocks] = useState([
+        { type: 'heading', content: '', label: 'Short Heading Line' },
+        { type: 'text', content: '', label: 'One-Sentence Description' },
+        { type: 'text', content: '', label: 'First Paragraph (Intro)' },
+        { type: 'quote', content: '', label: 'Quote Line' },
+        { type: 'text', content: '', label: 'Second Paragraph (Details)' },
+    ]);
 
     const [imageFile, setImageFile] = useState(null);
     const [currentImageUrl, setCurrentImageUrl] = useState('');
@@ -34,35 +36,11 @@ const BlogAdmin = () => {
         try {
             const { data, error } = await supabase
                 .from('blogs')
-                .select('*');
+                .select('*')
+                .order('created_at', { ascending: false });
 
             if (error) throw error;
-
-            if (data && data.length > 0) {
-                const blogOrder = [
-                    'Architectural Digest: Future of Urban Design',
-                    'Sustainable Materials in Modern Construction',
-                    'Heritage Conservation Quarterly',
-                    'Urban Heat Islands: A Case Study',
-                    'Annual Design Symposium 2025',
-                    'Integrating Nature into Modern Workspaces'
-                ];
-
-                const sortedData = [...data].sort((a, b) => {
-                    const indexA = blogOrder.indexOf(a.title);
-                    const indexB = blogOrder.indexOf(b.title);
-
-                    if (indexA !== -1 && indexB !== -1) return indexA - indexB;
-                    if (indexA !== -1) return -1;
-                    if (indexB !== -1) return 1;
-
-                    return new Date(b.created_at) - new Date(a.created_at);
-                });
-
-                setBlogs(sortedData);
-            } else {
-                setBlogs([]);
-            }
+            setBlogs(data || []);
         } catch (error) {
             console.error("Error fetching blogs:", error);
         }
@@ -73,11 +51,13 @@ const BlogAdmin = () => {
         setTitle('');
         setDomain('News');
         setAuthor('');
-        setHeadingLine('');
-        setOneSentenceDesc('');
-        setParagraph1('');
-        setQuote('');
-        setParagraph2('');
+        setBlocks([
+            { type: 'heading', content: '', label: 'Short Heading Line' },
+            { type: 'text', content: '', label: 'One-Sentence Description' },
+            { type: 'text', content: '', label: 'First Paragraph (Intro)' },
+            { type: 'quote', content: '', label: 'Quote Line' },
+            { type: 'text', content: '', label: 'Second Paragraph (Details)' },
+        ]);
         setReadTime('5 min read');
         setImageFile(null);
         setCurrentImageUrl('');
@@ -90,17 +70,33 @@ const BlogAdmin = () => {
         setDomain(blog.domain);
         setAuthor(blog.author);
 
-        // Parse markdown
+        // Parse markdown into blocks
         const desc = blog.description || '';
         try {
-            const parts = desc.split('\n\n');
-            if (parts.length >= 1) setHeadingLine(parts[0].replace('### ', ''));
-            if (parts.length >= 2) setOneSentenceDesc(parts[1]);
-            if (parts.length >= 3) setParagraph1(parts[2]);
-            if (parts.length >= 4) setQuote(parts[3].replace('> ', '').replace(/"/g, ''));
-            if (parts.length >= 5) setParagraph2(parts.slice(4).join('\n\n'));
-        } catch {
-            setParagraph1(desc);
+            const rawParts = desc.split('\n\n').filter(Boolean);
+            const parsedBlocks = rawParts.map(part => {
+                if (part.startsWith('### ')) return { type: 'heading', content: part.replace('### ', '') };
+                if (part.startsWith('> ')) {
+                    let q = part.replace('> ', '').trim();
+                    if (q.startsWith('"') && q.endsWith('"')) q = q.slice(1, -1);
+                    return { type: 'quote', content: q };
+                }
+                if (part.startsWith('![')) {
+                    const match = part.match(/!\[.*\]\((.*)\)/);
+                    return { type: 'image', content: match ? match[1] : '', file: null };
+                }
+                return { type: 'text', content: part };
+            });
+            setBlocks(parsedBlocks.length > 0 ? parsedBlocks : [
+                { type: 'heading', content: '' },
+                { type: 'text', content: '' },
+                { type: 'text', content: '' },
+                { type: 'quote', content: '' },
+                { type: 'text', content: '' },
+            ]);
+        } catch (error) {
+            console.error("Error parsing blog description:", error);
+            setBlocks([{ type: 'text', content: desc }]);
         }
 
         setReadTime(blog.read_time || '5 min read');
@@ -129,6 +125,40 @@ const BlogAdmin = () => {
         }
     };
 
+    const addBlock = (type) => {
+        setBlocks([...blocks, { type, content: '', file: null }]);
+    };
+
+    const removeBlock = (index) => {
+        setBlocks(blocks.filter((_, i) => i !== index));
+    };
+
+    const moveBlock = (index, direction) => {
+        const newBlocks = [...blocks];
+        const targetIndex = index + direction;
+        if (targetIndex < 0 || targetIndex >= newBlocks.length) return;
+        [newBlocks[index], newBlocks[targetIndex]] = [newBlocks[targetIndex], newBlocks[index]];
+        setBlocks(newBlocks);
+    };
+
+    const handleBlockChange = (index, value) => {
+        const newBlocks = [...blocks];
+        newBlocks[index].content = value;
+        setBlocks(newBlocks);
+    };
+
+    const handleBlockFileChange = (index, file) => {
+        const newBlocks = [...blocks];
+        newBlocks[index].file = file;
+        // Preview URL
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            newBlocks[index].content = reader.result;
+            setBlocks([...newBlocks]);
+        };
+        if (file) reader.readAsDataURL(file);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setUploading(true);
@@ -136,9 +166,10 @@ const BlogAdmin = () => {
         try {
             let imageUrl = currentImageUrl;
 
+            // 1. Upload Hero Image if changed
             if (imageFile) {
                 const fileExt = imageFile.name.split('.').pop();
-                const fileName = `${Date.now()}.${fileExt}`;
+                const fileName = `hero-${Date.now()}.${fileExt}`;
                 const { error: uploadError } = await supabase.storage
                     .from('blog-images')
                     .upload(fileName, imageFile);
@@ -152,12 +183,40 @@ const BlogAdmin = () => {
                 imageUrl = publicUrl;
             }
 
+            // 2. Upload Block Images and process markdown
+            const processedBlocks = await Promise.all(blocks.map(async (block, i) => {
+                if (block.type === 'image' && block.file) {
+                    const fileExt = block.file.name.split('.').pop();
+                    const fileName = `block-${Date.now()}-${i}.${fileExt}`;
+                    const { error: uploadError } = await supabase.storage
+                        .from('blog-images')
+                        .upload(fileName, block.file);
+
+                    if (uploadError) throw uploadError;
+
+                    const { data: { publicUrl } } = supabase.storage
+                        .from('blog-images')
+                        .getPublicUrl(fileName);
+
+                    return { ...block, content: publicUrl };
+                }
+                return block;
+            }));
+
+            // 3. Generate Markdown description
+            const markdownDescription = processedBlocks.map(block => {
+                if (block.type === 'heading') return `### ${block.content}`;
+                if (block.type === 'quote') return `> "${block.content}"`;
+                if (block.type === 'image') return `![Image](${block.content})`;
+                return block.content;
+            }).join('\n\n');
+
             const blogData = {
                 title,
                 subtitle: domain,
                 domain,
                 author,
-                description: `### ${headingLine}\n\n${oneSentenceDesc}\n\n${paragraph1}\n\n> "${quote}"\n\n${paragraph2}`,
+                description: markdownDescription,
                 image: imageUrl,
                 date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
                 read_time: readTime,
@@ -258,57 +317,96 @@ const BlogAdmin = () => {
                             />
                         </div>
 
-                        <div className="space-y-4 border-t border-zinc-100 pt-4">
-                            <label className="block text-sm font-bold uppercase text-black">Structured Content</label>
-                            <div>
-                                <label className="block text-xs font-bold uppercase text-gray-500 mb-1">Short Heading Line</label>
-                                <input
-                                    type="text"
-                                    required
-                                    value={headingLine}
-                                    onChange={(e) => setHeadingLine(e.target.value)}
-                                    className="w-full px-3 py-2 border border-zinc-300 rounded focus:ring-black focus:border-black text-sm"
-                                />
+                        <div className="space-y-4 border-t border-zinc-100 pt-6">
+                            <div className="flex justify-between items-center">
+                                <label className="block text-sm font-bold uppercase text-black">Article Content</label>
+                                <div className="flex gap-2">
+                                    <button type="button" onClick={() => addBlock('heading')} className="p-2 text-xs flex items-center gap-1 border border-zinc-200 rounded hover:bg-zinc-50 transition-colors">
+                                        <FaHeading size={10} /> Heading
+                                    </button>
+                                    <button type="button" onClick={() => addBlock('text')} className="p-2 text-xs flex items-center gap-1 border border-zinc-200 rounded hover:bg-zinc-50 transition-colors">
+                                        <FaAlignLeft size={10} /> Text
+                                    </button>
+                                    <button type="button" onClick={() => addBlock('quote')} className="p-2 text-xs flex items-center gap-1 border border-zinc-200 rounded hover:bg-zinc-50 transition-colors">
+                                        <FaQuoteRight size={10} /> Quote
+                                    </button>
+                                    <button type="button" onClick={() => addBlock('image')} className="p-2 text-xs flex items-center gap-1 border border-zinc-200 rounded hover:bg-zinc-50 transition-colors">
+                                        <FaImage size={10} /> Photo
+                                    </button>
+                                </div>
                             </div>
-                            <div>
-                                <label className="block text-xs font-bold uppercase text-gray-500 mb-1">One-Sentence Description</label>
-                                <textarea
-                                    rows={2}
-                                    required
-                                    value={oneSentenceDesc}
-                                    onChange={(e) => setOneSentenceDesc(e.target.value)}
-                                    className="w-full px-3 py-2 border border-zinc-300 rounded focus:ring-black focus:border-black text-sm"
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-xs font-bold uppercase text-gray-500 mb-1">First Paragraph (Intro)</label>
-                                <textarea
-                                    rows={4}
-                                    required
-                                    value={paragraph1}
-                                    onChange={(e) => setParagraph1(e.target.value)}
-                                    className="w-full px-3 py-2 border border-zinc-300 rounded focus:ring-black focus:border-black text-sm"
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-xs font-bold uppercase text-gray-500 mb-1">Quote Line</label>
-                                <input
-                                    type="text"
-                                    required
-                                    value={quote}
-                                    onChange={(e) => setQuote(e.target.value)}
-                                    className="w-full px-3 py-2 border border-zinc-300 rounded focus:ring-black focus:border-black text-sm italic"
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-xs font-bold uppercase text-gray-500 mb-1">Second Paragraph (Details)</label>
-                                <textarea
-                                    rows={4}
-                                    required
-                                    value={paragraph2}
-                                    onChange={(e) => setParagraph2(e.target.value)}
-                                    className="w-full px-3 py-2 border border-zinc-300 rounded focus:ring-black focus:border-black text-sm"
-                                />
+
+                            <div className="space-y-4 mt-4">
+                                {blocks.map((block, index) => (
+                                    <div key={index} className="group relative bg-zinc-50/50 border border-zinc-200 rounded-lg p-4 transition-all hover:bg-white hover:shadow-sm">
+                                        <div className="absolute -left-3 top-1/2 -translate-y-1/2 flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-opacity bg-white shadow-sm border border-zinc-100 rounded p-1">
+                                            <button type="button" onClick={() => moveBlock(index, -1)} disabled={index === 0} className="p-1 text-zinc-400 hover:text-black disabled:opacity-30">
+                                                <FaChevronUp size={10} />
+                                            </button>
+                                            <button type="button" onClick={() => moveBlock(index, 1)} disabled={index === blocks.length - 1} className="p-1 text-zinc-400 hover:text-black disabled:opacity-30">
+                                                <FaChevronDown size={10} />
+                                            </button>
+                                        </div>
+
+                                        <div className="flex justify-between items-center mb-2">
+                                            <span className="text-[10px] font-bold uppercase text-zinc-400 tracking-wider">
+                                                {block.type} {block.label ? `— ${block.label}` : ''}
+                                            </span>
+                                            <button type="button" onClick={() => removeBlock(index)} className="text-zinc-300 hover:text-red-500 transition-colors">
+                                                <FaTrash size={10} />
+                                            </button>
+                                        </div>
+
+                                        {block.type === 'heading' && (
+                                            <input
+                                                type="text"
+                                                required
+                                                value={block.content}
+                                                onChange={(e) => handleBlockChange(index, e.target.value)}
+                                                className="w-full px-3 py-2 border border-zinc-300 rounded focus:ring-black focus:border-black text-sm font-semibold"
+                                                placeholder="Enter heading..."
+                                            />
+                                        )}
+
+                                        {block.type === 'text' && (
+                                            <textarea
+                                                rows={4}
+                                                required
+                                                value={block.content}
+                                                onChange={(e) => handleBlockChange(index, e.target.value)}
+                                                className="w-full px-3 py-2 border border-zinc-300 rounded focus:ring-black focus:border-black text-sm"
+                                                placeholder="Enter paragraph content..."
+                                            />
+                                        )}
+
+                                        {block.type === 'quote' && (
+                                            <input
+                                                type="text"
+                                                required
+                                                value={block.content}
+                                                onChange={(e) => handleBlockChange(index, e.target.value)}
+                                                className="w-full px-3 py-2 border border-zinc-300 rounded focus:ring-black focus:border-black text-sm italic"
+                                                placeholder="Enter quote text..."
+                                            />
+                                        )}
+
+                                        {block.type === 'image' && (
+                                            <div className="space-y-2">
+                                                {(block.content || block.file) && (
+                                                    <div className="relative w-full h-32 bg-zinc-100 rounded overflow-hidden">
+                                                        <img src={block.content} alt="Preview" className="w-full h-full object-contain" />
+                                                    </div>
+                                                )}
+                                                <input
+                                                    type="file"
+                                                    accept="image/*"
+                                                    onChange={(e) => handleBlockFileChange(index, e.target.files[0])}
+                                                    className="w-full text-xs text-zinc-500"
+                                                />
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
                             </div>
                         </div>
 
