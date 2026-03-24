@@ -272,7 +272,7 @@ const Team = () => {
   return (
     <div className="bg-white selection:bg-black selection:text-white relative min-h-dvh w-screen overflow-x-hidden">
 
-      <NavLink to="/" className="fixed top-[calc(1.5rem+env(safe-area-inset-top))] sm:top-10 left-3 sm:left-5 lg:left-10 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-20">
+      <NavLink to="/" className="absolute top-6 sm:top-10 left-3 sm:left-5 lg:left-10 flex items-center gap-2 text-xs sm:text-sm font-medium hover:underline z-20">
         <img src={rightArrow} alt="back" className="w-4 h-4 rotate-180" />
         <span>Back to home</span>
       </NavLink>
