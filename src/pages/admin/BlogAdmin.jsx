@@ -254,23 +254,23 @@ const BlogAdmin = () => {
     };
 
     return (
-        <div className={`${isEditing && showPreview ? 'max-w-full px-4 lg:px-10' : 'max-w-6xl mx-auto'}`}>
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
-                <h1 className="text-2xl font-bold text-zinc-900">Insights Management</h1>
-                <div className="flex gap-2">
+        <div className={`${isEditing && showPreview ? 'w-full px-2 sm:px-6 lg:px-10' : 'max-w-6xl mx-auto px-4'} pb-10`}>
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 sm:mb-8 gap-4 pt-4 sm:pt-0">
+                <h1 className="text-xl sm:text-2xl font-bold text-zinc-900">Insights Management</h1>
+                <div className="flex gap-2 w-full sm:w-auto">
                     {isEditing && (
-                        <div className="flex bg-zinc-100 p-1 rounded-lg border border-zinc-200">
+                        <div className="flex bg-zinc-100 p-1 rounded-lg border border-zinc-200 w-full sm:w-auto">
                             <button 
                                 onClick={() => setShowPreview(false)}
-                                className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${!showPreview ? 'bg-white text-black shadow-sm' : 'text-zinc-500 hover:text-black'}`}
+                                className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${!showPreview ? 'bg-white text-black shadow-sm' : 'text-zinc-500 hover:text-black'}`}
                             >
                                 <FaPen size={12} /> Edit
                             </button>
                             <button 
                                 onClick={() => setShowPreview(true)}
-                                className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${showPreview ? 'bg-white text-black shadow-sm' : 'text-zinc-500 hover:text-black'}`}
+                                className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${showPreview ? 'bg-white text-black shadow-sm' : 'text-zinc-500 hover:text-black'}`}
                             >
-                                <FaEye size={12} /> {window.innerWidth >= 1024 ? 'Split View' : 'Preview'}
+                                <FaEye size={12} /> <span className="hidden sm:inline">Live Preview</span><span className="sm:hidden">Preview</span>
                             </button>
                         </div>
                     )}
@@ -286,9 +286,9 @@ const BlogAdmin = () => {
             </div>
 
             {isEditing ? (
-                <div className={`grid gap-8 ${showPreview ? 'lg:grid-cols-2' : 'grid-cols-1'}`}>
-                    {/* Form Section */}
-                    <div className={`${!showPreview ? 'max-w-4xl mx-auto w-full' : ''} bg-white rounded-xl shadow-sm border border-zinc-200 p-6`}>
+                <div className={`grid gap-6 sm:gap-8 ${showPreview ? 'lg:grid-cols-2' : 'grid-cols-1'}`}>
+                    {/* Form Section - Hidden on mobile if preview is active */}
+                    <div className={`${showPreview ? 'hidden lg:block' : 'block'} ${!showPreview ? 'max-w-4xl mx-auto w-full' : ''} bg-white rounded-xl shadow-sm border border-zinc-200 p-4 sm:p-6`}>
                         <div className="flex justify-between items-center mb-6 border-b border-zinc-100 pb-4">
                             <h2 className="text-xl font-bold">{editingId ? 'Edit Post' : 'New Post'}</h2>
                             <button onClick={resetForm} className="text-zinc-400 hover:text-black">
@@ -309,7 +309,7 @@ const BlogAdmin = () => {
                                 />
                             </div>
 
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-xs font-bold uppercase text-gray-500 mb-1">Category</label>
                                     <select
@@ -349,23 +349,23 @@ const BlogAdmin = () => {
                             </div>
 
                             <div className="space-y-4 border-t border-zinc-100 pt-6">
-                                <div className="flex justify-between items-center">
-                                    <label className="block text-sm font-bold uppercase text-black">Article Content</label>
-                                    <div className="flex gap-2">
-                                        <button type="button" onClick={() => addBlock('heading')} className="p-2 text-xs flex items-center gap-1 border border-zinc-200 rounded hover:bg-zinc-50 transition-colors">
-                                            <FaHeading size={10} /> Heading
-                                        </button>
-                                        <button type="button" onClick={() => addBlock('text')} className="p-2 text-xs flex items-center gap-1 border border-zinc-200 rounded hover:bg-zinc-50 transition-colors">
-                                            <FaAlignLeft size={10} /> Text
-                                        </button>
-                                        <button type="button" onClick={() => addBlock('quote')} className="p-2 text-xs flex items-center gap-1 border border-zinc-200 rounded hover:bg-zinc-50 transition-colors">
-                                            <FaQuoteRight size={10} /> Quote
-                                        </button>
-                                        <button type="button" onClick={() => addBlock('image')} className="p-2 text-xs flex items-center gap-1 border border-zinc-200 rounded hover:bg-zinc-50 transition-colors">
-                                            <FaImage size={10} /> Photo
-                                        </button>
-                                    </div>
+                            <div className="flex flex-col gap-3 min-[450px]:flex-row min-[450px]:justify-between min-[450px]:items-center">
+                                <label className="block text-sm font-bold uppercase text-black">Article Content</label>
+                                <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2">
+                                    <button type="button" onClick={() => addBlock('heading')} className="p-2 text-[10px] sm:text-xs flex items-center justify-center gap-1 border border-zinc-200 rounded hover:bg-zinc-50 transition-colors">
+                                        <FaHeading size={10} /> <span className="whitespace-nowrap">Heading</span>
+                                    </button>
+                                    <button type="button" onClick={() => addBlock('text')} className="p-2 text-[10px] sm:text-xs flex items-center justify-center gap-1 border border-zinc-200 rounded hover:bg-zinc-50 transition-colors">
+                                        <FaAlignLeft size={10} /> <span className="whitespace-nowrap">Text</span>
+                                    </button>
+                                    <button type="button" onClick={() => addBlock('quote')} className="p-2 text-[10px] sm:text-xs flex items-center justify-center gap-1 border border-zinc-200 rounded hover:bg-zinc-50 transition-colors">
+                                        <FaQuoteRight size={10} /> <span className="whitespace-nowrap">Quote</span>
+                                    </button>
+                                    <button type="button" onClick={() => addBlock('image')} className="p-2 text-[10px] sm:text-xs flex items-center justify-center gap-1 border border-zinc-200 rounded hover:bg-zinc-50 transition-colors">
+                                        <FaImage size={10} /> <span className="whitespace-nowrap">Photo</span>
+                                    </button>
                                 </div>
+                            </div>
 
                                 <div className="space-y-4 mt-4">
                                     {blocks.map((block, index) => (
@@ -471,7 +471,7 @@ const BlogAdmin = () => {
 
                     {/* Preview Section */}
                     {showPreview && (
-                        <div className="bg-white rounded-xl shadow-sm border border-zinc-200 overflow-hidden sticky top-8 h-[calc(100vh-100px)] flex flex-col">
+                        <div className="bg-white rounded-xl shadow-sm border border-zinc-200 overflow-hidden lg:sticky lg:top-8 lg:h-[calc(100vh-100px)] flex flex-col min-h-[500px]">
                             <div className="px-6 py-4 border-b border-zinc-100 bg-zinc-50/50 flex justify-between items-center">
                                 <h3 className="text-sm font-bold uppercase tracking-wider text-zinc-500">Live Preview</h3>
                                 <div className="text-[10px] text-zinc-400">Renders same as blog post</div>
@@ -521,7 +521,33 @@ const BlogAdmin = () => {
                 </div>
             ) : (
                 <div className="bg-white rounded-xl shadow-sm border border-zinc-200 overflow-hidden">
-                    <div className="overflow-x-auto">
+                    {/* Mobile Card List (shown on smaller screens) */}
+                    <div className="block sm:hidden divide-y divide-zinc-100">
+                        {blogs.map((blog) => (
+                            <div key={blog.id} className="p-4 flex gap-4 hover:bg-zinc-50 transition-colors">
+                                <div className="w-20 h-16 bg-zinc-200 rounded overflow-hidden shrink-0">
+                                    {blog.image && <img src={blog.image} alt="" className="w-full h-full object-cover" />}
+                                </div>
+                                <div className="flex-1 min-w-0 flex flex-col justify-between">
+                                    <div>
+                                        <h3 className="font-semibold text-zinc-900 text-sm line-clamp-2 leading-tight">{blog.title}</h3>
+                                        <p className="text-[10px] text-zinc-500 mt-1 uppercase tracking-tight">{blog.date} • {blog.domain}</p>
+                                    </div>
+                                    <div className="flex gap-4 mt-2">
+                                        <button onClick={() => handleEdit(blog)} className="text-blue-600 text-xs font-semibold flex items-center gap-1">
+                                            <FaEdit size={10} /> Edit
+                                        </button>
+                                        <button onClick={() => handleDelete(blog.id)} className="text-red-600 text-xs font-semibold flex items-center gap-1">
+                                            <FaTrash size={10} /> Delete
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Desktop Table (shown on medium screens and up) */}
+                    <div className="hidden sm:block overflow-x-auto">
                         <table className="w-full text-left">
                             <thead className="bg-zinc-50 border-b border-zinc-200">
                                 <tr>
@@ -557,14 +583,13 @@ const BlogAdmin = () => {
                                         </td>
                                     </tr>
                                 ))}
-                                {blogs.length === 0 && (
-                                    <tr>
-                                        <td colSpan="4" className="px-6 py-8 text-center text-zinc-500">No blogs found.</td>
-                                    </tr>
-                                )}
                             </tbody>
                         </table>
                     </div>
+                    
+                    {blogs.length === 0 && (
+                        <div className="px-6 py-12 text-center text-zinc-500">No blogs found.</div>
+                    )}
                 </div>
             )}
         </div>
