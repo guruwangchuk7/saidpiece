@@ -293,11 +293,11 @@ const Team = () => {
               key={key}
               className="relative min-w-full min-h-dvh flex flex-none items-center justify-center px-6 md:px-20 snap-start pb-[calc(180px+env(safe-area-inset-bottom))] sm:pb-48 md:pb-52 lg:pb-60 pt-[calc(1rem+env(safe-area-inset-top))] md:pt-0"
             >
-              <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-5xl h-auto gap-4 md:gap-20 lg:gap-32 translate-y-0 md:translate-y-8 px-4 md:px-0">
+              <div className="flex flex-col md:grid md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center justify-center w-full max-w-6xl h-auto gap-4 md:gap-0 translate-y-0 md:translate-y-8 px-4 md:px-0">
 
 
                 {/* Current Member Info Container */}
-                <div className="order-2 md:order-1 flex-none md:flex-1 flex flex-col items-center justify-center md:-translate-x-8 lg:-translate-x-12 mt-3 md:mt-0">
+                <div className="order-2 md:order-1 flex-none md:w-full flex flex-col items-center justify-center md:pr-12 lg:pr-20 mt-3 md:mt-0">
                   <motion.div
                     initial={{ opacity: 0, x: -30 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -319,7 +319,7 @@ const Team = () => {
                 {/* Main Photo Container */}
                 <div className="order-1 md:order-2 flex-none flex justify-center items-center">
                   <motion.div
-                    className="w-full aspect-[4/5] min-w-70 max-w-72 md:min-w-100 md:max-w-120 max-h-[40dvh] md:max-h-[60vh] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] bg-zinc-50 border border-zinc-50 cursor-pointer"
+                    className="w-full aspect-[4/5] min-w-64 max-w-72 md:min-w-80 md:w-[420px] lg:w-[480px] max-h-[45dvh] md:max-h-[60vh] overflow-hidden grayscale transition-all duration-1000 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] bg-zinc-50 border border-zinc-50 cursor-pointer"
                     data-magnetic
                     onClick={() => setSelectedMember(member)}
 
@@ -328,7 +328,7 @@ const Team = () => {
                       <img
                         src={member.avatar}
                         alt={member.name}
-                        className="w-full h-full object-contain scale-[1.01] hover:scale-100 transition-transform duration-1000 ease-out"
+                        className="w-full h-full object-cover scale-[1.01] hover:scale-100 transition-transform duration-1000 ease-out"
                       />
                     ) : (
                       <FallbackAvatar className="w-full h-full" />
@@ -337,7 +337,7 @@ const Team = () => {
                 </div>
 
                 {/* Next Member Hint Container */}
-                <div className="hidden md:flex order-3 flex-1 flex-col items-center justify-center md:translate-x-8 lg:translate-x-12">
+                <div className="hidden md:flex order-3 w-full flex-col items-center justify-center md:pl-12 lg:pl-20">
                   {extendedMembers[index + 1] ? (
                     <motion.div
                       initial={{ opacity: 0, x: 30 }}
@@ -414,7 +414,7 @@ const Team = () => {
                   setCurrentIdx(targetExtendedIdx);
                   setCycleCount(clickCycle);
                 }}
-                className={`w-18 h-24 md:w-14 md:h-20 shrink-0 cursor-pointer overflow-hidden border transition-all duration-300 ${isMatch ? 'border-black ring-2 ring-black/5 grayscale-0' : 'border-transparent grayscale opacity-40 hover:opacity-100'}`}
+                className={`w-18 h-24 md:w-14 md:h-20 shrink-0 cursor-pointer overflow-hidden border transition-all duration-300 grayscale ${isMatch ? 'border-black ring-2 ring-black/5' : 'border-transparent opacity-40 hover:opacity-100'}`}
               >
                 {m.avatar ? <img src={m.avatar} className="w-full h-full object-cover" alt="" /> : <div className="bg-zinc-200 w-full h-full" />}
               </div>
