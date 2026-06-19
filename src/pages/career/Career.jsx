@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { NavLink } from 'react-router-dom';
 import rightArrow from '../../assets/icons/rightArrow.svg';
 import SEO from '../../components/common/SEO';
 import { supabase } from '../../services/supabaseClient';
 import toast from 'react-hot-toast';
+
+const formSideImage = "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&h=1000&fit=crop";
 
 const BackButton = () => (
   <NavLink
@@ -22,8 +24,13 @@ const HeroSection = () => {
   return (
     <div className="pt-24 pb-12 lg:pt-32 lg:pb-16 max-w-5xl mx-auto text-center">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-tight uppercase text-zinc-900 mb-6">
-          Campus Recruitment '26
+        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-tight text-zinc-900 mb-6">
+         <span style={{ color: '#666563', fontWeight: '300' }}>said</span>
+         <span style={{ color: '#000000', fontWeight: '800' }}>piece</span>
+         <br />
+         <span style={{ fontSize: 'clamp(20px, 2.5vw, 32px)', fontWeight: '700', color: '#000000', letterSpacing: '0.5px' }}>
+            Campus Recruitment 
+         </span>
         </h1>
         <p className="text-lg sm:text-xl text-zinc-500 leading-relaxed mx-auto max-w-2xl mb-8">
           Don't wait years to work on real projects. Design, build, learn, and lead early with a young Bhutanese design-build team.
@@ -98,11 +105,11 @@ const ApplicationForm = () => {
     other_degree_program: ''
   });
 
-  const updateForm = (field, value) => {
+  const updateForm = useCallback((field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-  };
+  }, []);
 
-  const handleMultiSelect = (field, value) => {
+  const handleMultiSelect = useCallback((field, value) => {
     setFormData(prev => {
       const current = prev[field];
       if (current.includes(value)) {
@@ -111,7 +118,7 @@ const ApplicationForm = () => {
         return { ...prev, [field]: [...current, value] };
       }
     });
-  };
+  }, []);
 
   const handleFileChange = (field, e) => {
     if (e.target.files && e.target.files[0]) {
@@ -139,12 +146,19 @@ const ApplicationForm = () => {
 
   const nextStep = () => {
     if (validateStep()) {
-      window.scrollTo({ top: document.getElementById('form-container')?.offsetTop - 100, behavior: 'auto' });
+      const formContainer = document.getElementById('form-container');
+      if (formContainer) {
+        formContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
       setStep(s => Math.min(s + 1, 7));
     }
   };
+  
   const prevStep = () => {
-    window.scrollTo({ top: document.getElementById('form-container')?.offsetTop - 100, behavior: 'auto' });
+    const formContainer = document.getElementById('form-container');
+    if (formContainer) {
+      formContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
     setStep(s => Math.max(s - 1, 1));
   };
 
@@ -186,7 +200,8 @@ const ApplicationForm = () => {
       const { error } = await supabase.from('career_applications').insert([submissionData]);
       if (error) throw error;
       
-      setStep(8); // Success step
+      setStep(8);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
       console.error(err);
       toast.error('Failed to submit application. Please try again.');
@@ -194,20 +209,6 @@ const ApplicationForm = () => {
       setLoading(false);
     }
   };
-
-  // Modern UI Components for Forms
-  const InputField = ({ label, type = 'text', field, required = true, placeholder = '' }) => (
-    <div className="mb-5">
-      <label className="block text-xs font-bold text-zinc-500 mb-2 uppercase tracking-wider">{label}{required && ' *'}</label>
-      <input 
-        type={type} 
-        className="w-full bg-zinc-50 border border-zinc-200 text-zinc-900 rounded-xl p-3 focus:ring-2 focus:ring-zinc-900 focus:border-zinc-900 outline-none transition-all" 
-        value={formData[field]} 
-        onChange={e => updateForm(field, e.target.value)} 
-        placeholder={placeholder}
-      />
-    </div>
-  );
 
   const SelectionCards = ({ label, field, options, multi = false, required = true }) => {
     return (
@@ -245,19 +246,6 @@ const ApplicationForm = () => {
       </div>
     );
   };
-
-  const TextArea = ({ label, field, placeholder }) => (
-    <div className="mb-8">
-      <label className="block text-xs font-bold text-zinc-500 mb-2 uppercase tracking-wider">{label}</label>
-      <textarea
-        rows={4}
-        className="w-full bg-zinc-50 border border-zinc-200 text-zinc-900 text-sm rounded-xl p-4 focus:ring-2 focus:ring-zinc-900 focus:border-zinc-900 outline-none transition-all resize-none"
-        placeholder={placeholder}
-        value={formData[field]}
-        onChange={(e) => updateForm(field, e.target.value)}
-      />
-    </div>
-  );
 
   const FileUploadCard = ({ label, fileField, linkField }) => (
     <div className="mb-8 p-6 bg-zinc-50 border border-zinc-200 rounded-2xl">
@@ -316,131 +304,283 @@ const ApplicationForm = () => {
 
   return (
     <div id="form-container" className="py-8 relative max-w-3xl mx-auto w-full">
-      <div className="mb-8">
-        <div className="flex justify-between items-end mb-4">
-          <h2 className="text-2xl sm:text-3xl font-bold text-zinc-900 uppercase tracking-tight">
-            {sectionTitles[step - 1]}
-          </h2>
-          <span className="text-sm font-bold text-zinc-400 uppercase tracking-widest shrink-0">Step {step} / 7</span>
+      {/* 1:3 Ratio Layout - Image + Form */}
+      <div className="application-layout-career" style={{ display: 'grid', gridTemplateColumns: '1fr 3fr', minHeight: '100vh', width: '100%', background: '#ffffff', border: '1px solid #d9d9d9' }}>
+        {/* Left Column - Image Panel (25%) */}
+        <div className="application-image-panel-career" style={{ width: '100%', height: '100%', minHeight: '500px', overflow: 'hidden', position: 'relative' }}>
+          <img 
+            src={formSideImage} 
+            alt="Saidpiece Architecture - Career" 
+            className="application-image-career"
+            style={{ width: '100%', height: '100%', minHeight: '500px', objectFit: 'cover', display: 'block', filter: 'grayscale(100%)' }}
+          />
         </div>
-        <div className="flex gap-1.5 h-2">
-          {[1,2,3,4,5,6,7].map(s => (
-            <div key={s} className={`h-full flex-1 rounded-full transition-colors duration-300 ${s === step ? 'bg-zinc-900' : s < step ? 'bg-zinc-400' : 'bg-zinc-100'}`} />
-          ))}
-        </div>
-      </div>
 
-      <div className="bg-white">
-          {step === 1 && (
-            <div className="space-y-0">
-              <div className="border-b border-zinc-100 pb-6 mb-6">
-                <InputField label="Full Name" field="full_name" placeholder="Enter your full name" />
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
-                  <InputField label="Contact Number" type="tel" field="contact_number" placeholder="Phone number" />
-                  <InputField label="Email Address" type="email" field="email" placeholder="example@gmail.com" />
+        {/* Right Column - Form Panel (75%) */}
+        <div className="application-form-panel-career" style={{ padding: '48px 64px', background: '#ffffff', overflowX: 'hidden', display: 'flex', flexDirection: 'column' }}>
+          <div style={{ marginBottom: '24px' }}>
+            <h2 style={{ fontSize: '28px', fontWeight: '700', color: '#000000', margin: '0 0 4px 0', letterSpacing: '-0.5px' }}>Application</h2>
+            <p style={{ fontSize: '14px', color: '#666666', fontWeight: '300', letterSpacing: '2px', textTransform: 'uppercase' }}>Join Saidpiece Architects</p>
+          </div>
+
+          <div className="mb-8" style={{ borderBottom: '1px solid #d9d9d9', paddingBottom: '16px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#000000', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                {sectionTitles[step - 1]}
+              </h3>
+              <span style={{ fontSize: '12px', fontWeight: '600', color: '#999999', letterSpacing: '1px' }}>Step {step} / 7</span>
+            </div>
+            <div style={{ display: 'flex', gap: '6px', height: '3px' }}>
+              {[1,2,3,4,5,6,7].map(s => (
+                <div key={s} style={{ height: '100%', flex: 1, borderRadius: '2px', transition: 'all 0.3s ease', backgroundColor: s === step ? '#000000' : s < step ? '#666666' : '#e5e5e5' }} />
+              ))}
+            </div>
+          </div>
+
+          <div style={{ background: '#ffffff', flex: 1 }}>
+            {/* ===== STEP 1: FIXED - Direct inputs for better performance ===== */}
+            {step === 1 && (
+              <div style={{ space: '0' }}>
+                <div style={{ borderBottom: '1px solid #e5e5e5', paddingBottom: '24px', marginBottom: '24px' }}>
+                  {/* Full Name - Direct input */}
+                  <div className="mb-5">
+                    <label className="block text-xs font-bold text-zinc-500 mb-2 uppercase tracking-wider">Full Name *</label>
+                    <input 
+                      type="text" 
+                      className="w-full bg-zinc-50 border border-zinc-200 text-zinc-900 rounded-xl p-3 focus:ring-2 focus:ring-zinc-900 focus:border-zinc-900 outline-none transition-all" 
+                      value={formData.full_name} 
+                      onChange={e => updateForm('full_name', e.target.value)} 
+                      placeholder="Enter your full name"
+                    />
+                  </div>
+                  
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                    {/* Contact Number - Direct input */}
+                    <div className="mb-5">
+                      <label className="block text-xs font-bold text-zinc-500 mb-2 uppercase tracking-wider">Contact Number *</label>
+                      <input 
+                        type="tel" 
+                        className="w-full bg-zinc-50 border border-zinc-200 text-zinc-900 rounded-xl p-3 focus:ring-2 focus:ring-zinc-900 focus:border-zinc-900 outline-none transition-all" 
+                        value={formData.contact_number} 
+                        onChange={e => updateForm('contact_number', e.target.value)} 
+                        placeholder="Phone number"
+                      />
+                    </div>
+                    
+                    {/* Email - Direct input */}
+                    <div className="mb-5">
+                      <label className="block text-xs font-bold text-zinc-500 mb-2 uppercase tracking-wider">Email Address *</label>
+                      <input 
+                        type="email" 
+                        className="w-full bg-zinc-50 border border-zinc-200 text-zinc-900 rounded-xl p-3 focus:ring-2 focus:ring-zinc-900 focus:border-zinc-900 outline-none transition-all" 
+                        value={formData.email} 
+                        onChange={e => updateForm('email', e.target.value)} 
+                        placeholder="example@gmail.com"
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                <SelectionCards label="Which Position Are You Most Interested In?" field="position_interest" options={["Junior Architect", "Junior Civil Engineer", "Junior Electrical / MEP Engineer", "Open to any suitable role"]} />
+                <SelectionCards label="Degree Program" field="degree_program" options={["B.Arch", "B.E. Civil", "B.E. Electrical", "Other"]} />
+                
+                <AnimatePresence>
+                  {formData.degree_program === 'Other' && (
+                    <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}>
+                      <div className="mb-5">
+                        <label className="block text-xs font-bold text-zinc-500 mb-2 uppercase tracking-wider">Please specify your degree program *</label>
+                        <input 
+                          type="text" 
+                          className="w-full bg-zinc-50 border border-zinc-200 text-zinc-900 rounded-xl p-3 focus:ring-2 focus:ring-zinc-900 focus:border-zinc-900 outline-none transition-all" 
+                          value={formData.other_degree_program} 
+                          onChange={e => updateForm('other_degree_program', e.target.value)} 
+                          placeholder="e.g. B.Sc Computer Science"
+                        />
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+                
+                <SelectionCards label="Expected Graduation Status" field="graduation_status" options={["Already graduated", "Final semester", "Awaiting results"]} />
+                <SelectionCards label="Are you open to site work or travel?" field="travel_preference" options={["Yes, anywhere", "Within my region only", "Prefer office-based", "Need to discuss"]} />
+                <SelectionCards label="When are you available to join?" field="availability" options={["Immediately", "Within 1 month", "Within 2–3 months", "Need to discuss"]} />
+              </div>
+            )}
+
+            {step === 2 && (
+              <div style={{ space: '8px' }}>
+                <SelectionCards label="Select all that apply:" field="interest_areas" multi={true} options={["Architecture and concept design", "Working drawings and BIM", "3D visuals, rendering and presentation", "Site supervision and construction coordination", "BOQ, costing and estimation", "Electrical / MEP coordination", "Project management", "Business development and client communication", "Marketing, social media and content creation", "Property development and real estate-related work", "I'm not sure yet, but I'm open to exploring"]} />
+                <SelectionCards label="Which describes you best?" field="career_description" options={["I want to become very strong in one technical field", "I want to be technical, but also explore creative/business work", "I'm interested in site, construction and project delivery", "I'm interested in visuals, presentation and storytelling", "I'm still figuring out my path"]} />
+                <SelectionCards label="Which Saidpiece path sounds most like you?" field="saidpiece_path" options={["The Designer", "The Builder", "The Detailer", "The Problem Solver", "The Systems Thinker", "The Storyteller", "Still exploring"]} />
+                <SelectionCards label="What kind of first project would excite you most?" field="exciting_project" options={["A house", "A café / interior", "A school / public building", "A hotel / resort", "A site supervision role", "A BIM / drawing package", "A property / development project", "Anything real, I just want to learn"]} />
+              </div>
+            )}
+
+            {step === 3 && (
+              <div style={{ space: '8px' }}>
+                <SelectionCards label="Internship or site experience" field="internship_experience" options={["Yes, 6+ months", "Yes, under 6 months", "Academic projects only", "None yet"]} />
+                <SelectionCards label="Rate your confidence in your core technical area" field="technical_confidence" options={["Very confident", "Confident", "Developing", "Still learning"]} />
+                <FileUploadCard label="Curriculum Vitae (CV)" fileField="cv_file" linkField="cv_link" />
+                <FileUploadCard label="Design Portfolio" fileField="portfolio_file" linkField="portfolio_link" />
+              </div>
+            )}
+
+            {step === 4 && (
+              <div style={{ space: '8px' }}>
+                <SelectionCards label="What draws you to this field?" field="field_motivation" options={["Creative design", "Problem-solving on site", "Seeing projects built", "Technical systems", "Career stability", "Business and project development"]} />
+                <SelectionCards label="Which type of work excites you most?" field="exciting_work_type" options={["Design & concept", "Site management & execution", "Cost & quantity", "Systems & MEP", "Visuals & presentation", "Business development / marketing", "A mix"]} />
+                <SelectionCards label="What do you want to become really good at in the next 12 months?" field="skills_to_learn" multi={true} options={["Technical detailing", "Software & tools", "Site execution", "Client communication", "Design concepts"]} />
+                <SelectionCards label="Where do you see yourself in 3 years?" field="three_year_goal" options={["Specialist in my field", "Team lead", "Working across multiple project types", "Running projects independently", "Pursuing further study", "Not sure yet"]} />
+                <SelectionCards label="Top 2 things that matter in your first job" field="top_job_priorities" multi={true} options={["Mentorship & learning", "Salary", "Project variety", "Work-life balance", "Career growth", "Real project responsibility"]} />
+              </div>
+            )}
+
+            {step === 5 && (
+              <div style={{ space: '8px' }}>
+                <SelectionCards label="Responsibility Level" field="responsibility_level" options={["I want clear instructions", "I want guidance but room to explore", "I want to figure things out independently"]} />
+                <SelectionCards label="Startup Environment" field="startup_environment" options={["I thrive in fast-paced changing environments", "I prefer structured routines", "I'm adaptable"]} />
+                <SelectionCards label="Work Style" field="work_style" options={["I work best alone", "I work best in a highly collaborative team", "I like a mix of both"]} />
+                <SelectionCards label="Problem Solving" field="problem_solving_style" options={["I research and try to solve it first", "I immediately ask for help", "I discuss with peers"]} />
+                <SelectionCards label="Preferred Environment" field="preferred_environment" options={["Office desk", "On site", "Mix of both"]} />
+                <SelectionCards label="Feedback Style" field="feedback_style" options={["I prefer direct critical feedback", "I prefer gentle constructive feedback", "I appreciate regular check-ins"]} />
+                <SelectionCards label="Learning Style" field="learning_style" options={["Learning by doing/making mistakes", "Learning by watching others", "Learning by reading/studying"]} />
+              </div>
+            )}
+
+            {/* ===== STEP 6: FIXED - Direct textareas for better performance ===== */}
+            {step === 6 && (
+              <div style={{ space: '8px' }}>
+                {/* Proud Project - Direct textarea */}
+                <div className="mb-8">
+                  <label className="block text-xs font-bold text-zinc-500 mb-2 uppercase tracking-wider">Tell us about one project you are proud of</label>
+                  <textarea
+                    rows={4}
+                    className="w-full bg-zinc-50 border border-zinc-200 text-zinc-900 text-sm rounded-xl p-4 focus:ring-2 focus:ring-zinc-900 focus:border-zinc-900 outline-none transition-all resize-none"
+                    placeholder="It can be academic or personal. What made it special?"
+                    value={formData.proud_project}
+                    onChange={(e) => updateForm('proud_project', e.target.value)}
+                  />
+                </div>
+
+                {/* Mini Challenge - Direct textarea */}
+                <div className="mb-8">
+                  <label className="block text-xs font-bold text-zinc-500 mb-2 uppercase tracking-wider">Mini Challenge Response</label>
+                  <textarea
+                    rows={4}
+                    className="w-full bg-zinc-50 border border-zinc-200 text-zinc-900 text-sm rounded-xl p-4 focus:ring-2 focus:ring-zinc-900 focus:border-zinc-900 outline-none transition-all resize-none"
+                    placeholder="Describe how you handled a difficult situation or technical challenge..."
+                    value={formData.challenge_response}
+                    onChange={(e) => updateForm('challenge_response', e.target.value)}
+                  />
+                </div>
+
+                {/* Join Reason - Direct textarea */}
+                <div className="mb-8">
+                  <label className="block text-xs font-bold text-zinc-500 mb-2 uppercase tracking-wider">Why do you want to join Saidpiece Architects? *</label>
+                  <textarea
+                    rows={4}
+                    className="w-full bg-zinc-50 border border-zinc-200 text-zinc-900 text-sm rounded-xl p-4 focus:ring-2 focus:ring-zinc-900 focus:border-zinc-900 outline-none transition-all resize-none"
+                    placeholder="What aligned with you?"
+                    value={formData.join_reason}
+                    onChange={(e) => updateForm('join_reason', e.target.value)}
+                  />
+                </div>
+
+                {/* Questions - Direct textarea */}
+                <div className="mb-8">
+                  <label className="block text-xs font-bold text-zinc-500 mb-2 uppercase tracking-wider">Any questions for Saidpiece Architects?</label>
+                  <textarea
+                    rows={4}
+                    className="w-full bg-zinc-50 border border-zinc-200 text-zinc-900 text-sm rounded-xl p-4 focus:ring-2 focus:ring-zinc-900 focus:border-zinc-900 outline-none transition-all resize-none"
+                    placeholder="What would you like to know from us?"
+                    value={formData.questions}
+                    onChange={(e) => updateForm('questions', e.target.value)}
+                  />
                 </div>
               </div>
-              <SelectionCards label="Which Position Are You Most Interested In?" field="position_interest" options={["Junior Architect", "Junior Civil Engineer", "Junior Electrical / MEP Engineer", "Open to any suitable role"]} />
-              <SelectionCards label="Degree Program" field="degree_program" options={["B.Arch", "B.E. Civil", "B.E. Electrical", "Other"]} />
-              <AnimatePresence>
-                {formData.degree_program === 'Other' && (
-                  <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}>
-                    <InputField label="Please specify your degree program" field="other_degree_program" placeholder="e.g. B.Sc Computer Science" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-              <SelectionCards label="Expected Graduation Status" field="graduation_status" options={["Already graduated", "Final semester", "Awaiting results"]} />
-              <SelectionCards label="Are you open to site work or travel?" field="travel_preference" options={["Yes, anywhere", "Within my region only", "Prefer office-based", "Need to discuss"]} />
-              <SelectionCards label="When are you available to join?" field="availability" options={["Immediately", "Within 1 month", "Within 2–3 months", "Need to discuss"]} />
-            </div>
-          )}
+            )}
 
-          {step === 2 && (
-            <div className="space-y-2">
-              <SelectionCards label="Select all that apply:" field="interest_areas" multi={true} options={["Architecture and concept design", "Working drawings and BIM", "3D visuals, rendering and presentation", "Site supervision and construction coordination", "BOQ, costing and estimation", "Electrical / MEP coordination", "Project management", "Business development and client communication", "Marketing, social media and content creation", "Property development and real estate-related work", "I'm not sure yet, but I'm open to exploring"]} />
-              <SelectionCards label="Which describes you best?" field="career_description" options={["I want to become very strong in one technical field", "I want to be technical, but also explore creative/business work", "I'm interested in site, construction and project delivery", "I'm interested in visuals, presentation and storytelling", "I'm still figuring out my path"]} />
-              <SelectionCards label="Which Saidpiece path sounds most like you?" field="saidpiece_path" options={["The Designer", "The Builder", "The Detailer", "The Problem Solver", "The Systems Thinker", "The Storyteller", "Still exploring"]} />
-              <SelectionCards label="What kind of first project would excite you most?" field="exciting_project" options={["A house", "A café / interior", "A school / public building", "A hotel / resort", "A site supervision role", "A BIM / drawing package", "A property / development project", "Anything real, I just want to learn"]} />
-            </div>
-          )}
-
-          {step === 3 && (
-            <div className="space-y-2">
-              <SelectionCards label="Internship or site experience" field="internship_experience" options={["Yes, 6+ months", "Yes, under 6 months", "Academic projects only", "None yet"]} />
-              <SelectionCards label="Rate your confidence in your core technical area" field="technical_confidence" options={["Very confident", "Confident", "Developing", "Still learning"]} />
-              <FileUploadCard label="Curriculum Vitae (CV)" fileField="cv_file" linkField="cv_link" />
-              <FileUploadCard label="Design Portfolio" fileField="portfolio_file" linkField="portfolio_link" />
-            </div>
-          )}
-
-          {step === 4 && (
-            <div className="space-y-2">
-              <SelectionCards label="What draws you to this field?" field="field_motivation" options={["Creative design", "Problem-solving on site", "Seeing projects built", "Technical systems", "Career stability", "Business and project development"]} />
-              <SelectionCards label="Which type of work excites you most?" field="exciting_work_type" options={["Design & concept", "Site management & execution", "Cost & quantity", "Systems & MEP", "Visuals & presentation", "Business development / marketing", "A mix"]} />
-              <SelectionCards label="What do you want to become really good at in the next 12 months?" field="skills_to_learn" multi={true} options={["Technical detailing", "Software & tools", "Site execution", "Client communication", "Design concepts"]} />
-              <SelectionCards label="Where do you see yourself in 3 years?" field="three_year_goal" options={["Specialist in my field", "Team lead", "Working across multiple project types", "Running projects independently", "Pursuing further study", "Not sure yet"]} />
-              <SelectionCards label="Top 2 things that matter in your first job" field="top_job_priorities" multi={true} options={["Mentorship & learning", "Salary", "Project variety", "Work-life balance", "Career growth", "Real project responsibility"]} />
-            </div>
-          )}
-
-          {step === 5 && (
-            <div className="space-y-2">
-              <SelectionCards label="Responsibility Level" field="responsibility_level" options={["I want clear instructions", "I want guidance but room to explore", "I want to figure things out independently"]} />
-              <SelectionCards label="Startup Environment" field="startup_environment" options={["I thrive in fast-paced changing environments", "I prefer structured routines", "I'm adaptable"]} />
-              <SelectionCards label="Work Style" field="work_style" options={["I work best alone", "I work best in a highly collaborative team", "I like a mix of both"]} />
-              <SelectionCards label="Problem Solving" field="problem_solving_style" options={["I research and try to solve it first", "I immediately ask for help", "I discuss with peers"]} />
-              <SelectionCards label="Preferred Environment" field="preferred_environment" options={["Office desk", "On site", "Mix of both"]} />
-              <SelectionCards label="Feedback Style" field="feedback_style" options={["I prefer direct critical feedback", "I prefer gentle constructive feedback", "I appreciate regular check-ins"]} />
-              <SelectionCards label="Learning Style" field="learning_style" options={["Learning by doing/making mistakes", "Learning by watching others", "Learning by reading/studying"]} />
-            </div>
-          )}
-
-          {step === 6 && (
-            <div className="space-y-2">
-              <TextArea label="Tell us about one project you are proud of" field="proud_project" placeholder="It can be academic or personal. What made it special?" />
-              <TextArea label="Mini Challenge Response" field="challenge_response" placeholder="Describe how you handled a difficult situation or technical challenge..." />
-              <TextArea label="Why do you want to join Saidpiece Architects?" field="join_reason" placeholder="What aligned with you?" />
-              <TextArea label="Any questions for Saidpiece Architects?" field="questions" placeholder="What would you like to know from us?" />
-            </div>
-          )}
-
-          {step === 7 && (
-            <div className="space-y-2 pb-8">
-              <div className="bg-zinc-50 p-8 rounded-2xl border border-zinc-200 text-center">
-                <h4 className="text-lg font-bold text-zinc-900 mb-3 uppercase tracking-wider">Ready to submit?</h4>
-                <p className="text-zinc-600 mb-8 max-w-md mx-auto">Please ensure all your information, including your CV and Portfolio links, are correct before submitting.</p>
-                
-                <label className="flex items-start justify-center gap-4 cursor-pointer max-w-lg mx-auto text-left group">
-                  <div className={`mt-0.5 shrink-0 flex items-center justify-center w-6 h-6 rounded border-2 transition-colors ${formData.consent ? 'bg-zinc-900 border-zinc-900' : 'bg-white border-zinc-300 group-hover:border-zinc-500'}`}>
-                    {formData.consent && <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
-                  </div>
-                  <div className="text-zinc-700 text-sm leading-relaxed">
-                    <input type="checkbox" className="hidden" checked={formData.consent} onChange={e => updateForm('consent', e.target.checked)} />
-                    I agree that Saidpiece Architects may store and use the information I've shared for recruitment purposes.
-                  </div>
-                </label>
+            {step === 7 && (
+              <div style={{ space: '8px', paddingBottom: '32px' }}>
+                <div style={{ background: '#f7f7f7', padding: '32px', border: '1px solid #d9d9d9', textAlign: 'center' }}>
+                  <h4 style={{ fontSize: '18px', fontWeight: '700', color: '#000000', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Ready to submit?</h4>
+                  <p style={{ color: '#555555', marginBottom: '32px', maxWidth: '400px', marginLeft: 'auto', marginRight: 'auto' }}>Please ensure all your information, including your CV and Portfolio links, are correct before submitting.</p>
+                  
+                  <label style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center', gap: '16px', cursor: 'pointer', maxWidth: '500px', marginLeft: 'auto', marginRight: 'auto', textAlign: 'left' }}>
+                    <div style={{ marginTop: '2px', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '24px', height: '24px', border: formData.consent ? '2px solid #000000' : '2px solid #bdbdbd', background: formData.consent ? '#000000' : 'white', borderRadius: '4px' }}>
+                      {formData.consent && <svg style={{ width: '16px', height: '16px', color: 'white' }} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
+                    </div>
+                    <div style={{ color: '#555555', fontSize: '14px', lineHeight: '1.6' }}>
+                      <input type="checkbox" style={{ display: 'none' }} checked={formData.consent} onChange={e => updateForm('consent', e.target.checked)} />
+                      I agree that Saidpiece Architects may store and use the information I've shared for recruitment purposes.
+                    </div>
+                  </label>
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
+
+          {/* Navigation Buttons */}
+          <div style={{ marginTop: '32px', paddingTop: '24px', borderTop: '1px solid #e5e5e5', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '16px', background: 'white', paddingBottom: '8px' }}>
+            {step > 1 ? (
+              <button onClick={prevStep} disabled={loading} style={{ padding: '12px 24px', border: '1px solid #000000', background: 'transparent', color: '#000000', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '1px', cursor: 'pointer', transition: 'all 0.3s ease', fontFamily: 'inherit', borderRadius: '0', opacity: loading ? 0.5 : 1 }} onMouseEnter={(e) => { e.target.style.background = '#000000'; e.target.style.color = '#ffffff'; }} onMouseLeave={(e) => { e.target.style.background = 'transparent'; e.target.style.color = '#000000'; }}>
+                ← Back
+              </button>
+            ) : <div />}
+            
+            {step < 7 ? (
+              <button onClick={nextStep} style={{ padding: '12px 32px', border: '1px solid #000000', background: '#000000', color: '#ffffff', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '1px', cursor: 'pointer', transition: 'all 0.3s ease', fontFamily: 'inherit', borderRadius: '0' }} onMouseEnter={(e) => { e.target.style.background = '#ffffff'; e.target.style.color = '#000000'; }} onMouseLeave={(e) => { e.target.style.background = '#000000'; e.target.style.color = '#ffffff'; }}>
+                Continue →
+              </button>
+            ) : (
+              <button onClick={submitApplication} disabled={loading || !formData.consent} style={{ padding: '12px 32px', border: '1px solid #000000', background: '#000000', color: '#ffffff', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '1px', cursor: (loading || !formData.consent) ? 'not-allowed' : 'pointer', transition: 'all 0.3s ease', fontFamily: 'inherit', borderRadius: '0', opacity: (loading || !formData.consent) ? 0.5 : 1 }}>
+                {loading ? 'Submitting...' : 'Submit Application'}
+              </button>
+            )}
+          </div>
+        </div>
       </div>
 
-      <div className="mt-8 pt-8 border-t border-zinc-100 flex items-center justify-between sticky bottom-0 bg-white/90 backdrop-blur pb-6 z-20">
-        {step > 1 ? (
-          <button onClick={prevStep} disabled={loading} className="px-6 py-3 rounded-full text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 font-bold uppercase tracking-widest text-sm transition-all disabled:opacity-50">
-            Back
-          </button>
-        ) : <div />}
-        
-        {step < 7 ? (
-          <button onClick={nextStep} className="px-8 py-3 bg-zinc-900 text-white rounded-full hover:bg-zinc-800 font-bold uppercase tracking-widest text-sm transition-transform hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-3">
-            Continue <img src={rightArrow} alt="Next" className="w-4 h-4 invert" />
-          </button>
-        ) : (
-          <button onClick={submitApplication} disabled={loading || !formData.consent} className="px-8 py-3 bg-green-600 text-white rounded-full hover:bg-green-700 font-bold uppercase tracking-widest text-sm transition-transform hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-3 disabled:opacity-50 disabled:hover:translate-y-0">
-            {loading ? 'Submitting...' : 'Submit Application'}
-          </button>
-        )}
-      </div>
+      {/* Mobile Responsive Styles */}
+      <style>{`
+        @media (max-width: 900px) {
+          .application-layout-career {
+            grid-template-columns: 1fr !important;
+            min-height: auto !important;
+            border: none !important;
+          }
+          .application-image-panel-career {
+            height: 220px !important;
+            min-height: 220px !important;
+            order: -1 !important;
+          }
+          .application-image-career {
+            height: 220px !important;
+            min-height: 220px !important;
+            object-fit: cover !important;
+          }
+          .application-form-panel-career {
+            padding: 32px 20px !important;
+            border: 1px solid #d9d9d9 !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .application-image-panel-career {
+            height: 160px !important;
+            min-height: 160px !important;
+          }
+          .application-image-career {
+            height: 160px !important;
+            min-height: 160px !important;
+          }
+          .application-form-panel-career {
+            padding: 20px 16px !important;
+          }
+          .application-form-panel-career .form-heading {
+            font-size: 20px !important;
+          }
+        }
+      `}</style>
     </div>
   );
 };
