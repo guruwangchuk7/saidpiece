@@ -27,14 +27,17 @@ const HeroNavbar = () => {
 
   if (!container) return null;
 
-  const data = [
+  const mainNav = [
     { to: "/", title: "HOMEPAGE" },
     { to: "/about", title: "ABOUT" },
     { to: "/portfolio", title: "PROJECTS" },
     { to: "/team", title: "TEAM" },
     { to: "/blog", title: "INSIGHTS" },
-    { to: "/career", title: "CAREER" },
     { to: "/contact", title: "CONTACT" },
+  ];
+
+  const secondaryNav = [
+    { to: "/career", title: "CAREER" },
   ];
 
   const variants = {
@@ -91,7 +94,7 @@ const HeroNavbar = () => {
                 <span style={{ color: "#a1a1aa" }} className="font-light">{navData.titlePart1}</span><span style={{ opacity: 0.95 }}>{navData.titlePart2}</span>
               </NavLink>
               <nav className="mt-10 flex flex-col gap-5">
-                {data.map((item, idx) => (
+                {mainNav.map((item, idx) => (
                   <NavLink
                     key={item.to}
                     to={item.to}
@@ -99,6 +102,17 @@ const HeroNavbar = () => {
                     className="btn3 flex items-center justify-between text-lg md:text-xl w-[85%] md:w-100"
                   >
                     <span className="txt">1.{idx + 1}  {item.title}</span>
+                    <img src={rightArrowWhite} alt="" className="image w-8" />
+                  </NavLink>
+                ))}
+                {secondaryNav.map((item, idx) => (
+                  <NavLink
+                    key={item.to}
+                    to={item.to}
+                    onClick={close}
+                    className="btn3 flex items-center justify-between text-lg md:text-xl w-[85%] md:w-100"
+                  >
+                    <span className="txt">2.{idx + 1}  {item.title}</span>
                     <img src={rightArrowWhite} alt="" className="image w-8" />
                   </NavLink>
                 ))}
