@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { supabase } from '../../services/supabaseClient';
-import { FaTachometerAlt, FaProjectDiagram, FaUsers, FaBlog, FaEnvelope, FaUserShield, FaSignOutAlt, FaBars, FaTimes, FaStore } from 'react-icons/fa';
+import { FaTachometerAlt, FaProjectDiagram, FaUsers, FaBlog, FaEnvelope, FaUserShield, FaSignOutAlt, FaBars, FaTimes, FaStore, FaBriefcase } from 'react-icons/fa';
 import { toast } from 'react-hot-toast';
 
 const AdminLayout = () => {
@@ -61,6 +61,7 @@ const AdminLayout = () => {
         { path: '/admin/store', label: 'Store', icon: <FaStore /> },
         { path: '/admin/team', label: 'Team', icon: <FaUsers /> },
         { path: '/admin/blog', label: 'Insights', icon: <FaBlog /> },
+        { path: '/admin/recruitment/applications', label: 'Recruitment', icon: <FaBriefcase /> },
         { path: '/admin/messages', label: 'Messages', icon: <FaEnvelope /> },
         { path: '/admin/site-content', label: 'Site Settings', icon: <FaTachometerAlt /> },
     ];
@@ -113,13 +114,13 @@ const AdminLayout = () => {
                     </button>
                 </div>
 
-                <nav className="flex-1 overflow-y-auto py-6 px-4 space-y-2 scrollbar-none">
+                <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-1 scrollbar-none">
                     {navItems.map((item) => (
                         <NavLink
                             key={item.path}
                             to={item.path}
                             className={({ isActive }) => `
-                                flex items-center gap-3 px-4 py-3 rounded-lg transition-colors
+                                flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors
                                 ${isActive
                                     ? 'bg-white text-black font-semibold shadow-md'
                                     : 'text-zinc-400 hover:bg-zinc-800 hover:text-white'}

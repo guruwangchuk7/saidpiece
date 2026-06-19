@@ -33,6 +33,7 @@ const HeroNavbar = () => {
     { to: "/portfolio", title: "PROJECTS" },
     { to: "/team", title: "TEAM" },
     { to: "/blog", title: "INSIGHTS" },
+    { to: "/career", title: "CAREER" },
     { to: "/contact", title: "CONTACT" },
   ];
 

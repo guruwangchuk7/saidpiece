@@ -17,6 +17,7 @@ import Team from './pages/team/Team.jsx';
 import About from './pages/about/index.jsx';
 import Portfolio from './pages/portfolio/Portfolio.jsx';
 import Blog from './pages/blog/Blog.jsx';
+import Career from './pages/career/Career.jsx';
 
 import BlogPost from './pages/blog/BlogPost.jsx';
 import ProjectGallery from './pages/portfolio/ProjectGallery.jsx';
@@ -38,6 +39,9 @@ const BlogAdmin = lazy(() => import('./pages/admin/BlogAdmin.jsx'));
 const AdminManager = lazy(() => import('./pages/admin/AdminManager.jsx'));
 const MessagesAdmin = lazy(() => import('./pages/admin/MessagesAdmin.jsx'));
 const SiteContentAdmin = lazy(() => import('./pages/admin/SiteContentAdmin.jsx'));
+const RecruitmentAdminLayout = lazy(() => import('./pages/admin/recruitment/RecruitmentAdminLayout.jsx'));
+const ApplicationsAdmin = lazy(() => import('./pages/admin/recruitment/ApplicationsAdmin.jsx'));
+const AnalyticsAdmin = lazy(() => import('./pages/admin/recruitment/AnalyticsAdmin.jsx'));
 
 // Loading Fallback Component
 const PageLoader = () => (
@@ -71,6 +75,7 @@ const router = createBrowserRouter(
         <Route path='blog' element={<Blog />}></Route>
         <Route path='blog/:id' element={<BlogPost />}></Route>
         <Route path='team' element={<Team />}></Route>
+        <Route path='career' element={<Career />}></Route>
 
         {/* Team member profiles - All public */}
         <Route path='team/:slug' element={<TeamPortfolio />}></Route>
@@ -102,6 +107,10 @@ const router = createBrowserRouter(
         <Route path="messages" element={<Suspense fallback={<PageLoader />}><MessagesAdmin /></Suspense>} />
         <Route path="site-content" element={<Suspense fallback={<PageLoader />}><SiteContentAdmin /></Suspense>} />
         <Route path="users" element={<Suspense fallback={<PageLoader />}><AdminManager /></Suspense>} />
+        <Route path="recruitment" element={<Suspense fallback={<PageLoader />}><RecruitmentAdminLayout /></Suspense>}>
+          <Route path="applications" element={<Suspense fallback={<PageLoader />}><ApplicationsAdmin /></Suspense>} />
+          <Route path="analytics" element={<Suspense fallback={<PageLoader />}><AnalyticsAdmin /></Suspense>} />
+        </Route>
       </Route>
     </>
   )
